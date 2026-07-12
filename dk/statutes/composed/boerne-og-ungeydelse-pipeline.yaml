@@ -49,9 +49,10 @@ module:
     monetary value either imported or supplied — no literal money atom is added.
 
     Scope: single-recipient only. One recipient receives the full amount and the
-    taper runs on that recipient's own income basis. The § 1 a, stk. 6-7 couple
-    apportionment (ligedeling of the combined benefit and the separate per-parent
-    taper for cohabiting and married recipients) is out of scope and is future
+    taper runs on that recipient's own income basis (§ 1 a, stk. 1: "hos
+    modtageren af ydelsen"). The couple case — the § 4 udbetalingsregler split
+    the benefit between custody holders (ligedeling since 2022-01-01) and each
+    recipient's half bears its own § 1 a taper — is out of scope and is future
     work; the graded EUROMOD comparison is therefore restricted to single-parent
     households.
 rules:
