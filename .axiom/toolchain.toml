@@ -1,0 +1,15 @@
+# Pinned validation toolchain (full commit SHAs; see the org
+# validate-rulespec workflow). Bump deliberately — PRs that change this
+# file trigger full-repository revalidation.
+#
+# Pilot pins: axiom_rules_engine_ref points at the DKK currency seed
+# (TheAxiomFoundation/axiom-rules-engine#104) and axiom_corpus_ref at
+# the dk ingest branch (TheAxiomFoundation/axiom-corpus#303). Re-pin
+# both to main-ancestor commits when those PRs merge.
+[toolchain]
+axiom_encode_version = "0.2.1197"
+axiom_encode_ref = "55beb1607ee5b4c3ea285437118a9716e6de4939"
+axiom_rules_engine_ref = "19722589ccfd7df1b642752eb71cb024509b43ee"
+axiom_corpus_ref = "f91a416e50891271b55bd6f3e3a05c93c6bf93c8"
+# Canonical-targets checkout for cross-repo validation (rulespec-us main).
+rulespec_us_ref = "40b01789d58c25e83b5ada6bcd8ce3d718395920"

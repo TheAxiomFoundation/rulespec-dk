@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-07-12",
+  "jurisdiction": "dk",
+  "focus": "Denmark tax-benefit surface, pilot-bounded to the child and youth benefit (børne- og ungeydelsen): § 1 age-banded amounts and the § 1 a income-based reduction.",
+  "purpose": "Household-level comparison-oracle and supporting-source references for Denmark Axiom coverage. None of these are legal authority.",
+  "oracle_scope": "A RuleSpec oracle must be an executable, pinned external calculator that accepts household-level inputs and returns household-level tax-benefit outputs comparable to Axiom outputs. Aggregate simulators, distributional reports, parameter documentation, and public model summaries are supporting references only, not oracles.",
+  "oracles": [
+    {
+      "id": "euromod-dk",
+      "name": "EUROMOD (Denmark systems)",
+      "url": "https://euromod-web.jrc.ec.europa.eu/",
+      "local_path": null,
+      "commit": null,
+      "model": null,
+      "dataset": null,
+      "role": "Intended household-level tax-benefit comparison oracle for Denmark. EUROMOD is the EU tax-benefit microsimulation model (European Commission JRC); its public release ships Denmark policy systems (DK_XXXX) including the child and family benefit instruments, runnable on the EUROMOD engine with per-case household inputs.",
+      "coverage": [
+        "personal_income_tax",
+        "labour_market_contribution",
+        "child_and_youth_benefit",
+        "child_allowances",
+        "social_assistance",
+        "housing_benefit",
+        "pensions",
+        "household_disposable_income"
+      ],
+      "authority": "not_wired",
+      "availability_check": {
+        "checked_at": "2026-07-12",
+        "status": "not_wired",
+        "detail": "Not attempted in this pilot. The EUROMOD public release (JRC) is freely downloadable and its Denmark systems carry the child and youth benefit; the EUROMOD-engine per-case runtime is proven from the SOUTHMOD lanes (x86_64 py3.12 venv + euromod pypi package + x64 .NET). Wiring (dk: prefix mapping in axiom-oracles, DK country scope, per-case parity suites against the DK_2026 system, and the input microdata question - the public release ships no Danish microdata, so probes must use synthetic per-case households) is future work. Until wired, dk: outputs remain classified not_comparable and parity tests stay deferred; this pilot's companion tests assert statutory values from the captured text instead."
+      },
+      "bundle_sha256": null
+    }
+  ]
+}

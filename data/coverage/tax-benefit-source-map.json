@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-07-12",
+  "jurisdiction": "dk",
+  "validation_year": "2026",
+  "note": "Denmark tax-benefit instrument map to governing Danish law. This is a bounded pilot: only the child and youth benefit is captured. Source URLs are hunting grounds (current in-force LBK consolidations verified against the retsinformation.dk search API and ELI graph on 2026-07-12), not captured provenance - capture happens in axiom-corpus manifests, with post-consolidation amendment diligence at capture time.",
+  "instruments": [
+    {
+      "instrument": "børne- og ungeydelse (child and youth benefit)",
+      "outputs": [
+        "child_youth_benefit_annual_base",
+        "child_youth_benefit_income_reduction"
+      ],
+      "governing_law": "Børne- og ungeydelsesloven, LBK nr 603 af 12/05/2025 (§ 1 amounts + regulation; § 1 a income taper), as amended by LOV nr 1642 af 16/12/2025 (§ 1, stk. 3 rounding divisor; § 2/§ 4/§ 11) and LOV nr 303 af 24/02/2026 (§ 4 e)",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2025/603",
+      "status": "captured"
+    },
+    {
+      "instrument": "personskat (state personal income tax: bundskat, mellemskat from 2026, topskat, top-topskat)",
+      "outputs": [],
+      "governing_law": "Personskatteloven (consolidated act; § 6-§ 7 c rates and bases, § 10 personfradrag, § 20 annual regulation)",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2021/1284",
+      "status": "not_captured",
+      "note": "The § 1 a taper base in the captured child-benefit act references personskattelovens § 7, stk. 1 og 3 (mellemskat base) and § 20 (regulation); capturing personskatteloven is the natural next scope. Note the consolidation lag: the newest LBK (nr 1284 af 14/06/2021) predates the 2023-2025 reform, so the 2026 mellemskat provisions live in later amendment acts that must be captured alongside it."
+    },
+    {
+      "instrument": "arbejdsmarkedsbidrag (labour market contribution, 8 pct.)",
+      "outputs": [],
+      "governing_law": "Arbejdsmarkedsbidragsloven (consolidated act)",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2020/121",
+      "status": "not_captured"
+    },
+    {
+      "instrument": "kommuneskat (municipal income tax, per-kommune rates)",
+      "outputs": [],
+      "governing_law": "Lov om kommunal indkomstskat; annual per-kommune rates set by municipal budgets",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2019/935",
+      "status": "not_captured"
+    },
+    {
+      "instrument": "børnetilskud (supplementary child allowances: ordinært/ekstra/særligt)",
+      "outputs": [],
+      "governing_law": "Børnetilskudsloven (distinct from børne- og ungeydelsesloven)",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2019/63",
+      "status": "not_captured"
+    },
+    {
+      "instrument": "folkepension (state pension)",
+      "outputs": [],
+      "governing_law": "Lov om social pension",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2024/1123",
+      "status": "not_captured"
+    },
+    {
+      "instrument": "kontanthjælp (social assistance)",
+      "outputs": [],
+      "governing_law": "Lov om aktiv socialpolitik",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2025/1004",
+      "status": "not_captured"
+    },
+    {
+      "instrument": "boligstøtte (housing benefit)",
+      "outputs": [],
+      "governing_law": "Lov om individuel boligstøtte",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2025/995",
+      "status": "not_captured"
+    },
+    {
+      "instrument": "SU (student grants)",
+      "outputs": [],
+      "governing_law": "SU-loven",
+      "source_url": "https://www.retsinformation.dk/eli/lta/2023/395",
+      "status": "not_captured"
+    }
+  ]
+}
