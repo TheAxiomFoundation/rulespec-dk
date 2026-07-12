@@ -1,0 +1,60 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/composed/boerne-og-ungeydelse-pipeline.test.yaml",
+      "sha256": "70ddc7971fc290309cd090e1d1ce25db361690c785a56fdf25af63f514a598e5"
+    },
+    {
+      "path": "dk/statutes/composed/boerne-og-ungeydelse-pipeline.yaml",
+      "sha256": "bcb4b2311d07d3304e0eb9cf17e0334cc32d661ab6a6c6a1b7d38013c92a0bc9"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "55beb1607ee5b4c3ea285437118a9716e6de4939",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-dk-pinned",
+    "version": "0.2.1197",
+    "version_commit": "55beb1607ee5b4c3ea285437118a9716e6de4939"
+  },
+  "axiom_encode_version": "0.2.1197",
+  "backend": "manual",
+  "citation": "dk:statutes/composed/boerne-og-ungeydelse-pipeline",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-12T18:49:59.255285+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmprcol8i49/sign-applied-files/dk/statutes/composed/boerne-og-ungeydelse-pipeline.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmprcol8i49",
+  "generated_output_sha256": "bcb4b2311d07d3304e0eb9cf17e0334cc32d661ab6a6c6a1b7d38013c92a0bc9",
+  "generation_prompt_sha256": null,
+  "manual_exception": "composition",
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "dae6fb3401d6c6f486d0e494705ae135fe503c2e91df7b84cdd7e7769ec26ea6"
+  },
+  "supersedes": {
+    "backend": "manual",
+    "generated_at": "2026-07-12T18:33:24.786219+00:00",
+    "generation_prompt_sha256": null,
+    "manifest_sha256": "029621aa16956623383b2b6e0676ae41d0b1433fdfc9fc4f84e2b16c056607f5",
+    "prior_signature": "27b762a055b01803f1b6e8796db24eb835dbe5dfe1bfa0ae4419296f178725b3",
+    "run_id": null,
+    "supersedes": {
+      "backend": "manual",
+      "generated_at": "2026-07-12T17:43:08.558382+00:00",
+      "generation_prompt_sha256": null,
+      "manifest_sha256": "abea425ae154c278450cc9a088d3448f036a6820c9768742f51f1acfc35f713e",
+      "prior_signature": "b2e2c03f1e538dd0ac35219f8bb5529e18215dfef380549d7ea17fe299684a91",
+      "run_id": null,
+      "tool": "axiom-encode sign-applied-files"
+    },
+    "tool": "axiom-encode sign-applied-files"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}
