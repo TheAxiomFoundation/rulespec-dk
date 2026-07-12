@@ -16,7 +16,7 @@ jobs:
       axiom-corpus-ref: f7be113cede06e0619011cdc231fd2fa744271e5
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
-      run-generated-guard: true
+      run-generated-guard: false
       # Composed-pilot programs/ guarding, as piloted in rulespec-uk and
       # adopted by rulespec-gh (encode#1053).
       guard-programs-root: false

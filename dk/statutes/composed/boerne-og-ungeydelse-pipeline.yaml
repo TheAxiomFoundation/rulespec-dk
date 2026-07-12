@@ -1,31 +1,13 @@
 format: rulespec/v1
 imports:
-  - dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#annual_child_or_youth_benefit_amount_before_eligibility_rules
-  - dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#income_basis_for_benefit_reduction
-  - dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#benefit_reduction_rate
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#annual_child_or_youth_benefit_amount_before_eligibility_rules
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#income_basis_for_benefit_reduction
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#benefit_reduction_rate
 module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_paths:
-      - dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-    upstream_source_check:
-      status: composed_from_grounded_modules
-      checked_paths:
-        - dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-      rationale: |-
-        Composed identity over already-grounded modules. The § 1 base-amount
-        derivation (imported annual_child_or_youth_benefit_amount_before_eligibility_rules
-        from boerne-og-ungeydelse-satser, which applies the § 1, stk. 3 CPI
-        regulation and 12/24-krone rounding to the 2011-niveau amounts) and the
-        § 1 a income basis (imported income_basis_for_benefit_reduction from
-        boerne-og-ungeydelse-indkomstaftrapning, the mellemskat basis net of the
-        grossed-up qualifying retirement contributions) are both grounded in
-        boerne- og ungeydelsesloven. This capstone reuses the imported
-        § 1 a reduction rate (benefit_reduction_rate, 2 pct.) but applies it to
-        the CURRENT-year § 20-regulated bundfradrag supplied as an input rather
-        than the statutory 700.000 kr. 2010-niveau base held in the taper module,
-        so no monetary literal is introduced and the merged modules are unchanged.
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
   summary: |-
     Composed single-recipient annual børne- og ungeydelse for the EUROMOD
     DK_2025 oracle slice, mirroring the bfachnm_s identity for one recipient who
@@ -56,38 +38,37 @@ module:
     work; the graded EUROMOD comparison is therefore restricted to single-parent
     households.
 rules:
-  - name: single_recipient_annual_child_youth_benefit
-    kind: derived
-    entity: Person
-    dtype: Money
-    unit: DKK
-    period: Year
-    source: >-
-      Composed § 1 and § 1 a identity: the imported § 1 age-band base amount
-      after CPI regulation and rounding, less the § 1 a, stk. 1 reduction of
-      2 pct. of the imported § 1 a income basis in excess of the current-year
-      bundfradrag, with that reduction capped at the base amount so the
-      received benefit is never negative (single recipient).
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: >-
-                nedsættes med et beløb svarende til 2 pct. ... i det omfang
-                grundlaget ... overstiger et bundfradrag
-    versions:
-      - effective_from: '2025-05-12'
-        formula: |-
-          annual_child_or_youth_benefit_amount_before_eligibility_rules
-          - min(
-              annual_child_or_youth_benefit_amount_before_eligibility_rules,
-              benefit_reduction_rate
-              * max(
-                  0,
-                  income_basis_for_benefit_reduction
-                  - current_year_income_reduction_allowance
-                )
+- name: single_recipient_annual_child_youth_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: >-
+    Composed § 1 and § 1 a identity: the imported § 1 age-band base amount
+    after CPI regulation and rounding, less the § 1 a, stk. 1 reduction of
+    2 pct. of the imported § 1 a income basis in excess of the current-year
+    bundfradrag, with that reduction capped at the base amount so the
+    received benefit is never negative (single recipient).
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: >-
+            nedsættes med et beløb svarende til 2 pct. af et indtægtsgrundlag
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      annual_child_or_youth_benefit_amount_before_eligibility_rules
+      - min(
+          annual_child_or_youth_benefit_amount_before_eligibility_rules,
+          benefit_reduction_rate
+          * max(
+              0,
+              income_basis_for_benefit_reduction
+              - current_year_income_reduction_allowance
             )
+        )

@@ -23,129 +23,130 @@ module:
     parameter is the statutory 2010-niveau base, not the current-year
     regulated amount.
 rules:
-  - name: benefit_reduction_rate
-    kind: parameter
-    dtype: Rate
-    source: § 1 a, stk. 1
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: 2 pct. af et indtægtsgrundlag
-    versions:
-      - effective_from: '2025-05-12'
-        formula: '0.02'
-  - name: income_reduction_allowance
-    kind: parameter
-    dtype: Money
-    unit: DKK
-    source: § 1 a, stk. 1 og 3
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: amount
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: et bundfradrag på 700.000 kr. (2010-niveau)
-    versions:
-      - effective_from: '2025-05-12'
-        formula: '700000'
-  - name: retirement_contribution_gross_up_divisor
-    kind: parameter
-    dtype: Decimal
-    source: § 1 a, stk. 4
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: parameter
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: dividere med 0,6
-    versions:
-      - effective_from: '2025-05-12'
-        formula: '0.6'
-  - name: grossed_up_qualifying_retirement_contributions
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    unit: DKK
-    source: § 1 a, stk. 4-5
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: Beløbet omregnes til et bruttobeløb ved at dividere med 0,6.
-          - path: versions[0].formula
-            kind: condition
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: kan ikke overstige det grundbeløb
-    versions:
-      - effective_from: '2025-05-12'
-        formula: |-
-          min(
-            qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum,
-            applicable_pension_contribution_cap
-          ) / retirement_contribution_gross_up_divisor
-  - name: income_basis_for_benefit_reduction
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    unit: DKK
-    source: § 1 a, stk. 1 og 4
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: I indtægtsgrundlaget efter stk. 1 fradrages et beløb
-          - path: versions[0].formula
-            kind: import
-            import:
-              target: dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#grossed_up_qualifying_retirement_contributions
-              output: grossed_up_qualifying_retirement_contributions
-              hash: sha256:local
-    versions:
-      - effective_from: '2025-05-12'
-        formula: |-
-          middle_tax_basis
-          - grossed_up_qualifying_retirement_contributions
-  - name: child_and_youth_benefit_reduction
-    kind: derived
-    entity: Person
-    dtype: Money
-    period: Year
-    unit: DKK
-    source: § 1 a, stk. 1
-    metadata:
-      proof:
-        atoms:
-          - path: versions[0].formula
-            kind: formula
-            source:
-              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
-              excerpt: nedsættes med et beløb svarende til 2 pct. ... i det omfang
-                grundlaget ... overstiger et bundfradrag
-          - path: versions[0].formula
-            kind: import
-            import:
-              target: dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#income_basis_for_benefit_reduction
-              output: income_basis_for_benefit_reduction
-              hash: sha256:local
-    versions:
-      - effective_from: '2025-05-12'
-        formula: |-
-          benefit_reduction_rate
-          * max(0, income_basis_for_benefit_reduction - income_reduction_allowance)
+- name: benefit_reduction_rate
+  kind: parameter
+  dtype: Rate
+  source: § 1 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: 2 pct. af et indtægtsgrundlag
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '0.02'
+- name: income_reduction_allowance
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: § 1 a, stk. 1 og 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: et bundfradrag på 700.000 kr. (2010-niveau)
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '700000'
+- name: retirement_contribution_gross_up_divisor
+  kind: parameter
+  dtype: Decimal
+  source: § 1 a, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: dividere med 0,6
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '0.6'
+- name: grossed_up_qualifying_retirement_contributions
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: § 1 a, stk. 4-5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: Beløbet omregnes til et bruttobeløb ved at dividere med 0,6.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: kan ikke overstige det grundbeløb
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      min(
+        qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum,
+        applicable_pension_contribution_cap
+      ) / retirement_contribution_gross_up_divisor
+- name: income_basis_for_benefit_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: § 1 a, stk. 1 og 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: >-
+            I indtægtsgrundlaget efter stk. 1 fradrages
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#grossed_up_qualifying_retirement_contributions
+          output: grossed_up_qualifying_retirement_contributions
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      middle_tax_basis
+      - grossed_up_qualifying_retirement_contributions
+- name: child_and_youth_benefit_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: § 1 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+          excerpt: >-
+            nedsættes med et beløb svarende til 2 pct. af et indtægtsgrundlag
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#income_basis_for_benefit_reduction
+          output: income_basis_for_benefit_reduction
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      benefit_reduction_rate
+      * max(0, income_basis_for_benefit_reduction - income_reduction_allowance)
