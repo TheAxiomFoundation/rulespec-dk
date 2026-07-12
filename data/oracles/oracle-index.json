@@ -11,8 +11,8 @@
       "url": "https://euromod-web.jrc.ec.europa.eu/",
       "local_path": null,
       "commit": null,
-      "model": null,
-      "dataset": null,
+      "model": "EUROMOD_RELEASES_J2.0+ (JRC, 2026-02; per axiom-oracles readiness probe)",
+      "dataset": "DK_training_data (2,397 synthetic rows shipped with the public release; non-representative)",
       "role": "Intended household-level tax-benefit comparison oracle for Denmark. EUROMOD is the EU tax-benefit microsimulation model (European Commission JRC); its public release ships Denmark policy systems (DK_XXXX) including the child and family benefit instruments, runnable on the EUROMOD engine with per-case household inputs.",
       "coverage": [
         "personal_income_tax",
@@ -28,7 +28,7 @@
       "availability_check": {
         "checked_at": "2026-07-12",
         "status": "not_wired",
-        "detail": "Not attempted in this pilot. The EUROMOD public release (JRC) is freely downloadable and its Denmark systems carry the child and youth benefit; the EUROMOD-engine per-case runtime is proven from the SOUTHMOD lanes (x86_64 py3.12 venv + euromod pypi package + x64 .NET). Wiring (dk: prefix mapping in axiom-oracles, DK country scope, per-case parity suites against the DK_2026 system, and the input microdata question - the public release ships no Danish microdata, so probes must use synthetic per-case households) is future work. Until wired, dk: outputs remain classified not_comparable and parity tests stay deferred; this pilot's companion tests assert statutory values from the captured text instead."
+        "detail": "Not attempted in this pilot. The EUROMOD platform side is already in place: the probed public JRC release (EUROMOD_RELEASES_J2.0+, per axiom-oracles' euromod_country_readiness.json, probed 2026-07-02) runs Denmark systems DK_2007..DK_2025 on the generic platform runner using the shipped DK_training_data (2,397 synthetic, non-representative rows - fine for per-case probes, not distributional work). Remaining work is the Denmark-specific oracle surface: dk legal-ID to EUROMOD output bridge mappings in axiom-oracles, per-case comparison suites against the appropriate DK system, a pinned release configuration, and a system for the 2026 policy year once the release carries one (DK_2025 is the latest probed). Until wired, dk: outputs are classified not_comparable (axiom-oracles#270) and this pilot's companion tests assert statutory values from the captured text instead."
       },
       "bundle_sha256": null
     }
