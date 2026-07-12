@@ -9,7 +9,7 @@
 
 - name: base_amount_under_3_unregulated_2026
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -28,7 +28,7 @@
 
 - name: youth_amount_unregulated_2026
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -46,7 +46,7 @@
 
 - name: regulated_amount_2026_divisor_24
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -64,7 +64,7 @@
 
 - name: regulated_amount_2025_divisor_12
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2025-06-01'
     end: '2025-12-31'
   input:
@@ -83,7 +83,7 @@
 
 - name: age_18_or_over_no_benefit
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -100,7 +100,7 @@
 
 - name: age_band_3_to_6
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -116,7 +116,7 @@
 
 - name: age_band_7_to_14
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:

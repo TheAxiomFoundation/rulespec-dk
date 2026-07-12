@@ -10,7 +10,7 @@
 
 - name: no_reduction_below_allowance
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -22,7 +22,7 @@
 
 - name: reduction_two_percent_above_allowance
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -35,7 +35,7 @@
 
 - name: pension_contributions_reduce_basis_grossed_up
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
@@ -49,7 +49,7 @@
 
 - name: pension_contribution_cap_binds
   period:
-    period_kind: year
+    period_kind: tax_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
