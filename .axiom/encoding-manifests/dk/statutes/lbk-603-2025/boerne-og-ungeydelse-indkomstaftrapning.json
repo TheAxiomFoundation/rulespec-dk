@@ -1,0 +1,47 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning.test.yaml",
+      "sha256": "b729d8dec2f8719715b7c15f3f956ed2e0826d15ffc9f3f44165d6473881e5c2"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "55beb1607ee5b4c3ea285437118a9716e6de4939",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/_worktrees/axiom-encode-dk-pinned",
+    "version": "0.2.1197",
+    "version_commit": "55beb1607ee5b4c3ea285437118a9716e6de4939"
+  },
+  "axiom_encode_version": "0.2.1197",
+  "backend": "manual",
+  "citation": "dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-12T13:45:31.782465+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpibb_2iny/sign-applied-files/dk/statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpibb_2iny",
+  "generated_output_sha256": "8de3a23402f57f0dfbe8e8006e41e532da5dbcc5e75b0939747756adebf46009",
+  "generation_prompt_sha256": null,
+  "manual_exception": "#1",
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "0deb8d90b5036635b7bc2dd53aebbb8c026e4b434f93b9af8afa60c57d1818e9"
+  },
+  "supersedes": {
+    "backend": "manual",
+    "generated_at": "2026-07-12T13:40:42.588285+00:00",
+    "generation_prompt_sha256": null,
+    "manifest_sha256": "9aee1b5983a43a76169f5944fdcd7fd32d6bbbccbc1bd2c248d78e1a8be0b174",
+    "prior_signature": "54a936d8627e2f0539f2c7d4701ef0d5119d77171ce7b789b40eaea952ab1201",
+    "run_id": null,
+    "tool": "axiom-encode sign-applied-files"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}

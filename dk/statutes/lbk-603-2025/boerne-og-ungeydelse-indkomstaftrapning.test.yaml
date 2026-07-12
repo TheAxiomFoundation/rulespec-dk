@@ -1,0 +1,64 @@
+# Companion fixtures for the børne- og ungeydelsesloven § 1 a income
+# taper (rulespec-dk#1): the combined benefit is reduced by 2 pct. of
+# the mellemskat basis above the 700.000 kr. (2010-niveau) bundfradrag,
+# after deducting grossed-up (÷ 0,6) qualifying retirement
+# contributions capped at the pensionsbeskatningslovens § 16, stk. 1
+# grundbeløb. The basis, contributions and cap are module inputs
+# (personskatteloven and pensionsbeskatningsloven are not yet captured
+# dk scopes); the bundfradrag here is the statutory 2010-niveau base,
+# not a current-year regulated amount.
+
+- name: no_reduction_below_allowance
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 500000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#child_and_youth_benefit_reduction: 0
+
+- name: reduction_two_percent_above_allowance
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 900000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+  output:
+    # 0.02 * (900000 - 700000) = 4000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#child_and_youth_benefit_reduction: 4000
+
+- name: pension_contributions_reduce_basis_grossed_up
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 900000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 60000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 100000
+  output:
+    # min(60000, 100000) / 0.6 = 100000 grossed up;
+    # basis 900000 - 100000 = 800000; 0.02 * (800000 - 700000) = 2000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#child_and_youth_benefit_reduction: 2000
+
+- name: pension_contribution_cap_binds
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 900000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 90000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+  output:
+    # min(90000, 61200) = 61200; / 0.6 = 102000 grossed up;
+    # basis 900000 - 102000 = 798000; 0.02 * (798000 - 700000) = 1960
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#grossed_up_qualifying_retirement_contributions: 102000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#income_basis_for_benefit_reduction: 798000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#child_and_youth_benefit_reduction: 1960
