@@ -1,0 +1,31 @@
+# Encoding-manifest supersession ledger
+#
+# A committed manifest whose claim about a file is no longer true is normally
+# deleted outright: the record is superseded and git history retains it. That is
+# not possible when the same manifest also carries the only attestation for
+# another file it covers — deleting it would destroy a true record in order to
+# remove a false one. Those claims are retired in place and disclosed here.
+#
+# An entry ATTESTS NOTHING. It discloses that a claim ended, and names either the
+# manifest that replaced it or the reviewed commits that ended it.
+# `axiom-encode manifest-audit` re-derives every field from the repository and
+# from git history before accepting an entry; one that stops holding fails CI.
+#
+# Entries are removed, never edited, as their rules are re-encoded.
+#
+# See https://github.com/TheAxiomFoundation/axiom-encode/issues/1282
+
+schema_version: axiom-encode/manifest-supersessions/v1
+superseded:
+  - manifest: .axiom/encoding-manifests/dk/statutes/composed/boerne-og-ungeydelse-pipeline.json
+    attested_path: dk/statutes/composed/boerne-og-ungeydelse-pipeline.yaml
+    attested_sha256: bcb4b2311d07d3304e0eb9cf17e0334cc32d661ab6a6c6a1b7d38013c92a0bc9
+    retired_in:
+      - b24378aa84c1f3c9f1f4064e979e39638dbab69c
+    current_path: dk/statutes/composed/boerne-og-ungeydelse-pipeline.yaml
+    current_sha256: bed1269b83343186890ac5005575405430e0bd5882a405d093add8cc7e1a77f0
+    reason: >-
+      Ended by reviewed commit b24378aa8 (Migrate to the canonical signed corpus release
+      (dk-rulespec-2026-07-12) (#8)). The generation record remains true of the content
+      it produced; this discloses where that content went.
+    issue: https://github.com/TheAxiomFoundation/axiom-encode/issues/1282
