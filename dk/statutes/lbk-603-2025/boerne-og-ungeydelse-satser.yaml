@@ -35,7 +35,7 @@ rules:
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
           excerpt: >-
-            Børneydelsen udgør 16.992 kr. årligt (2011-niveau) for børn indtil det fyldte 3. år, 13.452 kr. årligt (2011-ni- veau) for børn fra og med det fyldte 3. år og indtil det fyldte 7. år og 10.584 kr. årligt
+            Børneydelsen udgør 16.992 kr. årligt (2011-niveau) for børn indtil det fyldte 3. år, 13.452 kr. årligt (2011-niveau) for børn fra og med det fyldte 3. år og indtil det fyldte 7. år og 10.584 kr. årligt
   versions:
   - effective_from: '2025-05-12'
     values:
