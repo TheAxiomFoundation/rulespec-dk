@@ -11,11 +11,15 @@ jobs:
     uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@842c69d6aa62a0d75a4da850fabc3d0df20701d7
     secrets: inherit
     with:
-      axiom-encode-ref: b9d376684cfb5e86202daa3451b8fc716703ed19
+      axiom-encode-ref: 19dfdf2ee7b48fef71603b1120a9f538ff3c13f4
       axiom-rules-engine-ref: 05eac9d2f89dabe5c6673176260762cef3a58f47
-      axiom-corpus-ref: f7be113cede06e0619011cdc231fd2fa744271e5
+      axiom-corpus-ref: 1f32d9ab0cc84d78abb7ac1d2436fad049052a58
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
+      # Guard stays off until the D2 regeneration wave lands supervised
+      # apply manifests for every module under this release (rulespec-dk#14);
+      # the July modules predate the manifest regime and the §1 excerpt
+      # repair below rides this re-pin without one.
       run-generated-guard: false
       # Composed-pilot programs/ guarding, as piloted in rulespec-uk and
       # adopted by rulespec-gh (encode#1053).
