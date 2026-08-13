@@ -1,8 +1,8 @@
 format: rulespec/v1
 imports:
-- dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#annual_child_or_youth_benefit_amount_before_eligibility_rules
-- dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#income_basis_for_benefit_reduction
-- dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#benefit_reduction_rate
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#annual_tax_free_child_or_youth_benefit
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#benefit_reduction_rate
 module:
   proof_validation:
     required: true
@@ -14,7 +14,7 @@ module:
     receives the full amount for one child or young person and bears the § 1 a
     taper on their own income. It wires: the § 1 age-band base amount after the
     § 1, stk. 3 CPI regulation and rounding (imported
-    annual_child_or_youth_benefit_amount_before_eligibility_rules), less the
+    annual_tax_free_child_or_youth_benefit), less the
     § 1 a, stk. 1 reduction of 2 pct. (imported benefit_reduction_rate) of the
     § 1 a income basis (imported income_basis_for_benefit_reduction — the
     mellemskat basis less the grossed-up qualifying retirement contributions)
@@ -62,9 +62,9 @@ rules:
   versions:
   - effective_from: '2025-05-12'
     formula: |-
-      annual_child_or_youth_benefit_amount_before_eligibility_rules
+      annual_tax_free_child_or_youth_benefit
       - min(
-          annual_child_or_youth_benefit_amount_before_eligibility_rules,
+          annual_tax_free_child_or_youth_benefit,
           benefit_reduction_rate
           * max(
               0,
