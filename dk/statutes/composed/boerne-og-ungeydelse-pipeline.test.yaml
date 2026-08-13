@@ -1,19 +1,20 @@
 # Companion fixtures for the composed single-recipient børne- og ungeydelse
 # pipeline (rulespec-dk composed capstone). Each case feeds the imported
-# boerne-og-ungeydelse-satser age/CPI inputs and the imported
-# boerne-og-ungeydelse-indkomstaftrapning income-basis inputs, plus the
+# …/boerne-og-ungeydelsesloven/paragraf-1 age/CPI inputs and the imported
+# …/boerne-og-ungeydelsesloven/paragraf-1-a income-basis inputs, plus the
 # capstone's own current_year_income_reduction_allowance, and asserts the
 # composed single_recipient_annual_child_youth_benefit.
 #
-# The consumer_price_index_change_since_2009 values (0.285 for 2025, 0.303
-# for 2026) are the mechanism inputs that reproduce the official Skatte-
-# styrelsen 2025 satser exactly: 16.992 x 1.246 -> round/12 -> 21.168;
+# The percentage_change_rounded_to_one_decimal_place values (0.285 for 2025,
+# 0.303 for 2026) are the mechanism inputs that reproduce the official
+# Skattestyrelsen satser exactly: 16.992 x 1.246 -> round/12 -> 21.168;
 # 13.452 x 1.246 -> 16.764; 10.584 x 1.246 -> 13.188 (verified arithmetic).
 # The 2025 cases run 2025-06-01..2025-12-31 (12-krone divisor); the 2026
 # case runs 2026-01-01 (24-krone divisor, LOV nr 1642 af 16/12/2025) with
-# the 2026 current-year bundfradrag 961.100 kr. current_year_income_reduction_allowance
-# is the § 20-regulated bundfradrag (2025: 917.000 kr.; 2026: 961.100 kr.),
-# supplied because personskatteloven is not yet a captured dk corpus scope.
+# the 2026 current-year bundfradrag 961.100 kr.
+# current_year_income_reduction_allowance is the § 20-regulated bundfradrag
+# (2025: 917.000 kr.; 2026: 961.100 kr.), supplied because personskatteloven
+# is not yet a captured dk corpus scope.
 
 - name: under_3_below_allowance_full_amount_2025
   period:
@@ -21,16 +22,20 @@
     start: '2025-06-01'
     end: '2025-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_under_3_years_old: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_3_and_under_7_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_7_and_under_15_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.young_person_is_at_least_15_and_under_18_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.consumer_price_index_change_since_2009: 0.285
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2012_adjustment: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2013_or_later_adjustment: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 300000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.child_age_years: 2
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.percentage_change_rounded_to_one_decimal_place
+    : 0.285
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.payment_year_has_additional_statutory_increase
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis
+    : 300000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
+    : 300000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
+    : 61200
     dk:statutes/composed/boerne-og-ungeydelse-pipeline#input.current_year_income_reduction_allowance: 917000
   output:
     # Age band 0 amount 21168 (16992 x 1.246 -> round/12); basis 300000 below
@@ -43,16 +48,20 @@
     start: '2025-06-01'
     end: '2025-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_under_3_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_3_and_under_7_years_old: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_7_and_under_15_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.young_person_is_at_least_15_and_under_18_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.consumer_price_index_change_since_2009: 0.285
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2012_adjustment: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2013_or_later_adjustment: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 920000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.child_age_years: 3
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.percentage_change_rounded_to_one_decimal_place
+    : 0.285
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.payment_year_has_additional_statutory_increase
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis
+    : 920000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
+    : 920000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
+    : 61200
     dk:statutes/composed/boerne-og-ungeydelse-pipeline#input.current_year_income_reduction_allowance: 917000
   output:
     # Age band 1 amount 16764 (13452 x 1.246 -> round/12); reduction
@@ -65,16 +74,20 @@
     start: '2025-06-01'
     end: '2025-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_under_3_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_3_and_under_7_years_old: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_7_and_under_15_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.young_person_is_at_least_15_and_under_18_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.consumer_price_index_change_since_2009: 0.285
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2012_adjustment: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2013_or_later_adjustment: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 1196000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.child_age_years: 3
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.percentage_change_rounded_to_one_decimal_place
+    : 0.285
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.payment_year_has_additional_statutory_increase
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis
+    : 1196000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
+    : 1196000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
+    : 61200
     dk:statutes/composed/boerne-og-ungeydelse-pipeline#input.current_year_income_reduction_allowance: 917000
   output:
     # reduction 0.02 * (1196000 - 917000) = 5580; 16764 - 5580 = 11184.
@@ -86,16 +99,20 @@
     start: '2025-06-01'
     end: '2025-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_under_3_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_3_and_under_7_years_old: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_7_and_under_15_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.young_person_is_at_least_15_and_under_18_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.consumer_price_index_change_since_2009: 0.285
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2012_adjustment: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2013_or_later_adjustment: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 1800000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.child_age_years: 3
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.percentage_change_rounded_to_one_decimal_place
+    : 0.285
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.payment_year_has_additional_statutory_increase
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis
+    : 1800000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
+    : 1800000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
+    : 61200
     dk:statutes/composed/boerne-og-ungeydelse-pipeline#input.current_year_income_reduction_allowance: 917000
   output:
     # reduction 0.02 * (1800000 - 917000) = 17660 > amount 16764, floored at 0.
@@ -107,18 +124,22 @@
     start: '2026-01-01'
     end: '2026-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_under_3_years_old: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_3_and_under_7_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.child_is_at_least_7_and_under_15_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.young_person_is_at_least_15_and_under_18_years_old: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.consumer_price_index_change_since_2009: 0.303
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2012_adjustment: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-satser#input.calendar_year_uses_2013_or_later_adjustment: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.middle_tax_basis: 300000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.qualifying_contributions_to_age_insurance_savings_and_supplementary_lump_sum: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelse-indkomstaftrapning#input.applicable_pension_contribution_cap: 61200
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.child_age_years: 2
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.percentage_change_rounded_to_one_decimal_place
+    : 0.303
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.payment_year_has_additional_statutory_increase
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis
+    : 300000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
+    : 300000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
+    : 61200
     dk:statutes/composed/boerne-og-ungeydelse-pipeline#input.current_year_income_reduction_allowance: 961100
   output:
     # Age band 0 amount under the 24-krone divisor: 16992 x 1.264 = 21477.888;
-    # /24 -> floor(895.412) = 895 -> x24 = 21480; basis 300000 below 961100.
+    # round to nearest 24 -> 21480; basis 300000 below 961100.
     dk:statutes/composed/boerne-og-ungeydelse-pipeline#single_recipient_annual_child_youth_benefit: 21480
