@@ -17,8 +17,10 @@ module:
     annual_tax_free_child_or_youth_benefit), less the
     § 1 a, stk. 1 reduction of 2 pct. (imported benefit_reduction_rate) of the
     § 1 a income basis (imported income_basis_for_benefit_reduction — the
-    mellemskat basis less the grossed-up qualifying retirement contributions)
-    to the extent it exceeds the current-year bundfradrag.
+    personskattelovens § 7, stk. 1 og 3 basis, the topskat-grundlag through
+    2025 and the mellemskat-grundlag from 2026, less the grossed-up
+    qualifying retirement contributions) to the extent it exceeds the
+    current-year bundfradrag.
 
     The bundfradrag is a module input (current_year_income_reduction_allowance)
     rather than the 700.000 kr. 2010-niveau parameter the taper module holds:

@@ -6,7 +6,7 @@ module:
     corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a
     source_sha256: 6ecaf404a44f4f898915c545fe41b2a09fd6f3028063a22a68f99029df119c2b
   summary: |-
-    Den samlede børne- og ungeydelse nedsættes med 2 pct. af indtægtsgrundlaget over et bundfradrag på 700.000 kr. (2010-niveau). § 1 a, stk. 1 og 2, har virkning for grundlaget for mellemskat fra indkomståret 2026; den hidtidige affattelse anvendte grundlaget for topskat. Ydelsesmodtagerens kvalificerende pensionsindbetalinger fradrages efter begrænsning til grundbeløbet og omregning til bruttobeløb ved division med 0,6.
+    Den samlede børne- og ungeydelse nedsættes med 2 pct. af indtægtsgrundlaget over et bundfradrag på 700.000 kr. (2010-niveau). § 1 a, stk. 1 og 2, har virkning for grundlaget for mellemskat fra indkomståret 2026; den hidtidige affattelse anvendte grundlaget for topskat. Ydelsesmodtagerens kvalificerende pensionsindbetalinger fradrages efter begrænsning til grundbeløbet og omregning til bruttobeløb ved division med 0,6. Bundfradraget reguleres efter personskattelovens § 20 (stk. 3); da personskatteloven ikke er en indfanget kilde, leveres det regulerede beløb som input (current_year_income_reduction_allowance), mens 2010-niveau-grundbeløbet står som den dokumenterede statutoriske base.
 rules:
   - name: benefit_reduction_rate
     kind: parameter
@@ -162,7 +162,7 @@ rules:
     dtype: Money
     period: Year
     unit: DKK
-    source: § 1 a, stk. 1
+    source: § 1 a, stk. 1 og 3
     metadata:
       proof:
         atoms:
@@ -179,6 +179,11 @@ rules:
             source:
               corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a
               excerpt: overstiger et bundfradrag på 700.000 kr. (2010-niveau)
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a
+              excerpt: Bundfradraget i stk. 1 reguleres efter personskattelovens § 20.
     versions:
       - effective_from: '2025-05-12'
         formula: |-
@@ -186,5 +191,5 @@ rules:
           * max(
             0,
             income_basis_for_benefit_reduction
-            - statutory_income_reduction_threshold_2010_level
+            - current_year_income_reduction_allowance
           )

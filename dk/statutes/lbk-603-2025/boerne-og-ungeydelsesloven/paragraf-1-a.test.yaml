@@ -1,4 +1,4 @@
-- name: reduction_is_zero_at_income_basis_threshold_in_2025
+- name: reduction_is_zero_below_regulated_allowance_in_2025
   period:
     period_kind: custom
     name: calendar_year
@@ -9,31 +9,39 @@
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
     : 800000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 60000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 917000
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 700000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 0
-- name: reduction_is_two_percent_of_excess_income_basis_in_2025
+- name: reduction_is_two_percent_of_excess_over_regulated_allowance_in_2025
   period:
     period_kind: custom
     name: calendar_year
     start: '2025-05-12'
     end: '2025-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 920000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 1117000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
-    : 920000
+    : 1117000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 60000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 917000
   output:
+    # basis 1117000 - 60000/0.6 = 1017000; excess over the 2025 regulated
+    # allowance 917000 is 100000; 2 pct. -> 2000.
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 820000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2400
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 1017000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2000
 - name: pension_contributions_are_limited_to_statutory_cap_in_2025
   period:
     period_kind: custom
@@ -41,17 +49,22 @@
     start: '2025-05-12'
     end: '2025-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 920000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 1117000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
-    : 920000
+    : 1117000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 90000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 90000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 917000
   output:
+    # contributions 90000 exceed the § 16 grundbeløb 60000; the capped 60000
+    # grosses up to 100000, so the basis and reduction match the uncapped case.
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 820000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2400
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 1017000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2000
 - name: partial_year_taxpayer_uses_recalculated_income_basis_in_2025
   period:
     period_kind: custom
@@ -59,18 +72,21 @@
     start: '2025-05-12'
     end: '2025-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 920000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 1117000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
     : 800000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 60000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 917000
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 700000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 0
-- name: reduction_is_zero_at_income_basis_threshold_in_2026
+- name: reduction_is_zero_below_regulated_allowance_in_2026
   period:
     period_kind: custom
     name: calendar_year
@@ -81,31 +97,39 @@
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
     : 800000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 60000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 961100
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 700000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 0
-- name: reduction_is_two_percent_of_excess_income_basis_in_2026
+- name: reduction_is_two_percent_of_excess_over_regulated_allowance_in_2026
   period:
     period_kind: custom
     name: calendar_year
     start: '2026-01-01'
     end: '2026-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 920000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 1161100
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
-    : 920000
+    : 1161100
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 60000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 961100
   output:
+    # basis 1161100 - 100000 = 1061100; excess over the 2026 regulated
+    # allowance 961100 is 100000; 2 pct. -> 2000.
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 820000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2400
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 1061100
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2000
 - name: pension_contributions_are_limited_to_statutory_cap_in_2026
   period:
     period_kind: custom
@@ -113,17 +137,20 @@
     start: '2026-01-01'
     end: '2026-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 920000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 1161100
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
-    : 920000
+    : 1161100
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 90000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 90000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 961100
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 820000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2400
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 1061100
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction: 2000
 - name: partial_year_taxpayer_uses_recalculated_income_basis_in_2026
   period:
     period_kind: custom
@@ -131,13 +158,16 @@
     start: '2026-01-01'
     end: '2026-12-31'
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 920000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 1161100
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
     : 800000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts
+    : 60000
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
     : 60000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance
+    : 961100
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#qualifying_pension_contributions_capped: 60000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction: 700000
