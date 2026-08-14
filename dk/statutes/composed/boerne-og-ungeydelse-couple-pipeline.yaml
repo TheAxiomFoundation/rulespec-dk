@@ -1,0 +1,83 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+  summary: |-
+    Composed per-recipient annual børne- og ungeydelse for a couple with
+    fælles forældremyndighed: the § 4, stk. 1 ligedeling (half of the § 1
+    age-band amount to each forældremyndighedsindehaver, the half rounded
+    upward to the nearest whole krone), less the § 1 a reduction computed on
+    the recipient's OWN income basis — the per-recipient taper in force
+    since 2022 (»grundlaget … hos modtageren af ydelsen«). Each Person row
+    is one recipient; a household total is the sum over the two recipients.
+
+    This is the graded surface for the EUROMOD spousal-taper divergence
+    (ec-jrc#18): EUROMOD DK_2022–DK_2025 still applies the pre-2022 spousal
+    income test, so couple cases diverge from this identity by construction.
+    The bundfradrag is a module input (current_year_income_reduction_allowance)
+    for the same reason as the single-recipient capstone: § 1 a, stk. 3
+    regulates it by personskattelovens § 20, which is not a captured scope.
+imports:
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#annual_tax_free_child_or_youth_benefit
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#benefit_reduction_rate
+rules:
+- name: equal_share_of_annual_child_youth_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 4, stk. 1, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4
+          excerpt: udbetales børne- og ungeydelsen med halvdelen til hver af forældremyndighedsindehaverne
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4
+          excerpt: Den halve ydelse rundes opad til nærmeste hele kronebeløb.
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      floor((annual_tax_free_child_or_youth_benefit + 1) / 2)
+- name: couple_recipient_annual_child_youth_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 4, stk. 1 og § 1 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a
+          excerpt: nedsættes med et beløb svarende til 2 pct. af et indtægtsgrundlag
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a
+          excerpt: hos modtageren af ydelsen
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      equal_share_of_annual_child_youth_benefit
+      - min(
+          equal_share_of_annual_child_youth_benefit,
+          benefit_reduction_rate
+          * max(
+              0,
+              income_basis_for_benefit_reduction
+              - current_year_income_reduction_allowance
+            )
+        )
