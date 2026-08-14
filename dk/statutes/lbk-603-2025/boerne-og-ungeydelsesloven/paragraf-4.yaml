@@ -7,5 +7,5 @@ module:
     corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4
     source_sha256: 44deab260674b39512464482bb62975c2c3d130bc3e8c4710dd8631b5a2f5ca1
   summary: |-
-    “For forældremyndighedsindehavere med fælles forældremyndighed over barnet udbetales børne- og ungeydelsen med halvdelen til hver.” Bestemmelsen regulerer modtagerfordeling, særlige dokumentationsveje, institution/psykiatrisk ophold, familiepleje, EU-koordinering og ikrafttrædelse af udbetaling.
+    »For forældremyndighedsindehavere med fælles forældremyndighed over barnet udbetales børne- og ungeydelsen med halvdelen til hver af forældremyndighedsindehaverne, jf. dog stk. 10.« Bestemmelsen regulerer modtagerfordeling (ligedeling, dokumentationsveje, eneforældremyndighed), udbetaling ved indsættelse i institution under Kriminalforsorgen, privat familiepleje, EU-koordinering (forordning 883/2004) og virkningstidspunkter for udbetaling. Recipient-routing mellem personer — ikke personberegnelig ret; stk. 1's ligedelingsaritmetik er kodet i composed/boerne-og-ungeydelse-couple-pipeline med atomer mod denne bestemmelse.
 rules: []

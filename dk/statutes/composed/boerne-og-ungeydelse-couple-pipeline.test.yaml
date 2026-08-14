@@ -1,9 +1,12 @@
 # Companion fixtures for the composed couple (ligedeling) pipeline. Each
-# Person row is one forældremyndighedsindehaver receiving half of the § 1
-# age-band amount (rounded upward per § 4, stk. 1), tapered on the
-# recipient's OWN income basis per § 1 a. The 2025 band-1 amount is 16.764
-# (half: 8.382); the 2026 band-1 amount is 16.992 (half: 8.496). Allowances
-# are the § 20-regulated bundfradrag (2025: 917.000; 2026: 961.100).
+# Person row is one forældremyndighedsindehaver receiving half of each § 1
+# PAYMENT (børneydelse quarterly, ungeydelse monthly per § 5, stk. 3-4),
+# the half rounded upward per § 4, stk. 1, then tapered on the recipient's
+# OWN income basis per § 1 a. 2025 band 1: annual 16.764, quarterly 4.191
+# (odd), rounded-up half 2.096, per-recipient annual 4 x 2.096 = 8.384.
+# 2026 band 1: annual 16.992, quarterly 4.248, half 2.124, annual 8.496.
+# Allowances are the § 20-regulated bundfradrag (2025: 917.000; 2026:
+# 961.100).
 #
 # The low-income-recipient case mirrors the statutory side of the July
 # EUROMOD probe P4 (married single-earner couple): the earner's half tapers
@@ -34,8 +37,8 @@
     ? dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#input.current_year_income_reduction_allowance
     : 917000
   output:
-    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#equal_share_of_annual_child_youth_benefit: 8382
-    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#couple_recipient_annual_child_youth_benefit: 8382
+    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#equal_share_of_annual_child_youth_benefit: 8384
+    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#couple_recipient_annual_child_youth_benefit: 8384
 
 - name: recipient_own_income_tapers_own_half_2025
   period:
@@ -61,9 +64,9 @@
     : 917000
   output:
     # own basis 1.017.000 exceeds 917.000 by 100.000; 2 pct. -> 2.000;
-    # half 8.382 - 2.000 = 6.382.
-    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#equal_share_of_annual_child_youth_benefit: 8382
-    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#couple_recipient_annual_child_youth_benefit: 6382
+    # per-recipient share 8.384 - 2.000 = 6.384.
+    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#equal_share_of_annual_child_youth_benefit: 8384
+    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#couple_recipient_annual_child_youth_benefit: 6384
 
 - name: recipient_taper_exhausts_own_half_2025
   period:
@@ -88,8 +91,8 @@
     ? dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#input.current_year_income_reduction_allowance
     : 917000
   output:
-    # own excess 500.000; 2 pct. -> 10.000 > the 8.382 half, floored at 0.
-    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#equal_share_of_annual_child_youth_benefit: 8382
+    # own excess 500.000; 2 pct. -> 10.000 > the 8.384 share, floored at 0.
+    dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#equal_share_of_annual_child_youth_benefit: 8384
     dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#couple_recipient_annual_child_youth_benefit: 0
 
 - name: recipient_below_allowance_keeps_full_half_2026
@@ -115,6 +118,7 @@
     ? dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#input.current_year_income_reduction_allowance
     : 961100
   output:
-    # 2026 band-1 amount 16.992 (divisor 24); half 8.496.
+    # 2026 band-1 amount 16.992 (divisor 24); quarterly 4.248, half 2.124,
+    # per-recipient annual 8.496.
     dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#equal_share_of_annual_child_youth_benefit: 8496
     dk:statutes/composed/boerne-og-ungeydelse-couple-pipeline#couple_recipient_annual_child_youth_benefit: 8496
