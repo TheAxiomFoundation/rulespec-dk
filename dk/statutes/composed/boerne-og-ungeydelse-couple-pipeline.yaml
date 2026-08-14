@@ -1,0 +1,146 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven
+  summary: |-
+    Composed per-recipient annual børne- og ungeydelse for a couple with
+    fælles forældremyndighed: the § 4, stk. 1 ligedeling (half of the § 1
+    age-band amount to each forældremyndighedsindehaver, the half rounded
+    upward to the nearest whole krone), less the § 1 a reduction computed on
+    the recipient's OWN income basis — the per-recipient taper in force
+    since 2022 (»grundlaget … hos modtageren af ydelsen«). Each Person row
+    is one recipient; a household total is the sum over the two recipients.
+
+    The half is the half of each PAYMENT: § 5, stk. 3-4 pay børneydelsen
+    kvartalsvis and ungeydelsen månedsvis, and § 4, stk. 1, 2. pkt. rounds
+    »Den halve ydelse« upward per payment — so the per-recipient annual
+    share is 4 x the rounded-up half quarter for the child bands and 12 x
+    the rounded-up half month for the youth band (the annual amounts are
+    always even, so annual-level rounding would be dead code; the quarterly
+    and monthly amounts can be odd).
+
+    Scope: the § 4, stk. 1, 1. pkt. DEFAULT for two holders with fælles
+    forældremyndighed (»som udgangspunkt« per the ministry's ligedeling
+    guidance). The stk. 1, 3. pkt. full-payment route (only one holder
+    fully tax-liable), the stk. 2/10 single-recipient routes, and the
+    stk. 4-8 institutional/foster/EU routings are outside this identity —
+    § 4 itself is recorded as entity_not_supported.
+
+    This is the graded surface for the EUROMOD spousal-taper divergence
+    (ec-jrc#18): EUROMOD DK_2022–DK_2025 still applies the pre-2022 spousal
+    income test, so couple cases diverge from this identity by construction.
+    The bundfradrag is a module input (current_year_income_reduction_allowance)
+    for the same reason as the single-recipient capstone: § 1 a, stk. 3
+    regulates it by personskattelovens § 20, which is not a captured scope.
+imports:
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#annual_tax_free_child_or_youth_benefit
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#benefit_age_band
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#income_basis_for_benefit_reduction
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#benefit_reduction_rate
+rules:
+- name: quarterly_child_benefit_payments_per_year
+  kind: parameter
+  dtype: Integer
+  source: § 5, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Børneydelsen udbetales kvartalsvis
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      4
+- name: monthly_youth_benefit_payments_per_year
+  kind: parameter
+  dtype: Integer
+  source: § 5, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Ungeydelsen udbetales månedsvis
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      12
+- name: equal_share_of_annual_child_youth_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 4, stk. 1, 1.-2. pkt., jf. § 5, stk. 3-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4
+          excerpt: udbetales børne- og ungeydelsen med halvdelen til hver af forældremyndighedsindehaverne
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4
+          excerpt: Den halve ydelse rundes opad til nærmeste hele kronebeløb.
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Børneydelsen udbetales kvartalsvis
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Ungeydelsen udbetales månedsvis
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      if benefit_age_band == 3:
+        monthly_youth_benefit_payments_per_year
+        * floor((annual_tax_free_child_or_youth_benefit / monthly_youth_benefit_payments_per_year + 1) / 2)
+      else:
+        quarterly_child_benefit_payments_per_year
+        * floor((annual_tax_free_child_or_youth_benefit / quarterly_child_benefit_payments_per_year + 1) / 2)
+- name: couple_recipient_annual_child_youth_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 4, stk. 1 og § 1 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a
+          excerpt: nedsættes med et beløb svarende til 2 pct. af et indtægtsgrundlag
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a
+          excerpt: hos modtageren af ydelsen
+  versions:
+  - effective_from: '2025-05-12'
+    formula: |-
+      equal_share_of_annual_child_youth_benefit
+      - min(
+          equal_share_of_annual_child_youth_benefit,
+          benefit_reduction_rate
+          * max(
+              0,
+              income_basis_for_benefit_reduction
+              - current_year_income_reduction_allowance
+            )
+        )
