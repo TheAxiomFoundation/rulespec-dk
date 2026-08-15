@@ -16,11 +16,13 @@ jobs:
       axiom-corpus-ref: 1f32d9ab0cc84d78abb7ac1d2436fad049052a58
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
       validate-roots: auto
-      # Guard stays off until the D2 regeneration wave lands supervised
-      # apply manifests for every module under this release (rulespec-dk#14);
-      # the July modules predate the manifest regime and the §1 excerpt
-      # repair below rides this re-pin without one.
-      run-generated-guard: false
+      # Changed-mode guard: any PR that touches a protected module must
+      # carry its supervised apply manifest. Current modules predate the
+      # manifest regime (reviewed + release-validated instead, rulespec-dk#14);
+      # manifests accrue as wave-2 CI encodes land. Hand-authored composed
+      # modules freeze until a manual-content signing path exists
+      # (encode#1192 sign-only notary).
+      run-generated-guard: true
       # Composed-pilot programs/ guarding, as piloted in rulespec-uk and
       # adopted by rulespec-gh (encode#1053).
       guard-programs-root: false
