@@ -1,4 +1,4 @@
-- name: payment_period_conditions_are_met_when_both_section_conditions_hold_on_first_day
+- name: payment_period_conditions_hold_when_both_case_supplied_section_conditions_hold_on_first_day
   period:
     period_kind: custom
     name: day
@@ -13,7 +13,7 @@
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#payment_period_conditions_are_met_on_first_day:
     - holds
-- name: payment_period_conditions_are_not_met_when_section_1_conditions_fail_on_first_day
+- name: payment_period_conditions_do_not_hold_when_section_1_case_condition_fails_on_first_day
   period:
     period_kind: custom
     name: day
@@ -28,7 +28,7 @@
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#payment_period_conditions_are_met_on_first_day:
     - not_holds
-- name: payment_period_conditions_are_not_met_when_section_2_conditions_fail_on_first_day
+- name: payment_period_conditions_do_not_hold_when_section_2_case_condition_fails_on_first_day
   period:
     period_kind: custom
     name: day
