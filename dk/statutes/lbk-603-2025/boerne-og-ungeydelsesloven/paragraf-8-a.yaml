@@ -138,8 +138,7 @@ rules:
         kind: formula
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
-          excerpt: ved modregning i eller tillæg til de følgende udbetalinger af børne-
-            og ungeydelse
+          excerpt: ved modregning i eller tillæg til de følgende udbetalinger
   versions:
   - effective_from: '2025-05-12'
     formula: "if initial_settlement_applies:\n  min(overpayment_claim_after_final_reduction,\
@@ -154,11 +153,6 @@ rules:
   metadata:
     proof:
       atoms:
-      - path: versions[0].formula
-        kind: formula
-        source:
-          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
-          excerpt: hele eller dele af kravet ikke kan modregnes
       - path: versions[0].formula
         kind: definition
         source:
@@ -191,7 +185,7 @@ rules:
           hash: sha256:99825bdd44495d059f3df7e9bdeb138cbd882839784c642710a97c53572acdc6
   versions:
   - effective_from: '2025-05-12'
-    formula: "if annual_assessment_has_subsequently_changed\n   and calculation_uses_annual_assessment_for_income_year:\n\
+    formula: "if annual_assessment_has_subsequently_changed\nand calculation_uses_annual_assessment_for_income_year:\n\
       \  annual_child_and_youth_benefit_reduction\nelse: 0"
 - name: annual_assessment_change_requires_regulation
   kind: derived
@@ -206,8 +200,7 @@ rules:
         kind: condition
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
-          excerpt: skal der foretages en regulering af årets udbetalte børne- og ungeydelse
-            i forhold hertil
+          excerpt: skal der foretages en regulering
   versions:
   - effective_from: '2025-05-12'
     formula: 'annual_assessment_has_subsequently_changed
@@ -227,7 +220,7 @@ rules:
         kind: formula
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
-          excerpt: regulering af årets udbetalte børne- og ungeydelse i forhold hertil
+          excerpt: regulering af årets udbetalte børne- og ungeydelse
   versions:
   - effective_from: '2025-05-12'
     formula: "if annual_assessment_change_requires_regulation:\n  revised_reduction_after_annual_assessment_change\
@@ -284,8 +277,9 @@ rules:
         kind: formula
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
-          excerpt: ved modregning i eller tillæg til de følgende udbetalinger af børne-
-            og ungeydelse
+          excerpt: En eventuel regulering af den tidligere udbetalte børne- og ungeydelse
+            sker så vidt muligt ved modregning i eller tillæg til de følgende udbetalinger
+            af børne- og ungeydelse.
   versions:
   - effective_from: '2025-05-12'
     formula: "if annual_assessment_change_requires_regulation:\n  min(subsequent_overpayment_claim,\
