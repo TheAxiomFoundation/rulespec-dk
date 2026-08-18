@@ -1,0 +1,215 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+    source_sha256: 9b411b66e51e65e70e779aa2e2cbb5105cc0a3095b3e4c2f603e6e9d3e20af6e
+  summary: Ved hver kvartals- eller månedsudbetaling beregnes den foreløbige nedsættelse
+    udelukkende efter modtagerens indkomst i den seneste forskudsopgørelse. Den endelige
+    nedsættelse fastsættes udelukkende efter årsopgørelsen. Regulering sker så vidt
+    muligt ved modregning i eller tillæg til senere ydelser; resterende tilbagebetalingskrav
+    opkræves af Udbetaling Danmark. Efterfølgende ændringer i årsopgørelsen medfører
+    ny regulering. Nedsættelse og regulering kan ske uden partshøring.
+imports:
+- dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction
+rules:
+- name: provisional_reduction_at_payment
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 8 a, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: Ved hvert kvartals eller måneds udbetaling af henholdsvis børneydelsen
+            og ungeydelsen, jf. § 1, lægges udelukkende oplysningerne om modtagerens
+            indkomst i den seneste leverede eller indhentede, jf. § 12, forskudsopgørelse
+            fra told- og skatteforvaltningen for det pågældende indkomstår til grund
+            ved beregning af, om der skal ske en foreløbig nedsættelse af børne- og
+            ungeydelsen, jf. § ‍1 ‍a.
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction
+          output: annual_child_and_youth_benefit_reduction
+          hash: sha256:99825bdd44495d059f3df7e9bdeb138cbd882839784c642710a97c53572acdc6
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'if payment_uses_latest_forecast_assessment_for_income_year: annual_child_and_youth_benefit_reduction
+      else: 0'
+- name: final_reduction_for_income_year
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 8 a, stk. 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: Den endelige nedsættelse efter § 1 a fastsættes udelukkende på
+            baggrund af årsopgørelsen
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction
+          output: annual_child_and_youth_benefit_reduction
+          hash: sha256:99825bdd44495d059f3df7e9bdeb138cbd882839784c642710a97c53572acdc6
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'if calculation_uses_annual_assessment_for_income_year: annual_child_and_youth_benefit_reduction
+      else: 0'
+- name: underpayment_addition_to_following_benefit_payments
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 8 a, stk. 1, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: tillæg til de følgende udbetalinger af børne- og ungeydelse
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "max(\n  0,\n  prior_provisional_reductions_for_income_year\n  - final_reduction_for_income_year\n\
+      )"
+- name: overpayment_claim_after_final_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 8 a, stk. 1, 3.-4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: et krav om tilbagebetaling som følge af reguleringen i henhold
+            til årsopgørelsen
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "max(\n  0,\n  final_reduction_for_income_year\n  - prior_provisional_reductions_for_income_year\n\
+      )"
+- name: overpayment_offset_against_following_benefit_payments
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 8 a, stk. 1, 3.-4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: En eventuel regulering af den tidligere udbetalte børne- og ungeydelse
+            sker så vidt muligt ved modregning i eller tillæg til de følgende udbetalinger
+            af børne- og ungeydelse.
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "min(\n  overpayment_claim_after_final_reduction,\n  following_benefit_payments_available_for_offset\n\
+      )"
+- name: collectible_overpayment_residue
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 8 a, stk. 1, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: hele eller dele af kravet ikke kan modregnes i efterfølgende udbetalinger
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: skal tilbagebetalingskravet opkræves af Udbetaling Danmark
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "max(\n  0,\n  overpayment_claim_after_final_reduction\n  - overpayment_offset_against_following_benefit_payments\n\
+      )"
+- name: revised_reduction_after_annual_assessment_change
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 8 a, stk. 1, 5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: Sker der efterfølgende ændringer i årsopgørelsen
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#annual_child_and_youth_benefit_reduction
+          output: annual_child_and_youth_benefit_reduction
+          hash: sha256:99825bdd44495d059f3df7e9bdeb138cbd882839784c642710a97c53572acdc6
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'if annual_assessment_has_subsequently_changed: annual_child_and_youth_benefit_reduction
+      else: 0'
+- name: annual_assessment_change_requires_regulation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 8 a, stk. 1, 5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: skal der foretages en regulering af årets udbetalte børne- og ungeydelse
+  versions:
+  - effective_from: '2025-05-12'
+    formula: annual_assessment_has_subsequently_changed
+- name: reduction_or_regulation_may_proceed_without_recipient_hearing
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 8 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a
+          excerpt: kan ske uden partshøring af modtageren af ydelsen
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'true'
