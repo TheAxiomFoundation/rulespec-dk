@@ -1,4 +1,4 @@
-- name: highest_accrual_of_two_maintenance_duty_holders_sets_partial_fraction
+- name: maximum_holder_months_sixty_selects_band_nine
   period: 2025-06
   input:
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
@@ -33,7 +33,7 @@
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#non_duration_entitlement_conditions_met: holds
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_entitlement: holds
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_fraction: 0.833
-- name: partial_entitlement_duration_band_zero_at_six_months
+- name: six_months_selects_zero_duration_band
   period: 2025-06
   input:
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
@@ -68,11 +68,114 @@
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#non_duration_entitlement_conditions_met: holds
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_entitlement: holds
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_fraction: 0.083
-- name: no_partial_entitlement_when_all_maintenance_duty_holders_have_under_six_months
+- name: sixty_six_months_selects_final_partial_rate
   period: 2025-06
   input:
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
-    : 5
+    : 66
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.caretaker_is_fully_tax_liable_under_kildeskatteloven_section_1
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_short_term_abroad: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_schooling: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_entered_marriage: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_placed_outside_home_under_barnets_lov: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_admitted_with_custodial_parent_to_residential_facility_under_barnets_lov
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_otherwise_maintained_by_public_funds: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.parental_injunction_noncompliance_stops_benefit_for_quarter
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.youth_education_activity_noncompliance_stops_benefit_for_month
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.dagtilbudsloven_section_12_decision_stops_child_benefit_for_quarter
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.dagtilbudsloven_section_44_e_decision_stops_child_benefit_for_quarter
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipal_item_10_decision_stops_benefit_for_quarter: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#partial_entitlement_duration_band: 10
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_entitlement: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_fraction: 0.917
+- name: full_residence_or_employment_requirement_gives_full_entitlement
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+    : 72
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.caretaker_is_fully_tax_liable_under_kildeskatteloven_section_1
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_short_term_abroad: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_schooling: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_entered_marriage: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_placed_outside_home_under_barnets_lov: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_admitted_with_custodial_parent_to_residential_facility_under_barnets_lov
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_otherwise_maintained_by_public_funds: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.parental_injunction_noncompliance_stops_benefit_for_quarter
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.youth_education_activity_noncompliance_stops_benefit_for_month
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.dagtilbudsloven_section_12_decision_stops_child_benefit_for_quarter
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.dagtilbudsloven_section_44_e_decision_stops_child_benefit_for_quarter
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipal_item_10_decision_stops_benefit_for_quarter: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#partial_entitlement_duration_band: 10
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_presence_requirement_met: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#non_duration_entitlement_conditions_met: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_entitlement: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_fraction: 1
+- name: unlawful_school_absence_blocks_foreign_stay_exception
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+    : 60
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.caretaker_is_fully_tax_liable_under_kildeskatteloven_section_1
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_short_term_abroad: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_schooling: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_entered_marriage: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_placed_outside_home_under_barnets_lov: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_admitted_with_custodial_parent_to_residential_facility_under_barnets_lov
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_otherwise_maintained_by_public_funds: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.parental_injunction_noncompliance_stops_benefit_for_quarter
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.youth_education_activity_noncompliance_stops_benefit_for_month
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.dagtilbudsloven_section_12_decision_stops_child_benefit_for_quarter
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.dagtilbudsloven_section_44_e_decision_stops_child_benefit_for_quarter
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipal_item_10_decision_stops_benefit_for_quarter: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#partial_entitlement_duration_band: 9
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_presence_requirement_met: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#non_duration_entitlement_conditions_met: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_entitlement: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_fraction: 0
+- name: below_six_months_has_no_partial_entitlement_band
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+    : 0
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement
     : false
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.caretaker_is_fully_tax_liable_under_kildeskatteloven_section_1
@@ -103,25 +206,3 @@
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#non_duration_entitlement_conditions_met: holds
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_entitlement: not_holds
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_or_youth_benefit_payment_fraction: 0
-- name: short_term_foreign_stay_satisfies_presence_requirement
-  period: 2025-06
-  input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_short_term_abroad: true
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects
-    : false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_schooling: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: false
-  output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_presence_requirement_met: holds
-- name: unlawful_school_absence_blocks_foreign_stay_exception
-  period: 2025-06
-  input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_short_term_abroad: true
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects
-    : false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_schooling: true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: true
-  output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_presence_requirement_met: not_holds
