@@ -1,0 +1,45 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3
+    source_sha256: df5122c4610e6b456542213b9fd5adb2854a906c7b0c64638b0826832bd0bbcb
+  summary: »Betingelserne i §§ 1 og 2 skal være opfyldt den første dag i den periode,
+    som den enkelte udbetaling vedrører.«
+rules:
+- name: referenced_eligibility_sections_count
+  kind: parameter
+  dtype: Integer
+  source: § 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3
+          excerpt: Betingelserne i §§ 1 og 2
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '2'
+- name: payment_conditions_met_at_period_start
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Day
+  source: § 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3
+          excerpt: Betingelserne i §§ 1 og 2 skal være opfyldt den første dag i den
+            periode, som den enkelte udbetaling vedrører
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'conditions_under_section_1_met_on_payment_period_first_day
+
+      and conditions_under_section_2_met_on_payment_period_first_day'

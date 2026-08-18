@@ -1,0 +1,45 @@
+- name: payment_conditions_are_met_at_start_of_payment_period
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-05-12'
+    end: '2025-05-12'
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#input.conditions_under_section_1_met_on_payment_period_first_day
+      : true
+      ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#input.conditions_under_section_2_met_on_payment_period_first_day
+      : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#payment_conditions_met_at_period_start:
+    - holds
+- name: payment_conditions_fail_when_section_1_conditions_not_met_at_period_start
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-05-12'
+    end: '2025-05-12'
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#input.conditions_under_section_1_met_on_payment_period_first_day
+      : false
+      ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#input.conditions_under_section_2_met_on_payment_period_first_day
+      : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#payment_conditions_met_at_period_start:
+    - not_holds
+- name: payment_conditions_fail_when_section_2_conditions_not_met_at_period_start
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-05-12'
+    end: '2025-05-12'
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#input.conditions_under_section_1_met_on_payment_period_first_day
+      : true
+      ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#input.conditions_under_section_2_met_on_payment_period_first_day
+      : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-3#payment_conditions_met_at_period_start:
+    - not_holds
