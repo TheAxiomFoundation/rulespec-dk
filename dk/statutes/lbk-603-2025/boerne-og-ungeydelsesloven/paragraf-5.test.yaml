@@ -1,0 +1,173 @@
+- name: child_benefit_payment_day_on_latest_eligible_weekday
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-01-20'
+    end: '2025-01-20'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_quarter_first_month: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_of_month: 20
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_is_latest_non_saturday_weekday_before_cutoff
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#child_benefit_payment_day: holds
+- name: child_benefit_payment_day_requires_quarter_first_month
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-02-20'
+    end: '2025-02-20'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_quarter_first_month: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_of_month: 20
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_is_latest_non_saturday_weekday_before_cutoff
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#child_benefit_payment_day: not_holds
+- name: youth_benefit_payment_day_on_latest_eligible_weekday
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-02-20'
+    end: '2025-02-20'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_month: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_of_month: 20
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_is_latest_non_saturday_weekday_before_cutoff
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#youth_benefit_payment_day: holds
+- name: youth_benefit_payment_day_requires_latest_eligible_weekday
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-02-19'
+    end: '2025-02-19'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_month: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_of_month: 19
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_is_latest_non_saturday_weekday_before_cutoff
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#youth_benefit_payment_day: not_holds
+- name: first_child_benefit_quarter_after_right_acquired
+  period: 2025-04
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_quarter: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_quarter_follows_quarter_in_which_child_benefit_right_was_acquired
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#child_benefit_first_payment_quarter: holds
+- name: youth_first_and_last_payment_months
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_month: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_month_follows_month_in_which_child_turned_fifteenth_birthday
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.youth_benefit_right_ends_in_current_month: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#youth_benefit_first_payment_month: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#youth_benefit_last_payment_month: holds
+- name: child_benefit_prorated_through_fifteenth_birthday_month
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.child_turns_fifteenth_birthday_in_current_quarter: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.quarterly_child_benefit_amount: 9000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.months_from_quarter_start_through_fifteenth_birthday_month
+    : 2
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.months_in_current_quarter: 3
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#child_benefit_for_fifteenth_birthday_quarter: 6000
+- name: youth_benefit_prorated_through_eighteenth_birthday
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.child_turns_eighteenth_birthday_in_current_month: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.monthly_youth_benefit_amount: 3100
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.days_from_month_start_through_eighteenth_birthday: 15
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.days_in_current_month: 30
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#youth_benefit_for_eighteenth_birthday_month: 1550
+- name: additional_benefit_paid_with_first_quarter_payment
+  period: 2023-01
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_payment_calendar_year: 2023
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_payment_quarter_number: 1
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.payment_includes_statutory_additional_benefit: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#additional_benefit_paid_with_first_quarter_payment: holds
+- name: knowing_undue_receipt_requires_repayment
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.person_received_child_or_youth_benefit_without_entitlement
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.person_knew_receipt_was_without_entitlement: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#undue_child_or_youth_benefit_must_be_repaid: holds
+- name: auto_zero_child_benefit_for_fifteenth_birthday_quarter
+  period:
+    period_kind: month
+    start: '2012-01-01'
+    end: '2012-01-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.child_turns_eighteenth_birthday_in_current_month: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.child_turns_fifteenth_birthday_in_current_quarter: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_is_latest_non_saturday_weekday_before_cutoff
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_of_month: 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_month_follows_month_in_which_child_turned_fifteenth_birthday
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_payment_calendar_year: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_payment_quarter_number: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_month: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_quarter: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_quarter_first_month: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_quarter_follows_quarter_in_which_child_benefit_right_was_acquired
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.days_from_month_start_through_eighteenth_birthday: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.days_in_current_month: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.monthly_youth_benefit_amount: 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.months_from_quarter_start_through_fifteenth_birthday_month
+    : 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.months_in_current_quarter: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.payment_includes_statutory_additional_benefit: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.person_knew_receipt_was_without_entitlement: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.person_received_child_or_youth_benefit_without_entitlement
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.quarterly_child_benefit_amount: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.youth_benefit_right_ends_in_current_month: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#child_benefit_for_fifteenth_birthday_quarter: 0
+- name: auto_zero_youth_benefit_for_eighteenth_birthday_month
+  period:
+    period_kind: month
+    start: '2012-01-01'
+    end: '2012-01-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.child_turns_eighteenth_birthday_in_current_month: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.child_turns_fifteenth_birthday_in_current_quarter: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_is_latest_non_saturday_weekday_before_cutoff
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_day_of_month: 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_month_follows_month_in_which_child_turned_fifteenth_birthday
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_payment_calendar_year: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_payment_quarter_number: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_month: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_quarter: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_period_is_quarter_first_month: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.current_quarter_follows_quarter_in_which_child_benefit_right_was_acquired
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.days_from_month_start_through_eighteenth_birthday: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.days_in_current_month: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.monthly_youth_benefit_amount: 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.months_from_quarter_start_through_fifteenth_birthday_month
+    : 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.months_in_current_quarter: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.payment_includes_statutory_additional_benefit: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.person_knew_receipt_was_without_entitlement: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.person_received_child_or_youth_benefit_without_entitlement
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.quarterly_child_benefit_amount: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#input.youth_benefit_right_ends_in_current_month: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5#youth_benefit_for_eighteenth_birthday_month: 0
