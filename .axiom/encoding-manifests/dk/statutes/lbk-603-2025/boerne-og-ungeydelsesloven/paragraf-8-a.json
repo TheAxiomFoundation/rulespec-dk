@@ -2,11 +2,11 @@
   "applied_files": [
     {
       "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a.yaml",
-      "sha256": "95178c7e20f9b1547b733cd1c1299335ea6c1856b5a1b09fdadbfcac5becdd57"
+      "sha256": "3728e219c341d95858d34dcd9802f4eddd9127e3cc0d432fb7f7141a1f44b901"
     },
     {
       "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a.test.yaml",
-      "sha256": "c60f2a330eadedc17d89fed29b2fe1b1f11f6e00eb88ae86485c46bcfaf1ccce"
+      "sha256": "1c2c9bdab12b085b75e15401cd2f417638bce50c337f6c763f50b2392fee5580"
     }
   ],
   "axiom_encode_git": {
@@ -21,20 +21,20 @@
   "backend": "openai",
   "citation": "dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a",
   "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-8-a/workspace/context-manifest.json",
-  "context_manifest_sha256": "d4b1a87bd2eaefbdbf79a1a0acdb5f33ecd90a2d9bee260bd00f9a7c0fd358e0",
-  "generated_at": "2026-08-18T20:12:24.752832+00:00",
+  "context_manifest_sha256": "edeab0d0954949755381daf201a7a13cf8497a0307f1ed3ee6fba3274bc55a78",
+  "generated_at": "2026-08-18T20:51:43.130870+00:00",
   "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a.yaml",
   "generated_output_root": "/home/runner/work/_temp/generated/target",
-  "generated_output_sha256": "95178c7e20f9b1547b733cd1c1299335ea6c1856b5a1b09fdadbfcac5becdd57",
-  "generation_prompt_sha256": "4691ee29a17ecd81edc77838f4ae1f69893a78f297426ae3820db7d14242f326",
+  "generated_output_sha256": "3728e219c341d95858d34dcd9802f4eddd9127e3cc0d432fb7f7141a1f44b901",
+  "generation_prompt_sha256": "394ae95ad703e1d5cb44d457426016a3e0287af1c48d1a7212c235d42b800b9e",
   "model": "gpt-5.6-terra",
-  "run_id": "8a0ac123",
+  "run_id": "68daf650",
   "runner": "openai-gpt-5.6-terra",
   "schema_version": "axiom-encode/applied-rulespec/v5",
   "signature": {
     "algorithm": "ed25519-domain-v1",
     "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
-    "value": "vgBmpS503bYCb7Ot8iSR3X6eqtTcRv+xFhjn9GCsiYSPuB2l5TAY9KjJ6flfThRPJB/WKMhrlvffVGfx+LwxAA=="
+    "value": "Reu1Z7/0wQSGOgvOvnqTXlYd/CC+dpFqhExZz6JduLqxK9TmAj8WVw7xEi1kYOx5h4Ib0LRYFrmWTCtwwdQ3BA=="
   },
   "source_attestation": {
     "component_rows": [],
@@ -69,7 +69,7 @@
   },
   "tool": "axiom-encode encode --apply",
   "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-8-a.json",
-  "trace_sha256": "8483af4416b342da19b6c3f4e33398e0b7bf1c4bafac2bb39068230a9ec77ce4",
+  "trace_sha256": "073cac7631fe5e8a52e89e907ca24570ce5f12127c07c8245614ab4859b5afa9",
   "validation_execution": {
     "axiom_encode": {
       "commit": "a249d1da92a4d97e2bfa09be1a76592f278b71eb",
@@ -82,7 +82,7 @@
       "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
     },
     "policy_pre_apply": {
-      "pre_apply_content_sha256": "2a47df28bafb5f738df0e0bee525c8492dde96b626408883f5b84ee6f18bb454",
+      "pre_apply_content_sha256": "8e1485498fae17d8b2955af64b6b013636a9418035bfb27385e4ead1d282e249",
       "pre_apply_file_count": 29,
       "rulespec_root": "rulespec-dk/dk",
       "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
