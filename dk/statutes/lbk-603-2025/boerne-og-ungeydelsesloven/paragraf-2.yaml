@@ -5,18 +5,16 @@ module:
   source_verification:
     corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
     source_sha256: 5932ffa55798c79a1f656ab11032a06533fd32d6f0852e86305bff68d1c3a0d5
-  summary: 'Retten til børne- og ungeydelse afhænger af § 2, stk. 1''s betingelser.
-    Når ingen
+  summary: 'Retten til børne- og ungeydelse er betinget af § 2, stk. 1''s betingelser.
 
-    person med forsørgelsespligt opfylder seksårskravet, følger den forholdsmæssige
+    Hvis seksårsperioden for bopæl eller beskæftigelse ikke er opfyldt, udbetales
 
-    andel den højeste bopæls- eller beskæftigelsesoptjening blandt disse personer
+    den højeste relevante forholdsmæssige andel fra stk. 2. Kortvarigt
 
-    inden for de seneste 10 år. Kortvarige og bestemte uddannelsesophold i udlandet
+    udlandsophold og et nærmere bestemt uddannelsesophold kan opfylde
 
-    kan opfylde opholdsbetingelsen, undtagen ved ulovligt skolefravær for
-
-    undervisningspligtige børn.'
+    opholdsbetingelsen, undtagen ved ulovligt skolefravær for undervisningspligtige
+    børn.'
 rules:
 - name: residence_or_employment_lookback_years
   kind: parameter
@@ -181,14 +179,12 @@ rules:
         kind: ordering
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: Efter 6 måneders bopæl eller beskæftigelse her i riget inden for
-            de seneste 10 år
+          excerpt: Efter 6 måneders bopæl eller beskæftigelse
       - path: versions[0].formula
         kind: definition
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: mindst en af de personer, der har forsørgelsespligten over for
-            barnet
+          excerpt: personer, der har forsørgelsespligten over for barnet
   versions:
   - effective_from: '2025-05-12'
     formula: 'if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
@@ -246,13 +242,13 @@ rules:
         kind: exception
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: finder 1. pkt. ikke anvendelse, hvis der er tale om ulovligt skolefravær
+          excerpt: ulovligt skolefravær
   versions:
   - effective_from: '2025-05-12'
-    formula: "child_actually_resides_in_denmark\nor (\n  (child_is_short_term_abroad\
-      \ or child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects)\n\
-      \  and not (child_is_subject_to_compulsory_schooling and child_has_unlawful_school_absence)\n\
-      )"
+    formula: "child_actually_resides_in_denmark\nor (\n  (\n    child_is_short_term_abroad\n\
+      \    or child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects\n\
+      \  )\n  and not (\n    child_is_subject_to_compulsory_schooling\n    and child_has_unlawful_school_absence\n\
+      \  )\n)"
 - name: non_duration_entitlement_conditions_met
   kind: derived
   entity: Person
@@ -266,12 +262,35 @@ rules:
         kind: condition
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: Retten til børne- og ungeydelsen er betinget af
+          excerpt: fuldt skattepligtig efter kildeskattelovens § 1
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: barnet ikke har indgået ægteskab
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: ikke er anbragt uden for hjemmet
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: ikke skal udbetales
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: ungeydelsen skal standses
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: standsning af børneydelsen
   versions:
   - effective_from: '2025-05-12'
     formula: 'caretaker_is_fully_tax_liable_under_kildeskatteloven_section_1
-
-      and child_presence_requirement_met
 
       and not child_has_entered_marriage
 
@@ -295,26 +314,31 @@ rules:
   entity: Person
   dtype: Judgment
   period: Month
-  source: § 2, stk. 1-2
+  source: § 2, stk. 1 og stk. 2
   metadata:
     proof:
       atoms:
       - path: versions[0].formula
-        kind: condition
+        kind: formula
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: Er betingelsen i stk. 1, nr. 7, ikke opfyldt, udbetales følgende
-            forholdsmæssige andel
+          excerpt: Retten til børne- og ungeydelsen er betinget af
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: Er betingelsen i stk. 1, nr. 7, ikke opfyldt
   versions:
   - effective_from: '2025-05-12'
-    formula: "non_duration_entitlement_conditions_met\nand (\n  at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement\n\
+    formula: "child_presence_requirement_met\nand non_duration_entitlement_conditions_met\n\
+      and (\n  at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement\n\
       \  or partial_entitlement_duration_band >= 0\n)"
 - name: child_or_youth_benefit_payment_fraction
   kind: derived
   entity: Person
   dtype: Rate
   period: Month
-  source: § 2, stk. 1, nr. 7, og stk. 2
+  source: § 2, stk. 2
   metadata:
     proof:
       atoms:
