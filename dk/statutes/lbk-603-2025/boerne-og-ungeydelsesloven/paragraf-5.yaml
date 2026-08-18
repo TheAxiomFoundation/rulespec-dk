@@ -1,0 +1,297 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+    source_sha256: 6bfe19e2ed661875e80a85edf7bb20e9d0bad6d5275e4ea1b4b11f7868bd0e6d
+  summary: »Børneydelsen udbetales kvartalsvis den seneste hverdag, dog undtaget lørdag,
+    forud for den 21. i kvartalets første måned.« Ungeydelsen udbetales månedsvis.
+    Bestemmelsen fastsætter første og sidste udbetaling, forholdsmæssige ydelser ved
+    det fyldte 15. og 18. år med afrunding til hele kroner samt tilbagebetaling ved
+    mod bedre vidende uberettiget modtagelse.
+rules:
+- name: payment_cutoff_day_of_month
+  kind: parameter
+  dtype: Integer
+  source: § 5, stk. 3-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: forud for den 21.
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '21'
+- name: first_month_of_quarter
+  kind: parameter
+  dtype: Integer
+  source: § 5, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: kvartalets første måned
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '1'
+- name: child_benefit_cessation_age
+  kind: parameter
+  dtype: Integer
+  source: § 5, stk. 3, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: barnet fylder 15 år
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '15'
+- name: youth_benefit_cessation_age
+  kind: parameter
+  dtype: Integer
+  source: § 5, stk. 4, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: barnet fylder 18 år
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '18'
+- name: statutory_increase_payment_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 5, stk. 3-4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: 1. kvartal 2023
+  versions:
+  - effective_from: '2023-01-01'
+    formula: '2023'
+- name: child_benefit_regular_payment_due
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 5, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: den seneste hverdag, dog undtaget lørdag, forud for den 21. i kvartalets
+            første måned
+  versions:
+  - effective_from: '2025-05-12'
+    formula: day_is_latest_non_saturday_weekday_before_twenty_first_of_quarter_first_month
+- name: youth_benefit_regular_payment_due
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 5, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: den seneste hverdag, dog undtaget lørdag, forud for den 21. i måneden
+  versions:
+  - effective_from: '2025-05-12'
+    formula: day_is_latest_non_saturday_weekday_before_twenty_first_of_month
+- name: child_benefit_first_payment_due
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 5, stk. 3, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: første gang for det kvartal, der følger efter det kvartal, i hvilket
+            retten til ydelsen er erhvervet
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Børneydelsen udbetales kvartalsvis
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'child_benefit_regular_payment_due
+
+      and current_quarter_follows_quarter_right_to_child_benefit_was_acquired'
+- name: youth_benefit_first_payment_due
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 5, stk. 4, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: første gang for den måned, der følger efter den måned, hvor barnet
+            fylder 15 år
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'youth_benefit_regular_payment_due
+
+      and current_month_follows_month_child_turned_fifteen'
+- name: youth_benefit_final_payment_due
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 5, stk. 4, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: sidste gang for den måned, i hvilket retten til ydelsen ophører
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'youth_benefit_regular_payment_due
+
+      and right_to_youth_benefit_ends_in_current_month'
+- name: statutory_increase_payment_due
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 5, stk. 3-4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: udbetales i forbindelse med udbetalingen i 1. kvartal 2023
+  versions:
+  - effective_from: '2023-01-01'
+    formula: 'payment_is_referenced_statutory_increase
+
+      and day_is_payment_day_in_referenced_first_quarter'
+- name: child_benefit_fifteenth_birthday_quarter_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 5, stk. 3, 4.-5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: forholdsmæssig andel af et kvartals ydelse, der svarer til antallet
+            af måneder
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Beløbet afrundes til hele kroner
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "if child_turns_fifteen_in_current_quarter:\n  floor(\n    (\n      quarterly_child_benefit_amount\n\
+      \      * months_from_quarter_start_through_fifteenth_birthday_month\n      /\
+      \ months_in_current_quarter\n    ) + (1 / 2)\n  )\nelse: 0"
+- name: youth_benefit_eighteenth_birthday_month_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 5, stk. 4, 4.-5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: forholdsmæssig andel af en måneds ydelse, der svarer til antallet
+            af dage
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Beløbet afrundes til hele kroner
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "if child_turns_eighteen_in_current_month:\n  floor(\n    (\n      monthly_youth_benefit_amount\n\
+      \      * days_from_month_start_through_eighteenth_birthday\n      / days_in_current_month\n\
+      \    ) + (1 / 2)\n  )\nelse: 0"
+- name: improperly_received_benefit_repayment_required
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 5, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: Har nogen mod bedre vidende uberettiget modtaget børne- og ungeydelsen,
+            skal beløbet tilbagebetales
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'person_improperly_received_child_or_youth_benefit
+
+      and person_knew_receipt_was_improper'
+- name: improperly_received_benefit_repayment_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: § 5, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-5
+          excerpt: skal beløbet tilbagebetales
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "if person_improperly_received_child_or_youth_benefit and person_knew_receipt_was_improper:\n\
+      \  improperly_received_child_or_youth_benefit_amount\nelse: 0"
