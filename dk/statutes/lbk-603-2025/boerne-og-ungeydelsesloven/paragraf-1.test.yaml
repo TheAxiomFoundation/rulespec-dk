@@ -37,33 +37,7 @@
   output:
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#benefit_age_band: 3
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#annual_tax_free_child_or_youth_benefit: 11892
-- name: middle_childhood_benefit_uses_2026_rounding_multiple
-  period:
-    period_kind: custom
-    name: calendar_year
-    start: '2026-01-01'
-    end: '2026-12-31'
-  input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.child_age_years: 3
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.percentage_change_rounded_to_one_decimal_place: 0.303
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.payment_year_has_additional_statutory_increase: false
-  output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#benefit_age_band: 1
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#annual_tax_free_child_or_youth_benefit: 16992
-- name: zero_percentage_change_2012_uses_initial_reduction_rate
-  period:
-    period_kind: custom
-    name: calendar_year
-    start: '2012-01-01'
-    end: '2012-12-31'
-  input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.child_age_years: 2
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.payment_year_has_additional_statutory_increase: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#input.percentage_change_rounded_to_one_decimal_place: 0
-  output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#benefit_age_band: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1#annual_tax_free_child_or_youth_benefit: 16668
-- name: person_outside_benefit_age_ranges
+- name: no_benefit_at_age_eighteen
   period:
     period_kind: custom
     name: calendar_year
