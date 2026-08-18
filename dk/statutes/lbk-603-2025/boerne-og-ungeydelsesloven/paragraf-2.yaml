@@ -5,12 +5,18 @@ module:
   source_verification:
     corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
     source_sha256: 5932ffa55798c79a1f656ab11032a06533fd32d6f0852e86305bff68d1c3a0d5
-  summary: Retten til børne- og ungeydelsen er betinget af de angivne skatte-, opholds-,
-    civilstands-, forsørgelses- og kommunale afgørelsesbetingelser. Er seksårsbetingelsen
-    ikke opfyldt, udbetales en forholdsmæssig andel efter 6-66 måneders bopæl eller
-    beskæftigelse inden for de seneste 10 år. Kortvarigt eller uddannelsesbetinget
-    midlertidigt udlandsophold kan opfylde opholdsbetingelsen, dog ikke ved ulovligt
-    skolefravær for undervisningspligtige børn.
+  summary: 'Retten til børne- og ungeydelse afhænger af § 2, stk. 1''s betingelser.
+    Når ingen
+
+    person med forsørgelsespligt opfylder seksårskravet, følger den forholdsmæssige
+
+    andel den højeste bopæls- eller beskæftigelsesoptjening blandt disse personer
+
+    inden for de seneste 10 år. Kortvarige og bestemte uddannelsesophold i udlandet
+
+    kan opfylde opholdsbetingelsen, undtagen ved ulovligt skolefravær for
+
+    undervisningspligtige børn.'
 rules:
 - name: residence_or_employment_lookback_years
   kind: parameter
@@ -83,7 +89,7 @@ rules:
         kind: parameter
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: lov om kommunal indsats for unge under 25 år
+          excerpt: unge under 25 år
   versions:
   - effective_from: '2025-05-12'
     formula: '25'
@@ -132,53 +138,6 @@ rules:
       8: 54
       9: 60
       10: 66
-- name: partial_entitlement_duration_band
-  kind: derived
-  entity: Person
-  dtype: Integer
-  period: Month
-  source: § 2, stk. 2, nr. 1-11
-  metadata:
-    proof:
-      atoms:
-      - path: versions[0].formula
-        kind: ordering
-        source:
-          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-  versions:
-  - effective_from: '2025-05-12'
-    formula: 'if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[10]:
-      10 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[9]:
-      9 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[8]:
-      8 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[7]:
-      7 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[6]:
-      6 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[5]:
-      5 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[4]:
-      4 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[3]:
-      3 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[2]:
-      2 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[1]:
-      1 else:
-
-      if residence_or_employment_months_in_lookback >= partial_entitlement_duration_lower_bound[0]:
-      0 else: -1'
 - name: partial_entitlement_rate
   kind: parameter
   dtype: Rate
@@ -194,7 +153,7 @@ rules:
           table:
             header: forholdsmæssige andele af ydelsen
             row_key: nummereret andelstrin
-            column_key: procent af ydelsen
+            column_key: pct. af ydelsen
   versions:
   - effective_from: '2025-05-12'
     values:
@@ -209,6 +168,61 @@ rules:
       8: 0.75
       9: 0.833
       10: 0.917
+- name: partial_entitlement_duration_band
+  kind: derived
+  entity: Person
+  dtype: Integer
+  period: Month
+  source: § 2, stk. 2, nr. 1-11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: Efter 6 måneders bopæl eller beskæftigelse her i riget inden for
+            de seneste 10 år
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
+          excerpt: mindst en af de personer, der har forsørgelsespligten over for
+            barnet
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[10]: 10 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[9]: 9 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[8]: 8 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[7]: 7 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[6]: 6 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[5]: 5 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[4]: 4 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[3]: 3 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[2]: 2 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[1]: 1 else:
+
+      if maximum_residence_or_employment_months_among_maintenance_duty_holders_in_lookback
+      >= partial_entitlement_duration_lower_bound[0]: 0 else: -1'
 - name: child_presence_requirement_met
   kind: derived
   entity: Person
@@ -232,13 +246,13 @@ rules:
         kind: exception
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: ulovligt skolefravær
+          excerpt: finder 1. pkt. ikke anvendelse, hvis der er tale om ulovligt skolefravær
   versions:
   - effective_from: '2025-05-12'
-    formula: "child_actually_resides_in_denmark\nor (\n  (\n    child_is_short_term_abroad\n\
-      \    or child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects\n\
-      \  )\n  and (\n    not child_is_subject_to_compulsory_schooling\n    or not\
-      \ child_has_unlawful_school_absence\n  )\n)"
+    formula: "child_actually_resides_in_denmark\nor (\n  (child_is_short_term_abroad\
+      \ or child_is_temporarily_abroad_for_education_to_improve_continued_residence_prospects)\n\
+      \  and not (child_is_subject_to_compulsory_schooling and child_has_unlawful_school_absence)\n\
+      )"
 - name: non_duration_entitlement_conditions_met
   kind: derived
   entity: Person
@@ -252,28 +266,7 @@ rules:
         kind: condition
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: er fuldt skattepligtig efter kildeskattelovens § 1
-      - path: versions[0].formula
-        kind: condition
-        source:
-          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: barnet ikke har indgået ægteskab
-      - path: versions[0].formula
-        kind: condition
-        source:
-          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: ikke er anbragt uden for hjemmet
-      - path: versions[0].formula
-        kind: condition
-        source:
-          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: kommunalbestyrelsen ikke
-      - path: versions[0].formula
-        kind: condition
-        source:
-          corpus_citation_path: dk/statute/lov-1642-2025/aendring-af-boerne-og-ungeydelsesloven-mv/aendringcentreretparagraf-1
-          excerpt: 'ændres »§ 155 c i lov om social service« til: »§ 134 i barnets
-            lov«'
+          excerpt: Retten til børne- og ungeydelsen er betinget af
   versions:
   - effective_from: '2025-05-12'
     formula: 'caretaker_is_fully_tax_liable_under_kildeskatteloven_section_1
@@ -307,10 +300,11 @@ rules:
     proof:
       atoms:
       - path: versions[0].formula
-        kind: formula
+        kind: condition
         source:
           corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2
-          excerpt: hvis betingelserne herfor i øvrigt er opfyldt
+          excerpt: Er betingelsen i stk. 1, nr. 7, ikke opfyldt, udbetales følgende
+            forholdsmæssige andel
   versions:
   - effective_from: '2025-05-12'
     formula: "non_duration_entitlement_conditions_met\nand (\n  at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement\n\
@@ -320,7 +314,7 @@ rules:
   entity: Person
   dtype: Rate
   period: Month
-  source: § 2, stk. 1-2
+  source: § 2, stk. 1, nr. 7, og stk. 2
   metadata:
     proof:
       atoms:
@@ -331,11 +325,9 @@ rules:
           excerpt: udbetales følgende forholdsmæssige andel af ydelsen
   versions:
   - effective_from: '2025-05-12'
-    formula: 'if not non_duration_entitlement_conditions_met: 0 else:
+    formula: 'if not child_or_youth_benefit_payment_entitlement: 0 else:
 
       if at_least_one_person_with_maintenance_duty_meets_full_residence_or_employment_requirement:
       1 else:
-
-      if partial_entitlement_duration_band == -1: 0 else:
 
       partial_entitlement_rate[partial_entitlement_duration_band]'
