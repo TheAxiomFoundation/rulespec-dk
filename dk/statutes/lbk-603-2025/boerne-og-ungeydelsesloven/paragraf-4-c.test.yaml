@@ -1,0 +1,73 @@
+- name: repayment_required_when_benefit_recipient_has_listed_final_conviction
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.benefit_recipient_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.child_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#repayment_of_child_or_youth_benefit_required: holds
+- name: repayment_required_when_child_has_listed_final_conviction
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.benefit_recipient_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.child_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#repayment_of_child_or_youth_benefit_required: holds
+- name: repayment_not_required_without_listed_final_conviction
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.benefit_recipient_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.child_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#repayment_of_child_or_youth_benefit_required: not_holds
+- name: repayment_decision_required_for_convicted_person
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.person_paid_child_or_youth_benefit_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#repayment_decision_for_convicted_person_required: holds
+- name: repayment_decision_not_required_without_conviction
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.person_paid_child_or_youth_benefit_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#repayment_decision_for_convicted_person_required: not_holds
+- name: replacement_payment_required_after_repayment
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.repayment_under_subsection_1_first_sentence_has_occurred
+    : true
+  output:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#replacement_payment_to_person_with_whom_child_lives_required
+    : holds
+- name: replacement_payment_not_required_before_repayment
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.repayment_under_subsection_1_first_sentence_has_occurred
+    : false
+  output:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#replacement_payment_to_person_with_whom_child_lives_required
+    : not_holds
+- name: direct_payment_to_child_may_be_determined_when_best_for_child
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.repayment_under_subsection_1_first_sentence_has_occurred
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.direct_payment_to_child_is_deemed_best_for_child: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#direct_payment_to_child_may_be_determined: holds
+- name: direct_payment_to_child_may_not_be_determined_when_not_best_for_child
+  period: 2025-05
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.repayment_under_subsection_1_first_sentence_has_occurred
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#input.direct_payment_to_child_is_deemed_best_for_child: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c#direct_payment_to_child_may_be_determined: not_holds

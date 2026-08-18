@@ -1,0 +1,129 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+    source_sha256: aa92cab270b97deb9ef7df92dc2f1eb7bdb4a3702d3b152424f17b237bb7f5ae
+  summary: '"Der skal ske tilbagebetaling af børne- og ungeydelse udbetalt for en
+    periode" når ydelsesmodtageren eller barnet ved endelig dom er omfattet af de
+    nævnte strafbare forhold. Udbetaling Danmark træffer afgørelse om tilbagebetaling
+    til personen. Efter tilbagebetaling efter stk. 1, 1. pkt., udbetales ydelsen for
+    perioden til den person, som barnet bor hos, og Udbetaling Danmark kan bestemme
+    udbetaling til barnet selv, hvis det skønnes bedst for barnet.'
+rules:
+- name: criminal_code_section_114
+  kind: parameter
+  dtype: Integer
+  source: § 4 c, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: 3, §§ 114 d, 114 e eller 114 g for forhold begået i udlandet, straffelovens
+            § 114 j, stk.
+  versions:
+  - effective_from: '2025-05-12'
+    formula: '114'
+- name: repayment_of_child_or_youth_benefit_required
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 4 c, stk. 1, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: Der skal ske tilbagebetaling af børne- og ungeydelse
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: ydelsesmodtageren ved endelig dom findes at have overtrådt
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: 1. pkt. gælder tilsvarende, hvis barnet
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'benefit_recipient_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+
+      or child_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1'
+- name: repayment_decision_for_convicted_person_required
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 4 c, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: Udbetaling Danmark skal træffe afgørelse om tilbagebetaling
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: personen er dømt for overtrædelse af de i stk. 1 nævnte bestemmelser
+  versions:
+  - effective_from: '2025-05-12'
+    formula: person_paid_child_or_youth_benefit_has_final_conviction_or_exit_ban_breach_listed_in_subsection_1
+- name: replacement_payment_to_person_with_whom_child_lives_required
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 4 c, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: Er der sket tilbagebetaling efter stk. 1, 1. pkt.
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: udbetales børne- og ungeydelsen for perioden til den person, som
+            barnet bor hos
+  versions:
+  - effective_from: '2025-05-12'
+    formula: repayment_under_subsection_1_first_sentence_has_occurred
+- name: direct_payment_to_child_may_be_determined
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 4 c, stk. 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: hvis det skønnes bedst for barnet
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-c
+          excerpt: kan bestemme, at børne- og ungeydelsen skal udbetales til barnet
+            selv
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'repayment_under_subsection_1_first_sentence_has_occurred
+
+      and direct_payment_to_child_is_deemed_best_for_child'
