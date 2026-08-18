@@ -11,7 +11,7 @@ jobs:
     uses: TheAxiomFoundation/.github/.github/workflows/validate-rulespec.yml@842c69d6aa62a0d75a4da850fabc3d0df20701d7
     secrets: inherit
     with:
-      axiom-encode-ref: f012327074e0e0d8297c327a1a06df96ad4a57ef
+      axiom-encode-ref: a249d1da92a4d97e2bfa09be1a76592f278b71eb
       axiom-rules-engine-ref: 05eac9d2f89dabe5c6673176260762cef3a58f47
       axiom-corpus-ref: 1f32d9ab0cc84d78abb7ac1d2436fad049052a58
       rulespec-us-ref: 0f291b367bf7e15555f9973112278c5cbf221653
@@ -19,7 +19,7 @@ jobs:
       # Changed-mode guard: any PR that touches a protected module must
       # carry its supervised apply manifest. The encoder ref above must match
       # the encoder identity inside those manifests — wave-2 CI encodes run at
-      # encode main, so the pin tracks the sha the reencode runs used
+      # encode main, so the pin tracks the sha the reencode runs used —
       # (rulespec-dk#18 was rejected at the stale 19dfdf2e pin for exactly
       # this). Pre-manifest modules (p1/p1a, reviewed + release-validated,
       # rulespec-dk#14) stay manifest-free until changed. Hand-authored
