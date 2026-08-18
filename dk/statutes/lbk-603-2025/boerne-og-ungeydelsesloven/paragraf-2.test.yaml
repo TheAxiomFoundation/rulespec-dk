@@ -1,0 +1,108 @@
+- name: residence_requirement_met_by_actual_residence
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_qualifying_education: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_education: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_residence_requirement_met: holds
+- name: temporary_educational_absence_meets_residence_requirement
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_qualifying_education: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_education: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_residence_requirement_met: holds
+- name: unlawful_school_absence_blocks_temporary_foreign_residence_exception
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_qualifying_education: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_education: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_residence_requirement_met: not_holds
+- name: partial_benefit_at_first_residence_month_threshold
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_months_within_last_ten_years: 6
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_requirement_of_six_years_met: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#residence_or_employment_month_band: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_and_youth_benefit_payment_share: 0.083
+- name: no_qualifying_residence_or_employment_history
+  period: 2025-06
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_months_within_last_ten_years: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_requirement_of_six_years_met: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#residence_or_employment_month_band: -1
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_and_youth_benefit_payment_share: 0
+- name: all_conditions_make_child_and_youth_benefit_available
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.caregiver_is_fully_tax_liabile_under_kildeskatteloven_section_1
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_qualifying_education: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_education: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_not_entered_marriage: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_not_placed_outside_home_under_barnets_lov: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_not_in_residential_measure_with_custody_holder
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_not_otherwise_maintained_by_public_funds: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_parental_order_noncompliance_payment_stop
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_youth_activity_noncompliance_payment_stop
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_months_within_last_ten_years: 72
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_requirement_of_six_years_met: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_daycare_section_12_payment_stop
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_daycare_section_44_e_payment_stop
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_social_service_payment_stop
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#residence_or_employment_month_band: 10
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_residence_requirement_met: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_and_youth_benefit_available: holds
+- name: failed_conditions_make_child_and_youth_benefit_unavailable
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.caregiver_is_fully_tax_liabile_under_kildeskatteloven_section_1
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_actually_resides_in_denmark: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_temporarily_abroad_for_qualifying_education: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_subject_to_compulsory_education: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_unlawful_school_absence: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_has_not_entered_marriage: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_not_placed_outside_home_under_barnets_lov: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_not_in_residential_measure_with_custody_holder
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.child_is_not_otherwise_maintained_by_public_funds: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_parental_order_noncompliance_payment_stop
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_youth_activity_noncompliance_payment_stop
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_months_within_last_ten_years: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.residence_or_employment_requirement_of_six_years_met: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_daycare_section_12_payment_stop
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_daycare_section_44_e_payment_stop
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#input.municipality_has_not_notified_social_service_payment_stop
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#residence_or_employment_month_band: -1
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_residence_requirement_met: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2#child_and_youth_benefit_available: not_holds
