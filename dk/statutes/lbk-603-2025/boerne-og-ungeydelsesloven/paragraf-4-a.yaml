@@ -1,0 +1,209 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+    source_sha256: 07c8c623bc87641d3df36a0eb1b53f3c88138f04fe4d423f0090ff5af03d9850
+  summary: Udbetaling ophører ved politiets pasinddragelse efter paslovens § 2, stk.
+    1, nr. 4. Børneydelse ophører fra næste kvartal og ungeydelse fra næste måned.
+    Ydelsen omdirigeres til den person, barnet bor hos, eller efter Udbetaling Danmarks
+    skøn til barnet. Omgørelse eller ophævelse giver ikke efterbetaling. Fornyet udbetaling
+    kræver dokumenteret fremmøde hos politiet.
+rules:
+- name: passport_withdrawal_stops_benefit_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: hvis politiet træffer afgørelse om inddragelse af ydelsesmodtagerens
+            pas
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: i medfør af § 2, stk. 1, nr. 4, i lov om pas til danske statsborgere
+            m.v.
+  versions:
+  - effective_from: '2025-05-12'
+    formula: police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+- name: child_benefit_payment_ceases_from_following_quarter
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: fra det kvartal, der følger efter det kvartal
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: hvor ydelsesmodtageren har fået inddraget sit pas
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+
+      and current_quarter_follows_quarter_of_passport_withdrawal'
+- name: youth_benefit_payment_ceases_from_following_month
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 1, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: fra den måned, der følger efter måneden
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: hvor ydelsesmodtageren har fået inddraget sit pas
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+
+      and current_month_follows_month_of_passport_withdrawal'
+- name: benefit_redirected_to_person_child_lives_with
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: Er udbetalingen ophørt efter stk. 1
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: udbetales børne- og ungeydelsen til den person, som barnet bor
+            hos
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'payment_has_ceased_after_passport_withdrawal
+
+      and person_is_person_child_lives_with'
+- name: direct_payment_to_child_may_be_determined
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: hvis det skønnes bedst for barnet
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: børne- og ungeydelsen skal udbetales til barnet selv
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'payment_has_ceased_after_passport_withdrawal
+
+      and udbetaling_danmark_considers_direct_payment_best_for_child'
+- name: benefit_not_repaid_after_passport_withdrawal_reversed
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: Omgøres en afgørelse om inddragelse af ydelsesmodtagerens pas
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: 4, i lov om pas til danske statsborgere m.v., eller ophæves den
+            under en efterfølgende domstolsprøvelse, efterbetales børne- og ungeydelsen,
+            der ikke er udbetalt til ydelsesmodtageren under ophøret, jf. stk.
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'passport_withdrawal_decision_has_been_reversed_or_set_aside
+
+      and benefit_was_not_paid_to_original_recipient_during_cessation'
+- name: renewed_payment_requires_documented_police_attendance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: Er udbetalingen ophørt efter stk. 1
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: har dokumenteret sin tilstedeværelse i Danmark ved fremmøde hos
+            politiet
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'payment_has_ceased_after_passport_withdrawal
+
+      and recipient_has_documented_presence_in_denmark_by_attendance_at_police'
+- name: redirected_payment_ends_when_recipient_payment_resumes
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 a, stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: Udbetaling efter stk. 2 ophører
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a
+          excerpt: 1, opnår fornyet udbetaling efter 1. pkt.
+  versions:
+  - effective_from: '2025-05-12'
+    formula: 'payment_has_ceased_after_passport_withdrawal
+
+      and payment_to_original_recipient_has_resumed_after_documented_police_attendance'
