@@ -1,0 +1,128 @@
+- name: passport_withdrawal_stops_payment
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#passport_withdrawal_stops_benefit_payment: holds
+- name: no_passport_withdrawal_does_not_stop_payment
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#passport_withdrawal_stops_benefit_payment: not_holds
+- name: child_benefit_ceases_in_following_quarter
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.current_quarter_follows_quarter_of_passport_withdrawal
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#child_benefit_payment_ceases_from_following_quarter: holds
+- name: child_benefit_does_not_cease_in_withdrawal_quarter
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.current_quarter_follows_quarter_of_passport_withdrawal
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#child_benefit_payment_ceases_from_following_quarter: not_holds
+- name: youth_benefit_ceases_in_following_month
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.current_month_follows_month_of_passport_withdrawal: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#youth_benefit_payment_ceases_from_following_month: holds
+- name: youth_benefit_does_not_cease_in_withdrawal_month
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_number_4
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.current_month_follows_month_of_passport_withdrawal: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#youth_benefit_payment_ceases_from_following_month: not_holds
+- name: benefit_is_redirected_to_person_child_lives_with
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.person_is_person_child_lives_with: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#benefit_redirected_to_person_child_lives_with: holds
+- name: benefit_is_not_redirected_to_person_child_does_not_live_with
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.person_is_person_child_lives_with: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#benefit_redirected_to_person_child_lives_with: not_holds
+- name: direct_payment_to_child_may_be_determined
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.udbetaling_danmark_considers_direct_payment_best_for_child
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#direct_payment_to_child_may_be_determined: holds
+- name: direct_payment_to_child_is_not_determined_without_best_interest_assessment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.udbetaling_danmark_considers_direct_payment_best_for_child
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#direct_payment_to_child_may_be_determined: not_holds
+- name: reversal_does_not_create_retroactive_payment
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.passport_withdrawal_decision_has_been_reversed_or_set_aside
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.benefit_was_not_paid_to_original_recipient_during_cessation
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#benefit_not_repaid_after_passport_withdrawal_reversed: holds
+- name: no_nonpayment_period_means_no_repayment_prohibition
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.passport_withdrawal_decision_has_been_reversed_or_set_aside
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.benefit_was_not_paid_to_original_recipient_during_cessation
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#benefit_not_repaid_after_passport_withdrawal_reversed: not_holds
+- name: documented_police_attendance_satisfies_renewal_condition
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.recipient_has_documented_presence_in_denmark_by_attendance_at_police
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#renewed_payment_requires_documented_police_attendance: holds
+- name: renewal_condition_fails_without_documented_police_attendance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.recipient_has_documented_presence_in_denmark_by_attendance_at_police
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#renewed_payment_requires_documented_police_attendance: not_holds
+- name: redirected_payment_ends_when_original_recipient_payment_resumes
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_to_original_recipient_has_resumed_after_documented_police_attendance
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#redirected_payment_ends_when_recipient_payment_resumes: holds
+- name: redirected_payment_continues_before_original_recipient_payment_resumes
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_has_ceased_after_passport_withdrawal: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.payment_to_original_recipient_has_resumed_after_documented_police_attendance
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#redirected_payment_ends_when_recipient_payment_resumes: not_holds
