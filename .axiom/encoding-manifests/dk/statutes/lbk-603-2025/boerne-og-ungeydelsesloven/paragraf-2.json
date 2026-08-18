@@ -2,11 +2,11 @@
   "applied_files": [
     {
       "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2.yaml",
-      "sha256": "a28171173310e1594290c95af9854f5d05a5c6bca14835409aef6bba9b134cbf"
+      "sha256": "ad5f521bb7ce30b39c555768f6adf76738a545d450896c70941158a31ba50036"
     },
     {
       "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2.test.yaml",
-      "sha256": "bf42e4541b0c5f44fb8b312b8309d0b0fe1c661be926d84e9b9c844e10b57de0"
+      "sha256": "e927793bf22d2a335a24ac208a96729231dabd4b0a91937020646f8d7ea35089"
     }
   ],
   "axiom_encode_git": {
@@ -20,21 +20,21 @@
   "axiom_encode_version": "0.2.1695",
   "backend": "openai",
   "citation": "dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2",
-  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-sol/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-2/workspace/context-manifest.json",
-  "context_manifest_sha256": "d59293cc5b57e00510ad33baa77019386c41e92a0dcb8793885bd7c110d8582a",
-  "generated_at": "2026-08-18T05:21:43.439217+00:00",
-  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-sol/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2.yaml",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-2/workspace/context-manifest.json",
+  "context_manifest_sha256": "92c7888ee8064cb695e5bad3efc02223071c710517d30ed2067ae2216b1e9fa3",
+  "generated_at": "2026-08-18T12:00:22.940515+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-2.yaml",
   "generated_output_root": "/home/runner/work/_temp/generated/target",
-  "generated_output_sha256": "a28171173310e1594290c95af9854f5d05a5c6bca14835409aef6bba9b134cbf",
-  "generation_prompt_sha256": "9829ff3abc0d1c9da86ce0804e4e6d51f09227de81a0123b2a2b5245a4b1bd77",
-  "model": "gpt-5.6-sol",
-  "run_id": "0511b741",
-  "runner": "openai-gpt-5.6-sol",
+  "generated_output_sha256": "ad5f521bb7ce30b39c555768f6adf76738a545d450896c70941158a31ba50036",
+  "generation_prompt_sha256": "8301c1d4cdf58fe88157eded5d24656fb550e5bf9a1f1010754baf5d0dac9f8d",
+  "model": "gpt-5.6-terra",
+  "run_id": "183e0e2b",
+  "runner": "openai-gpt-5.6-terra",
   "schema_version": "axiom-encode/applied-rulespec/v5",
   "signature": {
     "algorithm": "ed25519-domain-v1",
     "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
-    "value": "pisF+tgxOPqhKTv5GuF2n9alJ/s8iARl4CnMZqgE1u+//7//At4+hNTC86XbxkTU31YvCGWlHwfnmmJMKP1aBA=="
+    "value": "UKS/lce28Tjx+dO80ddbft6i5cLIpL0IHBzOGRRWapx+F81nQ4/G38FIv4/G+V0vwBbaQQk1mQC1yE+hukLQDg=="
   },
   "source_attestation": {
     "component_rows": [],
@@ -68,8 +68,8 @@
     "source_sha256": "5932ffa55798c79a1f656ab11032a06533fd32d6f0852e86305bff68d1c3a0d5"
   },
   "tool": "axiom-encode encode --apply",
-  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-sol/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-2.json",
-  "trace_sha256": "2e1f75b18243e6982b424e1fdd6f13c60dc206c4bc6caedd94bf25a35757a24a",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-2.json",
+  "trace_sha256": "1d638984e4a91a67cbab642ba321925f2d0fce22fae45c2a7cf639acacf53d31",
   "validation_execution": {
     "axiom_encode": {
       "commit": "a249d1da92a4d97e2bfa09be1a76592f278b71eb",
@@ -82,14 +82,14 @@
       "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
     },
     "policy_pre_apply": {
-      "pre_apply_content_sha256": "614721fe97fa18e73dbfd6084c1613618439de060196e88990e11d00c6be4585",
-      "pre_apply_file_count": 13,
+      "pre_apply_content_sha256": "60b9eaf93e4cb9ed506298302022364e658a1a94bce1c6090601e80a092ebe3b",
+      "pre_apply_file_count": 27,
       "rulespec_root": "rulespec-dk/dk",
       "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
       "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
     },
     "rulespec_dependencies": [],
-    "rulespec_scope": "full_checkout",
+    "rulespec_scope": "active_jurisdiction_and_country_ancestors",
     "schema": "axiom-encode/apply-validation-execution/v2"
   },
   "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
