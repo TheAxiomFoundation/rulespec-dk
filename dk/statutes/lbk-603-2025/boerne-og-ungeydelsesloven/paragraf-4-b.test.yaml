@@ -1,0 +1,119 @@
+- name: child_benefit_ceases_in_quarter_following_passport_withdrawal
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.police_has_made_passport_withdrawal_decision_under_passport_act_section_2_subsection_1_number_4_due_to_security_risk
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.current_month_is_in_quarter_following_quarter_of_passport_withdrawal
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#child_benefit_payment_ceased_due_to_passport_withdrawal: holds
+- name: child_benefit_does_not_cease_without_qualifying_passport_decision
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.police_has_made_passport_withdrawal_decision_under_passport_act_section_2_subsection_1_number_4_due_to_security_risk
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.current_month_is_in_quarter_following_quarter_of_passport_withdrawal
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#child_benefit_payment_ceased_due_to_passport_withdrawal: not_holds
+- name: child_benefit_does_not_cease_before_following_quarter
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.police_has_made_passport_withdrawal_decision_under_passport_act_section_2_subsection_1_number_4_due_to_security_risk
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.current_month_is_in_quarter_following_quarter_of_passport_withdrawal
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#child_benefit_payment_ceased_due_to_passport_withdrawal: not_holds
+- name: youth_benefit_ceases_in_month_following_passport_withdrawal
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.police_has_made_passport_withdrawal_decision_under_passport_act_section_2_subsection_1_number_4_due_to_security_risk
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.current_month_follows_month_of_passport_withdrawal: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#youth_benefit_payment_ceased_due_to_passport_withdrawal: holds
+- name: youth_benefit_does_not_cease_without_qualifying_passport_decision
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.police_has_made_passport_withdrawal_decision_under_passport_act_section_2_subsection_1_number_4_due_to_security_risk
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.current_month_follows_month_of_passport_withdrawal: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#youth_benefit_payment_ceased_due_to_passport_withdrawal: not_holds
+- name: youth_benefit_does_not_cease_before_following_month
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.police_has_made_passport_withdrawal_decision_under_passport_act_section_2_subsection_1_number_4_due_to_security_risk
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.current_month_follows_month_of_passport_withdrawal: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#youth_benefit_payment_ceased_due_to_passport_withdrawal: not_holds
+- name: unpaid_benefit_is_repaid_when_decision_is_reversed
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_reversed: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_annulled_on_subsequent_judicial_review
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.other_child_or_youth_benefit_payment_conditions_were_met_during_ceased_period
+    : true
+  output:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#unpaid_benefit_must_be_retroactively_paid_after_passport_decision_reversal
+    : holds
+- name: unpaid_benefit_is_repaid_when_decision_is_annulled_on_judicial_review
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_reversed: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_annulled_on_subsequent_judicial_review
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.other_child_or_youth_benefit_payment_conditions_were_met_during_ceased_period
+    : true
+  output:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#unpaid_benefit_must_be_retroactively_paid_after_passport_decision_reversal
+    : holds
+- name: unpaid_benefit_is_not_repaid_without_reversal_or_annulment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_reversed: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_annulled_on_subsequent_judicial_review
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.other_child_or_youth_benefit_payment_conditions_were_met_during_ceased_period
+    : true
+  output:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#unpaid_benefit_must_be_retroactively_paid_after_passport_decision_reversal
+    : not_holds
+- name: unpaid_benefit_is_not_repaid_when_other_conditions_were_not_met
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_reversed: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.passport_withdrawal_decision_has_been_annulled_on_subsequent_judicial_review
+    : false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.other_child_or_youth_benefit_payment_conditions_were_met_during_ceased_period
+    : false
+  output:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#unpaid_benefit_must_be_retroactively_paid_after_passport_decision_reversal
+    : not_holds
+- name: renewed_payment_condition_is_met_after_police_appearance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.payment_has_ceased_under_subsection_1: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.child_has_documented_presence_in_denmark_by_appearing_before_police
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#renewed_payment_condition_after_passport_withdrawal: holds
+- name: renewed_payment_condition_is_not_met_without_prior_cessation
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.payment_has_ceased_under_subsection_1: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.child_has_documented_presence_in_denmark_by_appearing_before_police
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#renewed_payment_condition_after_passport_withdrawal: not_holds
+- name: renewed_payment_condition_is_not_met_without_police_appearance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.payment_has_ceased_under_subsection_1: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#input.child_has_documented_presence_in_denmark_by_appearing_before_police
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-b#renewed_payment_condition_after_passport_withdrawal: not_holds
