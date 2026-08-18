@@ -1,0 +1,257 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+    source_sha256: f66738bfa034420caf74713a762e4fafa78ba44d1274ebe6c7efb363926f50dd
+  summary: § 4 e finder ikke anvendelse for domme om forhold begået inden 1. juli
+    2024. Ved endelig dom for en overtrædelse omfattet af straffelovens § 81 a ophører
+    børne- og ungeydelsen i tre år efter udstået frihedsberøvende straf. Børneydelse
+    ophører fra følgende kvartal og ungeydelse fra følgende måned. Stk. 2-4 regulerer
+    omdirigering, tilbagebetaling og genoptagelse.
+rules:
+- name: payment_cessation_period_years
+  kind: parameter
+  dtype: Integer
+  source: § 4 e, stk. 1, 2.-3. pkt. og stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: i en periode på 3 år
+  versions:
+  - effective_from: '2024-06-11'
+    formula: '3'
+- name: alternative_recipient_routing_subsection_number
+  kind: parameter
+  dtype: Integer
+  source: § 4 e, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: Stk. 2.
+  versions:
+  - effective_from: '2024-06-11'
+    formula: '2'
+- name: care_recipient_routing_reference_subsection_number
+  kind: parameter
+  dtype: Integer
+  source: § 4 e, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: jf. § 4, stk. 7
+  versions:
+  - effective_from: '2024-06-11'
+    formula: '7'
+- name: criminal_conviction_payment_disqualification_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 e, stk. 1, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: finder ikke anvendelse for domme, der vedrører forhold begået inden
+            1. juli 2024
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: ved endelig dom er idømt ubetinget fængselsstraf eller anden strafferetlig
+            retsfølge af frihedsberøvende karakter
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: en overtrædelse, der er omfattet af straffelovens § 81 a
+  versions:
+  - effective_from: '2024-06-11'
+    formula: 'offence_was_committed_on_or_after_statutory_commencement
+
+      and person_has_final_conviction_with_unconditional_imprisonment_or_other_detention
+
+      and conviction_offence_is_covered_by_straffeloven_section_81_a'
+- name: child_benefit_payment_ceases
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 e, stk. 1, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: Udbetaling af børneydelsen ophører fra det kvartal, der følger
+            efter det kvartal
+  versions:
+  - effective_from: '2024-06-11'
+    formula: 'criminal_conviction_payment_disqualification_applies
+
+      and current_payment_period_is_within_cessation_period
+
+      and current_quarter_follows_quarter_of_detention_completion'
+- name: youth_benefit_payment_ceases
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 e, stk. 1, 5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: Udbetaling af ungeydelsen ophører fra den måned, der følger efter
+            den måned
+  versions:
+  - effective_from: '2024-06-11'
+    formula: 'criminal_conviction_payment_disqualification_applies
+
+      and current_payment_period_is_within_cessation_period
+
+      and current_month_follows_month_of_detention_completion'
+- name: benefit_payment_redirected_to_other_guardian_or_carer
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 e, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: Er udbetalingen af børne- og ungeydelsen til den dømte ophørt efter
+            stk. 1
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: 1, eller til den eller de personer, der har taget barnet i pleje,
+            jf. § 4, stk.
+  versions:
+  - effective_from: '2024-06-11'
+    formula: "criminal_conviction_payment_disqualification_applies\nand current_payment_period_is_within_cessation_period\n\
+      and (\n  other_parental_authority_holder_is_payment_recipient\n  or child_has_person_who_has_taken_child_into_care\n\
+      )"
+- name: convicted_share_payment_to_child_or_young_person_permitted
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 e, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: hvis det skønnes bedst for barnet eller den unge
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: den dømtes del af børne- og ungeydelsen skal udbetales til barnet
+            eller den unge selv
+  versions:
+  - effective_from: '2024-06-11'
+    formula: 'criminal_conviction_payment_disqualification_applies
+
+      and current_payment_period_is_within_cessation_period
+
+      and payment_to_child_or_young_person_is_best_for_child_or_young_person'
+- name: repayment_decision_required_for_payment_during_cessation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 e, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: børne- og ungeydelse udbetalt til den dømte i den periode, hvor
+            udbetalingen skal ophøre
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: Udbetaling Danmark skal træffe afgørelse om tilbagebetaling
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: Det er ikke et krav i forbindelse med afgørelsen om tilbagebetaling,
+            at den dømte skal have modtaget den for meget udbetalte børne- og ungeydelse
+            mod bedre vidende.
+  versions:
+  - effective_from: '2024-06-11'
+    formula: 'criminal_conviction_payment_disqualification_applies
+
+      and current_payment_period_is_within_cessation_period
+
+      and child_or_youth_benefit_was_paid_to_convicted_person_during_cessation_period'
+- name: automatic_payment_resumption_after_cessation_period
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 4 e, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: udbetales den dømtes del af børne- og ungeydelsen automatisk til
+            den dømte på ny efter § 4, stk. 1
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: medmindre § 4, stk. 5 eller 7, finder anvendelse
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e
+          excerpt: kan ske efter en periode på 3 år regnet fra det tidspunkt, hvor
+            personen har udstået fængselsstraf
+  versions:
+  - effective_from: '2024-06-11'
+    formula: 'criminal_conviction_payment_disqualification_applies
+
+      and cessation_period_has_ended_after_detention_completion
+
+      and not payment_routing_under_section_4_subsection_5_applies
+
+      and not payment_routing_under_section_4_subsection_7_applies'
