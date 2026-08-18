@@ -1,0 +1,59 @@
+- name: passport_withdrawal_stops_recipient_payment
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_item_4
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#passport_withdrawal_stops_recipient_payment: holds
+- name: child_benefit_stops_in_following_quarter
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_item_4
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.current_quarter_follows_quarter_of_passport_withdrawal
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#passport_withdrawal_stops_recipient_payment: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#child_benefit_payment_stops_next_quarter: holds
+- name: youth_benefit_does_not_stop_before_following_month
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_item_4
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.current_month_follows_month_of_passport_withdrawal: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#passport_withdrawal_stops_recipient_payment: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#youth_benefit_payment_stops_next_month: not_holds
+- name: redirected_benefit_and_resumption_consequences
+  period: 2025-06
+  input:
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_item_4
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.child_lives_with_person: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.Udbetaling_Danmark_determines_payment_to_child_is_best_for_child
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.passport_withdrawal_decision_is_reversed_or_set_aside_by_court
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.benefit_was_not_paid_to_recipient_during_cessation: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.recipient_has_documented_presence_in_Denmark_by_attendance_at_police
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.redirected_benefit_is_being_paid_under_subsection_2: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#passport_withdrawal_stops_recipient_payment: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#person_with_whom_child_lives_receives_redirected_benefit: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#child_may_receive_redirected_benefit: holds
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#unpaid_benefit_is_not_repaid_after_passport_decision_reversal
+    : holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#recipient_payment_may_resume_after_police_attendance: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#redirected_benefit_ends_when_recipient_payment_resumes: holds
+- name: auto_positive_youth_benefit_payment_stops_next_month
+  period:
+    period_kind: month
+    start: '2025-06-01'
+    end: '2025-06-30'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.current_month_follows_month_of_passport_withdrawal: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#input.police_has_withdrawn_recipient_passport_under_passport_act_section_2_subsection_1_item_4
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-a#youth_benefit_payment_stops_next_month: holds
