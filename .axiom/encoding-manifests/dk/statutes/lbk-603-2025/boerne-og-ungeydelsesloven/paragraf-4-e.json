@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e.yaml",
+      "sha256": "9cd9526ae4cffc6077818f25adf33bcf1e7c693a5367555b1f8d502867845fa3"
+    },
+    {
+      "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e.test.yaml",
+      "sha256": "abbcac402dc5e1d04c8b0cb084e03d0c11fc94264c5e2c6d988b8cb5d95e292d"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f012327074e0e0d8297c327a1a06df96ad4a57ef",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1694",
+    "version_commit": "f012327074e0e0d8297c327a1a06df96ad4a57ef"
+  },
+  "axiom_encode_version": "0.2.1694",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-sol/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-4-e/workspace/context-manifest.json",
+  "context_manifest_sha256": "4f8a8a8fbe8c39a0dcd0d0107da5716d5998f61c65b7758fb6f8c739899ec8e4",
+  "generated_at": "2026-08-18T02:06:04.443108+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-sol/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "9cd9526ae4cffc6077818f25adf33bcf1e7c693a5367555b1f8d502867845fa3",
+  "generation_prompt_sha256": "1f9922c79142f0b3c6abb3a2c8aa21359a8522867018b327d4fe8a1326b59ba4",
+  "model": "gpt-5.6-sol",
+  "run_id": "7ba32ff2",
+  "runner": "openai-gpt-5.6-sol",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "Qgfwta2TM/wc6DZa5l/qxJkOmrONZzeiO7wUb8h4gXf2gQ/P4iL3uE5pjAMiZUEpx+8HVwnxF8Z0lubxlFcsCg=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2025-05-12",
+    "generation_input_sha256": "f66738bfa034420caf74713a762e4fafa78ba44d1274ebe6c7efb363926f50dd",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e",
+    "resolved_corpus_citation_path": "dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e",
+    "resolved_text_sha256": "f66738bfa034420caf74713a762e4fafa78ba44d1274ebe6c7efb363926f50dd",
+    "row": {
+      "body_sha256": "f66738bfa034420caf74713a762e4fafa78ba44d1274ebe6c7efb363926f50dd",
+      "citation_path": "dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e",
+      "document_class": "statute",
+      "expression_date": "2025-05-12",
+      "jurisdiction": "dk",
+      "line_number": 11,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "f00d0539-d1be-5187-ac60-1282d59ee59b",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-603-2025-boerne-og-ungeydelsesloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "f66738bfa034420caf74713a762e4fafa78ba44d1274ebe6c7efb363926f50dd"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-sol/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-4-e.json",
+  "trace_sha256": "c50fb04e6cf14590854e41639401d2d83f660f6013d4cc727223aa445091879d",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f012327074e0e0d8297c327a1a06df96ad4a57ef",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1694"
+    },
+    "axiom_rules_engine": {
+      "commit": "05eac9d2f89dabe5c6673176260762cef3a58f47",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "614721fe97fa18e73dbfd6084c1613618439de060196e88990e11d00c6be4585",
+      "pre_apply_file_count": 13,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}

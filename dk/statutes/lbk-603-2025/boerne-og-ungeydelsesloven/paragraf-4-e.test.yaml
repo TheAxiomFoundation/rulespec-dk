@@ -1,0 +1,185 @@
+- name: disqualification_applies_when_all_conditions_are_met
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: holds
+- name: disqualification_does_not_apply_without_final_conviction
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: not_holds
+- name: disqualification_does_not_apply_without_custodial_consequence
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: not_holds
+- name: disqualification_does_not_apply_to_offence_outside_section_81_a
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: not_holds
+- name: disqualification_does_not_apply_before_offence_date_cutoff
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: not_holds
+- name: cessation_cadence_redirection_and_repayment_apply
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.person_has_completed_custodial_sentence: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.current_period_is_within_disqualification_period: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.current_quarter_follows_quarter_of_sentence_completion
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.person_is_other_parental_authority_holder: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.person_has_taken_child_into_care: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.direct_payment_to_child_or_youth_is_best_for_child_or_youth
+    : true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.benefit_was_paid_to_convicted_recipient_during_cessation_period
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_cessation_period_active: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#child_benefit_payment_ceases_from_following_quarter: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#payment_redirected_to_other_parental_authority_holder: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#payment_redirected_to_foster_carer: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#payment_may_be_directed_to_child_or_youth: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#repayment_decision_is_required: holds
+- name: youth_payment_ceases_from_following_month
+  period: 2025-02
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.person_has_completed_custodial_sentence: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.current_period_is_within_disqualification_period: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.current_month_follows_month_of_sentence_completion: true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_cessation_period_active: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#youth_benefit_payment_ceases_from_following_month: holds
+- name: payment_resumes_after_three_year_disqualification
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2028-01-01'
+    end: '2028-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.person_has_completed_custodial_sentence: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.disqualification_period_has_elapsed: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.payment_rule_under_section_4_subsection_5_applies: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.foster_care_payment_rule_under_section_4_subsection_7_applies
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#payment_resumes_after_disqualification: holds
+- name: subsection_5_blocks_automatic_resumption
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2028-01-01'
+    end: '2028-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.person_has_completed_custodial_sentence: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.disqualification_period_has_elapsed: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.payment_rule_under_section_4_subsection_5_applies: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.foster_care_payment_rule_under_section_4_subsection_7_applies
+    : false
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#payment_resumes_after_disqualification: not_holds
+- name: subsection_7_blocks_automatic_resumption
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2028-01-01'
+    end: '2028-12-31'
+  input:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.conviction_is_final: true
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.sentence_is_unconditional_imprisonment_or_other_custodial_consequence
+    : true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_is_covered_by_penal_code_section_81_a: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.offence_was_committed_before_cutoff_date: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.person_has_completed_custodial_sentence: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.disqualification_period_has_elapsed: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.payment_rule_under_section_4_subsection_5_applies: false
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#input.foster_care_payment_rule_under_section_4_subsection_7_applies
+    : true
+  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#conviction_is_excluded_by_offence_date: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#benefit_payment_disqualification_applies: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-4-e#payment_resumes_after_disqualification: not_holds
