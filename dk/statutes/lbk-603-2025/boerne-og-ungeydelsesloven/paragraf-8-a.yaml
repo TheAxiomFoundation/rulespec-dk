@@ -230,10 +230,8 @@ rules:
           excerpt: regulering af årets udbetalte børne- og ungeydelse i forhold hertil
   versions:
   - effective_from: '2025-05-12'
-    formula: "if annual_assessment_change_requires_regulation:\n  max(\n    max(0,\
-      \ revised_reduction_after_annual_assessment_change - previously_settled_final_reduction_for_income_year),\n\
-      \    max(0, previously_settled_final_reduction_for_income_year - revised_reduction_after_annual_assessment_change)\n\
-      \  )\nelse: 0"
+    formula: "if annual_assessment_change_requires_regulation:\n  revised_reduction_after_annual_assessment_change\
+      \ - previously_settled_final_reduction_for_income_year\nelse: 0"
 - name: subsequent_overpayment_claim
   kind: derived
   entity: Person

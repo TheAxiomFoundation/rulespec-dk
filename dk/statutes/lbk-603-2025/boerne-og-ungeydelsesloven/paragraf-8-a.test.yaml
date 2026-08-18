@@ -1,43 +1,3 @@
-- name: forecast_assessment_produces_provisional_reduction
-  period: 2025-06
-  input:
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.payment_uses_latest_forecast_assessment_for_income_year
-    : true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.calculation_uses_annual_assessment_for_income_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.annual_assessment_has_subsequently_changed: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.prior_provisional_reductions_for_income_year: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.following_benefit_payments_available_for_offset: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 1017000
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
-    : 1017000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 0
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
-    : 60000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance: 917000
-  output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#provisional_reduction_at_payment: 2000
-- name: forecast_below_allowance_has_no_provisional_reduction
-  period: 2025-06
-  input:
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.payment_uses_latest_forecast_assessment_for_income_year
-    : true
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.calculation_uses_annual_assessment_for_income_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.annual_assessment_has_subsequently_changed: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.prior_provisional_reductions_for_income_year: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.following_benefit_payments_available_for_offset: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 800000
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
-    : 800000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 0
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
-    : 60000
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance: 917000
-  output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#provisional_reduction_at_payment: 0
 - name: final_assessment_refunds_prior_provisional_reduction
   period: 2025-09
   input:
@@ -61,6 +21,12 @@
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#final_reduction_for_income_year: 0
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#underpayment_addition_to_following_benefit_payments: 2000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#annual_assessment_change_requires_regulation: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_regulation_amount: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_overpayment_claim: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_addition_to_following_benefit_payments: 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_overpayment_offset_against_following_benefit_payments
+    : 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#collectible_subsequent_overpayment_residue: 0
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#reduction_or_regulation_may_proceed_without_recipient_hearing
     : holds
 - name: initial_assessment_overpayment_is_offset_then_collected
@@ -82,9 +48,13 @@
     : 60000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance: 917000
   output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#initial_settlement_applies: holds
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#overpayment_claim_after_final_reduction: 2000
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#overpayment_offset_against_following_benefit_payments: 1500
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#collectible_overpayment_residue: 500
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_regulation_amount: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_overpayment_claim: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_addition_to_following_benefit_payments: 0
 - name: amended_assessment_increases_settled_final_reduction
   period: 2025-10
   input:
@@ -116,67 +86,39 @@
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_overpayment_offset_against_following_benefit_payments
     : 0
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#collectible_subsequent_overpayment_residue: 1660
-- name: auto_output_subsequent_addition_to_following_benefit_payments
-  period:
-    period_kind: month
-    start: '2025-06-01'
-    end: '2025-06-30'
+- name: amended_assessment_reduces_settled_final_reduction
+  period: 2025-10
   input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.annual_assessment_has_subsequently_changed: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.calculation_uses_annual_assessment_for_income_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.following_benefit_payments_available_for_offset: false
     ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.payment_uses_latest_forecast_assessment_for_income_year
     : false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.calculation_uses_annual_assessment_for_income_year: true
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.annual_assessment_has_subsequently_changed: true
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.prior_provisional_reductions_for_income_year: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 1660
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.following_benefit_payments_available_for_offset: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis: 800000
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.personskatteloven_section_7_income_basis_after_section_14_recalculation
+    : 800000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.person_only_taxable_part_of_year: false
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.total_contributions_to_qualifying_pension_accounts: 0
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.pension_contribution_limit_under_pensionsbeskatningsloven_section_16
+    : 60000
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-1-a#input.current_year_income_reduction_allowance: 917000
   output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_addition_to_following_benefit_payments: 0
-- name: auto_zero_revised_reduction_after_annual_assessment_change
-  period:
-    period_kind: month
-    start: '2025-06-01'
-    end: '2025-06-30'
-  input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.annual_assessment_has_subsequently_changed: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.calculation_uses_annual_assessment_for_income_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.following_benefit_payments_available_for_offset: false
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.payment_uses_latest_forecast_assessment_for_income_year
-    : false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.prior_provisional_reductions_for_income_year: 0
-  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#initial_settlement_applies: not_holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#underpayment_addition_to_following_benefit_payments: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#overpayment_claim_after_final_reduction: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#overpayment_offset_against_following_benefit_payments: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#collectible_overpayment_residue: 0
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#revised_reduction_after_annual_assessment_change: 0
-- name: auto_zero_subsequent_regulation_amount
-  period:
-    period_kind: month
-    start: '2025-06-01'
-    end: '2025-06-30'
-  input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.annual_assessment_has_subsequently_changed: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.calculation_uses_annual_assessment_for_income_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.following_benefit_payments_available_for_offset: false
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.payment_uses_latest_forecast_assessment_for_income_year
-    : false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.prior_provisional_reductions_for_income_year: 0
-  output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_regulation_amount: 0
-- name: auto_zero_subsequent_overpayment_claim
-  period:
-    period_kind: month
-    start: '2025-06-01'
-    end: '2025-06-30'
-  input:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.annual_assessment_has_subsequently_changed: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.calculation_uses_annual_assessment_for_income_year: false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.following_benefit_payments_available_for_offset: false
-    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.payment_uses_latest_forecast_assessment_for_income_year
-    : false
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 0
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.prior_provisional_reductions_for_income_year: 0
-  output:
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#annual_assessment_change_requires_regulation: holds
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_regulation_amount: -1660
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_overpayment_claim: 0
-- name: auto_zero_collectible_subsequent_overpayment_residue
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_addition_to_following_benefit_payments: 1660
+    ? dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#subsequent_overpayment_offset_against_following_benefit_payments
+    : 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#collectible_subsequent_overpayment_residue: 0
+- name: auto_output_provisional_reduction_at_payment
   period:
     period_kind: month
     start: '2025-06-01'
@@ -190,4 +132,4 @@
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.previously_settled_final_reduction_for_income_year: 0
     dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#input.prior_provisional_reductions_for_income_year: 0
   output:
-    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#collectible_subsequent_overpayment_residue: 0
+    dk:statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a#provisional_reduction_at_payment: 0
