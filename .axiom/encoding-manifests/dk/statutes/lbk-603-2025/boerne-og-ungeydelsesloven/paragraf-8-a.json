@@ -2,39 +2,39 @@
   "applied_files": [
     {
       "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a.yaml",
-      "sha256": "3728e219c341d95858d34dcd9802f4eddd9127e3cc0d432fb7f7141a1f44b901"
+      "sha256": "83154da475bea98d429a8218006cd9ec5c712db02442a309b8fa1c39fa8f7b6a"
     },
     {
       "path": "dk/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a.test.yaml",
-      "sha256": "1c2c9bdab12b085b75e15401cd2f417638bce50c337f6c763f50b2392fee5580"
+      "sha256": "99ab50a34ecca01840b8a7f60a4493dae7e42201ba53e170c2a588292ef6f1a2"
     }
   ],
   "axiom_encode_git": {
-    "commit": "a249d1da92a4d97e2bfa09be1a76592f278b71eb",
+    "commit": "a4599841fa86d608236923c759558d1f21be9d09",
     "dirty_tracked": false,
     "identity_source": "trusted-runtime-attestation",
     "root": "/opt/axiom-verification/python/runtime-attestation.json",
     "version": "0.2.1695",
-    "version_commit": "a249d1da92a4d97e2bfa09be1a76592f278b71eb"
+    "version_commit": "a4599841fa86d608236923c759558d1f21be9d09"
   },
   "axiom_encode_version": "0.2.1695",
   "backend": "openai",
   "citation": "dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a",
   "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-8-a/workspace/context-manifest.json",
-  "context_manifest_sha256": "edeab0d0954949755381daf201a7a13cf8497a0307f1ed3ee6fba3274bc55a78",
-  "generated_at": "2026-08-18T20:51:43.130870+00:00",
+  "context_manifest_sha256": "135b6779dfb8a35f3a5cff9b721414fd71fdd49064a5c1a6c533d6d9ebde0139",
+  "generated_at": "2026-08-18T23:55:27.813798+00:00",
   "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-8-a.yaml",
   "generated_output_root": "/home/runner/work/_temp/generated/target",
-  "generated_output_sha256": "3728e219c341d95858d34dcd9802f4eddd9127e3cc0d432fb7f7141a1f44b901",
-  "generation_prompt_sha256": "394ae95ad703e1d5cb44d457426016a3e0287af1c48d1a7212c235d42b800b9e",
+  "generated_output_sha256": "83154da475bea98d429a8218006cd9ec5c712db02442a309b8fa1c39fa8f7b6a",
+  "generation_prompt_sha256": "e1df40745a72775a637c2d64d0d0f694264f614c391fd836444d85b10478fc58",
   "model": "gpt-5.6-terra",
-  "run_id": "68daf650",
+  "run_id": "8b041969",
   "runner": "openai-gpt-5.6-terra",
   "schema_version": "axiom-encode/applied-rulespec/v5",
   "signature": {
     "algorithm": "ed25519-domain-v1",
     "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
-    "value": "Reu1Z7/0wQSGOgvOvnqTXlYd/CC+dpFqhExZz6JduLqxK9TmAj8WVw7xEi1kYOx5h4Ib0LRYFrmWTCtwwdQ3BA=="
+    "value": "ld/riECmyiz3EWRZbCCQ2MdCOkRUO19sRBfsOblJtQTZ4d0eV/X7WWC0KhOg4q7cURFxEyVYIEjOar0N++ZLBA=="
   },
   "source_attestation": {
     "component_rows": [],
@@ -69,10 +69,10 @@
   },
   "tool": "axiom-encode encode --apply",
   "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-603-2025-boerne-og-ungeydelsesloven-paragraf-8-a.json",
-  "trace_sha256": "073cac7631fe5e8a52e89e907ca24570ce5f12127c07c8245614ab4859b5afa9",
+  "trace_sha256": "9e45cdf01fd920c4d1ec0177158480d78d9f7d42f6b48cea6cb987a3704ab207",
   "validation_execution": {
     "axiom_encode": {
-      "commit": "a249d1da92a4d97e2bfa09be1a76592f278b71eb",
+      "commit": "a4599841fa86d608236923c759558d1f21be9d09",
       "identity_source": "trusted-runtime-attestation",
       "repository": "github.com/TheAxiomFoundation/axiom-encode",
       "version": "0.2.1695"
@@ -82,7 +82,7 @@
       "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
     },
     "policy_pre_apply": {
-      "pre_apply_content_sha256": "8e1485498fae17d8b2955af64b6b013636a9418035bfb27385e4ead1d282e249",
+      "pre_apply_content_sha256": "5e9d4fc6842444730134fa5300ca1fd04da8d8ac6ccf50574f083a5905bd0149",
       "pre_apply_file_count": 29,
       "rulespec_root": "rulespec-dk/dk",
       "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
