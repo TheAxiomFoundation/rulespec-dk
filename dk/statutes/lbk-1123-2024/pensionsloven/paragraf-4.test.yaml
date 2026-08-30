@@ -1,0 +1,22 @@
+- name: minimum residence period satisfies pension entitlement condition
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-4#input.permanent_residence_years_between_completed_15th_year_and_pension_age
+    : 3
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-4#residence_condition_for_pension_entitlement_met: holds
+- name: insufficient residence period does not satisfy pension entitlement condition
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-4#input.permanent_residence_years_between_completed_15th_year_and_pension_age
+    : 2
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-4#residence_condition_for_pension_entitlement_met: not_holds
