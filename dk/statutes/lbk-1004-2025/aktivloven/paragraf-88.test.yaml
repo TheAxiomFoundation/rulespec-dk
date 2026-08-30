@@ -1,0 +1,13 @@
+- name: expense undertaken before application is normally ineligible
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-88#input.expense_was_undertaken_before_application_to_municipality: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-88#pre_application_expense_normally_ineligible_for_assistance: holds
+- name: expense not undertaken before application is not within normal ineligibility
+    rule
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-88#input.expense_was_undertaken_before_application_to_municipality: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-88#pre_application_expense_normally_ineligible_for_assistance: not_holds
