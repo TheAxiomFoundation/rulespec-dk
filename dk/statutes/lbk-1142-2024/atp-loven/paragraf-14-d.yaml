@@ -1,0 +1,88 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-d
+    source_sha256: 7958c90570c2a0d57dbfd882dcb1138dbcff14ece14021152cc2f7e00ad40a69
+  summary: Ægtefæller efter medlemmer af tillægspensionsordningen, der har ret til
+    et beløb efter §§ 11 og 12 og samtidig har ret til et beløb efter § 14 b, har
+    alene ret til at få udbetalt det højeste af disse beløb.
+inputs:
+- name: spouse_is_after_member_of_supplementary_pension_scheme
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_right_to_amount_under_sections_11_and_12
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_right_to_amount_under_section_14_b
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: amount_under_sections_11_and_12
+  entity: Person
+  dtype: Money
+  period: Month
+- name: amount_under_section_14_b
+  entity: Person
+  dtype: Money
+  period: Month
+rules:
+- name: section_12_reference
+  kind: parameter
+  dtype: Integer
+  source: § 14 d
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-d
+          excerpt: §§ 11 og 12
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '12'
+- name: highest_amount_only_rule_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 14 d
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-d
+          excerpt: Ægtefæller efter medlemmer af tillægspensionsordningen, der har
+            ret til et beløb efter §§ 11 og 12 og samtidig har ret til et beløb efter
+            § 14 b
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'spouse_is_after_member_of_supplementary_pension_scheme
+
+      and has_right_to_amount_under_sections_11_and_12
+
+      and has_right_to_amount_under_section_14_b'
+- name: highest_amount_payable_when_entitlements_concur
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 14 d
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-d
+          excerpt: har alene ret til at få udbetalt det højeste af disse beløb
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'if highest_amount_only_rule_applies: max(amount_under_sections_11_and_12,
+      amount_under_section_14_b) else: 0'
