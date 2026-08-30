@@ -1,0 +1,220 @@
+- name: early_pension_may_be_paid_without_any_precluding_condition
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: holds
+- name: other_public_support_precludes_payment_when_no_listed_exception_applies
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: not_holds
+- name: sickness_benefit_is_exception_to_concurrent_public_support_preclusion
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: holds
+- name: maternity_benefit_is_exception_to_concurrent_public_support_preclusion
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: holds
+- name: disability_benefit_is_exception_to_concurrent_public_support_preclusion
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: holds
+- name: section_27_a_assistance_is_exception_to_concurrent_public_support_preclusion
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: holds
+- name: awarded_disability_pension_precludes_early_pension_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: not_holds
+- name: awarded_senior_pension_precludes_early_pension_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: not_holds
+- name: equivalent_foreign_pension_precludes_early_pension_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: not_holds
+- name: foreign_old_age_equivalent_pension_precludes_payment_without_eu_result
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: not_holds
+- name: eu_law_result_prevents_foreign_old_age_equivalent_pension_preclusion
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_other_public_support_for_same_period: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_sickness_benefit_under_sickness_benefit_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_maternity_benefit_under_maternity_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_disability_benefit_under_disability_pension_act: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_assistance_under_section_27_a_of_active_social_policy_act
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_disability_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.has_been_awarded_senior_pension_under_this_act: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_equivalent_foreign_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.receives_foreign_pension_equivalent_to_old_age_pension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#input.eu_law_requires_other_result: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_is_excepted: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#concurrent_public_support_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#awarded_disability_or_senior_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#foreign_pension_precludes_early_pension_payment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-26-v#early_pension_may_be_paid: holds

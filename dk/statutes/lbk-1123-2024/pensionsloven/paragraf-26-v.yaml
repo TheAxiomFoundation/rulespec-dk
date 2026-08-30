@@ -1,0 +1,171 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-v
+    source_sha256: 74c2e00c99bcb4de785bd199fb0ac9ffc269e7eb9f1d0823839b62bf869a31fc
+  summary: '§ 26 v, stk. 1-3: Tidlig pension kan ikke udbetales samtidig med anden
+    offentlig forsørgelsesydelse, med undtagelse af sygedagpenge, barselsdagpenge,
+    invaliditetsydelse og hjælp efter aktivlovens § 27 a. Udbetaling er også udelukket
+    ved tilkendt førtidspension eller seniorpension samt ved nærmere angivne udenlandske
+    pensioner, dog med EU-retlig undtagelse for udenlandsk pension svarende til folkepension.'
+inputs:
+- name: receives_other_public_support_for_same_period
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_sickness_benefit_under_sickness_benefit_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_maternity_benefit_under_maternity_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_disability_benefit_under_disability_pension_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_assistance_under_section_27_a_of_active_social_policy_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_been_awarded_disability_pension_under_this_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_been_awarded_senior_pension_under_this_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_equivalent_foreign_pension
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_foreign_pension_equivalent_to_old_age_pension
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: eu_law_requires_other_result
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: concurrent_public_support_is_excepted
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 26 v, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-v
+          excerpt: Stk. 3. Uanset stk. 1 kan der udbetales tidlig pension, hvis personen
+            modtager sygedagpenge efter lov om sygedagpenge, barselsdagpenge efter
+            barselsloven, invaliditetsydelse efter lov om højeste, mellemste, forhøjet
+            almindelig og almindelig førtidspension m.v. eller hjælp efter § 27 a
+            i lov om aktiv socialpolitik.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'receives_sickness_benefit_under_sickness_benefit_act
+
+      or receives_maternity_benefit_under_maternity_act
+
+      or receives_disability_benefit_under_disability_pension_act
+
+      or receives_assistance_under_section_27_a_of_active_social_policy_act'
+- name: concurrent_public_support_precludes_early_pension_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 26 v, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-v
+          excerpt: Der kan ikke udbetales tidlig pension, hvis personen for den samme
+            periode får udbetalt en anden offentlig forsørgelsesydelse, jf. dog stk.
+            3.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'receives_other_public_support_for_same_period
+
+      and not concurrent_public_support_is_excepted'
+- name: awarded_disability_or_senior_pension_precludes_early_pension_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 26 v, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-v
+          excerpt: Der kan ikke udbetales tidlig pension, hvis personen har fået tilkendt
+            førtidspension eller seniorpension efter denne lov.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'has_been_awarded_disability_pension_under_this_act
+
+      or has_been_awarded_senior_pension_under_this_act'
+- name: foreign_pension_precludes_early_pension_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 26 v, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-v
+          excerpt: Der kan ikke udbetales tidlig pension, hvis personen får udbetalt
+            en tilsvarende udenlandsk pension, eller hvis personen får udbetalt udenlandsk
+            pension, der svarer til folkepension efter denne lov, medmindre andet
+            følger af EU-retten.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "receives_equivalent_foreign_pension\nor (\n  receives_foreign_pension_equivalent_to_old_age_pension\n\
+      \  and not eu_law_requires_other_result\n)"
+- name: early_pension_may_be_paid
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 26 v, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-v
+          excerpt: Der kan ikke udbetales tidlig pension, hvis personen for den samme
+            periode får udbetalt en anden offentlig forsørgelsesydelse, jf. dog stk.
+            3.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-v
+          excerpt: Uanset stk. 1 kan der udbetales tidlig pension
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'not concurrent_public_support_precludes_early_pension_payment
+
+      and not awarded_disability_or_senior_pension_precludes_early_pension_payment
+
+      and not foreign_pension_precludes_early_pension_payment'
