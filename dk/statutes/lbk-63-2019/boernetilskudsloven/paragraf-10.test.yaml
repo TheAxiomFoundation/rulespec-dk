@@ -1,0 +1,121 @@
+- name: ordinary_first_payment_in_following_quarter
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.right_to_child_supplement_has_been_acquired: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.special_child_supplement_is_payable_after_contributor_death: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_in_quarter_following_quarter_right_was_acquired: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_timing_applies: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_is_in_following_quarter: holds
+- name: ordinary_first_payment_not_applicable_without_acquired_right
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.right_to_child_supplement_has_been_acquired: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.special_child_supplement_is_payable_after_contributor_death: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_in_quarter_following_quarter_right_was_acquired: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_timing_applies: not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_is_in_following_quarter: not_holds
+- name: special_post_death_rule_displaces_ordinary_first_payment_timing
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.right_to_child_supplement_has_been_acquired: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.special_child_supplement_is_payable_after_contributor_death: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_in_quarter_following_quarter_right_was_acquired: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_timing_applies: not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_is_in_following_quarter: not_holds
+- name: ordinary_first_payment_wrong_quarter
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.right_to_child_supplement_has_been_acquired: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.special_child_supplement_is_payable_after_contributor_death: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_in_quarter_following_quarter_right_was_acquired: false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_timing_applies: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#ordinary_first_payment_is_in_following_quarter: not_holds
+- name: last_payment_in_cessation_quarter
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.right_to_child_supplement_has_ceased: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_in_quarter_right_to_child_supplement_ceases: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#last_payment_is_in_cessation_quarter: holds
+- name: last_payment_not_applicable_without_cessation
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.right_to_child_supplement_has_ceased: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_in_quarter_right_to_child_supplement_ceases: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#last_payment_is_in_cessation_quarter: not_holds
+- name: last_payment_wrong_quarter
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.right_to_child_supplement_has_ceased: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_in_quarter_right_to_child_supplement_ceases: false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#last_payment_is_in_cessation_quarter: not_holds
+- name: special_post_death_payment_after_last_contribution_period
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.special_child_supplement_is_payable_after_contributor_death: true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_after_end_of_period_for_which_contribution_was_last_paid
+    : true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#special_post_death_payment_is_after_last_contribution_period: holds
+- name: special_post_death_payment_not_applicable_without_death
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.special_child_supplement_is_payable_after_contributor_death: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_after_end_of_period_for_which_contribution_was_last_paid
+    : true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#special_post_death_payment_is_after_last_contribution_period: not_holds
+- name: special_post_death_payment_before_last_contribution_period_ends
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.special_child_supplement_is_payable_after_contributor_death: true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#input.payment_is_after_end_of_period_for_which_contribution_was_last_paid
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10#special_post_death_payment_is_after_last_contribution_period: not_holds
