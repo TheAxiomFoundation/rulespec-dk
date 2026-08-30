@@ -1,0 +1,112 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-33-a
+    source_sha256: 6117316133cf15b095586ed987676b6f8aedab9b3e5bf61138028773b6d4634e
+  summary: Restgæld under ordinær opkrævning concerning qualifying loans taken on
+    1 January 1991 or later in a previous education period is repaid at the first
+    disbursement in a new education period. A new study loan equals the new loan amount
+    plus the repaid debt.
+inputs:
+- name: outstanding_debt_under_ordinary_collection
+  entity: Person
+  dtype: Money
+  period: Month
+- name: new_loan_amount
+  entity: Person
+  dtype: Money
+  period: Month
+- name: debt_is_under_ordinary_collection
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: debt_relates_to_study_or_final_loan
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: qualifying_loan_was_taken_on_or_after_statutory_date
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: qualifying_loan_was_taken_in_previous_education_period
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: qualifying_prior_debt_is_repaid_on_first_new_disbursement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 33 a, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-33-a
+          excerpt: Restgæld under ordinær opkrævning
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-33-a
+          excerpt: studielån og slutlån
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-33-a
+          excerpt: optaget den 1. januar 1991 eller senere
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-33-a
+          excerpt: i en tidligere uddannelsesperiode
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-33-a
+          excerpt: indfries ved første udbetaling af studielån eller slutlån i en
+            ny uddannelsesperiode
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'debt_is_under_ordinary_collection
+
+      and debt_relates_to_study_or_final_loan
+
+      and qualifying_loan_was_taken_on_or_after_statutory_date
+
+      and qualifying_loan_was_taken_in_previous_education_period
+
+      and disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period'
+- name: new_study_loan_including_repaid_debt
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 33 a, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-33-a
+          excerpt: med et samlet beløb svarende til det nye lånebeløb med tillæg af
+            den indfriede gæld
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#qualifying_prior_debt_is_repaid_on_first_new_disbursement
+          output: qualifying_prior_debt_is_repaid_on_first_new_disbursement
+          hash: sha256:local
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'if qualifying_prior_debt_is_repaid_on_first_new_disbursement: new_loan_amount
+      + outstanding_debt_under_ordinary_collection else: 0'
