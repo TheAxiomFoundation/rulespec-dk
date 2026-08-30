@@ -1,0 +1,84 @@
+- name: qualifying_prior_debt_repaid_and_added_to_new_loan
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.outstanding_debt_under_ordinary_collection: 12000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.new_loan_amount: 8000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_is_under_ordinary_collection: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_relates_to_study_or_final_loan: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_on_or_after_statutory_date: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_in_previous_education_period: true
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period
+    : true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#qualifying_prior_debt_is_repaid_on_first_new_disbursement: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#new_study_loan_including_repaid_debt: 20000
+- name: debt_not_under_ordinary_collection_is_not_repaid_under_section
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.outstanding_debt_under_ordinary_collection: 12000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.new_loan_amount: 8000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_is_under_ordinary_collection: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_relates_to_study_or_final_loan: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_on_or_after_statutory_date: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_in_previous_education_period: true
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period
+    : true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#qualifying_prior_debt_is_repaid_on_first_new_disbursement: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#new_study_loan_including_repaid_debt: 0
+- name: non_qualifying_loan_debt_is_not_repaid_under_section
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.outstanding_debt_under_ordinary_collection: 12000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.new_loan_amount: 8000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_is_under_ordinary_collection: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_relates_to_study_or_final_loan: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_on_or_after_statutory_date: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_in_previous_education_period: true
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period
+    : true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#qualifying_prior_debt_is_repaid_on_first_new_disbursement: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#new_study_loan_including_repaid_debt: 0
+- name: loan_taken_before_statutory_date_is_not_repaid_under_section
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.outstanding_debt_under_ordinary_collection: 12000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.new_loan_amount: 8000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_is_under_ordinary_collection: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_relates_to_study_or_final_loan: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_on_or_after_statutory_date: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_in_previous_education_period: true
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period
+    : true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#qualifying_prior_debt_is_repaid_on_first_new_disbursement: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#new_study_loan_including_repaid_debt: 0
+- name: debt_not_from_previous_education_period_is_not_repaid_under_section
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.outstanding_debt_under_ordinary_collection: 12000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.new_loan_amount: 8000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_is_under_ordinary_collection: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_relates_to_study_or_final_loan: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_on_or_after_statutory_date: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_in_previous_education_period: false
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period
+    : true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#qualifying_prior_debt_is_repaid_on_first_new_disbursement: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#new_study_loan_including_repaid_debt: 0
+- name: later_new_period_disbursement_does_not_trigger_repayment
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.outstanding_debt_under_ordinary_collection: 12000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.new_loan_amount: 8000
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_is_under_ordinary_collection: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.debt_relates_to_study_or_final_loan: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_on_or_after_statutory_date: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.qualifying_loan_was_taken_in_previous_education_period: true
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#input.disbursement_is_first_study_or_final_loan_disbursement_in_new_education_period
+    : false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#qualifying_prior_debt_is_repaid_on_first_new_disbursement: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-33-a#new_study_loan_including_repaid_debt: 0
