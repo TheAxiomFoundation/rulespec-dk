@@ -1,0 +1,41 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-25-b
+    source_sha256: 08a858166a9e88421848fa7b5bc5447be4c3477fe8c746b89beb3b61516149f5
+  summary: Personer, der modtager førtidspension efter lov om højeste, mellemste,
+    forhøjet almindelig eller almindelig førtidspension m.v., er berettiget til børnetilskud
+    efter de regler, der gælder for modtagere af folkepension.
+inputs:
+- name: receives_disability_pension_under_prior_pension_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: meets_rules_applicable_to_folk_pension_recipients
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: entitled_to_child_supplement_as_folk_pension_recipient
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Børnetilskudsloven § 25 b
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-25-b
+          excerpt: Personer, der modtager førtidspension efter lov om højeste, mellemste,
+            forhøjet almindelig eller almindelig førtidspension m.v., er berettiget
+            til børnetilskud efter de regler, der gælder for modtagere af folkepension.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'receives_disability_pension_under_prior_pension_act
+
+      and meets_rules_applicable_to_folk_pension_recipients'
