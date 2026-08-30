@@ -1,0 +1,122 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-g
+    source_sha256: b67b476defc7bd36a9660b9ccb88e3cbc7a4bbe6ecee1addcfcff34481eb759e
+  summary: En person, som er 3 år eller mindre fra folkepensionsalderen, har ret til
+    tidlig pension, hvis personen opfylder betingelserne i §§ 26 h-26 o og § 26 s.
+rules:
+- name: early_pension_conditions_section_number
+  kind: parameter
+  dtype: Integer
+  source: § 26 g, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-g
+          excerpt: §§ 26 h-26 o og § 26 s
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '26'
+- name: maximum_years_before_folkepension_age
+  kind: parameter
+  dtype: Integer
+  source: § 26 g, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-g
+          excerpt: 3 år eller mindre fra folkepensionsalderen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '3'
+- name: entitled_to_early_pension
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 26 g, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-g
+          excerpt: har ret til tidlig pension, hvis personen opfylder betingelserne
+            i §§ 26 h-26 o og § 26 s
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-26-g
+          excerpt: 3 år eller mindre fra folkepensionsalderen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'years_until_folkepension_age <= maximum_years_before_folkepension_age
+
+      and meets_conditions_in_section_26_h
+
+      and meets_conditions_in_section_26_i
+
+      and meets_conditions_in_section_26_j
+
+      and meets_conditions_in_section_26_k
+
+      and meets_conditions_in_section_26_l
+
+      and meets_conditions_in_section_26_m
+
+      and meets_conditions_in_section_26_n
+
+      and meets_conditions_in_section_26_o
+
+      and meets_conditions_in_section_26_s'
+inputs:
+- name: years_until_folkepension_age
+  entity: Person
+  dtype: Integer
+  period: Year
+- name: meets_conditions_in_section_26_h
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_i
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_j
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_k
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_l
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_m
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_n
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_o
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: meets_conditions_in_section_26_s
+  entity: Person
+  dtype: Boolean
+  period: Year
