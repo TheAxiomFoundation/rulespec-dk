@@ -1,0 +1,64 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-43-b
+    source_sha256: 8dcc252a82c896e9e0479cdc923c23e17b37224d832ddc980f9b9c84028e7e57
+  summary: Afviser en pensionist at modtage lægeforetaget operation, lægeordineret
+    medicin eller lægebehandling af tilsvarende indgribende karakter, kan afslaget
+    ikke tillægges betydning ved vurderingen af fortsat ret til førtidspension.
+inputs:
+- name: person_is_pensioner
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_refuses_treatment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: refused_treatment_is_performed_by_physician
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: refused_treatment_is_operation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: refused_treatment_is_physician_prescribed_medicine
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 43 b.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-43-b
+          excerpt: kan det ikke tillægges betydning ved vurderingen af, om personen
+            fortsat har ret til førtidspension
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-43-b
+          excerpt: Afviser en pensionist at modtage behandling foretaget af en læge
+            i form af operation eller lægeordineret medicin eller lægebehandling af
+            tilsvarende indgribende karakter
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "person_is_pensioner\nand person_refuses_treatment\nand refused_treatment_is_performed_by_physician\n\
+      and (\n  refused_treatment_is_operation\n  or refused_treatment_is_physician_prescribed_medicine\n\
+      \  or refused_treatment_is_medical_treatment_of_similarly_intrusive_character\n\
+      )"
