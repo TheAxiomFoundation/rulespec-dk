@@ -1,0 +1,52 @@
+- name: combines_multiple_residence_periods_and_rounds_to_months
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#relation.residence_period_of_person:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_days: 45
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_is_in_earning_period: true
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_days: 45
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_is_in_earning_period: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#residence_time_in_earning_period_months: 3
+- name: excludes_residence_period_outside_earning_period
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#relation.residence_period_of_person:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_days: 30
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_is_in_earning_period: true
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_days: 90
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_is_in_earning_period: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#residence_time_in_earning_period_months: 1
+- name: rounds_below_half_month_down
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#relation.residence_period_of_person:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_days: 44
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_is_in_earning_period: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#residence_time_in_earning_period_months: 1
+- name: rounds_half_month_up
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#relation.residence_period_of_person:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_days: 45
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#input.residence_period_is_in_earning_period: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-10#residence_time_in_earning_period_months: 2
