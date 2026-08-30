@@ -1,0 +1,39 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-11
+    source_sha256: 4ede7c9df27ab82dcca35bc63d701f2c3b562836f3bcb74ffab0b0f91d0d6968
+  summary: '"Afgår en her i landet skattepligtig person ved døden, ophører personens
+    skattepligt efter denne lov."'
+inputs:
+- name: person_is_tax_liable_in_denmark_under_this_act
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_has_died
+  entity: Person
+  dtype: Boolean
+  period: Day
+rules:
+- name: tax_liability_under_this_act_ceases_on_death
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 11, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-11
+          excerpt: Afgår en her i landet skattepligtig person ved døden, ophører personens
+            skattepligt efter denne lov.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'person_is_tax_liable_in_denmark_under_this_act
+
+      and person_has_died'
