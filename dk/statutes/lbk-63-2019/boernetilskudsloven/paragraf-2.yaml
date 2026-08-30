@@ -1,0 +1,233 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+    source_sha256: 4b1cdf8b14bc7ccdda973633b104c28e61c6e5c495d58fa665bea2f4aeb45c7e
+  summary: '"Ordinært børnetilskud udgør 3.692 kr. årlig for hvert barn." Det ydes
+    efter nr. 1-5, og personer i samlivsforhold betragtes ikke som enlige efter nr.
+    1-3.'
+rules:
+- name: single_custody_holder_count
+  kind: parameter
+  dtype: Count
+  source: § 2, 2. pkt., nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 1) når den, der alene har forældremyndigheden
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '1'
+- name: joint_custody_holder_count
+  kind: parameter
+  dtype: Count
+  source: § 2, 2. pkt., nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 2) når begge eller kun den ene af indehaverne af forældremyndigheden
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '2'
+- name: incarceration_limit_months
+  kind: parameter
+  dtype: Count
+  source: § 2, 2. pkt., nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: indsat i institutioner under Kriminalforsorgen ud over 3 måneder
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '3'
+- name: both_parents_folkepension_path_ordinal
+  kind: parameter
+  dtype: Integer
+  source: § 2, 2. pkt., nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 4) når begge et barns forældre modtager folkepension
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '4'
+- name: social_pension_nonpayment_path_ordinal
+  kind: parameter
+  dtype: Integer
+  source: § 2, 2. pkt., nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 5) når folkepension til én eller begge af to forældre
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '5'
+- name: ordinary_child_supplement_annual_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: § 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: Ordinært børnetilskud udgør 3.692 kr. årlig for hvert barn.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '3692'
+- name: eligible_for_ordinary_child_supplement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 2, 2. pkt., nr. 1-5, og stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 'Det ydes: 1) når den, der alene har forældremyndigheden, eller
+            som har del i forældremyndigheden over et barn, er enlig forsørger'
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 2) når begge eller kun den ene af indehaverne af forældremyndigheden
+            er enlig og barnet opholder sig lige meget hos begge
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: medmindre barnet er tilmeldt folkeregistret hos den, der ikke er
+            enlig
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 3) når den ene ægtefælle er indsat i institutioner under Kriminalforsorgen
+            ud over 3 måneder og den anden ægtefælle er enlig
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 4) når begge et barns forældre modtager folkepension
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: 5) når folkepension til én eller begge af to forældre, der er berettigede
+            til folkepension, ikke udbetales, fordi § 46 i lov om social pension finder
+            anvendelse.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: Personer, der lever i et samlivsforhold, betragtes ikke som enlige
+            ved ydelse af ordinært børnetilskud, jf. stk. 1, nr. 1-3.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '(child_has_custody_holder_with_sole_or_joint_custody
+
+      and custody_holder_is_single_and_not_living_in_cohabitation)
+
+      or
+
+      (at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+
+      and child_resides_equally_with_both_custody_holders
+
+      and not child_registered_with_non_single_custody_holder)
+
+      or
+
+      (one_spouse_is_incarcerated_for_more_than_three_months
+
+      and other_spouse_is_single_and_not_living_in_cohabitation)
+
+      or both_parents_receive_folkepension
+
+      or folkepension_not_paid_because_social_pension_act_section_46_applies'
+- name: ordinary_child_supplement
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: § 2, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2
+          excerpt: Ordinært børnetilskud udgør 3.692 kr. årlig for hvert barn. Det
+            ydes
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'if eligible_for_ordinary_child_supplement: ordinary_child_supplement_annual_amount
+      else: 0'
+inputs:
+- name: child_has_custody_holder_with_sole_or_joint_custody
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: custody_holder_is_single_and_not_living_in_cohabitation
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: child_resides_equally_with_both_custody_holders
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: child_registered_with_non_single_custody_holder
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: one_spouse_is_incarcerated_for_more_than_three_months
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: other_spouse_is_single_and_not_living_in_cohabitation
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: both_parents_receive_folkepension
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: folkepension_not_paid_because_social_pension_act_section_46_applies
+  entity: Person
+  dtype: Boolean
+  period: Year
