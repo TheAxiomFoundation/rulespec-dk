@@ -1,0 +1,10 @@
+format: rulespec/v1
+module:
+  status: deferred
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-13
+    source_sha256: c2b6b99d6877c69616bec0defa9b9bd84c24f59f3dbfea6e890d6bd8f644e716
+  summary: Ansøgning om folkepension indgives til Udbetaling Danmark.
+rules: []
