@@ -1,0 +1,134 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+    source_sha256: 7482f9f16502cfe8b9173956b4634308eccedc0d87bb03c27ac63ab0aaa37b1e
+  summary: '"Børnetilskud udbetales første gang for det kvartal, der følger efter
+    det kvartal, i hvilket retten til tilskuddet er erhvervet, og sidste gang for
+    det kvartal, i hvilket retten til tilskuddet ophører." Særligt børnetilskud efter
+    en bidragsbetalers død udbetales først fra udløbet af den periode, for hvilken
+    der senest er udbetalt bidrag.'
+inputs:
+- name: right_to_child_supplement_has_been_acquired
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: special_child_supplement_is_payable_after_contributor_death
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: payment_is_in_quarter_following_quarter_right_was_acquired
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: right_to_child_supplement_has_ceased
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: payment_is_in_quarter_right_to_child_supplement_ceases
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: payment_is_after_end_of_period_for_which_contribution_was_last_paid
+  entity: Person
+  dtype: Boolean
+  period: Day
+rules:
+- name: ordinary_first_payment_timing_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 10, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+          excerpt: Særligt børnetilskud, der skal ydes et barn efter en bidragsbetalers
+            død, udbetales dog først fra udløbet af den periode, for hvilken der senest
+            er udbetalt bidrag efter lov om børns forsørgelse.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+          excerpt: retten til tilskuddet er erhvervet
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'right_to_child_supplement_has_been_acquired
+
+      and not special_child_supplement_is_payable_after_contributor_death'
+- name: ordinary_first_payment_is_in_following_quarter
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 10, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+          excerpt: udbetales første gang for det kvartal, der følger efter det kvartal
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+          excerpt: Særligt børnetilskud, der skal ydes et barn efter en bidragsbetalers
+            død, udbetales dog først fra udløbet af den periode, for hvilken der senest
+            er udbetalt bidrag efter lov om børns forsørgelse.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'ordinary_first_payment_timing_applies
+
+      and payment_is_in_quarter_following_quarter_right_was_acquired'
+- name: last_payment_is_in_cessation_quarter
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 10, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+          excerpt: sidste gang for det kvartal, i hvilket retten til tilskuddet ophører
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'right_to_child_supplement_has_ceased
+
+      and payment_is_in_quarter_right_to_child_supplement_ceases'
+- name: special_post_death_payment_is_after_last_contribution_period
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 10, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+          excerpt: Særligt børnetilskud, der skal ydes et barn efter en bidragsbetalers
+            død
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10
+          excerpt: udbetales dog først fra udløbet af den periode
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'special_child_supplement_is_payable_after_contributor_death
+
+      and payment_is_after_end_of_period_for_which_contribution_was_last_paid'
