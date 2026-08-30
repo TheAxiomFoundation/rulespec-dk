@@ -1,0 +1,213 @@
+- name: ordinary_child_supplement_section_2_item_1_after_application
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: holds
+- name: ordinary_child_supplement_section_2_item_2_after_application
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: holds
+- name: ordinary_child_supplement_section_2_item_3_after_application
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: holds
+- name: extra_child_supplement_section_3_after_application
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: holds
+- name: special_child_supplement_section_4_item_1_after_application
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: holds
+- name: special_child_supplement_section_4_item_6_after_application
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: holds
+- name: child_supplement_section_5_subsection_2_second_sentence_after_application
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: holds
+- name: specified_child_supplement_without_application_is_not_payable
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: not_holds
+- name: nonlisted_payment_is_not_payable_under_section_6_subsection_1
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.application_for_that_payment_has_been_submitted: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_ordinary_child_supplement_under_section_2_item_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_extra_child_supplement_under_section_3: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#specified_child_supplement_payment_is_payable_after_application: not_holds
+- name: right_conditions_met_at_beginning_of_quarter
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.conditions_for_right_to_receive_child_supplement_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.day_is_beginning_of_first_day_of_quarter: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#conditions_for_right_to_receive_child_supplement_are_timely_met: holds
+- name: right_conditions_not_met_at_beginning_of_quarter
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-01'
+    end: '2024-01-01'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.conditions_for_right_to_receive_child_supplement_are_met: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.day_is_beginning_of_first_day_of_quarter: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#conditions_for_right_to_receive_child_supplement_are_timely_met: not_holds
+- name: right_conditions_not_timely_met_outside_quarter_start
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-01-02'
+    end: '2024-01-02'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.conditions_for_right_to_receive_child_supplement_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#input.day_is_beginning_of_first_day_of_quarter: false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-6#conditions_for_right_to_receive_child_supplement_are_timely_met: not_holds

@@ -1,0 +1,120 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-6
+    source_sha256: 3825fd54f660c10e3707c7f74db84e78396b93629c83a5b8d0fcc2d7e5148dbd
+  summary: '§ 6, stk. 1: "Ordinært børnetilskud efter § 2, nr. 1-3, ekstra børnetilskud
+    efter § 3 og særligt børnetilskud efter § 4, stk. 3, nr. 1 og 6, samt § 5, stk.
+    2, 2. pkt., udbetales efter ansøgning herom."
+
+
+    Stk. 2: "Betingelserne for retten til at modtage børnetilskud skal være opfyldt
+    ved begyndelsen af det første døgn i kvartalet."'
+rules:
+- name: special_child_supplement_section_4_subsection_3_item_6_reference_number
+  kind: parameter
+  dtype: Integer
+  source: § 6, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-6
+          excerpt: § 4, stk. 3, nr. 1 og 6
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '6'
+- name: specified_child_supplement_payment_is_payable_after_application
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Day
+  source: § 6, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-6
+          excerpt: udbetales efter ansøgning herom.
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-6
+          excerpt: Ordinært børnetilskud efter § 2, nr. 1-3, ekstra børnetilskud efter
+            § 3 og særligt børnetilskud efter § 4, stk. 3, nr. 1 og 6, samt § 5, stk.
+            2, 2. pkt.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: "application_for_that_payment_has_been_submitted\nand (\n  payment_is_ordinary_child_supplement_under_section_2_item_1\n\
+      \  or payment_is_ordinary_child_supplement_under_section_2_item_2\n  or payment_is_ordinary_child_supplement_under_section_2_item_3\n\
+      \  or payment_is_extra_child_supplement_under_section_3\n  or payment_is_special_child_supplement_under_section_4_subsection_3_item_1\n\
+      \  or payment_is_special_child_supplement_under_section_4_subsection_3_item_6\n\
+      \  or payment_is_child_supplement_under_section_5_subsection_2_second_sentence\n\
+      )"
+- name: conditions_for_right_to_receive_child_supplement_are_timely_met
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 6, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-6
+          excerpt: Betingelserne for retten til at modtage børnetilskud skal være
+            opfyldt ved begyndelsen af det første døgn i kvartalet.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'conditions_for_right_to_receive_child_supplement_are_met
+
+      and day_is_beginning_of_first_day_of_quarter'
+inputs:
+- name: application_for_that_payment_has_been_submitted
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: payment_is_ordinary_child_supplement_under_section_2_item_1
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: payment_is_ordinary_child_supplement_under_section_2_item_2
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: payment_is_ordinary_child_supplement_under_section_2_item_3
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: payment_is_extra_child_supplement_under_section_3
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: payment_is_special_child_supplement_under_section_4_subsection_3_item_1
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: payment_is_special_child_supplement_under_section_4_subsection_3_item_6
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: payment_is_child_supplement_under_section_5_subsection_2_second_sentence
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: conditions_for_right_to_receive_child_supplement_are_met
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_beginning_of_first_day_of_quarter
+  entity: Person
+  dtype: Boolean
+  period: Day
