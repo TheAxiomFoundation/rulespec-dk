@@ -1,0 +1,113 @@
+- name: domestic_income_converts_to_hours
+  period: 2024-06
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_unscheduled_work_or_self_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.employment_was_in_other_eu_eea_country: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.domestic_employment_income: 1338.5
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_employment_income: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_income_indexing_factor: 1
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.european_central_bank_exchange_rate: 1
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#employment_hours_for_unscheduled_work_or_self_employment: 10
+- name: basic_rate_for_person_under_thirty_without_qualifying_employment
+  period: 2024-06
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_age: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_meets_basic_rate_conditions: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_residence_requirement_under_section_11_3: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_employment_requirement_under_section_11_8: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_ordinary_employment_equivalent_to_qualifying_period: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_previously_met_employment_requirement_under_section_11_8: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#ordinary_employment_requirement_satisfied: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#enhanced_rate_due_to_ordinary_employment: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#kontanthjaelp_monthly_amount: 6955
+- name: enhanced_rate_after_qualifying_ordinary_employment
+  period: 2024-06
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_age: 26
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_meets_basic_rate_conditions: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_residence_requirement_under_section_11_3: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_employment_requirement_under_section_11_8: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_ordinary_employment_equivalent_to_qualifying_period: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_previously_met_employment_requirement_under_section_11_8: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#ordinary_employment_requirement_satisfied: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#enhanced_rate_due_to_ordinary_employment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#kontanthjaelp_monthly_amount: 12064
+- name: home_living_rate_applies_despite_unmet_residence_requirement
+  period: 2024-06
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_age: 22
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_meets_basic_rate_conditions: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_residence_requirement_under_section_11_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_employment_requirement_under_section_11_8: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_lives_with_one_or_both_parents: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_ordinary_employment_equivalent_to_qualifying_period: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_previously_met_employment_requirement_under_section_11_8: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#person_meets_home_living_rate_conditions: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#kontanthjaelp_monthly_amount: 2823
+- name: minimum_rate_for_non_home_living_person_with_unmet_employment_requirement
+  period: 2024-06
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_age: 31
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_meets_basic_rate_conditions: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_residence_requirement_under_section_11_3: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_employment_requirement_under_section_11_8: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_ordinary_employment_equivalent_to_qualifying_period: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_previously_met_employment_requirement_under_section_11_8: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#person_meets_home_living_rate_conditions: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#kontanthjaelp_monthly_amount: 6553
+- name: foreign_income_is_indexed_and_converted_before_hours_calculation
+  period: 2024-06
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_unscheduled_work_or_self_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.employment_was_in_other_eu_eea_country: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.domestic_employment_income: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_employment_income: 1338.5
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_income_indexing_factor: 2
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.european_central_bank_exchange_rate: 0.5
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#employment_hours_for_unscheduled_work_or_self_employment: 10
+- name: converted_hours_are_capped_at_monthly_limit
+  period: 2024-06
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_unscheduled_work_or_self_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.employment_was_in_other_eu_eea_country: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.domestic_employment_income: 30000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_employment_income: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_income_indexing_factor: 1
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.european_central_bank_exchange_rate: 1
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#employment_hours_for_unscheduled_work_or_self_employment: 160.33
+- name: auto_zero_employment_hours_for_unscheduled_work_or_self_employment
+  period:
+    period_kind: month
+    start: '2024-01-01'
+    end: '2024-01-31'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.domestic_employment_income: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.employment_was_in_other_eu_eea_country: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.european_central_bank_exchange_rate: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_employment_income: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.foreign_eu_eea_income_indexing_factor: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_age: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_employment_requirement_under_section_11_8: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_does_not_meet_residence_requirement_under_section_11_3: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_ordinary_employment_equivalent_to_qualifying_period: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_previously_met_employment_requirement_under_section_11_8: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_has_unscheduled_work_or_self_employment: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_meets_basic_rate_conditions: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#input.person_supports_own_child_in_home: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-16#employment_hours_for_unscheduled_work_or_self_employment: 0

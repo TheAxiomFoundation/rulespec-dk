@@ -1,0 +1,465 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+    source_sha256: 88d54da97250a993cce02cb14fc0a7465938c74cae97724c7e55bf1a736e49c2
+  summary: § 16 fastsætter månedlige satser for kontanthjælp og regler om forhøjet
+    sats efter ordinær beskæftigelse samt omregning af indtægt til beskæftigelsestimer.
+rules:
+- name: rate_reference_level_year
+  kind: parameter
+  dtype: Integer
+  source: § 16, stk. 1-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: (2024-niveau)
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '2024'
+- name: foreign_income_indexing_preconversion_start_sentence
+  kind: parameter
+  dtype: Integer
+  source: § 16, stk. 4, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: inden omregning til timer efter 1.-3. pkt.
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '1'
+- name: foreign_income_indexing_preconversion_end_sentence
+  kind: parameter
+  dtype: Integer
+  source: § 16, stk. 4, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: inden omregning til timer efter 1.-3. pkt.
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '3'
+- name: maximum_monthly_employment_hours
+  kind: parameter
+  dtype: Decimal
+  source: § 16, stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: maksimalt kan opgøres beskæftigelse svarende til 160,33 timer pr.
+            måned
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '160.33'
+- name: basic_rate_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 16, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: En grundsats på 6.955 kr. (2024-niveau)
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '6955'
+- name: enhanced_rate_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 16, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: En forhøjet sats på 12.064 kr. (2024-niveau)
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '12064'
+- name: home_living_rate_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 16, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: En sats på 2.823 kr. (2024-niveau)
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '2823'
+- name: minimum_rate_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 16, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: En mindstesats på 6.553 kr. (2024-niveau)
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '6553'
+- name: minimum_rate_home_living_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 16, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: En sats på 2.823 kr. (2024-niveau)
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '2823'
+- name: basic_rate_age_limit
+  kind: parameter
+  dtype: Decimal
+  source: § 16, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: til personer under 30 år
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '30'
+- name: enhanced_rate_age_limit
+  kind: parameter
+  dtype: Decimal
+  source: § 16, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: der er fyldt 30 år
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '30'
+- name: employment_enhanced_rate_minimum_age
+  kind: parameter
+  dtype: Decimal
+  source: § 16, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: En person, der er fyldt 25 år
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '25'
+- name: qualifying_ordinary_employment_years
+  kind: parameter
+  dtype: Decimal
+  source: § 16, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: fuldtidsbeskæftigelse i 2 år
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '2'
+- name: qualifying_ordinary_employment_additional_months
+  kind: parameter
+  dtype: Decimal
+  source: § 16, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: og 6 måneder
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '6'
+- name: employment_lookback_years
+  kind: parameter
+  dtype: Decimal
+  source: § 16, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: inden for de seneste 10 år
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '10'
+- name: income_to_hours_conversion_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 16, stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: en omregningssats på 133,85 kr. (2024-niveau)
+  versions:
+  - effective_from: '2024-01-01'
+    formula: '133.85'
+- name: person_meets_home_living_rate_conditions
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 16, stk. 1, nr. 3; stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: hjemmeboende personer under 30 år, der bor hos en eller begge forældre
+            og ikke forsørger eget barn i hjemmet
+  versions:
+  - effective_from: '2024-01-01'
+    formula: 'person_age < basic_rate_age_limit
+
+      and person_lives_with_one_or_both_parents
+
+      and not person_supports_own_child_in_home'
+- name: ordinary_employment_requirement_satisfied
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 16, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: Kravet om ordinær beskæftigelse i stk. 3 kræves alene opfyldt én
+            gang
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: Kravet anses tillige som opfyldt, hvis personen tidligere eller
+            ved indtræden i kontanthjælpssystemet har opfyldt eller opfylder beskæftigelseskravet
+            i § 11, stk. 8.
+  versions:
+  - effective_from: '2024-01-01'
+    formula: 'person_has_ordinary_employment_equivalent_to_qualifying_period
+
+      or person_has_previously_met_employment_requirement_under_section_11_8'
+- name: enhanced_rate_due_to_ordinary_employment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 16, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: Stk. 3. En person, der er fyldt 25 år, og som opfylder betingelserne
+            for at modtage grundsats, jf. stk. 1, nr. 1, modtager forhøjet sats, jf.
+            stk. 1, nr. 2, når personen har haft ordinær beskæftigelse her i riget
+            eller i et andet EU-/EØS-land i en periode, som sammenlagt svarer til
+            fuldtidsbeskæftigelse i 2 år og 6 måneder inden for de seneste 10 år.
+  versions:
+  - effective_from: '2024-01-01'
+    formula: 'person_age >= employment_enhanced_rate_minimum_age
+
+      and person_meets_basic_rate_conditions
+
+      and ordinary_employment_requirement_satisfied'
+- name: kontanthjaelp_monthly_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 16, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: 'Kontanthjælp udgør et månedligt beløb med en af følgende satser,
+            jf. dog stk. 2: 1) En grundsats på 6.955 kr. (2024-niveau) til personer
+            under 30 år. 2) En forhøjet sats på 12.064 kr. (2024-niveau) til personer,
+            der er fyldt 30 år. 3) En sats på 2.823 kr. (2024-niveau) til hjemmeboende
+            personer under 30 år, der bor hos en eller begge forældre og ikke forsørger
+            eget barn i hjemmet.'
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: Kontanthjælp til personer, der ikke opfylder opholdskravet i §
+            11, stk. 3, eller beskæftigelseskravet i § 11, stk. 8
+  versions:
+  - effective_from: '2024-01-01'
+    formula: "if person_does_not_meet_residence_requirement_under_section_11_3 or\
+      \ person_does_not_meet_employment_requirement_under_section_11_8:\n  if person_meets_home_living_rate_conditions:\
+      \ minimum_rate_home_living_amount else: minimum_rate_amount\nelse:\n  if person_meets_home_living_rate_conditions:\
+      \ home_living_rate_amount else: if person_age >= enhanced_rate_age_limit or\
+      \ enhanced_rate_due_to_ordinary_employment: enhanced_rate_amount else: basic_rate_amount"
+- name: employment_hours_for_unscheduled_work_or_self_employment
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Month
+  source: § 16, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: Indtægten omregnes til antal timer ved at dividere indtægten med
+            en omregningssats
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: For indtægt, som er optjent i et andet EU-/EØS-land, skal indtægten
+            inden omregning til timer efter 1.-3. pkt. indekseres på baggrund af det
+            pågældende lands indekseringsfaktor, der offentliggøres hvert år i en
+            vejledning om satser m.v. på arbejdsløshedsforsikringens område.
+      - path: versions[0].formula
+        kind: unit
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-16
+          excerpt: Indkomsten omregnes til danske kroner med den gældende valutakurs
+  versions:
+  - effective_from: '2024-01-01'
+    formula: "if person_has_unscheduled_work_or_self_employment:\n  if employment_was_in_other_eu_eea_country:\n\
+      \    min((foreign_eu_eea_employment_income * foreign_eu_eea_income_indexing_factor\
+      \ * european_central_bank_exchange_rate) / income_to_hours_conversion_rate,\
+      \ maximum_monthly_employment_hours)\n  else:\n    min(domestic_employment_income\
+      \ / income_to_hours_conversion_rate, maximum_monthly_employment_hours)\nelse:\
+      \ 0"
+inputs:
+- name: person_age
+  entity: Person
+  dtype: Decimal
+  period: Month
+- name: person_meets_basic_rate_conditions
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_does_not_meet_residence_requirement_under_section_11_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_does_not_meet_employment_requirement_under_section_11_8
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_lives_with_one_or_both_parents
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_supports_own_child_in_home
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_ordinary_employment_equivalent_to_qualifying_period
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_previously_met_employment_requirement_under_section_11_8
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_unscheduled_work_or_self_employment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: domestic_employment_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: foreign_eu_eea_employment_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: foreign_eu_eea_income_indexing_factor
+  entity: Person
+  dtype: Rate
+  period: Month
+- name: european_central_bank_exchange_rate
+  entity: Person
+  dtype: Rate
+  period: Month
+- name: employment_was_in_other_eu_eea_country
+  entity: Person
+  dtype: Boolean
+  period: Month
