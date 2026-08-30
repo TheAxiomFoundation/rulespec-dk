@@ -1,0 +1,8 @@
+- name: income_reduction_treatment_of_pension_components
+  period: 2024-11
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15#basic_pension_income_reduction_applies: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15#pension_supplement_income_reduction_applies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15#heating_allowance_income_reduction_applies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15#health_allowance_income_reduction_applies: holds
