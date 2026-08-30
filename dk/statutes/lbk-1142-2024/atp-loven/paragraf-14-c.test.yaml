@@ -1,0 +1,32 @@
+- name: benefit_is_unreduced_before_first_annual_reduction
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.benefit_under_section_14_b_subsection_1: 1000
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.completed_months_since_reaching_folkepension_age: 11
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#annual_reduction_amount: 200
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#benefit_after_pension_age_reduction: 1000
+- name: benefit_is_reduced_at_first_reduction_date
+  period: 2024-12
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.benefit_under_section_14_b_subsection_1: 1000
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.completed_months_since_reaching_folkepension_age: 12
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#annual_reduction_amount: 200
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#benefit_after_pension_age_reduction: 800
+- name: benefit_is_reduced_by_equal_amounts_each_year
+  period: 2025-12
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.benefit_under_section_14_b_subsection_1: 1000
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.completed_months_since_reaching_folkepension_age: 24
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#annual_reduction_amount: 200
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#benefit_after_pension_age_reduction: 600
+- name: benefit_ceases_five_years_after_pension_age
+  period: 2028-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.benefit_under_section_14_b_subsection_1: 1000
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#input.completed_months_since_reaching_folkepension_age: 60
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#annual_reduction_amount: 200
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-c#benefit_after_pension_age_reduction: 0
