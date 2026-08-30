@@ -1,0 +1,107 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-89
+    source_sha256: ae0b59e4a20e1366370fb3d3c07e667dd69bfbc8d8c9249cdf367342517bd00c
+  summary: Hjælp til forsørgelse udbetales normalt som et månedligt beløb. Udbetalingen
+    sker bagud for 1 måned. Kommunen kan udbetale engangshjælpen for kortere perioder
+    ved begrundet tvivl om opfyldelse af betingelserne i hele dækningsperioden.
+inputs:
+- name: payment_is_assistance_for_maintenance
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_one_time_assistance
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: municipality_has_reasoned_doubt_recipient_will_fulfill_assistance_conditions_for_entire_covered_period
+  entity: Payment
+  dtype: Boolean
+  period: Month
+rules:
+- name: assistance_payment_arrears_period_months
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 89, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-89
+          excerpt: Udbetalingen sker bagud for 1 måned.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: maintenance_assistance_payment_default_frequency_is_monthly
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 89, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: default
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-89
+          excerpt: Hjælp til forsørgelse udbetales normalt som et månedligt beløb.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: payment_is_assistance_for_maintenance
+- name: maintenance_assistance_payment_default_is_one_month_in_arrears
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 89, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-89
+          excerpt: Udbetalingen sker bagud for 1 måned.
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-89
+          excerpt: Udbetalingen sker bagud for 1 måned.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'payment_is_assistance_for_maintenance
+
+      and assistance_payment_arrears_period_months == 1'
+- name: one_time_assistance_may_be_paid_for_shorter_period
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 89, stk. 2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-89
+          excerpt: Kommunen kan udbetale engangshjælpen for kortere perioder, hvis
+            der er begrundet tvivl om, at modtageren vil opfylde betingelserne for
+            hjælp i hele den periode, som engangshjælpen er beregnet til at dække.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-89
+          excerpt: hvis der er begrundet tvivl om, at modtageren vil opfylde betingelserne
+            for hjælp i hele den periode
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'payment_is_one_time_assistance
+
+      and municipality_has_reasoned_doubt_recipient_will_fulfill_assistance_conditions_for_entire_covered_period'
