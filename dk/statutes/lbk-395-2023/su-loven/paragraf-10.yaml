@@ -1,0 +1,41 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-10
+    source_sha256: 8676913fd8f82cfb6e3e124f345eeb436c39de15048c3d0858b9331a24d6edae
+  summary: § 10. Det månedlige slutlån udgør 7.592 kr. (2013-niveau).
+rules:
+- name: monthly_final_loan
+  kind: parameter
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: SU-loven § 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-10
+          excerpt: Det månedlige slutlån udgør 7.592 kr.
+  versions:
+  - effective_from: '2023-04-01'
+    formula: '7592'
+- name: final_loan_reference_level
+  kind: parameter
+  dtype: Integer
+  source: SU-loven § 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-10
+          excerpt: (2013-niveau).
+  versions:
+  - effective_from: '2023-04-01'
+    formula: '2013'
