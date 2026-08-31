@@ -1,0 +1,145 @@
+- name: adult_payment_is_capped_at_cheapest_preparation
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.months_of_cash_assistance_received_in_latest_assessment_window: 12
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 300
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#person_has_right_to_medicine_payment_assistance: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#medicine_payment_assistance_amount: 200
+- name: adult_qualifies_after_required_cash_assistance_period
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.months_of_cash_assistance_received_in_latest_assessment_window: 12
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#person_has_right_to_medicine_payment_assistance: holds
+- name: adult_does_not_qualify_without_cash_assistance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_receives_cash_assistance_under_section_16: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.months_of_cash_assistance_received_in_latest_assessment_window: 12
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#person_has_right_to_medicine_payment_assistance: not_holds
+- name: adult_does_not_qualify_for_non_subsidized_medicine
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.months_of_cash_assistance_received_in_latest_assessment_window: 12
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#person_has_right_to_medicine_payment_assistance: not_holds
+- name: adult_does_not_qualify_before_required_cash_assistance_period
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.months_of_cash_assistance_received_in_latest_assessment_window: 11
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#person_has_right_to_medicine_payment_assistance: not_holds
+- name: child_qualifies_from_parent_cash_assistance_entitlement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_is_own_child_of_cash_assistance_recipient: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_age_in_years: 17
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.parent_has_right_to_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_has_right_to_medicine_payment_assistance: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_medicine_payment_assistance_amount: 150
+- name: child_does_not_qualify_when_medicine_is_not_subsidized
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_is_own_child_of_cash_assistance_recipient: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_age_in_years: 17
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.parent_has_right_to_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_has_right_to_medicine_payment_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_medicine_payment_assistance_amount: 0
+- name: child_does_not_qualify_when_not_own_child
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_is_own_child_of_cash_assistance_recipient: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_age_in_years: 17
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.parent_has_right_to_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_has_right_to_medicine_payment_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_medicine_payment_assistance_amount: 0
+- name: child_does_not_qualify_at_age_limit
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_is_own_child_of_cash_assistance_recipient: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_age_in_years: 18
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.parent_has_right_to_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_has_right_to_medicine_payment_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_medicine_payment_assistance_amount: 0
+- name: child_does_not_qualify_without_shared_cpr_address
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_is_own_child_of_cash_assistance_recipient: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_age_in_years: 17
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.parent_has_right_to_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_has_right_to_medicine_payment_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_medicine_payment_assistance_amount: 0
+- name: child_does_not_qualify_without_parent_cash_assistance_entitlement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_is_own_child_of_cash_assistance_recipient: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_age_in_years: 17
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.parent_has_right_to_cash_assistance_under_section_16: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_has_right_to_medicine_payment_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#child_medicine_payment_assistance_amount: 0
+- name: auto_zero_medicine_payment_assistance_amount
+  period:
+    period_kind: month
+    start: '2025-07-01'
+    end: '2025-07-31'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_age_in_years: 0
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.cost_of_cheapest_medicine_preparation: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_is_eligible_for_subsidy: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.medicine_out_of_pocket_payment_after_subsidy: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.months_of_cash_assistance_received_in_latest_assessment_window: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.parent_has_right_to_cash_assistance_under_section_16: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_is_own_child_of_cash_assistance_recipient: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#input.person_receives_cash_assistance_under_section_16: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-82-b#medicine_payment_assistance_amount: 0
