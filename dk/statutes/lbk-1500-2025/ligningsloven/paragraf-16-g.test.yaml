@@ -1,0 +1,48 @@
+- name: includable_amount_when_pension_scheme_is_dissolved_or_lapses
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accruing_to_employer: 10000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accrues_on_pension_scheme_dissolution_or_lapse: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.employer_deducted_contributions_to_pension_scheme: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_taxed_under_pensions_taxation_act_section_24: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#taxable_income_inclusion_from_dissolved_or_lapsed_pension_scheme: 10000
+- name: no_inclusion_without_dissolution_or_lapse_accrual
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accruing_to_employer: 10000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accrues_on_pension_scheme_dissolution_or_lapse: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.employer_deducted_contributions_to_pension_scheme: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_taxed_under_pensions_taxation_act_section_24: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#taxable_income_inclusion_from_dissolved_or_lapsed_pension_scheme: 0
+- name: no_inclusion_without_deducted_contributions
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accruing_to_employer: 10000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accrues_on_pension_scheme_dissolution_or_lapse: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.employer_deducted_contributions_to_pension_scheme: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_taxed_under_pensions_taxation_act_section_24: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#taxable_income_inclusion_from_dissolved_or_lapsed_pension_scheme: 0
+- name: no_inclusion_when_amount_is_taxed_under_section_24
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accruing_to_employer: 10000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_accrues_on_pension_scheme_dissolution_or_lapse: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.employer_deducted_contributions_to_pension_scheme: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#input.amount_taxed_under_pensions_taxation_act_section_24: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-g#taxable_income_inclusion_from_dissolved_or_lapsed_pension_scheme: 0
