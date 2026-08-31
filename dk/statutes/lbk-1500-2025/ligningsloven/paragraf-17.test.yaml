@@ -1,0 +1,126 @@
+- name: gift_debt_to_lineal_descendant_interest_is_non_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.interest_on_debt: 12000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_gift: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_advance_inheritance: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_lineal_descendant: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_stepchild_or_fosterchild: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_spouse_of_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_family_benefit_foundation_or_similar: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_assumed_as_gift_or_advance_inheritance: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_lineal_descendant_or_equated_child: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_disqualifying_recipient: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#non_deductible_interest_on_assumed_debt: 12000
+- name: advance_inheritance_debt_to_lineal_descendant_interest_is_non_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.interest_on_debt: 8000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_gift: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_advance_inheritance: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_lineal_descendant: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_stepchild_or_fosterchild: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_spouse_of_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_family_benefit_foundation_or_similar: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_assumed_as_gift_or_advance_inheritance: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_lineal_descendant_or_equated_child: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_disqualifying_recipient: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#non_deductible_interest_on_assumed_debt: 8000
+- name: gift_debt_to_stepchild_interest_is_non_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.interest_on_debt: 6000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_gift: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_advance_inheritance: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_stepchild_or_fosterchild: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_spouse_of_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_family_benefit_foundation_or_similar: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_assumed_as_gift_or_advance_inheritance: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_lineal_descendant_or_equated_child: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_disqualifying_recipient: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#non_deductible_interest_on_assumed_debt: 6000
+- name: gift_debt_to_descendant_spouse_interest_is_non_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.interest_on_debt: 5000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_gift: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_advance_inheritance: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_stepchild_or_fosterchild: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_spouse_of_lineal_descendant: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_family_benefit_foundation_or_similar: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_assumed_as_gift_or_advance_inheritance: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_lineal_descendant_or_equated_child: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_disqualifying_recipient: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#non_deductible_interest_on_assumed_debt: 5000
+- name: gift_debt_to_family_foundation_interest_is_non_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.interest_on_debt: 4000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_gift: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_advance_inheritance: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_stepchild_or_fosterchild: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_spouse_of_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_family_benefit_foundation_or_similar: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_assumed_as_gift_or_advance_inheritance: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_lineal_descendant_or_equated_child: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_disqualifying_recipient: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#non_deductible_interest_on_assumed_debt: 4000
+- name: debt_not_assumed_as_gift_or_advance_remains_outside_disallowance
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.interest_on_debt: 9000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_gift: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_advance_inheritance: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_lineal_descendant: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_stepchild_or_fosterchild: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_spouse_of_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_family_benefit_foundation_or_similar: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_assumed_as_gift_or_advance_inheritance: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_lineal_descendant_or_equated_child: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_disqualifying_recipient: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#non_deductible_interest_on_assumed_debt: 0
+- name: gift_debt_to_non_disqualifying_creditor_remains_outside_disallowance
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.interest_on_debt: 7000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_gift: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debtor_assumed_debt_as_advance_inheritance: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_stepchild_or_fosterchild: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_spouse_of_lineal_descendant: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#input.debt_creditor_is_family_benefit_foundation_or_similar: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_assumed_as_gift_or_advance_inheritance: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_lineal_descendant_or_equated_child: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#debt_creditor_is_disqualifying_recipient: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17#non_deductible_interest_on_assumed_debt: 0
