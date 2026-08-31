@@ -1,0 +1,52 @@
+- name: weekly_payment_days_are_capped_at_five
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.requested_ledighedsydelse_days: 6
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#payable_ledighedsydelse_days: 5
+- name: short_duration_work_reduces_by_wage_income
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.recipient_has_short_duration_work: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.monthly_wage_income: 8000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#short_duration_work_reduction: 8000
+- name: no_short_duration_work_has_no_short_work_reduction
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.recipient_has_short_duration_work: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.monthly_wage_income: 8000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#short_duration_work_reduction: 0
+- name: termination_payment_reduces_ledighedsydelse
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.termination_payment_from_employer_or_guarantee_fund: 2500
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#termination_payment_reduction: 2500
+- name: monthly_income_reduction_below_threshold
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.monthly_wage_income: 10000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.monthly_other_income_replacing_wages: 0
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#monthly_income_reduction: 3000
+- name: monthly_income_reduction_above_threshold
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.monthly_wage_income: 15000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.monthly_other_income_replacing_wages: 1000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#monthly_income_reduction: 5550
+- name: ledighedsydelse_recipient_must_disclose_pension_contributions
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.recipient_receives_ledighedsydelse: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#pension_contributions_must_be_disclosed_to_municipality: holds
+- name: nonrecipient_has_no_disclosure_duty_under_this_subsection
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#input.recipient_receives_ledighedsydelse: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-d#pension_contributions_must_be_disclosed_to_municipality: not_holds
