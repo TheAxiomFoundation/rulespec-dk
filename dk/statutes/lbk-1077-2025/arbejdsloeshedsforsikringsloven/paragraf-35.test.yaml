@@ -1,0 +1,39 @@
+- name: approved_statutes_amendment_is_valid
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#input.unemployment_insurance_fund_statutes_are_amended
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#input.amendment_is_approved_by_director_of_the_danish_agency_for_labour_market_and_recruitment
+    : true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#statutes_amendment_is_valid: holds
+- name: unapproved_statutes_amendment_is_not_valid
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#input.unemployment_insurance_fund_statutes_are_amended
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#input.amendment_is_approved_by_director_of_the_danish_agency_for_labour_market_and_recruitment
+    : false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#statutes_amendment_is_valid: not_holds
+- name: no_statutes_amendment_is_not_valid
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#input.unemployment_insurance_fund_statutes_are_amended
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#input.amendment_is_approved_by_director_of_the_danish_agency_for_labour_market_and_recruitment
+    : true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35#statutes_amendment_is_valid: not_holds
