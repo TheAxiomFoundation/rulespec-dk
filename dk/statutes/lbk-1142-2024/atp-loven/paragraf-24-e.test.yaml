@@ -1,0 +1,24 @@
+- name: group_representation_rules_do_not_apply_for_employee_in_atp_temporary_business_vehicle
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#input.person_is_employee_in_business: true
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#input.business_is_vehicle_through_which_atp_temporarily_operates_other_business_under_this_act
+    : true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#company_act_group_representation_rules_do_not_apply: holds
+- name: group_representation_exception_does_not_apply_when_person_is_not_employee
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#input.person_is_employee_in_business: false
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#input.business_is_vehicle_through_which_atp_temporarily_operates_other_business_under_this_act
+    : true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#company_act_group_representation_rules_do_not_apply: not_holds
+- name: group_representation_exception_does_not_apply_outside_atp_temporary_business_vehicle
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#input.person_is_employee_in_business: true
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#input.business_is_vehicle_through_which_atp_temporarily_operates_other_business_under_this_act
+    : false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-e#company_act_group_representation_rules_do_not_apply: not_holds
