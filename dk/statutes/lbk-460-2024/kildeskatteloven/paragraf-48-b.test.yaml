@@ -1,0 +1,95 @@
+- name: remuneration-person-standard-gross-income-tax
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_taxable_on_remuneration_under_section_2_subsection_1_no_3
+    : true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_has_applied_for_residence_permit_under_aliens_act_section_7
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_earns_income_within_section_2_subsection_1_nos_1_and_13_to_21
+    : false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_covered_by_ligningsloven_section_8_m_subsection_5: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.gross_income: 1000
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.foreign_mandatory_social_employer_contributions_borne_by_employee
+    : 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#person_covered_by_section_48_b: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#tax_under_section_48_b: 300
+- name: remuneration-person-not-covered-without-section-2-taxability
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_taxable_on_remuneration_under_section_2_subsection_1_no_3
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_has_applied_for_residence_permit_under_aliens_act_section_7
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_earns_income_within_section_2_subsection_1_nos_1_and_13_to_21
+    : false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_covered_by_ligningsloven_section_8_m_subsection_5: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.gross_income: 1000
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.foreign_mandatory_social_employer_contributions_borne_by_employee
+    : 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#person_covered_by_section_48_b: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#tax_under_section_48_b: 0
+- name: residence-permit-applicant-contribution-adjusted-tax
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_taxable_on_remuneration_under_section_2_subsection_1_no_3
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_has_applied_for_residence_permit_under_aliens_act_section_7
+    : true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_earns_income_within_section_2_subsection_1_nos_1_and_13_to_21
+    : true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_covered_by_ligningsloven_section_8_m_subsection_5: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.gross_income: 1000
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.foreign_mandatory_social_employer_contributions_borne_by_employee
+    : 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#person_covered_by_section_48_b: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#tax_under_section_48_b: 270
+- name: residence-permit-path-requires-application
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_taxable_on_remuneration_under_section_2_subsection_1_no_3
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_has_applied_for_residence_permit_under_aliens_act_section_7
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_earns_income_within_section_2_subsection_1_nos_1_and_13_to_21
+    : true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_covered_by_ligningsloven_section_8_m_subsection_5: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.gross_income: 1000
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.foreign_mandatory_social_employer_contributions_borne_by_employee
+    : 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#person_covered_by_section_48_b: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#tax_under_section_48_b: 0
+- name: residence-permit-path-requires-covered-income
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_taxable_on_remuneration_under_section_2_subsection_1_no_3
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_has_applied_for_residence_permit_under_aliens_act_section_7
+    : true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_earns_income_within_section_2_subsection_1_nos_1_and_13_to_21
+    : false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.person_is_covered_by_ligningsloven_section_8_m_subsection_5: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.gross_income: 1000
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#input.foreign_mandatory_social_employer_contributions_borne_by_employee
+    : 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#person_covered_by_section_48_b: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-48-b#tax_under_section_48_b: 0
