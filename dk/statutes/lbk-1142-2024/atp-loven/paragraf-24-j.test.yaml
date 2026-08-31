@@ -1,0 +1,77 @@
+- name: payment_qualifies_as_severance_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_recipient_entitled_in_connection_with_termination: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_wages_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_value_of_employee_benefits_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_non_compete_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_customer_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_follows_mandatory_legislation: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#severance_payment: holds
+- name: payment_without_termination_entitlement_is_not_severance_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_recipient_entitled_in_connection_with_termination: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_wages_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_value_of_employee_benefits_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_non_compete_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_customer_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_follows_mandatory_legislation: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#severance_payment: not_holds
+- name: wages_during_notice_period_are_not_severance_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_recipient_entitled_in_connection_with_termination: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_wages_during_notice_period: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_value_of_employee_benefits_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_non_compete_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_customer_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_follows_mandatory_legislation: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#severance_payment: not_holds
+- name: employee_benefits_during_notice_period_are_not_severance_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_recipient_entitled_in_connection_with_termination: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_wages_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_value_of_employee_benefits_during_notice_period: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_non_compete_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_customer_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_follows_mandatory_legislation: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#severance_payment: not_holds
+- name: non_compete_compensation_is_not_severance_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_recipient_entitled_in_connection_with_termination: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_wages_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_value_of_employee_benefits_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_non_compete_clause: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_customer_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_follows_mandatory_legislation: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#severance_payment: not_holds
+- name: customer_clause_compensation_is_not_severance_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_recipient_entitled_in_connection_with_termination: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_wages_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_value_of_employee_benefits_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_non_compete_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_customer_clause: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_follows_mandatory_legislation: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#severance_payment: not_holds
+- name: mandatory_legal_payment_is_not_severance_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_recipient_entitled_in_connection_with_termination: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_wages_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_value_of_employee_benefits_during_notice_period: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_non_compete_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_is_reasonable_compensation_for_customer_clause: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#input.payment_follows_mandatory_legislation: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-j#severance_payment: not_holds
