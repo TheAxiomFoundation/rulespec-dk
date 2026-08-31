@@ -1,0 +1,144 @@
+- name: qualifying_person_receives_ordinary_maximum
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_does_not_meet_conditions_under_section_13_b: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_applied_for_one_time_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.assistance_period_does_not_exceed_one_month: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_under_25_and_lives_with_one_or_both_parents: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#person_qualifies_for_one_time_assistance: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#maximum_one_time_assistance: 6587
+- name: section_13_b_conditions_block_one_time_assistance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_does_not_meet_conditions_under_section_13_b: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_applied_for_one_time_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.assistance_period_does_not_exceed_one_month: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_under_25_and_lives_with_one_or_both_parents: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#person_qualifies_for_one_time_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#maximum_one_time_assistance: 0
+- name: full_month_cash_assistance_entitlement_blocks_one_time_assistance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_does_not_meet_conditions_under_section_13_b: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_applied_for_one_time_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.assistance_period_does_not_exceed_one_month: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_under_25_and_lives_with_one_or_both_parents: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#person_qualifies_for_one_time_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#maximum_one_time_assistance: 0
+- name: application_is_required_for_one_time_assistance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_does_not_meet_conditions_under_section_13_b: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_applied_for_one_time_assistance: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.assistance_period_does_not_exceed_one_month: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_under_25_and_lives_with_one_or_both_parents: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#person_qualifies_for_one_time_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#maximum_one_time_assistance: 0
+- name: assistance_longer_than_one_month_is_not_qualified
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_does_not_meet_conditions_under_section_13_b: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_applied_for_one_time_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.assistance_period_does_not_exceed_one_month: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_under_25_and_lives_with_one_or_both_parents: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#person_qualifies_for_one_time_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#maximum_one_time_assistance: 0
+- name: young_person_living_with_parents_has_lower_maximum
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_does_not_meet_conditions_under_section_13_b: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_applied_for_one_time_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.assistance_period_does_not_exceed_one_month: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_under_25_and_lives_with_one_or_both_parents: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#person_qualifies_for_one_time_assistance: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#maximum_one_time_assistance: 3276
+- name: advance_decision_is_timely_fourteen_days_before_release
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-15'
+    end: '2025-07-15'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_to_be_released_from_prison: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_requested_advance_decision: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.days_before_release_when_advance_decision_is_made: 14
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#advance_decision_is_timely: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#municipality_must_make_concrete_advance_assessment: holds
+- name: advance_decision_later_than_deadline_is_not_timely
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-15'
+    end: '2025-07-15'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_is_to_be_released_from_prison: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.person_has_requested_advance_decision: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.days_before_release_when_advance_decision_is_made: 13
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#advance_decision_is_timely: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#municipality_must_make_concrete_advance_assessment: not_holds
+- name: assessed_assistance_is_payable_on_release_day
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-15'
+    end: '2025-07-15'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.advance_assessment_finds_person_expected_to_meet_one_time_assistance_conditions
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.day_is_persons_release_day: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#advance_one_time_assistance_is_payable_on_release_day: holds
+- name: assessed_assistance_is_not_payable_before_release_day
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-14'
+    end: '2025-07-14'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.advance_assessment_finds_person_expected_to_meet_one_time_assistance_conditions
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.day_is_persons_release_day: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#advance_one_time_assistance_is_payable_on_release_day: not_holds
+- name: repayment_is_required_when_conditions_fail_on_release
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-15'
+    end: '2025-07-15'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.advance_one_time_assistance_was_paid: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.actual_one_time_assistance_conditions_are_not_met_on_release_day: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#repayment_of_advance_one_time_assistance_is_required: holds
+- name: repayment_is_not_required_when_conditions_are_met_on_release
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-15'
+    end: '2025-07-15'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.advance_one_time_assistance_was_paid: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#input.actual_one_time_assistance_conditions_are_not_met_on_release_day: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-25-a#repayment_of_advance_one_time_assistance_is_required: not_holds
