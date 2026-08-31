@@ -1,0 +1,9 @@
+- name: phd_stipendium_decision_has_no_other_administrative_appeal
+  period:
+    period_kind: custom
+    name: day
+    start: '2023-04-13'
+    end: '2023-04-13'
+  input: {}
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-59#appeal_to_other_administrative_authority_available: not_holds
