@@ -1,0 +1,169 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+    source_sha256: 887c0e177bd12091e1209299adf779986cedd2a63b28348149601c8db8e25c5d
+  summary: '"på tidspunktet, hvor der er 3 år, til personen når folkepensionsalderen."
+    "For pensionsordninger med løbende livsvarige udbetalinger ... 80 pct." "For alle
+    øvrige ordninger ... 5 pct. af det indberettede depot." "Tidlig pension nedsættes
+    ... med det beregnede beløb, der overstiger et fradragsbeløb på 100.000 kr. (2020-niveau)."
+    "Nedsættelsen ... opgøres på årsbasis og omregnes til et månedsbeløb, der afrundes
+    til nærmeste hele beløb i kroner."'
+inputs:
+- name: reported_calculated_lifelong_annual_benefit
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: reported_other_pension_depot
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: annual_reduction_converted_to_monthly_amount
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+rules:
+- name: assessment_time_before_state_pension_age_years
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: § 32 h, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+          excerpt: hvor der er 3 år, til personen når folkepensionsalderen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '3'
+- name: lifelong_pension_reduction_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 32 h, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+          excerpt: svarer til 80 pct. af den indberettede beregnede livsvarige årlige
+            ydelse
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.80'
+- name: other_pension_depot_reduction_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 32 h, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+          excerpt: svarer til 5 pct. af det indberettede depot
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.05'
+- name: pension_reduction_allowance
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 32 h, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+          excerpt: et fradragsbeløb på 100.000 kr. (2020-niveau)
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '100000'
+- name: pension_reduction_allowance_price_level
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 32 h, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+          excerpt: 100.000 kr. (2020-niveau)
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2020'
+- name: calculated_annual_pension_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 32 h, stk. 2, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '(lifelong_pension_reduction_rate * reported_calculated_lifelong_annual_benefit)
+
+      + (other_pension_depot_reduction_rate * reported_other_pension_depot)'
+- name: annual_early_pension_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 32 h, stk. 2, 3.-4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+          excerpt: med det beregnede beløb, der overstiger et fradragsbeløb på 100.000
+            kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: max(0, calculated_annual_pension_benefit - pension_reduction_allowance)
+- name: monthly_early_pension_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 32 h, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-h
+          excerpt: omregnes til et månedsbeløb, der afrundes til nærmeste hele beløb
+            i kroner
+  versions:
+  - effective_from: '2024-10-21'
+    formula: max(0, floor(annual_reduction_converted_to_monthly_amount + 0.5))
