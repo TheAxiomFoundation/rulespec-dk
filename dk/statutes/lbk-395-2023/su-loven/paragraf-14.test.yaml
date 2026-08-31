@@ -1,0 +1,110 @@
+- name: extra_support_eligibility_all_conditions_hold
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.birth_or_adoption_has_occurred: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.has_right_to_educational_support_outside_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.application_for_extra_educational_support_submitted: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#eligible_for_extra_educational_support: holds
+- name: extra_support_eligibility_requires_birth_or_adoption
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.birth_or_adoption_has_occurred: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.has_right_to_educational_support_outside_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.application_for_extra_educational_support_submitted: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#eligible_for_extra_educational_support: not_holds
+- name: extra_support_eligibility_requires_support_right
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.birth_or_adoption_has_occurred: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.has_right_to_educational_support_outside_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.application_for_extra_educational_support_submitted: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#eligible_for_extra_educational_support: not_holds
+- name: extra_support_eligibility_requires_application
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.birth_or_adoption_has_occurred: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.has_right_to_educational_support_outside_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.application_for_extra_educational_support_submitted: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#eligible_for_extra_educational_support: not_holds
+- name: ordinary_extra_support_month_limit_applies
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.birth_or_adoption_has_occurred: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.has_right_to_educational_support_outside_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.application_for_extra_educational_support_submitted: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_sole_provider: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#eligible_for_extra_educational_support: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#maximum_extra_educational_support_months: 9
+- name: sole_provider_extra_support_month_limit_applies
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.birth_or_adoption_has_occurred: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.has_right_to_educational_support_outside_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.application_for_extra_educational_support_submitted: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_sole_provider: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#eligible_for_extra_educational_support: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#maximum_extra_educational_support_months: 12
+- name: transfer_is_permitted_when_all_conditions_hold
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_parent: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.other_parent_has_right_to_educational_support: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.either_parent_has_right_to_more_than_nine_extra_months: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#may_transfer_extra_educational_support_months: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#maximum_transferable_extra_educational_support_months: 3
+- name: transfer_requires_parent_status
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_parent: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.other_parent_has_right_to_educational_support: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.either_parent_has_right_to_more_than_nine_extra_months: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#may_transfer_extra_educational_support_months: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#maximum_transferable_extra_educational_support_months: 0
+- name: transfer_requires_other_parent_support_right
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_parent: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.other_parent_has_right_to_educational_support: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.either_parent_has_right_to_more_than_nine_extra_months: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#may_transfer_extra_educational_support_months: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#maximum_transferable_extra_educational_support_months: 0
+- name: transfer_does_not_apply_if_a_parent_has_more_than_nine_extra_months
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_parent: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.other_parent_has_right_to_educational_support: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.either_parent_has_right_to_more_than_nine_extra_months: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#may_transfer_extra_educational_support_months: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#maximum_transferable_extra_educational_support_months: 0
+- name: ministerial_rulemaking_authorities_hold
+  period: 2023-05
+  input: {}
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#minister_may_set_rules_on_support_conditions: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#minister_may_set_rules_on_support_payment: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#minister_may_set_rules_on_support_application: holds
+- name: auto_zero_maximum_extra_educational_support_months
+  period:
+    period_kind: month
+    start: '2023-05-01'
+    end: '2023-05-31'
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.application_for_extra_educational_support_submitted: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.birth_or_adoption_has_occurred: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.either_parent_has_right_to_more_than_nine_extra_months: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.has_right_to_educational_support_outside_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_parent: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.is_sole_provider: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#input.other_parent_has_right_to_educational_support: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-14#maximum_extra_educational_support_months: 0

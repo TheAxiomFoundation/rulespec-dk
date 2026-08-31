@@ -1,0 +1,287 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+    source_sha256: 54ae83b590c688f0378d890ac5db964f9ec247c8a3433e28bb263048f0635c25
+  summary: '§ 14, stk. 1: "I forbindelse med fødsel eller adoption" gives an applicant
+    with support entitlement outside the clip card up to 9 extra months, or up to
+    12 months if a sole provider. Stk. 2 permits transfer of up to 3 extra months
+    where the other parent has support entitlement, except where either parent has
+    entitlement to more than 9 extra months. Stk. 3 authorizes ministerial rules.'
+rules:
+- name: ministerial_support_conditions_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: SU-loven § 14, stk. 3, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: 1) Betingelser for tildeling af støtte.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '1'
+- name: ministerial_support_payment_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: SU-loven § 14, stk. 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: 2) Udbetaling af støtte, herunder udbetaling med dobbelte beløb.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '2'
+- name: ordinary_extra_support_month_limit
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: SU-loven § 14, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: ekstra uddannelsesstøtte i indtil 9 måneder
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '9'
+- name: sole_provider_extra_support_month_limit
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: SU-loven § 14, stk. 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: Den uddannelsessøgende, der er enlig forsørger, får dog efter ansøgning
+            ekstra uddannelsesstøtte i indtil 12 måneder.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '12'
+- name: transferable_extra_support_month_limit
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: SU-loven § 14, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: overføre indtil 3 af de ekstra måneder
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '3'
+- name: eligible_for_extra_educational_support
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 14, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: I forbindelse med fødsel eller adoption
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: der har ret til uddannelsesstøtte uden for klippekortet
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: efter ansøgning
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'birth_or_adoption_has_occurred
+
+      and has_right_to_educational_support_outside_clip_card
+
+      and application_for_extra_educational_support_submitted'
+- name: maximum_extra_educational_support_months
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Month
+  source: SU-loven § 14, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: I forbindelse med fødsel eller adoption får den uddannelsessøgende,
+            der har ret til uddannelsesstøtte uden for klippekortet, efter ansøgning
+            ekstra uddannelsesstøtte i indtil 9 måneder. Den uddannelsessøgende, der
+            er enlig forsørger, får dog efter ansøgning ekstra uddannelsesstøtte i
+            indtil 12 måneder.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: Den uddannelsessøgende, der er enlig forsørger
+  versions:
+  - effective_from: '2023-04-13'
+    formula: "if eligible_for_extra_educational_support:\n  if is_sole_provider:\n\
+      \    sole_provider_extra_support_month_limit\n  else:\n    ordinary_extra_support_month_limit\n\
+      else:\n  0"
+- name: may_transfer_extra_educational_support_months
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 14, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: En forælder kan overføre
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: hvis den anden forælder har ret til uddannelsesstøtte
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: Dette gælder dog ikke, hvis den ene forælder har ret til flere
+            end 9 ekstra måneder
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'is_parent
+
+      and other_parent_has_right_to_educational_support
+
+      and not either_parent_has_right_to_more_than_nine_extra_months'
+- name: maximum_transferable_extra_educational_support_months
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Month
+  source: SU-loven § 14, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: overføre indtil 3 af de ekstra måneder med uddannelsesstøtte
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: Dette gælder dog ikke
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'if may_transfer_extra_educational_support_months: transferable_extra_support_month_limit
+      else: 0'
+- name: minister_may_set_rules_on_support_conditions
+  kind: derived
+  entity: EducationAndResearchMinister
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 14, stk. 3, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: 'Uddannelses- og forskningsministeren kan fastsætte regler om:
+            1) Betingelser for tildeling af støtte.'
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'true'
+- name: minister_may_set_rules_on_support_payment
+  kind: derived
+  entity: EducationAndResearchMinister
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 14, stk. 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: 2) Udbetaling af støtte, herunder udbetaling med dobbelte beløb.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'true'
+- name: minister_may_set_rules_on_support_application
+  kind: derived
+  entity: EducationAndResearchMinister
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 14, stk. 3, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-14
+          excerpt: 3) Ansøgning om støtte.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'true'
+inputs:
+- name: birth_or_adoption_has_occurred
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_right_to_educational_support_outside_clip_card
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: application_for_extra_educational_support_submitted
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: is_sole_provider
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: is_parent
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: other_parent_has_right_to_educational_support
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: either_parent_has_right_to_more_than_nine_extra_months
+  entity: Person
+  dtype: Boolean
+  period: Month
