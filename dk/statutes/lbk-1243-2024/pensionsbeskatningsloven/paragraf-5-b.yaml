@@ -1,0 +1,96 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b
+    source_sha256: a7781fde5967c73abbd71228461c5a65c6ec5b89eea3d20cad7f9d583b0b76d9
+  summary: Forsikringer og pensionsordninger i pensionskasser med alderspension under
+    10 år behandles efter reglerne for pensionsordninger med løbende udbetalinger,
+    når de øvrige angivne betingelser er opfyldt.
+inputs:
+- name: arrangement_is_established_in_pension_fund
+  entity: PensionArrangement
+  dtype: Boolean
+  period: Year
+- name: old_age_pension_duration_years
+  entity: PensionArrangement
+  dtype: Decimal
+  period: Year
+- name: arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+  entity: PensionArrangement
+  dtype: Boolean
+  period: Year
+- name: all_contributions_paid_by_former_employer
+  entity: PensionArrangement
+  dtype: Boolean
+  period: Year
+- name: old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date
+  entity: PensionArrangement
+  dtype: Boolean
+  period: Year
+rules:
+- name: qualifying_section_2_number
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Pensionsbeskatningsloven § 5 B
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b
+          excerpt: opfylder betingelserne i § 2, nr. 4
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '4'
+- name: old_age_pension_duration_limit_years
+  kind: parameter
+  dtype: Decimal
+  period: Year
+  source: Pensionsbeskatningsloven § 5 B
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b
+          excerpt: en alderspension, der har en varighed på under 10 år
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '10'
+- name: treated_as_pension_scheme_with_continuing_payments
+  kind: derived
+  entity: PensionArrangement
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 5 B
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b
+          excerpt: behandles efter reglerne for pensionsordninger med løbende udbetalinger,
+            såfremt alle indbetalinger er foretaget af en tidligere arbejdsgiver
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b
+          excerpt: udbetalingerne fra alderspensionen udelukkende udgør kompensation
+            for vederlag i penge for personligt arbejde i tjenesteforhold
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'arrangement_is_established_in_pension_fund
+
+      and old_age_pension_duration_years < old_age_pension_duration_limit_years
+
+      and arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+
+      and all_contributions_paid_by_former_employer
+
+      and old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date'
