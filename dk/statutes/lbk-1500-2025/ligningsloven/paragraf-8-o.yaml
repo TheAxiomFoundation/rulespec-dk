@@ -1,0 +1,86 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-o
+    source_sha256: 83174e161cfc1fb0914379f8da1b1bcbf56bebaf2c8084e367de99f10bae84a1
+  summary: Skattepligtig kontanthjælp og introduktionsydelse m.v., der er tilbagebetalingspligtig
+    efter kapitel 12 i lov om aktiv socialpolitik eller kapitel 7 i integrationsloven,
+    fradrages ved opgørelsen af den skattepligtige indkomst for det indkomstår, hvori
+    beløbet tilbagebetales.
+inputs:
+- name: repayment_is_of_taxable_cash_assistance_or_introduction_benefit
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: repayment_is_required_under_active_social_policy_chapter_12_or_integration_act_chapter_7
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: repayment_amount
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: active_social_policy_repayment_chapter_number
+  kind: parameter
+  entity: Person
+  dtype: Integer
+  period: Year
+  source: Ligningsloven § 8 O
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-o
+          excerpt: efter kapitel 12 i lov om aktiv socialpolitik
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '12'
+- name: integration_act_repayment_chapter_number
+  kind: parameter
+  entity: Person
+  dtype: Integer
+  period: Year
+  source: Ligningsloven § 8 O
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-o
+          excerpt: eller kapitel 7 i integrationsloven
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '7'
+- name: deduction_for_repaid_cash_assistance_or_introduction_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 8 O
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-o
+          excerpt: fradrages ved opgørelsen af den skattepligtige indkomst for det
+            indkomstår, hvori beløbet tilbagebetales
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-o
+          excerpt: Skattepligtig kontanthjælp og introduktionsydelse m.v., der er
+            tilbagebetalingspligtig efter kapitel 12 i lov om aktiv socialpolitik
+            eller kapitel 7 i integrationsloven
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'if repayment_is_of_taxable_cash_assistance_or_introduction_benefit and
+      repayment_is_required_under_active_social_policy_chapter_12_or_integration_act_chapter_7:
+      repayment_amount else: 0'
