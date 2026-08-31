@@ -1,0 +1,247 @@
+- name: deduction_when_vacation_compensation_received
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.holds_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_compensation_under_holiday_act: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_supplement_after_child_act_assistance: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 2
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#cash_assistance_deduction_for_holiday_covered_by_vacation_payment: 200
+- name: deduction_when_vacation_supplement_received
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.holds_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_compensation_under_holiday_act: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_supplement_after_child_act_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 2
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#cash_assistance_deduction_for_holiday_covered_by_vacation_payment: 200
+- name: no_deduction_when_person_has_cash_assistance_holiday_right
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.holds_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_compensation_under_holiday_act: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_supplement_after_child_act_assistance: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 2
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#cash_assistance_deduction_for_holiday_covered_by_vacation_payment: 0
+- name: no_deduction_when_person_does_not_hold_holiday
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.holds_holiday: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_compensation_under_holiday_act: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_supplement_after_child_act_assistance: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 2
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#cash_assistance_deduction_for_holiday_covered_by_vacation_payment: 0
+- name: no_deduction_without_vacation_payment
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.holds_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_compensation_under_holiday_act: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.received_vacation_supplement_after_child_act_assistance: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 2
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#cash_assistance_deduction_for_holiday_covered_by_vacation_payment: 0
+- name: higher_daily_vacation_payment_must_precede_cash_assistance_holiday
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 120
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.cash_assistance_holiday_days_entitlement: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 3
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#higher_vacation_payment_holiday_must_precede_cash_assistance_holiday: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#holiday_days_deducted_for_higher_vacation_payment: 3
+- name: no_higher_payment_ordering_without_cash_assistance_holiday_right
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 120
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.cash_assistance_holiday_days_entitlement: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 3
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#higher_vacation_payment_holiday_must_precede_cash_assistance_holiday: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#holiday_days_deducted_for_higher_vacation_payment: 0
+- name: no_higher_payment_ordering_without_earned_vacation_payment
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 120
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.cash_assistance_holiday_days_entitlement: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 3
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#higher_vacation_payment_holiday_must_precede_cash_assistance_holiday: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#holiday_days_deducted_for_higher_vacation_payment: 0
+- name: no_higher_payment_ordering_when_daily_payment_is_not_higher
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.cash_assistance_holiday_days_entitlement: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 3
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#higher_vacation_payment_holiday_must_precede_cash_assistance_holiday: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#holiday_days_deducted_for_higher_vacation_payment: 0
+- name: lower_daily_vacation_payment_can_be_supplemented
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_paid_during_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 70
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#vacation_payment_can_be_supplemented_with_cash_assistance: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#daily_cash_assistance_supplement_for_lower_vacation_payment: 30
+- name: no_supplement_without_cash_assistance_holiday_right
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_paid_during_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 70
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#vacation_payment_can_be_supplemented_with_cash_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#daily_cash_assistance_supplement_for_lower_vacation_payment: 0
+- name: no_supplement_without_earned_vacation_payment
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_paid_during_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 70
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#vacation_payment_can_be_supplemented_with_cash_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#daily_cash_assistance_supplement_for_lower_vacation_payment: 0
+- name: no_supplement_when_vacation_payment_not_paid_during_holiday
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_paid_during_holiday: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 70
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#vacation_payment_can_be_supplemented_with_cash_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#daily_cash_assistance_supplement_for_lower_vacation_payment: 0
+- name: no_supplement_when_daily_vacation_payment_is_not_lower
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_paid_during_holiday: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_compensation_or_supplement_daily_amount: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.calculated_daily_cash_assistance: 100
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#vacation_payment_can_be_supplemented_with_cash_assistance: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#daily_cash_assistance_supplement_for_lower_vacation_payment: 0
+- name: holiday_act_days_convert_to_cash_assistance_days
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-07-01'
+    end: '2025-07-01'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#input.vacation_days_covered_by_vacation_compensation_or_supplement: 5
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-32#cash_assistance_days_equivalent_to_holiday_act_days: 7
