@@ -1,0 +1,61 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-24-b
+    source_sha256: 00fb630413f04880d13beb889a502c0a05fb7bef008e2a4bc95036e140c1237b
+  summary: '"Hvis en af ægtefællerne eller begge ... har kapitalindtægter eller indkomst
+    i form af udbytte ... eller kapitaludgifter ... foretages den i ligningslovens
+    § 33 F, omhandlede opgørelse på grundlag af ægtefællernes samlede indtægter eller
+    udgifter."'
+inputs:
+- name: either_spouse_has_capital_income_qualifying_under_section_33
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+- name: either_spouse_has_capital_income_qualifying_under_double_taxation_agreement
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+- name: either_spouse_has_dividend_income_qualifying_under_section_33
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+- name: either_spouse_has_dividend_income_qualifying_under_double_taxation_agreement
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+- name: either_spouse_has_capital_expenses_regarded_as_related_to_qualifying_income_or_dividends
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+rules:
+- name: spousal_combination_required_for_section_33_f_calculation
+  kind: derived
+  entity: TaxUnit
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 24 B
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-24-b
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-24-b
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'either_spouse_has_capital_income_qualifying_under_section_33
+
+      or either_spouse_has_capital_income_qualifying_under_double_taxation_agreement
+
+      or either_spouse_has_dividend_income_qualifying_under_section_33
+
+      or either_spouse_has_dividend_income_qualifying_under_double_taxation_agreement
+
+      or either_spouse_has_capital_expenses_regarded_as_related_to_qualifying_income_or_dividends'
