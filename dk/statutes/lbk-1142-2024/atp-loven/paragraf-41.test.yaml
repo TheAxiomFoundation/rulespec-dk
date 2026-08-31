@@ -1,0 +1,9 @@
+- name: supplementary_pension_payments_have_begun_from_commencement
+  period:
+    period_kind: custom
+    name: day
+    start: '1965-04-01'
+    end: '1965-04-01'
+  input: {}
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-41#supplementary_pension_payments_have_begun: holds
