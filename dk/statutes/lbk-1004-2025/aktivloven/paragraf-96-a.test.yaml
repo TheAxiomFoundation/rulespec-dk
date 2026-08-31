@@ -1,0 +1,270 @@
+- name: deduction_allowed_for_monthly_share_below_child_supplement_cap
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 100
+- name: deduction_requires_udbetaling_danmark_request
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 0
+- name: deduction_requires_cash_assistance_under_section_16
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 0
+- name: deduction_blocked_for_contributor_supporting_own_child_at_home
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 0
+- name: deduction_requires_support_due_in_assistance_payment_month
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 0
+- name: deduction_suspended_while_rent_arrears_enforcement_case_is_pending
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 0
+- name: deduction_resumes_after_case_closure_without_eviction
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: true
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 100
+- name: deduction_resumes_after_third_month_following_eviction
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: true
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 2
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 100
+- name: single_month_advance_is_limited_to_child_supplement
+  period: 2025-07
+  tables:
+    Payment:
+    - dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.udbetaling_danmark_requested_deduction: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_receives_cash_assistance_under_section_16: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.contributor_supports_own_child_under_18_at_home: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_is_due_in_assistance_payment_month: true
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.municipality_notified_of_enforcement_request_for_rent_arrears: false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_without_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_month_following_case_closure
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.enforcement_case_concluded_with_eviction: false
+      ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.assistance_payment_month_is_on_or_after_third_month_following_eviction
+      : false
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_support_advanced_amount: 200
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.advance_payment_month_count: 1
+      dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#input.child_supplement_amount_under_section_17: 150
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_suspension_applies:
+    - not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#housing_enforcement_timing_allows_deduction:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#deduction_from_cash_assistance_allowed:
+    - holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#advanced_child_support_for_assistance_month:
+    - 200
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96-a#cash_assistance_deduction_amount:
+    - 150
