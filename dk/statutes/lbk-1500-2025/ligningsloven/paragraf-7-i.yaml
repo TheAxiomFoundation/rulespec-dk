@@ -1,0 +1,65 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-i
+    source_sha256: dfb6aa7b008e2f04ed6ff633473c1cf6413f7c380bc0eabe68fe7a46b95df36c
+  summary: Beløb, der af staten udbetales som inflationsgaranti i forbindelse med
+    Danmarks Skibskreditfonds udstedelse af indeksregulerede obligationer til finansiering
+    af ny- og ombygning af skibe, er skattefri for låntager.
+inputs:
+- name: payment_is_paid_by_state
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_is_inflation_guarantee
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: issuance_is_of_index_regulated_bonds
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: bonds_finance_new_or_rebuilding_ships
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_recipient_is_borrower
+  entity: Payment
+  dtype: Boolean
+  period: Year
+rules:
+- name: inflation_guarantee_payment_is_tax_exempt_for_borrower
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 7 I
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-i
+          excerpt: Beløb, der af staten udbetales som inflationsgaranti i forbindelse
+            med Danmarks Skibskreditfonds udstedelse af indeksregulerede obligationer
+            til finansiering af ny- og ombygning af skibe, er skattefri for låntager.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'payment_is_paid_by_state
+
+      and payment_is_inflation_guarantee
+
+      and payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+
+      and issuance_is_of_index_regulated_bonds
+
+      and bonds_finance_new_or_rebuilding_ships
+
+      and payment_recipient_is_borrower'
