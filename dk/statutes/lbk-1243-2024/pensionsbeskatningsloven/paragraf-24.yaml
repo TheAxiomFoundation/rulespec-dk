@@ -1,0 +1,55 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24
+    source_sha256: 3e3dc3c9a80403cee49de67fc579feb0012539e8b79c57545ea95cc41133c070
+  summary: '"Ved opgørelsen af en arbejdsgivers skattepligtige indkomst medregnes
+    beløb" under the stated § 17, stk. 1, nr. 1-6 reservation or tax-free repayment
+    paths, where the employer deducted contributions to the arrangement.'
+inputs:
+- name: employer_deducted_contributions_to_arrangement
+  entity: Employer
+  dtype: Boolean
+  period: Year
+- name: amount_accruing_under_section_17_subsection_1_reservation
+  entity: Employer
+  dtype: Money
+  period: Year
+- name: tax_free_repayment_amount_under_section_22_e
+  entity: Employer
+  dtype: Money
+  period: Year
+- name: tax_free_repayment_amount_under_section_22_f_subsection_1
+  entity: Employer
+  dtype: Money
+  period: Year
+rules:
+- name: taxable_income_inclusion
+  kind: derived
+  entity: Employer
+  dtype: Money
+  period: Year
+  source: Pensionsbeskatningsloven § 24.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24
+          excerpt: 1, når arbejdsgiveren ved opgørelsen af den skattepligtige indkomst
+            har fradraget sine indbetalinger til ordningen.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24
+          excerpt: i medfør af et forbehold som nævnt i § 17, stk. 1, nr. 1-6, eller
+            i forbindelse med en afgiftsfri tilbagebetaling efter § 22 E eller § 22
+            F, stk. 1
+  versions:
+  - effective_from: '2024-11-26'
+    formula: "if employer_deducted_contributions_to_arrangement:\n  amount_accruing_under_section_17_subsection_1_reservation\n\
+      \  + tax_free_repayment_amount_under_section_22_e\n  + tax_free_repayment_amount_under_section_22_f_subsection_1\n\
+      else: 0"

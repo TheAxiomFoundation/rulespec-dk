@@ -1,0 +1,28 @@
+- name: inclusion_when_employer_deducted_contributions
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.employer_deducted_contributions_to_arrangement: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.amount_accruing_under_section_17_subsection_1_reservation
+    : 100
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.tax_free_repayment_amount_under_section_22_e: 150
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.tax_free_repayment_amount_under_section_22_f_subsection_1
+    : 200
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#taxable_income_inclusion: 450
+- name: no_inclusion_when_employer_did_not_deduct_contributions
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.employer_deducted_contributions_to_arrangement: false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.amount_accruing_under_section_17_subsection_1_reservation
+    : 100
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.tax_free_repayment_amount_under_section_22_e: 150
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#input.tax_free_repayment_amount_under_section_22_f_subsection_1
+    : 200
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-24#taxable_income_inclusion: 0
