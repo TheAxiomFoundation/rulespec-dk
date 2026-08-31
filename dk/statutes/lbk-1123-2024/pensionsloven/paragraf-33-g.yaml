@@ -1,0 +1,160 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+    source_sha256: f3138b4c40a9a8a47f95b7d0f4e8abf49c95a6031b56532a60baf8ec38110f3d
+  summary: 'Bidraget til den obligatoriske pensionsordning beregnes med følgende procentsatser:
+    1) I 2020 med 0,3 pct. ... 11) Fra 2030 med 3,3 pct.'
+rules:
+- name: mandatory_pension_contribution_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 33 g, nr. 1-11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2020 med 0,3 pct.
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2021 med 0,6 pct.
+      - path: versions[2].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2022 med 0,9 pct.
+      - path: versions[3].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2023 med 1,2 pct.
+      - path: versions[4].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2024 med 1,5 pct.
+      - path: versions[5].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2025 med 1,8 pct.
+      - path: versions[6].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2026 med 2,1 pct.
+      - path: versions[7].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2027 med 2,4 pct.
+      - path: versions[8].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2028 med 2,7 pct.
+      - path: versions[9].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: I 2029 med 3,0 pct.
+      - path: versions[10].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          excerpt: Fra 2030 med 3,3 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '0.003'
+  - effective_from: '2021-01-01'
+    formula: '0.006'
+  - effective_from: '2022-01-01'
+    formula: '0.009'
+  - effective_from: '2023-01-01'
+    formula: '0.012'
+  - effective_from: '2024-01-01'
+    formula: '0.015'
+  - effective_from: '2025-01-01'
+    formula: '0.018'
+  - effective_from: '2026-01-01'
+    formula: '0.021'
+  - effective_from: '2027-01-01'
+    formula: '0.024'
+  - effective_from: '2028-01-01'
+    formula: '0.027'
+  - effective_from: '2029-01-01'
+    formula: '0.030'
+  - effective_from: '2030-01-01'
+    formula: '0.033'
+- name: mandatory_pension_contribution_rate_by_year
+  kind: parameter
+  dtype: Rate
+  period: Year
+  indexed_by: mandatory_pension_contribution_calendar_year
+  source: § 33 g, nr. 1-11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          table:
+            header: Bidraget til den obligatoriske pensionsordning beregnes med følgende
+              procentsatser
+            row_key: kalenderår
+            column_key: procentsats
+  versions:
+  - effective_from: '2020-01-01'
+    values:
+      2020: 0.003
+      2021: 0.006
+      2022: 0.009
+      2023: 0.012
+      2024: 0.015
+      2025: 0.018
+      2026: 0.021
+      2027: 0.024
+      2028: 0.027
+      2029: 0.03
+      2030: 0.033
+- name: mandatory_pension_contribution_rate_by_schedule_item
+  kind: parameter
+  dtype: Rate
+  period: Year
+  indexed_by: mandatory_pension_contribution_schedule_item
+  source: § 33 g, nr. 1-11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].values
+        kind: parameter_table
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-33-g
+          table:
+            header: Bidraget til den obligatoriske pensionsordning beregnes med følgende
+              procentsatser
+            row_key: nummereret punkt
+            column_key: procentsats
+  versions:
+  - effective_from: '2020-01-01'
+    values:
+      1: 0.003
+      2: 0.006
+      3: 0.009
+      4: 0.012
+      5: 0.015
+      6: 0.018
+      7: 0.021
+      8: 0.024
+      9: 0.027
+      10: 0.03
+      11: 0.033
