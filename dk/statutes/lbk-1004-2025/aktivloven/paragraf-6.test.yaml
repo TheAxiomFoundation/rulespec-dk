@@ -1,0 +1,149 @@
+- name: assistance_may_be_granted_when_all_subsection_1_conditions_hold
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: holds
+- name: assistance_not_available_without_danish_citizenship
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: not_holds
+- name: assistance_not_available_without_many_years_abroad
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: not_holds
+- name: assistance_not_available_when_return_is_not_avoided
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: not_holds
+- name: assistance_not_available_without_supporting_other_circumstances
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: not_holds
+- name: assistance_not_available_when_applicant_resources_cover_need
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: not_holds
+- name: assistance_not_available_when_spouse_resources_cover_need
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: not_holds
+- name: amount_determination_basis_holds
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.foreign_service_has_recommended_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_applicant_expenses: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_country_living_conditions: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_amount_determination_basis_holds: holds
+- name: amount_determination_basis_fails_without_foreign_service_recommendation
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.foreign_service_has_recommended_assistance: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_applicant_expenses: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_country_living_conditions: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_amount_determination_basis_holds: not_holds
+- name: amount_determination_basis_fails_without_applicant_expenses
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.foreign_service_has_recommended_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_applicant_expenses: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_country_living_conditions: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_amount_determination_basis_holds: not_holds
+- name: amount_determination_basis_fails_without_country_living_conditions
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.foreign_service_has_recommended_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_applicant_expenses: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_country_living_conditions: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_amount_determination_basis_holds: not_holds
+- name: proposed_assistance_may_be_set_at_statutory_cap
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.foreign_service_has_recommended_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_applicant_expenses: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_country_living_conditions: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.folkepension_basic_amount: 7000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_eventual_income: 1000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.proposed_monthly_assistance_amount: 6000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_amount_determination_basis_holds: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#maximum_monthly_assistance_amount: 6000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#proposed_monthly_assistance_may_be_set: holds
+- name: proposed_assistance_above_statutory_cap_may_not_be_set
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_is_danish_citizen: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_lived_many_years_abroad: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_avoids_applicant_returning_home: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.other_circumstances_support_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_spouse_has_income_or_assets_covering_necessary_need: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.foreign_service_has_recommended_assistance: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_applicant_expenses: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.assistance_determination_uses_country_living_conditions: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.folkepension_basic_amount: 7000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.applicant_eventual_income: 1000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#input.proposed_monthly_assistance_amount: 6001
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_may_be_granted: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#assistance_amount_determination_basis_holds: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#maximum_monthly_assistance_amount: 6000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-6#proposed_monthly_assistance_may_be_set: not_holds
