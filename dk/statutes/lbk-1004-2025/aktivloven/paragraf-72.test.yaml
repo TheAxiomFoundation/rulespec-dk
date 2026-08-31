@@ -1,0 +1,62 @@
+- name: reported_income_categories_are_summed
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.arbejdsmarkedsbidragspligtig_indkomst_indberettet_til_indkomstregisteret
+    : 1000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.arbejdsloshedsdagpenge_indberettet_til_indkomstregisteret: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.feriedagpenge_indberettet_til_indkomstregisteret: 200
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.sygedagpenge_indberettet_til_indkomstregisteret: 300
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.barsels_eller_sorgorlovsdagpenge_indberettet_til_indkomstregisteret: 400
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.voksenuddannelsesstotte_indberettet_til_indkomstregisteret: 500
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.godtgorelse_ved_erhvervsrettet_voksen_og_efteruddannelse_indberettet_til_indkomstregisteret
+    : 600
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.su_indberettet_til_indkomstregisteret: 700
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.ydelse_efter_lov_om_aktiv_socialpolitik_indberettet_til_indkomstregisteret
+    : 800
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.lonindkomst_om_bord_pa_skibe_indberettet_til_indkomstregisteret: 900
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#indberettede_ydelser: 3600
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#indtaegter_efter_section_71_subsection_4: 5500
+- name: documented_unreported_income_may_be_included
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_omfattet_af_stk_1: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_fremgar_ikke_af_indkomstregisteret: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_kan_dokumenteres: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#dokumenteret_ikke_indberettet_indtaegt_kan_medregnes: holds
+- name: undocumented_unreported_income_may_not_be_included
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_omfattet_af_stk_1: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_fremgar_ikke_af_indkomstregisteret: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_kan_dokumenteres: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#dokumenteret_ikke_indberettet_indtaegt_kan_medregnes: not_holds
+- name: income_in_register_is_not_subsection_2_case
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_omfattet_af_stk_1: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_fremgar_ikke_af_indkomstregisteret: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_kan_dokumenteres: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#dokumenteret_ikke_indberettet_indtaegt_kan_medregnes: not_holds
+- name: documented_corresponding_other_income_may_be_included
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.anden_indtaegt_svarer_til_indtaegt_naevnt_i_stk_1: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_kan_dokumenteres: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#dokumenteret_anden_tilsvarende_indtaegt_kan_medregnes: holds
+- name: undocumented_corresponding_other_income_may_not_be_included
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.anden_indtaegt_svarer_til_indtaegt_naevnt_i_stk_1: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#input.indtaegt_kan_dokumenteres: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#dokumenteret_anden_tilsvarende_indtaegt_kan_medregnes: not_holds
+- name: municipality_may_access_income_register
+  period: 2025-07
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-72#kommunen_kan_fa_terminaladgang_til_indkomstregisteret: holds
