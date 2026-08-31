@@ -1,0 +1,110 @@
+- name: qualifying_employer_refusion_is_capped_by_paid_wages
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_pays_wages_during_sick_absence: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_is_reported_sick: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_begins_job_clarification_programme: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.wages_paid_during_sick_absence: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hourly_refusion_amount_based_on_resource_programme_benefit: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hours_for_which_employer_pays_wages: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_receives_wages_from_multiple_employers: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_refusion_under_subsections_1_to_2: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_hours_in_all_employment_relationships: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_entitlement_under_sickness_benefit_act: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_is_entitled_to_refusion: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#refund_before_apportionment: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#apportioned_refusion_before_sickness_benefit_reduction: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_refusion: 2800
+- name: no_refusion_when_employer_does_not_pay_wages_during_sick_absence
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_pays_wages_during_sick_absence: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_is_reported_sick: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_begins_job_clarification_programme: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.wages_paid_during_sick_absence: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hourly_refusion_amount_based_on_resource_programme_benefit: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hours_for_which_employer_pays_wages: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_receives_wages_from_multiple_employers: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_refusion_under_subsections_1_to_2: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_hours_in_all_employment_relationships: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_entitlement_under_sickness_benefit_act: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_is_entitled_to_refusion: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#refund_before_apportionment: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#apportioned_refusion_before_sickness_benefit_reduction: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_refusion: 0
+- name: no_refusion_when_employee_is_not_reported_sick
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_pays_wages_during_sick_absence: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_is_reported_sick: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_begins_job_clarification_programme: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.wages_paid_during_sick_absence: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hourly_refusion_amount_based_on_resource_programme_benefit: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hours_for_which_employer_pays_wages: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_receives_wages_from_multiple_employers: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_refusion_under_subsections_1_to_2: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_hours_in_all_employment_relationships: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_entitlement_under_sickness_benefit_act: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_is_entitled_to_refusion: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#refund_before_apportionment: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#apportioned_refusion_before_sickness_benefit_reduction: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_refusion: 0
+- name: no_refusion_when_employee_does_not_begin_job_clarification_programme
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_pays_wages_during_sick_absence: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_is_reported_sick: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_begins_job_clarification_programme: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.wages_paid_during_sick_absence: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hourly_refusion_amount_based_on_resource_programme_benefit: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hours_for_which_employer_pays_wages: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_receives_wages_from_multiple_employers: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_refusion_under_subsections_1_to_2: 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_hours_in_all_employment_relationships: 40
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_entitlement_under_sickness_benefit_act: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_is_entitled_to_refusion: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#refund_before_apportionment: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#apportioned_refusion_before_sickness_benefit_reduction: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_refusion: 0
+- name: multiple_employers_receive_refusion_in_proportion_to_hours
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_pays_wages_during_sick_absence: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_is_reported_sick: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_begins_job_clarification_programme: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.wages_paid_during_sick_absence: 5000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hourly_refusion_amount_based_on_resource_programme_benefit: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.hours_for_which_employer_pays_wages: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employee_receives_wages_from_multiple_employers: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_refusion_under_subsections_1_to_2: 3600
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.total_hours_in_all_employment_relationships: 30
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#input.employer_entitlement_under_sickness_benefit_act: 200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_is_entitled_to_refusion: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#refund_before_apportionment: 1000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#apportioned_refusion_before_sickness_benefit_reduction: 1200
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-69-t#employer_refusion: 1000
