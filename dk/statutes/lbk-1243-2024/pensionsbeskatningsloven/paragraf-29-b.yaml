@@ -1,0 +1,209 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+    source_sha256: 9b6b9c2e47989afa19379dc6d5960320c95a2a37bda06a8938f4bb201681c26a
+  summary: '"For udbetalinger af følgende engangsbeløb udgør afgiften 40 pct." Categories
+    are capitalized ATP lump sums under the listed provisions, ATP lump sums under
+    § 14 b, stk. 1, or § 14 e, stk. 1, and social-pension lump sums under the listed
+    § 33 c-e provisions.'
+rules:
+- name: atp_section_9_subsection_number
+  kind: parameter
+  dtype: Integer
+  source: Pensionsbeskatningsloven § 29 B, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: § 9, stk. 1
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '1'
+- name: atp_section_9_sentence_number
+  kind: parameter
+  dtype: Integer
+  source: Pensionsbeskatningsloven § 29 B, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: § 9, stk. 1, 3. pkt.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '3'
+- name: atp_section_12_number
+  kind: parameter
+  dtype: Integer
+  source: Pensionsbeskatningsloven § 29 B, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: §§ 11, 11 a, 12 og 13
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '12'
+- name: atp_section_13_number
+  kind: parameter
+  dtype: Integer
+  source: Pensionsbeskatningsloven § 29 B, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: §§ 11, 11 a, 12 og 13
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '13'
+- name: social_pension_section_33_e_subsection_number
+  kind: parameter
+  dtype: Integer
+  source: Pensionsbeskatningsloven § 29 B, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: § 33 e, stk. 2
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '2'
+- name: lump_sum_duty_rate
+  kind: parameter
+  dtype: Rate
+  source: Pensionsbeskatningsloven § 29 B, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: udgør afgiften 40 pct.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '0.40'
+- name: atp_capitalized_lump_sum_is_subject_to_duty
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 29 B, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: Kapitaliserede engangsbeløb, der udbetales efter § 9, stk. 1, 3.
+            pkt., og §§ 11, 11 a, 12 og 13 i lov om Arbejdsmarkedets Tillægspension
+  versions:
+  - effective_from: '2024-11-26'
+    formula: payment_is_capitalized_lump_sum_under_atp_sections_9_11_11_a_12_or_13
+- name: atp_section_14_lump_sum_is_subject_to_duty
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 29 B, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: engangsbeløb, der udbetales efter § 14 b, stk. 1, og § ‍14 ‍e,
+            stk. 1, i lov om Arbejdsmarkedets Tillægspension
+  versions:
+  - effective_from: '2024-11-26'
+    formula: payment_is_lump_sum_under_atp_section_14_b_1_or_14_e_1
+- name: social_pension_lump_sum_is_subject_to_duty
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 29 B, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: engangsbeløb, der udbetales efter § 33 c, stk. 4 og 8, § 33 d,
+            stk. 3 og 5, og § 33 e, stk. 2, i lov om social pension
+  versions:
+  - effective_from: '2024-11-26'
+    formula: payment_is_lump_sum_under_social_pension_sections_33_c_4_or_8_33_d_3_or_5_or_33_e_2
+- name: lump_sum_payment_duty
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Year
+  source: Pensionsbeskatningsloven § 29 B, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: For udbetalinger af følgende engangsbeløb udgør afgiften 40 pct.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: 1) Kapitaliserede engangsbeløb
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: 2) engangsbeløb, der udbetales efter § 14 b, stk. 1, og § ‍14 ‍e,
+            stk. 1
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b
+          excerpt: 3) engangsbeløb, der udbetales efter § 33 c, stk. 4 og 8, § 33
+            d, stk. 3 og 5, og § 33 e, stk. 2
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'if atp_capitalized_lump_sum_is_subject_to_duty or atp_section_14_lump_sum_is_subject_to_duty
+      or social_pension_lump_sum_is_subject_to_duty: payment_amount * lump_sum_duty_rate
+      else: 0'
+inputs:
+- name: payment_amount
+  entity: Payment
+  dtype: Money
+  period: Year
+- name: payment_is_capitalized_lump_sum_under_atp_sections_9_11_11_a_12_or_13
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_is_lump_sum_under_atp_section_14_b_1_or_14_e_1
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_is_lump_sum_under_social_pension_sections_33_c_4_or_8_33_d_3_or_5_or_33_e_2
+  entity: Payment
+  dtype: Boolean
+  period: Year
