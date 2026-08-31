@@ -1,0 +1,62 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-l
+    source_sha256: eb4a296ee0a8d9d23a5b43df31cbe7f944895d8d57f257d2587a0804acc204fd
+  summary: Ved opgørelsen af den skattepligtige indkomst og indkomst omfattet af kildeskattelovens
+    § 48 F, stk. 1, medregnes for indkomster omfattet af § 2 i lov om arbejdsmarkedsbidrag
+    ikke beregnede bidrag omfattet af indeholdelsespligten i kildeskattelovens § 49
+    B.
+inputs:
+- name: income_is_covered_by_arbejdsmarkedsbidragsloven_section_2
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: contributions_subject_to_withholding_under_kildeskatteloven_section_49_b
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: contributions_excluded_from_taxable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 7 L
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-l
+          excerpt: medregnes for indkomster omfattet af § 2 i lov om arbejdsmarkedsbidrag
+            ikke beregnede bidrag omfattet af indeholdelsespligten i kildeskattelovens
+            § 49 B.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: "if income_is_covered_by_arbejdsmarkedsbidragsloven_section_2:\n  contributions_subject_to_withholding_under_kildeskatteloven_section_49_b\n\
+      else: 0"
+- name: contributions_excluded_from_income_under_kildeskatteloven_section_48_f
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 7 L
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-l
+          excerpt: Ved opgørelsen af den skattepligtige indkomst og indkomst omfattet
+            af kildeskattelovens § 48 F, stk. 1, medregnes for indkomster omfattet
+            af § 2 i lov om arbejdsmarkedsbidrag ikke beregnede bidrag omfattet af
+            indeholdelsespligten i kildeskattelovens § 49 B.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: "if income_is_covered_by_arbejdsmarkedsbidragsloven_section_2:\n  contributions_subject_to_withholding_under_kildeskatteloven_section_49_b\n\
+      else: 0"
