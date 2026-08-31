@@ -1,0 +1,302 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+    source_sha256: e12c8acf86379543d221ced5793379ec4d05b32ccf9d6b6d0b4cd4e64812455f
+  summary: '§ 19, stk. 1-3: Kommunen yder et særligt ungetillæg til aktivitetsparate
+    kontanthjælpsmodtagere under 30 år. Forrevalidender har ret til tillægget. Det
+    månedlige beløb er 1.000 kr. til personer under 25 år uden forsørgelsespligt,
+    2.500 kr. til personer 25-29 år uden forsørgelsespligt og 2.500 kr. til personer
+    under 30 år med forsørgelsespligt, som modtager børnetillæg efter § 17.'
+inputs:
+- name: receives_cash_assistance_under_section_16_subsection_1_items_1_or_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: municipality_has_assessed_person_as_activity_ready
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_cash_assistance_as_prevalidation_participant
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: age
+  entity: Person
+  dtype: Integer
+  period: Month
+- name: has_child_support_obligation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_child_supplement_under_section_17
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: qualifying_cash_assistance_first_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: § 16, stk. 1, nr. 1 og 3
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: special_youth_supplement_second_subsection_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: Stk. 2.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: qualifying_cash_assistance_third_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: § 16, stk. 1, nr. 1 og 3
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: prevalidation_chapter_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: kapitel 6 c i denne lov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '6'
+- name: employment_act_prevalidation_chapter_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: kapitel 21 i lov om en aktiv beskæftigelsesindsats
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '21'
+- name: under_25_age_upper_limit
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 3, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: til personer under 25 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '25'
+- name: age_25_lower_limit_without_child_support_obligation
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: personer i alderen 25 til 29 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '25'
+- name: age_29_upper_limit_without_child_support_obligation
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: personer i alderen 25 til 29 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '29'
+- name: under_30_age_upper_limit
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 1 og stk. 3, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: personer under 30 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '30'
+- name: supplement_amount_price_level
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 19, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2024'
+- name: supplement_amount_under_25_without_child_support_obligation
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 19, stk. 3, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: 1.000 kr. (2024-niveau) til personer under 25 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1000'
+- name: supplement_amount_age_25_to_29_without_child_support_obligation
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 19, stk. 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: 2.500 kr. (2024-niveau) til personer i alderen 25 til 29 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2500'
+- name: supplement_amount_with_child_support_obligation
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 19, stk. 3, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: 2.500 kr. (2024-niveau) til personer under 30 år, der har forsørgelsespligt
+            over for børn
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2500'
+- name: entitled_to_special_youth_supplement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 19, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: personer under 30 år, der modtager kontanthjælp efter § 16, stk.
+            1, nr. 1 og 3, og som kommunen har visiteret aktivitetsparate
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: En person, der modtager kontanthjælp som forrevalidend, jf. kapitel
+            6 c i denne lov og kapitel 21 i lov om en aktiv beskæftigelsesindsats,
+            har ret til at modtage det særlige ungetillæg
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "age < under_30_age_upper_limit\nand (\n  (receives_cash_assistance_under_section_16_subsection_1_items_1_or_3\n\
+      \  and municipality_has_assessed_person_as_activity_ready)\n  or receives_cash_assistance_as_prevalidation_participant\n\
+      )"
+- name: special_youth_supplement
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 19, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: Det særlige ungetillæg udgør et månedligt beløb på
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: der ikke har forsørgelsespligt over for børn
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-19
+          excerpt: der har forsørgelsespligt over for børn og modtager børnetillæg
+            efter § 17
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if entitled_to_special_youth_supplement and age < under_25_age_upper_limit
+      and not has_child_support_obligation: supplement_amount_under_25_without_child_support_obligation
+      else: if entitled_to_special_youth_supplement and age >= age_25_lower_limit_without_child_support_obligation
+      and age <= age_29_upper_limit_without_child_support_obligation and not has_child_support_obligation:
+      supplement_amount_age_25_to_29_without_child_support_obligation else: if entitled_to_special_youth_supplement
+      and age < under_30_age_upper_limit and has_child_support_obligation and receives_child_supplement_under_section_17:
+      supplement_amount_with_child_support_obligation else: 0'

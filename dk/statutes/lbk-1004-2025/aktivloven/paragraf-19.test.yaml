@@ -1,0 +1,96 @@
+- name: activity_ready_person_under_25_without_child_support_obligation_receives_lower_supplement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 1000
+- name: activity_ready_person_age_25_without_child_support_obligation_receives_higher_supplement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 25
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 2500
+- name: activity_ready_person_with_child_support_obligation_and_child_supplement_receives_higher_supplement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 29
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 2500
+- name: prevalidation_participant_is_entitled_without_activity_ready_assessment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 25
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 2500
+- name: person_without_qualifying_cash_assistance_is_not_entitled
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 0
+- name: cash_assistance_recipient_without_activity_ready_assessment_is_not_entitled
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 0
+- name: child_support_obligation_without_child_supplement_does_not_generate_supplement_amount
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 29
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 0
+- name: person_age_30_is_not_entitled_to_special_youth_supplement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_under_section_16_subsection_1_items_1_or_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.municipality_has_assessed_person_as_activity_ready: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_cash_assistance_as_prevalidation_participant: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.age: 30
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.has_child_support_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#input.receives_child_supplement_under_section_17: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#entitled_to_special_youth_supplement: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-19#special_youth_supplement: 0
