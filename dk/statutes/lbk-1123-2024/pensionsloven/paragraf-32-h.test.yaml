@@ -1,0 +1,40 @@
+- name: lifelong-benefit-at-allowance-threshold-rounds-down
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_calculated_lifelong_annual_benefit: 125000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_other_pension_depot: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.annual_reduction_converted_to_monthly_amount: 100.4
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#calculated_annual_pension_benefit: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#annual_early_pension_reduction: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#monthly_early_pension_reduction: 100
+- name: other-pension-depot-at-allowance-threshold
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_calculated_lifelong_annual_benefit: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_other_pension_depot: 2000000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.annual_reduction_converted_to_monthly_amount: 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#calculated_annual_pension_benefit: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#annual_early_pension_reduction: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#monthly_early_pension_reduction: 0
+- name: other-pension-depot-excess-rounds-half-up
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_calculated_lifelong_annual_benefit: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_other_pension_depot: 4000000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.annual_reduction_converted_to_monthly_amount: 8333.5
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#calculated_annual_pension_benefit: 200000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#annual_early_pension_reduction: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#monthly_early_pension_reduction: 8334
+- name: monthly-reduction-rounds-down-below-half
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_calculated_lifelong_annual_benefit: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.reported_other_pension_depot: 4000000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#input.annual_reduction_converted_to_monthly_amount: 8333.4
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#calculated_annual_pension_benefit: 200000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#annual_early_pension_reduction: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-h#monthly_early_pension_reduction: 8333
