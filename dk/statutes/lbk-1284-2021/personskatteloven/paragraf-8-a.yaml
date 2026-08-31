@@ -1,0 +1,400 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+    source_sha256: f7b8bc643f674b946032dc722c24efb186df4b28841a095ecb706d5be8ddf55b
+  summary: '"Skat af aktieindkomst, der ikke overstiger et grundbeløb på 48.300 kr.
+    (2010-niveau)" beregnes med 28 pct. i 2010-2011 og 27 pct. i 2012 og efterfølgende
+    år. Aktieindkomst over grundbeløbet beskattes med 42 pct. Reglerne omfatter udbytteskat,
+    ægtefælleoverførsel, negativ skat og regulering efter § 20.'
+rules:
+- name: negative_share_income_tax_credit_against_final_tax
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 5-6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: Den negative skat modregnes i den skattepligtiges slutskat
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: modregnes i ægtefællens slutskat
+  versions:
+  - effective_from: '2010-01-01'
+    formula: "min(\n  max(0, negative_share_income_tax),\n  max(0, final_tax_before_share_income_credits)\n\
+      )"
+- name: basic_amount_price_level_year
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 8 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: 48.300 kr. (2010-niveau)
+  versions:
+  - effective_from: '2010-01-01'
+    formula: '2010'
+- name: lower_rate_final_initial_income_year
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 8 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: for indkomstårene 2010 og 2011 udgør 28 pct.
+  versions:
+  - effective_from: '2010-01-01'
+    formula: '2011'
+- name: lower_rate_subsequent_income_year
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 8 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: for indkomståret 2012 og efterfølgende indkomstår udgør 27 pct.
+  versions:
+  - effective_from: '2012-01-01'
+    formula: '2012'
+- name: share_income_basic_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Personskatteloven § 8 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: et grundbeløb på 48.300 kr. (2010-niveau)
+  versions:
+  - effective_from: '2010-01-01'
+    formula: '48300'
+- name: lower_share_income_tax_rate
+  kind: parameter
+  dtype: Rate
+  source: Personskatteloven § 8 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: for indkomstårene 2010 og 2011 udgør 28 pct.
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: for indkomståret 2012 og efterfølgende indkomstår udgør 27 pct.
+  versions:
+  - effective_from: '2010-01-01'
+    formula: '0.28'
+  - effective_from: '2012-01-01'
+    formula: '0.27'
+- name: excess_share_income_tax_rate
+  kind: parameter
+  dtype: Rate
+  source: Personskatteloven § 8 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: beregnes med 42 pct.
+  versions:
+  - effective_from: '2010-01-01'
+    formula: '0.42'
+- name: applicable_share_income_basic_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: forhøjes den anden ægtefælles grundbeløb med forskelsbeløbet, dog
+            højst med grundbeløbet
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: ægtefællerne er samlevende ved indkomstårets udløb
+  versions:
+  - effective_from: '2010-01-01'
+    formula: 'if person_is_married and spouses_cohabiting_at_income_year_end and other_spouse_share_income
+      < share_income_basic_amount: share_income_basic_amount + min(share_income_basic_amount,
+      share_income_basic_amount - other_spouse_share_income) else: share_income_basic_amount'
+- name: positive_share_income_after_spouse_offset
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: modregnes beløbet i den anden ægtefælles positive aktieindkomst
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: ægtefællerne er samlevende ved indkomstårets udløb
+  versions:
+  - effective_from: '2010-01-01'
+    formula: 'if person_is_married and spouses_cohabiting_at_income_year_end and share_income
+      > 0 and other_spouse_share_income < 0: max(0, share_income + other_spouse_share_income)
+      else: max(0, share_income)'
+- name: share_income_tax
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: Skat af aktieindkomst, der ikke overstiger et grundbeløb
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: Stk. 2. Skat af aktieindkomst, der overstiger et grundbeløb på
+            48.300 kr. (2010-niveau), beregnes med 42 pct. Skatten indgår i slutskatten,
+            og den udbytteskat, der er indeholdt i denne del af udbyttet efter kildeskattelovens
+            § 65, modregnes i slutskatten efter kildeskattelovens § 67.
+  versions:
+  - effective_from: '2010-01-01'
+    formula: '(lower_share_income_tax_rate * min(positive_share_income_after_spouse_offset,
+      applicable_share_income_basic_amount))
+
+      + (excess_share_income_tax_rate * max(0, positive_share_income_after_spouse_offset
+      - applicable_share_income_basic_amount))'
+- name: withheld_dividend_tax_is_final_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Personskatteloven § 8 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: Indeholdt udbytteskat efter kildeskattelovens § 65 af aktieindkomst,
+            der ikke overstiger grundbeløbet, er endelig betaling af skatten, og udbytteskatten
+            modregnes ikke i slutskatten efter kildeskattelovens § 67.
+  versions:
+  - effective_from: '2010-01-01'
+    formula: 'share_income >= 0
+
+      and share_income <= applicable_share_income_basic_amount'
+- name: excess_share_income_tax_enters_final_tax
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Personskatteloven § 8 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: Skatten indgår i slutskatten
+  versions:
+  - effective_from: '2010-01-01'
+    formula: positive_share_income_after_spouse_offset > applicable_share_income_basic_amount
+- name: withheld_dividend_tax_credit_against_final_tax
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: modregnes det overskydende beløb i slutskatten
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: Er aktieindkomsten negativ, modregnes hele den indeholdte udbytteskat
+            i slutskatten
+  versions:
+  - effective_from: '2010-01-01'
+    formula: 'if share_income < 0: withheld_dividend_tax_under_section_65 else: max(0,
+      withheld_dividend_tax_under_section_65 - (lower_share_income_tax_rate * share_income))'
+- name: remaining_negative_share_income_after_spouse_offset
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: Af et eventuelt resterende negativt beløb beregnes negativ skat
+  versions:
+  - effective_from: '2010-01-01'
+    formula: 'if person_is_married and spouses_cohabiting_at_income_year_end and share_income
+      < 0: max(0, (0 - share_income) - max(0, other_spouse_share_income)) else: max(0,
+      0 - share_income)'
+- name: negative_share_income_basic_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: med anvendelse af dobbelt grundbeløb
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: fordeles det dobbelte grundbeløb forholdsmæssigt mellem ægtefællerne
+  versions:
+  - effective_from: '2010-01-01'
+    formula: "if person_is_married and spouses_cohabiting_at_income_year_end and share_income\
+      \ < 0 and other_spouse_share_income < 0:\n  (2 * share_income_basic_amount *\
+      \ (0 - share_income)) / ((0 - share_income) + (0 - other_spouse_share_income))\n\
+      else:\n  if person_is_married and spouses_cohabiting_at_income_year_end and\
+      \ share_income < 0:\n    2 * share_income_basic_amount\n  else:\n    share_income_basic_amount"
+- name: negative_share_income_tax
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 5-6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: beregnes negativ skat med den i stk. 1 nævnte procentsats
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: med skatteprocenten nævnt i stk. 2 af beløb, der overstiger grundbeløbet
+  versions:
+  - effective_from: '2010-01-01'
+    formula: '(lower_share_income_tax_rate * min(remaining_negative_share_income_after_spouse_offset,
+      negative_share_income_basic_amount))
+
+      + (excess_share_income_tax_rate * max(0, remaining_negative_share_income_after_spouse_offset
+      - negative_share_income_basic_amount))'
+- name: negative_share_income_tax_carried_forward
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 8 a, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-8-a
+          excerpt: et eventuelt resterende beløb fremføres til modregning i slutskatten
+            for de følgende indkomstår
+  versions:
+  - effective_from: '2010-01-01'
+    formula: max(0, negative_share_income_tax - negative_share_income_tax_credit_against_final_tax)
+inputs:
+- name: share_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: other_spouse_share_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: person_is_married
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: spouses_cohabiting_at_income_year_end
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: withheld_dividend_tax_under_section_65
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: final_tax_before_share_income_credits
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
