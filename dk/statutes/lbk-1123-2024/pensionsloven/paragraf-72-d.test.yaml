@@ -1,0 +1,147 @@
+- name: qualifying_pensioner_receives_payment_in_january
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.previous_year_regulated_maximum: 17000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.adjustment_percentage_for_financial_year: 0.015
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.entitled_to_old_age_pension_before_january_first: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.combined_liquid_assets_as_of_january_first: 50000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.health_supplement_asset_threshold: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.personal_supplement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.old_age_pension_entitlement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.udbetaling_denmark_has_necessary_information: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#annual_maximum_after_regulation: 17600
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_eligible: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#calculated_supplementary_pension_payment: 4400
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment: 4400
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment_in_january: holds
+- name: old_age_pension_percentage_below_zero_is_clamped
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.previous_year_regulated_maximum: 17000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.adjustment_percentage_for_financial_year: 0.015
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.entitled_to_old_age_pension_before_january_first: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.combined_liquid_assets_as_of_january_first: 50000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.health_supplement_asset_threshold: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.personal_supplement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.old_age_pension_entitlement_percentage: -0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.udbetaling_denmark_has_necessary_information: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#annual_maximum_after_regulation: 17600
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_eligible: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#calculated_supplementary_pension_payment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment_in_january: not_holds
+- name: personal_supplement_percentage_below_zero_is_clamped
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.previous_year_regulated_maximum: 17000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.adjustment_percentage_for_financial_year: 0.015
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.entitled_to_old_age_pension_before_january_first: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.combined_liquid_assets_as_of_january_first: 50000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.health_supplement_asset_threshold: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.personal_supplement_percentage: -0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.old_age_pension_entitlement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.udbetaling_denmark_has_necessary_information: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#annual_maximum_after_regulation: 17600
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_eligible: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#calculated_supplementary_pension_payment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment_in_january: not_holds
+- name: pension_not_entitled_before_january_first_blocks_payment
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.previous_year_regulated_maximum: 17000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.adjustment_percentage_for_financial_year: 0.015
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.entitled_to_old_age_pension_before_january_first: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.combined_liquid_assets_as_of_january_first: 50000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.health_supplement_asset_threshold: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.personal_supplement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.old_age_pension_entitlement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.udbetaling_denmark_has_necessary_information: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#annual_maximum_after_regulation: 17600
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_eligible: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#calculated_supplementary_pension_payment: 4400
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment_in_january: not_holds
+- name: assets_above_threshold_block_payment
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.previous_year_regulated_maximum: 17000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.adjustment_percentage_for_financial_year: 0.015
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.entitled_to_old_age_pension_before_january_first: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.combined_liquid_assets_as_of_january_first: 100001
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.health_supplement_asset_threshold: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.personal_supplement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.old_age_pension_entitlement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.udbetaling_denmark_has_necessary_information: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#annual_maximum_after_regulation: 17600
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_eligible: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#calculated_supplementary_pension_payment: 4400
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment_in_january: not_holds
+- name: calculated_amount_below_minimum_is_not_paid
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.previous_year_regulated_maximum: 17000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.adjustment_percentage_for_financial_year: 0.015
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.entitled_to_old_age_pension_before_january_first: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.combined_liquid_assets_as_of_january_first: 50000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.health_supplement_asset_threshold: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.personal_supplement_percentage: 0.01
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.old_age_pension_entitlement_percentage: 1
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.udbetaling_denmark_has_necessary_information: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#annual_maximum_after_regulation: 17600
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_eligible: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#calculated_supplementary_pension_payment: 176
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment_in_january: not_holds
+- name: missing_information_defers_january_payment
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.previous_year_regulated_maximum: 17000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.adjustment_percentage_for_financial_year: 0.015
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.entitled_to_old_age_pension_before_january_first: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.combined_liquid_assets_as_of_january_first: 50000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.health_supplement_asset_threshold: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.personal_supplement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.old_age_pension_entitlement_percentage: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#input.udbetaling_denmark_has_necessary_information: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#annual_maximum_after_regulation: 17600
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_eligible: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#calculated_supplementary_pension_payment: 4400
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment: 4400
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-72-d#supplementary_pension_payment_in_january: not_holds
