@@ -1,0 +1,322 @@
+format: rulespec/v1
+rules:
+- name: pensions_act_section_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: § 14 a.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '14'
+- name: security_group_1_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: sikringsgruppe 1
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: health_supplement_subsection_2_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: jf. dog stk. 2
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2'
+- name: health_act_chapter_15_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: sundhedslovens kapitel 15
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '15'
+- name: health_act_chapter_42_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: kapitel 42 i sundhedsloven
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '42'
+- name: health_act_section_66_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: §§ 64 b, 66-69, 71 og 72
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '66'
+- name: health_act_section_69_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: §§ 64 b, 66-69, 71 og 72
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '69'
+- name: health_act_section_71_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: §§ 64 b, 66-69, 71 og 72
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '71'
+- name: health_act_section_72_number
+  kind: parameter
+  dtype: Integer
+  source: § 14 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: §§ 64 b, 66-69, 71 og 72
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '72'
+- name: health_supplement_rate
+  kind: parameter
+  dtype: Rate
+  source: § 14 a, stk. 1 og 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: Helbredstillægget beregnes i forhold til 85 pct.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.85'
+- name: health_supplement_for_subsidized_service
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 14 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: Kommunalbestyrelsen yder helbredstillæg til betaling af pensionistens
+            egne udgifter til ydelser, som regionsrådet yder tilskud til efter sundhedslovens
+            kapitel 15, kapitel 15 a og kapitel 42, jf. dog stk. 2. Tillæg til medicinudgifter
+            beregnes i forhold til tilskudsprisen efter kapitel 42 i sundhedsloven.
+            Helbredstillægget beregnes i forhold til 85 pct. af pensionistens egen
+            andel af udgiften.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: Stk. 2. Helbredstillæg ydes ikke til betaling af pensionistens
+            egen udgift til ydelser efter § 60, stk. 2, og § 64, stk. 2, i sundhedsloven.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "if service_is_subsidized_under_health_act_chapter_15_15a_or_42\n  and\
+      \ not service_is_under_health_act_section_60_subsection_2\n  and not service_is_under_health_act_section_64_subsection_2:\n\
+      \  health_supplement_rate * pensioner_own_share_of_qualifying_service_expense\n\
+      else: 0"
+- name: health_supplement_for_medicine
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 14 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: Tillæg til medicinudgifter beregnes i forhold til tilskudsprisen
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: Stk. 2. Helbredstillæg ydes ikke til betaling af pensionistens
+            egen udgift til ydelser efter § 60, stk. 2, og § 64, stk. 2, i sundhedsloven.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "if medicine_is_subsidized_under_health_act_chapter_42\n  and not medicine_is_under_health_act_section_60_subsection_2\n\
+      \  and not medicine_is_under_health_act_section_64_subsection_2:\n  health_supplement_rate\
+      \ * pensioner_own_share_calculated_from_medicine_subsidy_price\nelse: 0"
+- name: health_supplement_for_security_group_2_service
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 14 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: svarende til det beløb, der ville blive ydet, hvis pensionisten
+            havde valgt sikringsgruppe 1
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "if pensioner_has_chosen_security_group_2:\n  health_supplement_amount_if_pensioner_had_chosen_security_group_1\n\
+      else: 0"
+- name: health_supplement_for_necessary_aids
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 14 a, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: Der ydes desuden helbredstillæg til betaling af pensionistens egne
+            udgifter til tandproteser, briller og fodbehandling, såfremt kommunen
+            vurderer, at udgiften er nødvendig.
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: det er den aftalte pris, der lægges til grund
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+          excerpt: Har kommunen ikke indgået en prisaftale, beregnes helbredstillægget
+            i forhold til den faktiske pris
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "if expense_for_dental_prosthesis_glasses_or_foot_treatment_is_necessary:\n\
+      \  health_supplement_rate * (if municipality_has_price_agreement_for_dental_prosthesis_glasses_or_foot_treatment:\n\
+      \    agreed_price_for_necessary_dental_prosthesis_glasses_or_foot_treatment\n\
+      \  else: actual_price_of_necessary_dental_prosthesis_glasses_or_foot_treatment)\n\
+      else: 0"
+inputs:
+- name: service_is_subsidized_under_health_act_chapter_15_15a_or_42
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: service_is_under_health_act_section_60_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: service_is_under_health_act_section_64_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: pensioner_own_share_of_qualifying_service_expense
+  entity: Person
+  dtype: Money
+  period: Month
+- name: medicine_is_subsidized_under_health_act_chapter_42
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: medicine_is_under_health_act_section_60_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: medicine_is_under_health_act_section_64_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: pensioner_own_share_calculated_from_medicine_subsidy_price
+  entity: Person
+  dtype: Money
+  period: Month
+- name: pensioner_has_chosen_security_group_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: health_supplement_amount_if_pensioner_had_chosen_security_group_1
+  entity: Person
+  dtype: Money
+  period: Month
+- name: expense_for_dental_prosthesis_glasses_or_foot_treatment_is_necessary
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: municipality_has_price_agreement_for_dental_prosthesis_glasses_or_foot_treatment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: agreed_price_for_necessary_dental_prosthesis_glasses_or_foot_treatment
+  entity: Person
+  dtype: Money
+  period: Month
+- name: actual_price_of_necessary_dental_prosthesis_glasses_or_foot_treatment
+  entity: Person
+  dtype: Money
+  period: Month
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-14-a
+    source_sha256: 211b978cef892ed0003e2bc70ef42610da03786fee59cbb6d6f75b3653a4f728
