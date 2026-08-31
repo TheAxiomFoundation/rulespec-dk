@@ -1,0 +1,90 @@
+- name: holiday_with_wages_payment_is_included
+  period: 2024-12
+  tables:
+    Payment:
+    - dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_is_under_section_15: true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_with_wages: true
+      ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_compensation_in_feriekort_scheme_without_feriekasse
+      : false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_lg_deposit_under_section_8_b: false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.qualifying_holiday_funds_payment_amount: 1000
+  input: {}
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#payment_is_includable_in_taxable_income:
+    - holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#taxable_income_inclusion_from_holiday_funds_payment:
+    - 1000
+- name: feriekort_compensation_payment_is_included
+  period: 2024-12
+  tables:
+    Payment:
+    - dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_is_under_section_15: true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_with_wages: false
+      ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_compensation_in_feriekort_scheme_without_feriekasse
+      : true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_lg_deposit_under_section_8_b: false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.qualifying_holiday_funds_payment_amount: 750
+  input: {}
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#payment_is_includable_in_taxable_income:
+    - holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#taxable_income_inclusion_from_holiday_funds_payment:
+    - 750
+- name: other_section_15_payment_is_not_included
+  period: 2024-12
+  tables:
+    Payment:
+    - dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_is_under_section_15: false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_with_wages: true
+      ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_compensation_in_feriekort_scheme_without_feriekasse
+      : false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_lg_deposit_under_section_8_b: false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.qualifying_holiday_funds_payment_amount: 1000
+  input: {}
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#payment_is_includable_in_taxable_income:
+    - not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#taxable_income_inclusion_from_holiday_funds_payment:
+    - 0
+- name: lg_derived_payment_is_not_included
+  period: 2024-12
+  tables:
+    Payment:
+    - dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_is_under_section_15: true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_with_wages: true
+      ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_holiday_compensation_in_feriekort_scheme_without_feriekasse
+      : false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.payment_derives_from_lg_deposit_under_section_8_b: true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.qualifying_holiday_funds_payment_amount: 1000
+  input: {}
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#payment_is_includable_in_taxable_income:
+    - not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#taxable_income_inclusion_from_holiday_funds_payment:
+    - 0
+- name: employer_pays_levy_on_lg_deposited_claim
+  period: 2024-12
+  input: {}
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#levy_on_claim_deposited_by_lg:
+    - 380
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#section_38_applies_to_lg_deposited_claim_levy:
+    - not_holds
+  tables:
+    Employer:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.employer_has_claim_deposited_by_lg_under_section_8_b
+      : true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.claim_deposited_by_lg_under_section_8_b_amount: 1000
+- name: no_levy_without_lg_deposited_claim
+  period: 2024-12
+  input: {}
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#levy_on_claim_deposited_by_lg:
+    - 0
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#section_38_applies_to_lg_deposited_claim_levy:
+    - not_holds
+  tables:
+    Employer:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.employer_has_claim_deposited_by_lg_under_section_8_b
+      : false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b#input.claim_deposited_by_lg_under_section_8_b_amount: 1000

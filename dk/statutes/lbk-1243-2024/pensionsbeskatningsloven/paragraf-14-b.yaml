@@ -1,0 +1,161 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+    source_sha256: b0d2223d3fe20c57636f48eb48dfa57d4afbd1451b2ebd45b1495b8c5c9823b0
+  summary: 'Udbetaling efter § 15 af tilgodehavende feriemidler med regulering medregnes,
+
+    når den hidrører fra ferie med løn eller feriegodtgørelse i feriekortordninger
+
+    uden feriekasser. LG-indbetalte krav og afledte udbetalinger medregnes ikke.
+
+    Arbejdsgiveren betaler en afgift på 38 pct. af et sådant krav, og § 38 finder
+
+    ikke anvendelse på afgiften.'
+inputs:
+- name: payment_is_under_section_15
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_derives_from_holiday_with_wages
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_derives_from_holiday_compensation_in_feriekort_scheme_without_feriekasse
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_derives_from_lg_deposit_under_section_8_b
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: qualifying_holiday_funds_payment_amount
+  entity: Payment
+  dtype: Money
+  period: Month
+  unit: DKK
+- name: employer_has_claim_deposited_by_lg_under_section_8_b
+  entity: Employer
+  dtype: Boolean
+  period: Month
+- name: claim_deposited_by_lg_under_section_8_b_amount
+  entity: Employer
+  dtype: Money
+  period: Month
+  unit: DKK
+rules:
+- name: payment_is_includable_in_taxable_income
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: Pensionsbeskatningsloven § 14 B, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+          excerpt: i det omfang de hidrører fra ferie med løn eller feriegodtgørelse
+            i feriekortordninger uden feriekasser
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+          excerpt: Udbetalinger af tilgodehavende feriemidler, der hidrører fra en
+            indbetaling som nævnt i 1. pkt., medregnes ikke ved opgørelsen af lønmodtagerens
+            skattepligtige indkomst.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'payment_is_under_section_15
+
+      and
+
+      (payment_derives_from_holiday_with_wages
+
+      or payment_derives_from_holiday_compensation_in_feriekort_scheme_without_feriekasse)
+
+      and
+
+      not payment_derives_from_lg_deposit_under_section_8_b'
+- name: taxable_income_inclusion_from_holiday_funds_payment
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: Pensionsbeskatningsloven § 14 B, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+          excerpt: medregnes ved opgørelsen af den skattepligtige indkomst
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+          excerpt: Øvrige udbetalinger efter § 15 i lov om forvaltning og administration
+            af tilgodehavende feriemidler medregnes ikke ved opgørelsen af den skattepligtige
+            indkomst.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'if payment_is_includable_in_taxable_income: qualifying_holiday_funds_payment_amount
+      else: 0'
+- name: lg_deposited_claim_levy_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: Pensionsbeskatningsloven § 14 B, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+          excerpt: Af kravet betaler arbejdsgiveren en afgift på 38 pct.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '0.38'
+- name: levy_on_claim_deposited_by_lg
+  kind: derived
+  entity: Employer
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: Pensionsbeskatningsloven § 14 B, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+          excerpt: Af kravet betaler arbejdsgiveren en afgift på 38 pct.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: "if employer_has_claim_deposited_by_lg_under_section_8_b:\n  lg_deposited_claim_levy_rate\
+      \ * claim_deposited_by_lg_under_section_8_b_amount\nelse: 0"
+- name: section_38_applies_to_lg_deposited_claim_levy
+  kind: derived
+  entity: Employer
+  dtype: Judgment
+  period: Month
+  source: Pensionsbeskatningsloven § 14 B, stk. 2, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-14-b
+          excerpt: § 38 finder ikke anvendelse på denne afgift.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'false'
