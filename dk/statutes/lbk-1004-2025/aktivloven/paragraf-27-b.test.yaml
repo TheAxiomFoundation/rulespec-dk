@@ -1,0 +1,102 @@
+- name: qualifying_person_receives_assistance_up_to_general_monthly_cap
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_takes_permanent_residence_in_denmark: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_receives_disability_pension_from_faroe_islands_or_greenland
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.decision_on_another_basis_of_support_has_been_made: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.requested_consecutive_assistance_months: 12
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_meets_residence_requirement_under_section_11_subsection_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_disability_pension_from_faroe_islands_or_greenland: 400
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_amount_under_sections_16_to_19: 1000
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18
+    : 700
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#requested_assistance_duration_within_limit: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#assistance_may_be_granted: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#maximum_monthly_assistance: 600
+- name: assistance_is_unavailable_when_residence_is_not_taken
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_takes_permanent_residence_in_denmark: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_receives_disability_pension_from_faroe_islands_or_greenland
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.decision_on_another_basis_of_support_has_been_made: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.requested_consecutive_assistance_months: 12
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_meets_residence_requirement_under_section_11_subsection_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_disability_pension_from_faroe_islands_or_greenland: 400
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_amount_under_sections_16_to_19: 1000
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18
+    : 700
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#requested_assistance_duration_within_limit: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#assistance_may_be_granted: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#maximum_monthly_assistance: 0
+- name: assistance_is_unavailable_without_faroe_or_greenland_disability_pension
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_takes_permanent_residence_in_denmark: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_receives_disability_pension_from_faroe_islands_or_greenland
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.decision_on_another_basis_of_support_has_been_made: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.requested_consecutive_assistance_months: 12
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_meets_residence_requirement_under_section_11_subsection_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_disability_pension_from_faroe_islands_or_greenland: 400
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_amount_under_sections_16_to_19: 1000
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18
+    : 700
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#requested_assistance_duration_within_limit: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#assistance_may_be_granted: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#maximum_monthly_assistance: 0
+- name: assistance_is_unavailable_after_other_support_basis_decision
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_takes_permanent_residence_in_denmark: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_receives_disability_pension_from_faroe_islands_or_greenland
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.decision_on_another_basis_of_support_has_been_made: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.requested_consecutive_assistance_months: 12
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_meets_residence_requirement_under_section_11_subsection_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_disability_pension_from_faroe_islands_or_greenland: 400
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_amount_under_sections_16_to_19: 1000
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18
+    : 700
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#requested_assistance_duration_within_limit: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#assistance_may_be_granted: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#maximum_monthly_assistance: 0
+- name: assistance_is_unavailable_beyond_consecutive_duration_limit
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_takes_permanent_residence_in_denmark: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_receives_disability_pension_from_faroe_islands_or_greenland
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.decision_on_another_basis_of_support_has_been_made: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.requested_consecutive_assistance_months: 13
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_meets_residence_requirement_under_section_11_subsection_3: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_disability_pension_from_faroe_islands_or_greenland: 400
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_amount_under_sections_16_to_19: 1000
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18
+    : 700
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#requested_assistance_duration_within_limit: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#assistance_may_be_granted: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#maximum_monthly_assistance: 0
+- name: person_without_section_11_residence_requirement_uses_special_monthly_cap
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_takes_permanent_residence_in_denmark: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_receives_disability_pension_from_faroe_islands_or_greenland
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.decision_on_another_basis_of_support_has_been_made: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.requested_consecutive_assistance_months: 12
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.person_meets_residence_requirement_under_section_11_subsection_3: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_disability_pension_from_faroe_islands_or_greenland: 400
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_amount_under_sections_16_to_19: 1000
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#input.monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18
+    : 700
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#requested_assistance_duration_within_limit: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#assistance_may_be_granted: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-b#maximum_monthly_assistance: 300
