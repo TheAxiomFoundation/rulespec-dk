@@ -1,0 +1,182 @@
+- name: no_residence_or_employment_period_gives_no_entitlement
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 0
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0
+- name: six_month_period_pays_first_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 6
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.083
+- name: twelve_month_period_pays_second_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 12
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.167
+- name: eighteen_month_period_pays_third_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 18
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.25
+- name: twenty_four_month_period_pays_fourth_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 24
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.333
+- name: thirty_month_period_pays_fifth_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 30
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.417
+- name: thirty_six_month_period_pays_sixth_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 36
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.5
+- name: forty_two_month_period_pays_seventh_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 42
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.583
+- name: forty_eight_month_period_pays_eighth_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 48
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.667
+- name: fifty_four_month_period_pays_ninth_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 54
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.75
+- name: sixty_month_period_pays_tenth_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 60
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.833
+- name: sixty_six_month_period_pays_eleventh_partial_rate
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 66
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 0.917
+- name: six_year_requirement_pays_full_benefit
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 66
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 1
+- name: eu_law_entitlement_displaces_residence_employment_rules
+  period: 2024-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.other_conditions_for_benefit_are_met: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.child_is_entitled_to_benefit_under_eu_law: true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+    : false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#input.maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+    : 0
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#residence_employment_rules_apply: not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_entitlement_under_residence_employment_rules: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-5-a#benefit_payment_fraction: 1
