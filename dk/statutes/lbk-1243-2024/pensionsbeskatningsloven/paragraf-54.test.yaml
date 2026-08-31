@@ -1,0 +1,54 @@
+- name: section_18_deduction_right_applies_for_fully_taxable_person
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_fully_taxable_in_denmark: true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#deduction_right_under_section_18_applies: holds
+- name: section_18_deduction_right_does_not_apply_for_person_not_fully_taxable
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_fully_taxable_in_denmark: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#deduction_right_under_section_18_applies: not_holds
+- name: owner_deducts_premiums_due_or_paid_while_fully_taxable
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_owner_of_relevant_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_fully_taxable_in_denmark: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.insurance_premiums_due_or_paid_while_owner_fully_taxable
+    : 12000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#deductible_insurance_premiums_under_sections_18_and_49_1: 12000
+- name: non_owner_has_no_deduction_for_relevant_insurance_premiums
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_owner_of_relevant_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_fully_taxable_in_denmark: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.insurance_premiums_due_or_paid_while_owner_fully_taxable
+    : 12000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#deductible_insurance_premiums_under_sections_18_and_49_1: 0
+- name: owner_not_fully_taxable_has_no_deduction_for_relevant_insurance_premiums
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_owner_of_relevant_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.person_is_fully_taxable_in_denmark: false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#input.insurance_premiums_due_or_paid_while_owner_fully_taxable
+    : 12000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54#deductible_insurance_premiums_under_sections_18_and_49_1: 0

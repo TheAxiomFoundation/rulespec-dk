@@ -1,0 +1,73 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54
+    source_sha256: 2c7ef5aa13f3579ac8013ca8f6a4304cd49fdfa8b656b8edd836aaf7909dd6fe
+  summary: § 18 om fradragsret for forsikringspræmier m.v. gælder kun for personer,
+    der er fuldt skattepligtige her i landet. Fradragsretten efter § 18 og § 49, stk.
+    1, tilkommer ejeren uanset indbetaleren og er begrænset til forfaldne eller indbetalte
+    præmier, mens ejeren er fuldt skattepligtig her i landet.
+rules:
+- name: deductible_insurance_premiums_under_sections_18_and_49_1
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Pensionsbeskatningsloven § 54, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54
+          excerpt: Fradragsretten efter § 18 og § 49, stk. 1, tilkommer ejeren
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54
+          excerpt: uanset hvem der har foretaget indbetalingen
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54
+          excerpt: begrænset til forfaldne eller indbetalte forsikringspræmier m.v.,
+            mens ejeren er fuldt skattepligtig her i landet
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'if person_is_owner_of_relevant_insurance and person_is_fully_taxable_in_denmark:
+      insurance_premiums_due_or_paid_while_owner_fully_taxable else: 0'
+- name: deduction_right_under_section_18_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 54, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-54
+          excerpt: gælder kun for personer, der er fuldt skattepligtige her i landet
+  versions:
+  - effective_from: '2024-11-26'
+    formula: person_is_fully_taxable_in_denmark
+inputs:
+- name: person_is_fully_taxable_in_denmark
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_is_owner_of_relevant_insurance
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: insurance_premiums_due_or_paid_while_owner_fully_taxable
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
