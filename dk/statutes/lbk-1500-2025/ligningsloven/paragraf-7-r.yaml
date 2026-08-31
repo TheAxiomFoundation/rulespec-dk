@@ -1,0 +1,60 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-r
+    source_sha256: 13556acfa1062b5d767688a0b54116a7c0d4593f08df7c17c30210027b145d60
+  summary: Udbetaling af VE-bonus fastsat i regler udstedt i medfør af § 13, stk.
+    4, i lov om fremme af vedvarende energi medregnes ikke ved opgørelsen af den skattepligtige
+    indkomst. Udbetaling af testcenterbonus fastsat i regler udstedt i medfør af §
+    21, stk. 3, i lov om testcentre for store vindmøller ved Høvsøre og Østerild medregnes
+    ikke ved opgørelsen af den skattepligtige indkomst.
+inputs:
+- name: payment_is_ve_bonus_fixed_in_rules_issued_under_section_13_subsection_4_of_renewable_energy_act
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_is_testcenterbonus_fixed_in_rules_issued_under_section_21_subsection_3_of_testcentre_act
+  entity: Payment
+  dtype: Boolean
+  period: Year
+rules:
+- name: ve_bonus_payment_not_included_in_taxable_income
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 7 R, stk. 1.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-r
+          excerpt: Udbetaling af VE-bonus fastsat i regler udstedt i medfør af § 13,
+            stk. 4, i lov om fremme af vedvarende energi medregnes ikke ved opgørelsen
+            af den skattepligtige indkomst.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: payment_is_ve_bonus_fixed_in_rules_issued_under_section_13_subsection_4_of_renewable_energy_act
+- name: testcenterbonus_payment_not_included_in_taxable_income
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 7 R, stk. 2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-r
+          excerpt: Udbetaling af testcenterbonus fastsat i regler udstedt i medfør
+            af § 21, stk. 3, i lov om testcentre for store vindmøller ved Høvsøre
+            og Østerild medregnes ikke ved opgørelsen af den skattepligtige indkomst.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: payment_is_testcenterbonus_fixed_in_rules_issued_under_section_21_subsection_3_of_testcentre_act
