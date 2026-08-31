@@ -1,0 +1,80 @@
+- name: mandatory_offsets_reduce_retroactive_pension
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.payment_is_retroactive_disability_or_senior_pension_under_section_33_2
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.retroactive_pension_before_mandatory_offsets: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_sickness_benefit_for_same_period: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_self_support_and_repatriation_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_transition_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_flex_job_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_resource_course_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_education_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_pension_amount: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_housing_support_amount: 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#retroactive_pension_after_mandatory_offsets: 550
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#overpaid_pension_or_housing_support_may_be_deducted: not_holds
+- name: overpaid_pension_may_be_deducted
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.payment_is_retroactive_disability_or_senior_pension_under_section_33_2
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.retroactive_pension_before_mandatory_offsets: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_sickness_benefit_for_same_period: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_self_support_and_repatriation_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_transition_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_flex_job_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_resource_course_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_education_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_pension_amount: 75
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_housing_support_amount: 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#retroactive_pension_after_mandatory_offsets: 550
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#overpaid_pension_or_housing_support_may_be_deducted: holds
+- name: overpaid_housing_support_may_be_deducted
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.payment_is_retroactive_disability_or_senior_pension_under_section_33_2
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.retroactive_pension_before_mandatory_offsets: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_sickness_benefit_for_same_period: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_self_support_and_repatriation_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_transition_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_flex_job_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_resource_course_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_education_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_pension_amount: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_housing_support_amount: 75
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#retroactive_pension_after_mandatory_offsets: 550
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#overpaid_pension_or_housing_support_may_be_deducted: holds
+- name: mandatory_offset_rule_is_inoperative_outside_retroactive_pension_scope
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.payment_is_retroactive_disability_or_senior_pension_under_section_33_2
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.retroactive_pension_before_mandatory_offsets: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_sickness_benefit_for_same_period: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_self_support_and_repatriation_benefit_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_transition_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_flex_job_unemployment_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_resource_course_benefit_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_education_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.paid_cash_assistance_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_pension_amount: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#input.overpaid_housing_support_amount: 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#retroactive_pension_after_mandatory_offsets: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-d#overpaid_pension_or_housing_support_may_be_deducted: not_holds
