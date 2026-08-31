@@ -1,0 +1,120 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-g
+    source_sha256: 63985ae4514a052f11444973ab31829df9ffa490934cacfb9bebf7e8553337bb
+  summary: '"Tidlig pension nedsættes af følgende pensionsordninger": 1) pensionsordninger
+
+    omfattet af pensionsbeskatningslovens afsnit I og tilsvarende udenlandske
+
+    pensionsordninger, samt 2) opsparing fra Lønmodtagernes Dyrtidsfond, med
+
+    undtagelse af pensioner omfattet af pensionsbeskatningslovens § 2, nr. 3,
+
+    og § 2, nr. 4, litra c-f.'
+rules:
+- name: part_i_pension_arrangement_category_number
+  kind: parameter
+  dtype: Integer
+  source: Pensionsloven § 32 g, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-g
+          excerpt: 1) Pensionsordninger, som er omfattet af afsnit I i pensionsbeskatningsloven
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: labour_market_fund_savings_category_number
+  kind: parameter
+  dtype: Integer
+  source: Pensionsloven § 32 g, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-g
+          excerpt: 2) Opsparing fra Lønmodtagernes Dyrtidsfond.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2'
+- name: pension_arrangement_reduces_early_pension
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Month
+  source: Pensionsloven § 32 g, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-g
+          excerpt: Tidlig pension nedsættes af følgende pensionsordninger
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-g
+          excerpt: 1) Pensionsordninger, som er omfattet af afsnit I i pensionsbeskatningsloven,
+            og tilsvarende udenlandske pensionsordninger
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-g
+          excerpt: 2) Opsparing fra Lønmodtagernes Dyrtidsfond.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-g
+          excerpt: Tidlig pension nedsættes ikke af pensioner, som er omfattet af
+            pensionsbeskatningslovens § 2, nr. 3, og § 2, nr. 4, litra c-f.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "(\n  pension_arrangement_is_covered_by_pensions_tax_act_part_i\n  or\
+      \ pension_arrangement_is_corresponding_foreign_arrangement\n  or pension_arrangement_is_labour_market_cost_of_living_fund_savings\n\
+      )\nand not pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3\n\
+      and not pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c\n\
+      and not pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d\n\
+      and not pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e\n\
+      and not pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f"
+inputs:
+- name: pension_arrangement_is_covered_by_pensions_tax_act_part_i
+  entity: Asset
+  dtype: Boolean
+  period: Month
+- name: pension_arrangement_is_corresponding_foreign_arrangement
+  entity: Asset
+  dtype: Boolean
+  period: Month
+- name: pension_arrangement_is_labour_market_cost_of_living_fund_savings
+  entity: Asset
+  dtype: Boolean
+  period: Month
+- name: pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+  entity: Asset
+  dtype: Boolean
+  period: Month
+- name: pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+  entity: Asset
+  dtype: Boolean
+  period: Month
+- name: pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+  entity: Asset
+  dtype: Boolean
+  period: Month
+- name: pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+  entity: Asset
+  dtype: Boolean
+  period: Month
+- name: pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+  entity: Asset
+  dtype: Boolean
+  period: Month
