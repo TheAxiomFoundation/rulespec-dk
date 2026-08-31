@@ -1,0 +1,118 @@
+- name: subsidized_service_qualifies
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_subsidized_under_health_act_chapter_15_15a_or_42: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_60_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_64_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_own_share_of_qualifying_service_expense: 200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_subsidized_service: 170
+- name: unsubsidized_service_does_not_qualify
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_subsidized_under_health_act_chapter_15_15a_or_42: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_60_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_64_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_own_share_of_qualifying_service_expense: 200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_subsidized_service: 0
+- name: section_60_subsection_2_service_is_excluded
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_subsidized_under_health_act_chapter_15_15a_or_42: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_60_subsection_2: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_64_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_own_share_of_qualifying_service_expense: 200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_subsidized_service: 0
+- name: section_64_subsection_2_service_is_excluded
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_subsidized_under_health_act_chapter_15_15a_or_42: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_60_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.service_is_under_health_act_section_64_subsection_2: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_own_share_of_qualifying_service_expense: 200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_subsidized_service: 0
+- name: medicine_supplement_uses_subsidy_price_share
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_subsidized_under_health_act_chapter_42: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_under_health_act_section_60_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_under_health_act_section_64_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_own_share_calculated_from_medicine_subsidy_price: 400
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_medicine: 340
+- name: medicine_section_60_subsection_2_is_excluded
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_subsidized_under_health_act_chapter_42: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_under_health_act_section_60_subsection_2: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_under_health_act_section_64_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_own_share_calculated_from_medicine_subsidy_price: 400
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_medicine: 0
+- name: medicine_section_64_subsection_2_is_excluded
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_subsidized_under_health_act_chapter_42: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_under_health_act_section_60_subsection_2: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.medicine_is_under_health_act_section_64_subsection_2: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_own_share_calculated_from_medicine_subsidy_price: 400
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_medicine: 0
+- name: security_group_2_receives_group_1_equivalent_amount
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_has_chosen_security_group_2: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.health_supplement_amount_if_pensioner_had_chosen_security_group_1
+    : 510
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_security_group_2_service: 510
+- name: security_group_1_does_not_use_group_2_rule
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.pensioner_has_chosen_security_group_2: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.health_supplement_amount_if_pensioner_had_chosen_security_group_1
+    : 510
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_security_group_2_service: 0
+- name: necessary_aid_uses_agreed_price
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.expense_for_dental_prosthesis_glasses_or_foot_treatment_is_necessary
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.municipality_has_price_agreement_for_dental_prosthesis_glasses_or_foot_treatment
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.agreed_price_for_necessary_dental_prosthesis_glasses_or_foot_treatment
+    : 1000
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.actual_price_of_necessary_dental_prosthesis_glasses_or_foot_treatment
+    : 1200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_necessary_aids: 850
+- name: necessary_aid_without_price_agreement_uses_actual_price
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.expense_for_dental_prosthesis_glasses_or_foot_treatment_is_necessary
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.municipality_has_price_agreement_for_dental_prosthesis_glasses_or_foot_treatment
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.agreed_price_for_necessary_dental_prosthesis_glasses_or_foot_treatment
+    : 1000
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.actual_price_of_necessary_dental_prosthesis_glasses_or_foot_treatment
+    : 1200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_necessary_aids: 1020
+- name: unnecessary_aid_has_no_health_supplement
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.expense_for_dental_prosthesis_glasses_or_foot_treatment_is_necessary
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.municipality_has_price_agreement_for_dental_prosthesis_glasses_or_foot_treatment
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.agreed_price_for_necessary_dental_prosthesis_glasses_or_foot_treatment
+    : 1000
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#input.actual_price_of_necessary_dental_prosthesis_glasses_or_foot_treatment
+    : 1200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-14-a#health_supplement_for_necessary_aids: 0
