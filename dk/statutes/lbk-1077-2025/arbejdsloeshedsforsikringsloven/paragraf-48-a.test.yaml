@@ -1,0 +1,147 @@
+- name: auto_zero_unemployment_benefit_for_education_offer
+  period:
+    period_kind: custom
+    name: day
+    start: '2020-01-01'
+    end: '2020-01-01'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.education_commencement_is_in_temporary_effective_window
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.highest_unemployment_benefit_rate: 0
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_offer_under_section_96
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_under_section_97_a
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_participates_in_education_offer_under_section_96
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_previous_unemployment_benefit_rate: 0
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.vocational_education_is_on_section_33_a_subsection_5_list
+    : false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#unemployment_benefit_for_education_offer: 0
+- name: temporary_vocational_education_listed_receives_previous_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2020-06-15'
+    end: '2020-06-15'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_participates_in_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.vocational_education_is_on_section_33_a_subsection_5_list
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.education_commencement_is_in_temporary_effective_window
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_under_section_97_a
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_previous_unemployment_benefit_rate: 900
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.highest_unemployment_benefit_rate: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#unemployment_benefit_for_education_offer: 900
+- name: temporary_window_absent_uses_standard_eighty_percent_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2021-01-15'
+    end: '2021-01-15'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_participates_in_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.vocational_education_is_on_section_33_a_subsection_5_list
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.education_commencement_is_in_temporary_effective_window
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_under_section_97_a
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_previous_unemployment_benefit_rate: 900
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.highest_unemployment_benefit_rate: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#unemployment_benefit_for_education_offer: 800
+- name: non_vocational_section_96_offer_uses_standard_rate_cap
+  period:
+    period_kind: custom
+    name: day
+    start: '2020-06-15'
+    end: '2020-06-15'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_participates_in_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_offer_under_section_96
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.vocational_education_is_on_section_33_a_subsection_5_list
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.education_commencement_is_in_temporary_effective_window
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_under_section_97_a
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_previous_unemployment_benefit_rate: 700
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.highest_unemployment_benefit_rate: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#unemployment_benefit_for_education_offer: 700
+- name: unlisted_temporary_vocational_education_uses_standard_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2020-06-15'
+    end: '2020-06-15'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_participates_in_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.vocational_education_is_on_section_33_a_subsection_5_list
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.education_commencement_is_in_temporary_effective_window
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_under_section_97_a
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_previous_unemployment_benefit_rate: 900
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.highest_unemployment_benefit_rate: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#unemployment_benefit_for_education_offer: 800
+- name: section_97_a_vocational_education_receives_enhanced_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_participates_in_education_offer_under_section_96
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_offer_under_section_96
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.vocational_education_is_on_section_33_a_subsection_5_list
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.education_commencement_is_in_temporary_effective_window
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_under_section_97_a
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_previous_unemployment_benefit_rate: 700
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.highest_unemployment_benefit_rate: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#unemployment_benefit_for_education_offer: 770
+- name: section_97_a_enhanced_rate_is_capped_by_highest_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_participates_in_education_offer_under_section_96
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_offer_under_section_96
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.vocational_education_is_on_section_33_a_subsection_5_list
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.education_commencement_is_in_temporary_effective_window
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_begins_vocational_education_under_section_97_a
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.member_previous_unemployment_benefit_rate: 1000
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#input.highest_unemployment_benefit_rate: 800
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-48-a#unemployment_benefit_for_education_offer: 880
