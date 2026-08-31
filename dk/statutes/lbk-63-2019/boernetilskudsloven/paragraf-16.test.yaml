@@ -1,0 +1,12 @@
+- name: shorter_period_payment_may_be_made_when_best_for_child
+  period: 2019-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-16#input.payment_for_shorter_period_is_best_for_child: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-16#contribution_payment_for_shorter_period_may_be_made: holds
+- name: shorter_period_payment_may_not_be_made_without_best_interest_assessment
+  period: 2019-01
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-16#input.payment_for_shorter_period_is_best_for_child: false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-16#contribution_payment_for_shorter_period_may_be_made: not_holds

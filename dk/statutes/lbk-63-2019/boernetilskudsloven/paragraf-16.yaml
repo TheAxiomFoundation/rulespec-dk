@@ -1,0 +1,38 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-16
+    source_sha256: a5e2c5fbcad29d9a8eb0db2ede74ac4f6aa4cc74f8e8e1d60d5dff060be7941f
+  summary: Når det skønnes at være bedst for barnet, kan bidraget udbetales for kortere
+    perioder ad gangen end fastsat i bidragsdokumentet.
+inputs:
+- name: payment_for_shorter_period_is_best_for_child
+  entity: Payment
+  dtype: Boolean
+  period: Month
+rules:
+- name: contribution_payment_for_shorter_period_may_be_made
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: Børnetilskudsloven § 16
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-16
+          excerpt: Når det skønnes at være bedst for barnet
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-16
+          excerpt: kan bidraget udbetales for kortere perioder ad gangen end fastsat
+            i bidragsdokumentet
+  versions:
+  - effective_from: '2019-01-01'
+    formula: payment_for_shorter_period_is_best_for_child
