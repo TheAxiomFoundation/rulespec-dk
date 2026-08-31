@@ -1,0 +1,40 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35
+    source_sha256: bac0d069db8665b2183a497d41bb01ade5e00dc3680e8293843b545fb268b365
+  summary: Ændring af en anerkendt arbejdsløshedskasses vedtægt er først gyldig, når
+    ændringen godkendes af direktøren for Styrelsen for Arbejdsmarked og Rekruttering.
+inputs:
+- name: unemployment_insurance_fund_statutes_are_amended
+  entity: Business
+  dtype: Boolean
+  period: Year
+- name: amendment_is_approved_by_director_of_the_danish_agency_for_labour_market_and_recruitment
+  entity: Business
+  dtype: Boolean
+  period: Year
+rules:
+- name: statutes_amendment_is_valid
+  kind: derived
+  entity: Business
+  dtype: Judgment
+  period: Year
+  source: § 35
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-35
+          excerpt: Ændring af en anerkendt arbejdsløshedskasses vedtægt er først gyldig,
+            når ændringen godkendes af direktøren for Styrelsen for Arbejdsmarked
+            og Rekruttering.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'unemployment_insurance_fund_statutes_are_amended
+
+      and amendment_is_approved_by_director_of_the_danish_agency_for_labour_market_and_recruitment'
