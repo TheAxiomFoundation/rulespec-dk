@@ -1,0 +1,72 @@
+- name: temporary_work_sharing_member_without_income_basis_receives_fixed_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_has_right_to_benefits_under_temporary_work_sharing_scheme
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_is_covered_by_temporary_work_sharing_scheme
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.income_basis_exists_after_nonmembership_income_inclusion
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.highest_daily_unemployment_benefit: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#nonmembership_income_inclusion_available: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#temporary_work_sharing_rate_applies: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#fixed_daily_benefit_without_income_basis: 715
+- name: member_without_temporary_work_sharing_benefit_right_has_no_inclusion_or_fixed_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_has_right_to_benefits_under_temporary_work_sharing_scheme
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_is_covered_by_temporary_work_sharing_scheme
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.income_basis_exists_after_nonmembership_income_inclusion
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.highest_daily_unemployment_benefit: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#nonmembership_income_inclusion_available: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#temporary_work_sharing_rate_applies: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#fixed_daily_benefit_without_income_basis: 0
+- name: rate_does_not_apply_outside_temporary_work_sharing_coverage_period
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_has_right_to_benefits_under_temporary_work_sharing_scheme
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_is_covered_by_temporary_work_sharing_scheme
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.income_basis_exists_after_nonmembership_income_inclusion
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.highest_daily_unemployment_benefit: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#nonmembership_income_inclusion_available: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#temporary_work_sharing_rate_applies: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#fixed_daily_benefit_without_income_basis: 0
+- name: income_basis_precludes_fixed_rate
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_has_right_to_benefits_under_temporary_work_sharing_scheme
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.member_is_covered_by_temporary_work_sharing_scheme
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.income_basis_exists_after_nonmembership_income_inclusion
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#input.highest_daily_unemployment_benefit: 1000
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#nonmembership_income_inclusion_available: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#temporary_work_sharing_rate_applies: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50#fixed_daily_benefit_without_income_basis: 0

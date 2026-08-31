@@ -1,0 +1,139 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+    source_sha256: 0e22d63c6d6f527e31a56bb0462ce4073111292169f088fe22751f2b88a23d0a
+  summary: Uanset § 48, stk. 2, 1. pkt., kan indtægt i ikkemedlemsperioder indgå i
+    indtægtsgrundlaget for medlemmer med ret til dagpenge under den midlertidige arbejdsfordelingsordning.
+    Uden indtægtsgrundlag udgør dagpengene 71,5 pct. af højeste dagpenge, og satsen
+    gælder i perioden under ordningen.
+inputs:
+- name: member_has_right_to_benefits_under_temporary_work_sharing_scheme
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: member_is_covered_by_temporary_work_sharing_scheme
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: income_basis_exists_after_nonmembership_income_inclusion
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: highest_daily_unemployment_benefit
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Day
+rules:
+- name: nonmembership_income_inclusion_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 50, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: Uanset § 48, stk. 2, 1. pkt., kan indtægt i ikkemedlemsperioder
+            indgå i indtægtsgrundlaget
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: for medlemmer, der har ret til dagpenge under den midlertidige
+            ordning om arbejdsfordeling
+  versions:
+  - effective_from: '2025-08-28'
+    formula: member_has_right_to_benefits_under_temporary_work_sharing_scheme
+- name: fixed_benefit_percentage_of_highest_benefit
+  kind: parameter
+  dtype: Rate
+  period: Day
+  source: § 50, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: et fast beløb på 71,5 pct. af højeste dagpenge
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '0.715'
+- name: highest_benefit_reference_section
+  kind: parameter
+  dtype: Integer
+  period: Day
+  source: § 50, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: højeste dagpenge efter §§ 47 og 70
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '70'
+- name: temporary_work_sharing_rate_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 50, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: Den beregnede sats gælder for den periode, medlemmet er omfattet
+            af den midlertidige arbejdsfordelingsordning.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: medlemmer, der har ret til dagpenge under den midlertidige ordning
+            om arbejdsfordeling
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'member_has_right_to_benefits_under_temporary_work_sharing_scheme
+
+      and member_is_covered_by_temporary_work_sharing_scheme'
+- name: fixed_daily_benefit_without_income_basis
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Day
+  source: § 50, 2. og 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: Foreligger der ikke et indtægtsgrundlag efter 1. pkt., udbetales
+            dagpengene med et fast beløb på 71,5 pct. af højeste dagpenge
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-50
+          excerpt: Den beregnede sats gælder for den periode, medlemmet er omfattet
+            af den midlertidige arbejdsfordelingsordning.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: "if temporary_work_sharing_rate_applies and not income_basis_exists_after_nonmembership_income_inclusion:\n\
+      \  fixed_benefit_percentage_of_highest_benefit * highest_daily_unemployment_benefit\n\
+      else: 0"
