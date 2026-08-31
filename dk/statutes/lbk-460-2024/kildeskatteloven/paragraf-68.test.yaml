@@ -1,0 +1,68 @@
+- name: no_withholding_requires_immediate_payment
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.person_is_tax_liable_in_denmark: true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_not_withheld_in_qualifying_income
+    : true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_withheld_at_too_low_an_amount_in_qualifying_income
+    : false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.missing_withholding_amount: 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_exists: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_must_be_immediately_paid: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_payment_due: 100
+- name: insufficient_withholding_requires_immediate_payment
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.person_is_tax_liable_in_denmark: true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_not_withheld_in_qualifying_income
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_withheld_at_too_low_an_amount_in_qualifying_income
+    : true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.missing_withholding_amount: 40
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_exists: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_must_be_immediately_paid: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_payment_due: 40
+- name: no_missing_withholding_creates_no_payment_duty
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.person_is_tax_liable_in_denmark: true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_not_withheld_in_qualifying_income
+    : false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_withheld_at_too_low_an_amount_in_qualifying_income
+    : false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.missing_withholding_amount: 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_exists: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_must_be_immediately_paid: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_payment_due: 0
+- name: non_tax_liable_person_has_no_section_68_payment_duty
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.person_is_tax_liable_in_denmark: false
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_not_withheld_in_qualifying_income
+    : true
+    ? dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.a_tax_or_labour_market_contribution_withheld_at_too_low_an_amount_in_qualifying_income
+    : false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#input.missing_withholding_amount: 100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_exists: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_must_be_immediately_paid: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-68#missing_withholding_payment_due: 0
