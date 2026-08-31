@@ -1,0 +1,26 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-41
+    source_sha256: 0597efebfaa89977a88c5b2b218de24fca03604a8a05fddef0495d9cb8e6c433
+  summary: Udbetaling af tillægspension begynder 1. april 1965.
+rules:
+- name: supplementary_pension_payments_have_begun
+  kind: derived
+  entity: SupplementaryPensionScheme
+  dtype: Judgment
+  period: Day
+  source: § 41
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-41
+          excerpt: Udbetaling af tillægspension begynder 1. april 1965.
+  versions:
+  - effective_from: '1965-04-01'
+    formula: 'true'
