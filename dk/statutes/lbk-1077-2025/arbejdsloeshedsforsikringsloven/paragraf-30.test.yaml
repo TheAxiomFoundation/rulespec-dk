@@ -1,0 +1,36 @@
+- name: association_with_required_sole_purpose_is_an_unemployment_insurance_fund
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#input.association_is_of_persons: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#input.sole_purpose_is_unemployment_assistance_and_statutory_administration
+    : true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#arbejdsloeshedskasse: holds
+- name: non_person_association_is_not_an_unemployment_insurance_fund
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#input.association_is_of_persons: false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#input.sole_purpose_is_unemployment_assistance_and_statutory_administration
+    : true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#arbejdsloeshedskasse: not_holds
+- name: association_without_required_sole_purpose_is_not_an_unemployment_insurance_fund
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#input.association_is_of_persons: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#input.sole_purpose_is_unemployment_assistance_and_statutory_administration
+    : false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30#arbejdsloeshedskasse: not_holds

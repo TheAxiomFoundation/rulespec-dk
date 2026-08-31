@@ -1,0 +1,41 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30
+    source_sha256: b6ee93965cbfb11a127d26e1f4e3b80fa7a677b303e0d614513655e1ae35017d
+  summary: '"Ved en arbejdsløshedskasse forstås ... en forening af personer" med det
+    alene formål at sikre økonomisk bistand ved ledighed og administrere lovhenlagte
+    ordninger og beskæftigelsesrettede indsatser.'
+inputs:
+- name: association_is_of_persons
+  entity: Arbejdsloshedskasse
+  dtype: Boolean
+  period: Year
+- name: sole_purpose_is_unemployment_assistance_and_statutory_administration
+  entity: Arbejdsloshedskasse
+  dtype: Boolean
+  period: Year
+rules:
+- name: arbejdsloeshedskasse
+  kind: derived
+  entity: Arbejdsloshedskasse
+  dtype: Judgment
+  period: Year
+  source: § 30
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-30
+          excerpt: en forening af personer, der har sluttet sig sammen alene med det
+            formål at sikre sig økonomisk bistand i tilfælde af ledighed og at administrere
+            andre ordninger og beskæftigelsesrettede indsatser
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'association_is_of_persons
+
+      and sole_purpose_is_unemployment_assistance_and_statutory_administration'
