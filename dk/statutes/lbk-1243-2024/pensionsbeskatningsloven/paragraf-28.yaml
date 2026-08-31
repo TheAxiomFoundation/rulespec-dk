@@ -1,0 +1,201 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+    source_sha256: 9fdb821e2f870e7c6002fbaa2ad97444e17f8b1fa668b6185bfc01024219671b
+  summary: '§ 28, stk. 1: payout from a capital insurance or pension savings arrangement
+    not covered by §§ 25 and 27 is charged 52 pct. § 28, stk. 2: payout from an age
+    savings or age insurance arrangement not covered by § 25 A is charged 20 pct.;
+    the portion matching contributions with foreign full or partial deduction or exclusion
+    is charged 60 pct., reduced to 40 pct. after the former owner''s death; partial
+    payouts preferentially concern that foreign-deductible contribution portion.'
+inputs:
+- name: payout_is_from_capital_insurance_or_pension_savings
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payout_not_covered_by_sections_25_and_27
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payout_is_from_age_savings_or_age_insurance
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payout_not_covered_by_section_25_a
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payout_amount
+  entity: Payment
+  dtype: Money
+  period: Year
+- name: foreign_deduction_eligible_contributions_remaining
+  entity: Payment
+  dtype: Money
+  period: Year
+- name: payout_is_after_former_owners_death
+  entity: Payment
+  dtype: Boolean
+  period: Year
+rules:
+- name: section_27_exception_reference
+  kind: parameter
+  dtype: Integer
+  source: Pensionsbeskatningsloven § 28, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: ikke omfattes af §§ 25 og 27
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '27'
+- name: capital_insurance_payout_charge_rate
+  kind: parameter
+  dtype: Rate
+  source: Pensionsbeskatningsloven § 28, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: en afgift på 52 pct. af det udbetalte beløb
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '0.52'
+- name: age_savings_standard_charge_rate
+  kind: parameter
+  dtype: Rate
+  source: Pensionsbeskatningsloven § 28, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: en afgift på 20 pct. af det udbetalte beløb
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '0.20'
+- name: foreign_deduction_eligible_payout_charge_rate
+  kind: parameter
+  dtype: Rate
+  source: Pensionsbeskatningsloven § 28, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: en afgift på 60 pct. af udbetalte beløb
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '0.60'
+- name: foreign_deduction_eligible_payout_after_death_charge_rate
+  kind: parameter
+  dtype: Rate
+  source: Pensionsbeskatningsloven § 28, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: Ved udbetaling efter den tidligere ejers død udgør afgiften som
+            nævnt i 2. pkt. dog 40 pct.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '0.40'
+- name: foreign_deduction_eligible_payout_amount
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Year
+  source: Pensionsbeskatningsloven § 28, stk. 2, 2. og 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: Ved deludbetaling fra en ordning anses udbetalingen fortrinsvis
+            at vedrøre indbetalinger, for hvilke der i udlandet har været hel eller
+            delvis fradrags- eller bortseelsesret.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: udbetalte beløb, der modsvarer sådanne indbetalinger
+  versions:
+  - effective_from: '2024-11-26'
+    formula: min(payout_amount, foreign_deduction_eligible_contributions_remaining)
+- name: capital_insurance_payout_charge
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Year
+  source: Pensionsbeskatningsloven § 28, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: Ved udbetaling fra en kapitalforsikring eller opsparing i pensionsøjemed
+            i tilfælde, der ikke omfattes af §§ 25 og 27
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: en afgift på 52 pct. af det udbetalte beløb
+  versions:
+  - effective_from: '2024-11-26'
+    formula: "if payout_is_from_capital_insurance_or_pension_savings and payout_not_covered_by_sections_25_and_27:\n\
+      \  capital_insurance_payout_charge_rate * payout_amount\nelse: 0"
+- name: age_savings_payout_charge
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Year
+  source: Pensionsbeskatningsloven § 28, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: Ved udbetaling fra en aldersopsparing og aldersforsikring i tilfælde,
+            der ikke omfattes af § 25 A
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: Ved udbetaling efter den tidligere ejers død udgør afgiften som
+            nævnt i 2. pkt. dog 40 pct.
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28
+          excerpt: Ved deludbetaling fra en ordning anses udbetalingen fortrinsvis
+            at vedrøre indbetalinger
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'if payout_is_from_age_savings_or_age_insurance and payout_not_covered_by_section_25_a:
+      (if payout_is_after_former_owners_death: foreign_deduction_eligible_payout_after_death_charge_rate
+      * foreign_deduction_eligible_payout_amount else: foreign_deduction_eligible_payout_charge_rate
+      * foreign_deduction_eligible_payout_amount) + age_savings_standard_charge_rate
+      * max(0, payout_amount - foreign_deduction_eligible_payout_amount) else: 0'
