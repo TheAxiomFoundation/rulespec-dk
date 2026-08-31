@@ -1,0 +1,14 @@
+format: rulespec/v1
+module:
+  status: deferred
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-7
+    source_sha256: 78315823d05193d56b383f869c8fe2da5d2666d55bb92de87afe00ded1c92fb4
+  summary: 'Bestemmelserne i kildeskatteloven og opkrævningsloven om indeholdelse,
+
+    opkrævning, hæftelse m.v. finder anvendelse ved indeholdelse og opkrævning af
+
+    arbejdsmarkedsbidrag efter denne lov.'
+rules: []
