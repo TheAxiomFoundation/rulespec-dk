@@ -1,0 +1,152 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+    source_sha256: ffc50f2ddf1a38c46c6457fd29a5223c74d05b6357c6b3c7d3b79906bdb505e2
+  summary: Kommunen kan yde op til 12 måneders sammenhængende hjælp til personer,
+    der tager fast bopæl her i landet og modtager førtidspension fra Færøerne eller
+    Grønland. Hjælpen kan ikke ydes efter afgørelse om andet forsørgelsesgrundlag
+    og er månedligt begrænset af den relevante kontanthjælpsreference fratrukket førtidspensionen.
+rules:
+- name: cash_assistance_supplement_reference_end_section
+  kind: parameter
+  dtype: Integer
+  source: § 27 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+          excerpt: med eventuelle tillæg efter §§ 17 og 18
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: maximum_consecutive_assistance_months
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 27 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+          excerpt: op til 12 måneders sammenhængende hjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12'
+- name: requested_assistance_duration_within_limit
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 27 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+          excerpt: op til 12 måneders sammenhængende hjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: requested_consecutive_assistance_months <= maximum_consecutive_assistance_months
+- name: assistance_may_be_granted
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 27 b, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+          excerpt: personer, der tager fast bopæl her i landet, og som modtager førtidspension
+            fra Færøerne eller Grønland
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+          excerpt: Hjælpen kan dog ikke ydes, efter at der er truffet afgørelse om
+            et andet forsørgelsesgrundlag.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_takes_permanent_residence_in_denmark
+
+      and person_receives_disability_pension_from_faroe_islands_or_greenland
+
+      and requested_assistance_duration_within_limit
+
+      and not decision_on_another_basis_of_support_has_been_made'
+- name: maximum_monthly_assistance
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 27 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+          excerpt: Hjælpen kan sammenlagt med førtidspensionen fra Færøerne eller
+            Grønland pr. måned højst udgøre det beløb
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-b
+          excerpt: For personer, der ikke opfylder opholdskravet i § 11, stk. 3
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if assistance_may_be_granted:\n  max(0, (if person_meets_residence_requirement_under_section_11_subsection_3:\n\
+      \    monthly_cash_assistance_amount_under_sections_16_to_19\n  else:\n    monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18)\
+      \ - monthly_disability_pension_from_faroe_islands_or_greenland)\nelse:\n  0"
+inputs:
+- name: person_takes_permanent_residence_in_denmark
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_disability_pension_from_faroe_islands_or_greenland
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: decision_on_another_basis_of_support_has_been_made
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: requested_consecutive_assistance_months
+  entity: Person
+  dtype: Count
+  period: Month
+- name: person_meets_residence_requirement_under_section_11_subsection_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: monthly_disability_pension_from_faroe_islands_or_greenland
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+- name: monthly_cash_assistance_amount_under_sections_16_to_19
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+- name: monthly_cash_assistance_under_section_16_subsection_2_with_supplements_under_sections_17_and_18
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
