@@ -1,0 +1,96 @@
+- name: all_conditions_satisfied
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_is_established_in_pension_fund: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_duration_years: 9
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.all_contributions_paid_by_former_employer: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date
+    : true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#treated_as_pension_scheme_with_continuing_payments: holds
+- name: not_established_in_pension_fund
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_is_established_in_pension_fund: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_duration_years: 9
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.all_contributions_paid_by_former_employer: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date
+    : true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#treated_as_pension_scheme_with_continuing_payments: not_holds
+- name: duration_is_not_under_limit
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_is_established_in_pension_fund: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_duration_years: 10
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.all_contributions_paid_by_former_employer: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date
+    : true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#treated_as_pension_scheme_with_continuing_payments: not_holds
+- name: referenced_conditions_not_met
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_is_established_in_pension_fund: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_duration_years: 9
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+    : false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.all_contributions_paid_by_former_employer: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date
+    : true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#treated_as_pension_scheme_with_continuing_payments: not_holds
+- name: contributions_not_all_paid_by_former_employer
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_is_established_in_pension_fund: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_duration_years: 9
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.all_contributions_paid_by_former_employer: false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date
+    : true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#treated_as_pension_scheme_with_continuing_payments: not_holds
+- name: payments_are_not_exclusively_required_compensation
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_is_established_in_pension_fund: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_duration_years: 9
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.arrangement_meets_conditions_of_section_2_number_4_and_sections_3_or_4
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.all_contributions_paid_by_former_employer: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#input.old_age_pension_payments_exclusively_compensate_cash_remuneration_from_departure_until_agreed_departure_date
+    : false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-5-b#treated_as_pension_scheme_with_continuing_payments: not_holds
