@@ -1,0 +1,85 @@
+- name: compliant_segregated_fund_management
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_and_assets_are_segregated_from_other_associations_funds
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_loan_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_gift_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_used_for_unrelated_purpose
+    : false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#income_and_assets_management_complies: holds
+- name: fund_management_not_compliant_when_assets_are_not_segregated
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_and_assets_are_segregated_from_other_associations_funds
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_loan_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_gift_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_used_for_unrelated_purpose
+    : false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#income_and_assets_management_complies: not_holds
+- name: fund_management_not_compliant_when_assets_are_loaned
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_and_assets_are_segregated_from_other_associations_funds
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_loan_to_other_association
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_gift_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_used_for_unrelated_purpose
+    : false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#income_and_assets_management_complies: not_holds
+- name: fund_management_not_compliant_when_assets_are_given
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_and_assets_are_segregated_from_other_associations_funds
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_loan_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_gift_to_other_association
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_used_for_unrelated_purpose
+    : false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#income_and_assets_management_complies: not_holds
+- name: fund_management_not_compliant_when_assets_are_used_for_unrelated_purpose
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_and_assets_are_segregated_from_other_associations_funds
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_loan_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_provided_as_gift_to_other_association
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#input.income_or_assets_are_used_for_unrelated_purpose
+    : true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82#income_and_assets_management_complies: not_holds

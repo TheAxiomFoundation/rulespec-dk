@@ -1,0 +1,61 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82
+    source_sha256: 8dcc3b084bcf49db0d706f0ae2ade2562404fe883374dbf5c3f35b9fee7f0d63
+  summary: 'Kassens indtægt og formue skal holdes afsondret fra andre foreningers
+    midler
+
+    og må hverken som lån eller gave tilflyde andre foreninger eller anvendes i
+
+    andet uvedkommende øjemed.'
+inputs:
+- name: income_and_assets_are_segregated_from_other_associations_funds
+  entity: UnemploymentInsuranceFund
+  dtype: Boolean
+  period: Year
+- name: income_or_assets_are_provided_as_loan_to_other_association
+  entity: UnemploymentInsuranceFund
+  dtype: Boolean
+  period: Year
+- name: income_or_assets_are_provided_as_gift_to_other_association
+  entity: UnemploymentInsuranceFund
+  dtype: Boolean
+  period: Year
+- name: income_or_assets_are_used_for_unrelated_purpose
+  entity: UnemploymentInsuranceFund
+  dtype: Boolean
+  period: Year
+rules:
+- name: income_and_assets_management_complies
+  kind: derived
+  entity: UnemploymentInsuranceFund
+  dtype: Judgment
+  period: Year
+  source: § 82
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82
+          excerpt: Kassens indtægt og formue skal holdes afsondret fra andre foreningers
+            midler
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-82
+          excerpt: må hverken som lån eller gave tilflyde andre foreninger eller anvendes
+            i andet uvedkommende øjemed
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'income_and_assets_are_segregated_from_other_associations_funds
+
+      and not income_or_assets_are_provided_as_loan_to_other_association
+
+      and not income_or_assets_are_provided_as_gift_to_other_association
+
+      and not income_or_assets_are_used_for_unrelated_purpose'
