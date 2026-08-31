@@ -1,0 +1,65 @@
+- name: qualifying_distribution_is_exempt_to_extent_of_urban_renewal_grant
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_from_housing_cooperative: 100000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_is_from_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.recipient_is_shareholder_of_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_derived_from_urban_renewal_grant: 60000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#tax_exempt_distribution_amount: 60000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#taxable_distribution_amount: 40000
+- name: negative_distribution_amount_is_clamped_before_exemption
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_from_housing_cooperative: -100
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_is_from_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.recipient_is_shareholder_of_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_derived_from_urban_renewal_grant: 60000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#tax_exempt_distribution_amount: 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#taxable_distribution_amount: 0
+- name: negative_urban_renewal_grant_amount_is_clamped_before_exemption
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_from_housing_cooperative: 100000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_is_from_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.recipient_is_shareholder_of_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_derived_from_urban_renewal_grant: -100
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#tax_exempt_distribution_amount: 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#taxable_distribution_amount: 100000
+- name: distribution_without_qualifying_source_is_not_exempt
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_from_housing_cooperative: 100000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_is_from_housing_cooperative: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.recipient_is_shareholder_of_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_derived_from_urban_renewal_grant: 60000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#tax_exempt_distribution_amount: 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#taxable_distribution_amount: 100000
+- name: recipient_who_is_not_shareholder_has_no_exempt_distribution
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_from_housing_cooperative: 100000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_is_from_housing_cooperative: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.recipient_is_shareholder_of_housing_cooperative: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#input.distribution_amount_derived_from_urban_renewal_grant: 60000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#tax_exempt_distribution_amount: 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#taxable_distribution_amount: 100000
