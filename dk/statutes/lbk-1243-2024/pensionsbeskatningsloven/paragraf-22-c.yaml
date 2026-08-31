@@ -1,0 +1,87 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-c
+    source_sha256: 12cf3bd59a27013e780ebd90ac9b0be56fdd392691c434cf787e01d7e0348f17
+  summary: Bidrag og præmier indbetalt af en arbejdsgiver kan udbetales fra ordningen
+    til modregning i senere bidrag og præmier til øvrige ansattes pensionsordninger
+    i samme pensionsinstitut uden afgiftspligtig udbetaling, når indbetalingen er
+    sket ved fejl i forhold til aftalegrundlaget.
+inputs:
+- name: payment_is_from_pension_arrangement
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_consists_of_employer_contributions_and_premiums_under_section_19
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_offsets_later_contributions_and_premiums_to_other_employee_pension_arrangements_in_same_pension_institution
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: employer_contributions_and_premiums_were_paid_in_error_relative_to_pension_arrangement_agreement
+  entity: Payment
+  dtype: Boolean
+  period: Year
+rules:
+- name: payment_from_arrangement_for_offset_is_permitted
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 22 C, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-c
+          excerpt: kan udbetales fra ordningen til brug for modregning
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-c
+          excerpt: Det er en betingelse, at de indbetalte bidrag og præmier er sket
+            ved en fejl
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'payment_is_from_pension_arrangement
+
+      and payment_consists_of_employer_contributions_and_premiums_under_section_19
+
+      and payment_offsets_later_contributions_and_premiums_to_other_employee_pension_arrangements_in_same_pension_institution
+
+      and employer_contributions_and_premiums_were_paid_in_error_relative_to_pension_arrangement_agreement'
+- name: payment_from_arrangement_for_offset_is_not_taxable_distribution
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 22 C, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-c
+          excerpt: uden at dette betragtes som en afgiftspligtig udbetaling
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-c
+          excerpt: Det er en betingelse, at de indbetalte bidrag og præmier er sket
+            ved en fejl
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'payment_is_from_pension_arrangement
+
+      and payment_consists_of_employer_contributions_and_premiums_under_section_19
+
+      and payment_offsets_later_contributions_and_premiums_to_other_employee_pension_arrangements_in_same_pension_institution
+
+      and employer_contributions_and_premiums_were_paid_in_error_relative_to_pension_arrangement_agreement'
