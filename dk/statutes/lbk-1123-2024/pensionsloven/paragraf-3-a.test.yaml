@@ -1,0 +1,218 @@
+- name: family_connection_permit_path_holds
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_1_item_1_or_2_permit_due_to_family_connection
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_family_connection: holds
+- name: subsection_1_path_holds
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_foreigner_covered_by_section_2_subsection_2_item_2: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_taken_residence_in_home_or_former_country_after_folkepension_award
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#retention_path_for_section_2_item_2_foreigner: holds
+- name: subsection_1_fails_without_covered_status
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_foreigner_covered_by_section_2_subsection_2_item_2: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_taken_residence_in_home_or_former_country_after_folkepension_award
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#retention_path_for_section_2_item_2_foreigner: not_holds
+- name: subsection_1_fails_without_residence_change
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_foreigner_covered_by_section_2_subsection_2_item_2: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_taken_residence_in_home_or_former_country_after_folkepension_award
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#retention_path_for_section_2_item_2_foreigner: not_holds
+- name: permit_under_section_9_b_holds
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_residence_permit_under_aliens_act_section_9_b: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_under_section_9_b: holds
+- name: permit_under_section_9_b_fails_without_permit
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_residence_permit_under_aliens_act_section_9_b: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_under_section_9_b: not_holds
+- name: permit_following_section_9_b_holds
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_immediately_following_section_9_b_permit
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_following_section_9_b: holds
+- name: permit_following_section_9_b_fails_without_permit
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_immediately_following_section_9_b_permit
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_following_section_9_b: not_holds
+- name: family_connection_permit_path_fails_without_permit
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_1_item_1_or_2_permit_due_to_family_connection
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_family_connection: not_holds
+- name: family_connection_permit_path_fails_without_joint_return
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_1_item_1_or_2_permit_due_to_family_connection
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_family_connection: not_holds
+- name: parent_permit_path_holds
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_over_18_with_section_9_c_1_permit_based_on_parent_permit
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_based_on_parent_permit: holds
+- name: parent_permit_path_fails_without_permit
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_over_18_with_section_9_c_1_permit_based_on_parent_permit
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_based_on_parent_permit: not_holds
+- name: parent_permit_path_fails_without_joint_return
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_over_18_with_section_9_c_1_permit_based_on_parent_permit
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_based_on_parent_permit: not_holds
+- name: spouse_or_child_permit_path_holds
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_as_spouse_or_child_of_covered_person
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_as_spouse_or_child: holds
+- name: spouse_or_child_permit_path_fails_without_permit
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_as_spouse_or_child_of_covered_person
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_as_spouse_or_child: not_holds
+- name: spouse_or_child_permit_path_fails_without_joint_return
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_as_spouse_or_child_of_covered_person
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_as_spouse_or_child: not_holds
+- name: asylum_seeking_foreigner_permit_path_holds
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_permit_as_asylum_seeking_foreigner: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_for_asylum_seeking_foreigner: holds
+- name: asylum_seeking_foreigner_permit_path_fails_without_permit
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_permit_as_asylum_seeking_foreigner: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_for_asylum_seeking_foreigner: not_holds
+- name: minor_asylum_seeker_connection_permit_path_holds
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_due_to_connection_with_minor_asylum_seeker
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_minor_asylum_seeker_connection: holds
+- name: minor_asylum_seeker_connection_permit_path_fails_without_permit
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_due_to_connection_with_minor_asylum_seeker
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_minor_asylum_seeker_connection: not_holds
+- name: minor_asylum_seeker_connection_permit_path_fails_without_joint_return
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_due_to_connection_with_minor_asylum_seeker
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_minor_asylum_seeker_connection: not_holds
+- name: pension_retention_right_holds_through_section_9_b
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_foreigner_covered_by_section_2_subsection_2_item_2: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_taken_residence_in_home_or_former_country_after_folkepension_award
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_foreigner_covered_by_section_2_subsection_2_item_1: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_residence_permit_under_aliens_act_section_9_b: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_immediately_following_section_9_b_permit
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_1_item_1_or_2_permit_due_to_family_connection
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_over_18_with_section_9_c_1_permit_based_on_parent_permit
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_as_spouse_or_child_of_covered_person
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_permit_as_asylum_seeking_foreigner: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_due_to_connection_with_minor_asylum_seeker
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#retention_path_for_section_2_item_2_foreigner: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_under_section_9_b: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_following_section_9_b: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_family_connection: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_based_on_parent_permit: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_as_spouse_or_child: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_for_asylum_seeking_foreigner: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_minor_asylum_seeker_connection: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#right_to_retain_folkepension: holds
+- name: pension_retention_right_fails_without_any_path
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_foreigner_covered_by_section_2_subsection_2_item_2: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_taken_residence_in_home_or_former_country_after_folkepension_award
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_foreigner_covered_by_section_2_subsection_2_item_1: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_residence_permit_under_aliens_act_section_9_b: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_immediately_following_section_9_b_permit
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_1_item_1_or_2_permit_due_to_family_connection
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_is_over_18_with_section_9_c_1_permit_based_on_parent_permit
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_as_spouse_or_child_of_covered_person
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_permit_as_asylum_seeking_foreigner: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_has_section_9_c_1_permit_due_to_connection_with_minor_asylum_seeker
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#input.person_returns_with_family_connected_person: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#retention_path_for_section_2_item_2_foreigner: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_under_section_9_b: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_following_section_9_b: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_family_connection: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_based_on_parent_permit: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_as_spouse_or_child: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_for_asylum_seeking_foreigner: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#permit_path_due_to_minor_asylum_seeker_connection: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-3-a#right_to_retain_folkepension: not_holds
