@@ -1,0 +1,209 @@
+- name: pension_is_fixed_on_january_1_using_required_income_basis
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-01-01'
+    end: '2025-01-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.day_is_january_1: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.income_basis_under_sections_29_and_32_a_is_available: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#pension_fixed_on_january_1: holds
+- name: pension_is_not_fixed_outside_january_1
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-01-02'
+    end: '2025-01-02'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.day_is_january_1: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.income_basis_under_sections_29_and_32_a_is_available: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#pension_fixed_on_january_1: not_holds
+- name: income_change_requires_recalculation
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-03-15'
+    end: '2025-03-15'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.monthly_income_basis_differs_from_previously_used_basis: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.recalculation_using_monthly_income_basis_changes_pension_amount: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.personal_circumstances_have_changed_with_significance_for_pension_calculation
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_death_has_significance_for_pension_calculation
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_has_died: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_income_change: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#pension_recalculation_required_during_calendar_year: holds
+- name: changed_income_basis_without_amount_change_does_not_require_recalculation
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-03-15'
+    end: '2025-03-15'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.monthly_income_basis_differs_from_previously_used_basis: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.recalculation_using_monthly_income_basis_changes_pension_amount: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.personal_circumstances_have_changed_with_significance_for_pension_calculation
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_death_has_significance_for_pension_calculation
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_has_died: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_income_change: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#pension_recalculation_required_during_calendar_year: not_holds
+- name: personal_change_requires_recalculation
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-04-10'
+    end: '2025-04-10'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.personal_circumstances_have_changed_with_significance_for_pension_calculation
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.monthly_income_basis_differs_from_previously_used_basis: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.recalculation_using_monthly_income_basis_changes_pension_amount: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_death_has_significance_for_pension_calculation
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_has_died: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_personal_change: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#pension_recalculation_required_during_calendar_year: holds
+- name: spouse_death_requires_recalculation
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-04-10'
+    end: '2025-04-10'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_has_died: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_death_has_significance_for_pension_calculation
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.monthly_income_basis_differs_from_previously_used_basis: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.personal_circumstances_have_changed_with_significance_for_pension_calculation
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.recalculation_using_monthly_income_basis_changes_pension_amount: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_spouse_or_cohabitant_death: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#pension_recalculation_required_during_calendar_year: holds
+- name: income_recalculation_has_effect_for_entire_assessment_period
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-03-15'
+    end: '2025-03-15'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.monthly_income_basis_differs_from_previously_used_basis: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.recalculation_using_monthly_income_basis_changes_pension_amount: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.day_is_in_entire_income_recalculation_assessment_period: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_income_change: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#income_recalculation_effective_for_entire_assessment_period: holds
+- name: health_supplement_recalculation_starts_next_month
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-04-01'
+    end: '2025-04-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.monthly_income_basis_differs_from_previously_used_basis: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.recalculation_using_monthly_income_basis_changes_pension_amount: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.day_is_first_of_next_month_when_pension_is_calculated_on_new_income_basis
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_income_change: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#health_supplement_recalculation_effective_from_next_month: holds
+- name: personal_change_recalculation_starts_after_change_when_notice_standard_met
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-05-01'
+    end: '2025-05-01'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.personal_circumstances_have_changed_with_significance_for_pension_calculation
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.day_is_first_of_month_after_changed_personal_circumstances: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.pensioner_knew_or_should_have_known_recalculation_was_required: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_personal_change: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#personal_change_recalculation_effective_from_next_month: holds
+- name: death_recalculation_starts_day_after_death
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-04-11'
+    end: '2025-04-11'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_has_died: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_death_has_significance_for_pension_calculation
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.day_is_day_after_spouse_or_cohabitant_death: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_spouse_or_cohabitant_death: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#death_recalculation_effective_day_after_death: holds
+- name: survivor_pension_recalculation_starts_after_survivor_pension_ceases
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-06-01'
+    end: '2025-06-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.surviving_spouse_or_cohabitant_receives_survivor_pension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.day_is_day_after_survivor_pension_payment_ceases: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#survivor_pension_recalculation_effective_after_survivor_pension_ceases: holds
+- name: assessment_period_changes_to_recalculation_date_through_calendar_year_end
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-05-01'
+    end: '2025-05-01'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.personal_circumstances_have_changed_with_significance_for_pension_calculation
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.assessment_period_runs_from_recalculation_effective_date_to_calendar_year_end
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_death_has_significance_for_pension_calculation
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.spouse_or_cohabitant_has_died: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculation_due_to_personal_change: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#recalculated_income_assessment_period_runs_to_calendar_year_end: holds
+- name: supplementary_pension_benefit_is_repaid_when_all_conditions_are_met
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.new_wealth_information_received_within_six_months_after_end_of_january
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.wealth_at_january_1_did_not_exceed_wealth_limit: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.other_conditions_for_supplementary_pension_benefit_are_met: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#supplementary_pension_benefit_must_be_repaid: holds
+- name: supplementary_pension_benefit_is_not_repaid_when_wealth_exceeds_limit
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.new_wealth_information_received_within_six_months_after_end_of_january
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.wealth_at_january_1_did_not_exceed_wealth_limit: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#input.other_conditions_for_supplementary_pension_benefit_are_met: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#supplementary_pension_benefit_must_be_repaid: not_holds
+- name: minister_has_authority_to_set_information_rules
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input: {}
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39#minister_may_set_information_rules_for_pension_determination_and_recalculation
+    : holds
