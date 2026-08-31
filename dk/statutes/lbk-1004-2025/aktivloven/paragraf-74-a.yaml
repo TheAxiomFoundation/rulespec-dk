@@ -1,0 +1,548 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+    source_sha256: 7f4b3bcab3a91345bb522d2569cafe0a4bb95bd18d2cbea8d043f8e95c1e614b
+  summary: § 74 a. Ledighedsydelsen udgør 89 pct. af arbejdsløshedsdagpengenes højeste
+    beløb i stk. 2's fire tilfælde. Stk. 3 fastsætter 16.382 kr. og 12.326 kr. i 2024-niveau.
+    Stk. 4 giver ret efter stk. 2 efter 9 måneders fleksjob inden for de seneste 18
+    måneder.
+rules:
+- name: flexjob_visitation_chapter_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: efter kapitel 20 i lov om en aktiv beskæftigelsesindsats
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '20'
+- name: higher_rate_first_condition_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 1) ville være berettiget til at modtage dagpenge
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: higher_rate_second_condition_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 2) modtager sygedagpenge
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: higher_rate_third_condition_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 3) deltager i revalidering
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: higher_rate_fourth_condition_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 4) modtager ledighedsydelse efter ansættelse i ustøttet beskæftigelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '4'
+- name: revalidation_holistic_plan_section_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: jf. §§ 41 og 46 i lov om en aktiv beskæftigelsesindsats
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '46'
+- name: price_level_base_year
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 16.382 kr. (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2024'
+- name: payment_conditions_first_referenced_section_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: jf. stk. 1-3 og §§ 74 b og 75-77 b
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '75'
+- name: payment_conditions_last_referenced_section_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 74 a, stk. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: jf. stk. 1-3 og §§ 74 b og 75-77 b
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '77'
+- name: higher_rate_conditions_at_visitation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 2, nr. 1-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 1) ville være berettiget til at modtage dagpenge efter lov om sygedagpenge
+            eller barselsloven, 2) modtager sygedagpenge, 3) deltager i revalidering,
+            hvor tilbuddet om revalidering fremgår af »Min Plan« på Jobnet eller en
+            helhedsorienteret plan, jf. §§ 41 og 46 i lov om en aktiv beskæftigelsesindsats,
+            eller 4) modtager ledighedsydelse efter ansættelse i ustøttet beskæftigelse.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_would_be_entitled_to_sickness_or_maternity_benefits_at_visitation
+
+      or person_receives_sickness_benefits_at_visitation
+
+      or person_participates_in_revalidation_recorded_in_min_plan_or_holistic_plan_at_visitation
+
+      or person_receives_unemployment_benefit_after_unsupported_employment_at_visitation'
+- name: monthly_unemployment_benefit_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 74 a, stk. 2-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: Ledighedsydelsen udgør 89 pct. af arbejdsløshedsdagpengenes højeste
+            beløb
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 16.382 kr. (2024-niveau) for personer, der har forsørgelsespligt
+            over for et barn
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 12.326 kr. (2024-niveau) for personer, der ikke har forsørgelsespligt
+            over for et barn
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: Personer, der ikke opfylder betingelserne i stk. 2, får ret til
+            ledighedsydelse efter stk. 2, når de har været ansat i fleksjob i 9 måneder
+            inden for de seneste 18 måneder.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if unemployment_benefit_entitlement:\n  if higher_rate_entitlement:\n\
+      \    higher_rate_percentage * highest_unemployment_insurance_benefit_amount\n\
+      \  else:\n    if person_has_maintenance_obligation_for_child:\n      child_maintenance_monthly_amount\n\
+      \    else:\n      no_child_maintenance_monthly_amount\nelse:\n  0"
+- name: higher_rate_percentage
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: Aktivloven § 74 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: Ledighedsydelsen udgør 89 pct.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '0.89'
+- name: child_maintenance_monthly_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 74 a, stk. 3, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 16.382 kr. (2024-niveau) for personer, der har forsørgelsespligt
+            over for et barn
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '16382'
+- name: no_child_maintenance_monthly_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 74 a, stk. 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 12.326 kr. (2024-niveau) for personer, der ikke har forsørgelsespligt
+            over for et barn
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12326'
+- name: flexjob_employment_months_required_for_higher_rate
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: Aktivloven § 74 a, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: ansat i fleksjob i 9 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '9'
+- name: flexjob_employment_lookback_months
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: Aktivloven § 74 a, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: inden for de seneste 18 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: unemployment_benefit_entitlement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: Personer, der er visiteret til et fleksjob efter kapitel 20 i lov
+            om en aktiv beskæftigelsesindsats, har ret til ledighedsydelse, indtil
+            de ansættes i et fleksjob.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_is_visited_for_flexjob_under_chapter_20
+
+      and not person_is_employed_in_flexjob'
+- name: higher_rate_acquired_after_flexjob_employment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: 9 måneder inden for de seneste 18 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: months_employed_in_flexjob_within_recent_period >= flexjob_employment_months_required_for_higher_rate
+- name: higher_rate_entitlement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 2 og 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: Personer, der ikke opfylder betingelserne i stk. 2, får ret til
+            ledighedsydelse efter stk. 2
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'higher_rate_conditions_at_visitation
+
+      or higher_rate_acquired_after_flexjob_employment'
+- name: unemployment_benefit_on_self_employment_cessation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: Personer, der modtager tilbud om støtte i form af tilskud for at
+            bevare selvstændig virksomhed efter § 126 i lov om en aktiv beskæftigelsesindsats,
+            har alene ret til ledighedsydelse ved ophør af den selvstændige virksomhed,
+            hvis den pågældende er visiteret til fleksjob for lønmodtagere efter §
+            118 i lov om en aktiv beskæftigelsesindsats.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_received_support_to_maintain_self_employment_under_section_126
+
+      and self_employment_has_ceased
+
+      and person_is_visited_for_employee_flexjob_under_section_118'
+- name: unemployment_benefit_during_temporary_work_interruption
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: har også ret til ledighedsydelse ved midlertidige afbrydelser i
+            arbejdet, som ikke kan tilregnes den pågældende
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_receives_unemployment_benefit
+
+      and work_is_temporarily_interrupted_without_personal_fault'
+- name: unemployment_benefit_retained_during_leave
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: Modtageren bevarer ledighedsydelsen i perioder med sygdom, barsel
+            eller sorgorlov.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_receives_unemployment_benefit
+
+      and person_is_in_period_of_sickness_maternity_or_bereavement_leave'
+- name: unemployment_benefit_retained_on_municipality_move
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: bevarer retten til ydelsen ved flytning til en anden kommune
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_receives_unemployment_benefit
+
+      and person_has_moved_to_another_municipality'
+- name: unemployment_benefit_after_resigning_flexjob_for_municipality_move
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 a, stk. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-a
+          excerpt: opsiger et fleksjob, har ret til ledighedsydelse, hvis betingelserne
+            for udbetaling af ledighedsydelse er opfyldt
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_has_moved_to_another_municipality
+
+      and person_resigned_flexjob_in_connection_with_municipality_move
+
+      and unemployment_benefit_entitlement
+
+      and payment_conditions_under_sections_74b_and_75_to_77b_are_met'
+inputs:
+- name: person_is_visited_for_flexjob_under_chapter_20
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_employed_in_flexjob
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_would_be_entitled_to_sickness_or_maternity_benefits_at_visitation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_sickness_benefits_at_visitation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_participates_in_revalidation_recorded_in_min_plan_or_holistic_plan_at_visitation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_unemployment_benefit_after_unsupported_employment_at_visitation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: months_employed_in_flexjob_within_recent_period
+  entity: Person
+  dtype: Count
+  period: Month
+- name: person_has_maintenance_obligation_for_child
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: highest_unemployment_insurance_benefit_amount
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: person_received_support_to_maintain_self_employment_under_section_126
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: self_employment_has_ceased
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_visited_for_employee_flexjob_under_section_118
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: work_is_temporarily_interrupted_without_personal_fault
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_unemployment_benefit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_in_period_of_sickness_maternity_or_bereavement_leave
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_moved_to_another_municipality
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_resigned_flexjob_in_connection_with_municipality_move
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: payment_conditions_under_sections_74b_and_75_to_77b_are_met
+  entity: Person
+  dtype: Boolean
+  period: Month
