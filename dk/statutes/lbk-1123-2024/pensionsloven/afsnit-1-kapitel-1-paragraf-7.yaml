@@ -1,0 +1,111 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7
+    source_sha256: 744d5d05499851caba492a36189bfa78262d790044e6747c976e807c8d93773e
+  summary: '"Ved beregning af en procentandel af fuld pension beregnes først en fuld
+    pension ved anvendelse af reglerne i kapitel 2 a, 4, 4 a og 4 b. Det beregnede
+    pensionsbeløb nedsættes ved at gange beløbet med den beregnede procent efter §
+    5, stk. 3, og § 6, stk. 3. Tillæg efter §§ 14, 14 a og 14 e nedsættes dog ikke."'
+inputs:
+- name: full_pension_amount
+  entity: Person
+  dtype: Money
+  period: Month
+- name: calculated_pension_percentage
+  entity: Person
+  dtype: Rate
+  period: Month
+- name: supplements_under_sections_14_14a_and_14e
+  entity: Person
+  dtype: Money
+  period: Month
+rules:
+- name: full_pension_calculation_chapter_2_number
+  kind: parameter
+  dtype: Integer
+  source: § 7, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7
+          excerpt: kapitel 2 a
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2'
+- name: full_pension_calculation_chapter_4_number
+  kind: parameter
+  dtype: Integer
+  source: § 7, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7
+          excerpt: kapitel 2 a, 4, 4 a og 4 b
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '4'
+- name: unreduced_supplement_section_14_number
+  kind: parameter
+  dtype: Integer
+  source: § 7, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7
+          excerpt: Tillæg efter §§ 14, 14 a og 14 e nedsættes dog ikke.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '14'
+- name: pension_amount_after_percentage_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 7, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7
+          excerpt: Det beregnede pensionsbeløb nedsættes ved at gange beløbet med
+            den beregnede procent
+  versions:
+  - effective_from: '2024-10-21'
+    formula: full_pension_amount * calculated_pension_percentage
+- name: pension_payable_after_percentage_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 7, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7
+          excerpt: Tillæg efter §§ 14, 14 a og 14 e nedsættes dog ikke.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7
+          excerpt: Det beregnede pensionsbeløb nedsættes ved at gange beløbet med
+            den beregnede procent
+  versions:
+  - effective_from: '2024-10-21'
+    formula: pension_amount_after_percentage_reduction + supplements_under_sections_14_14a_and_14e

@@ -1,0 +1,18 @@
+- name: reduced_pension_with_unreduced_supplements
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#input.full_pension_amount: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#input.calculated_pension_percentage: 0.6
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#input.supplements_under_sections_14_14a_and_14e: 200
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#pension_amount_after_percentage_reduction: 600
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#pension_payable_after_percentage_reduction: 800
+- name: reduced_pension_without_protected_supplements
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#input.full_pension_amount: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#input.calculated_pension_percentage: 0.6
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#input.supplements_under_sections_14_14a_and_14e: 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#pension_amount_after_percentage_reduction: 600
+    dk:statutes/lbk-1123-2024/pensionsloven/afsnit-1-kapitel-1-paragraf-7#pension_payable_after_percentage_reduction: 600
