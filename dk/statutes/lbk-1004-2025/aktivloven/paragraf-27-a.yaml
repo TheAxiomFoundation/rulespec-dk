@@ -1,0 +1,136 @@
+format: rulespec/v1
+rules:
+- name: cash_assistance_supplement_section_18
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 27 a, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-a
+          excerpt: med eventuelle tillæg efter §§ 17 og 18.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: supplementary_assistance_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 27 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-a
+          excerpt: skal sammenlagt med førtidspensionen, seniorpensionen eller den
+            tidlige pension pr. måned udgøre det beløb, der ville kunne udbetales
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-a
+          excerpt: Hjælpen til personer, der ikke modtager fuld førtidspension, seniorpension
+            eller tidlig pension efter lov om social pension på grund af betingelserne
+            om optjening
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if person_receives_reduced_pension_due_to_earning_conditions: max(0,
+      hypothetical_cash_assistance_amount_under_sections_16_to_19 - monthly_pension_amount)
+      else: 0'
+- name: maximum_further_supplementary_assistance_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 27 a, stk. 2, 2.-3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-a
+          excerpt: Den yderligere supplerende økonomiske hjælp kan sammenlagt med
+            førtidspensionen, seniorpensionen eller den tidlige pension pr. måned
+            højst udgøre det beløb, der ville kunne udmåles
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-a
+          excerpt: For personer, der ikke opfylder opholdskravet i § 11, stk. 3, kan
+            hjælpen sammenlagt med førtidspensionen, seniorpensionen eller den tidlige
+            pension pr. måned højst udgøre et beløb, der svarer til kontanthjælp efter
+            § 16, stk. 2, med eventuelle tillæg efter §§ 17 og 18.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if person_does_not_meet_residence_requirement_under_section_11_subsection_3:
+      max(0, (monthly_cash_assistance_amount_under_section_16_subsection_2 + monthly_cash_assistance_supplements_under_sections_17_and_18)
+      - monthly_pension_amount) else: max(0, monthly_full_pension_amount - monthly_pension_amount)'
+- name: further_supplementary_assistance_may_be_awarded
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 27 a, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-a
+          excerpt: Kommunen kan udmåle yderligere supplerende økonomisk hjælp, hvis
+            kommunen på baggrund af personens økonomiske forhold vurderer, at personen
+            har behov for det.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: person_has_economic_need_for_further_supplementary_assistance
+inputs:
+- name: person_receives_reduced_pension_due_to_earning_conditions
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: monthly_pension_amount
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: hypothetical_cash_assistance_amount_under_sections_16_to_19
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: person_has_economic_need_for_further_supplementary_assistance
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_does_not_meet_residence_requirement_under_section_11_subsection_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: monthly_full_pension_amount
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: monthly_cash_assistance_amount_under_section_16_subsection_2
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: monthly_cash_assistance_supplements_under_sections_17_and_18
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-27-a
+    source_sha256: 91f7cffe8ef21517182a1cc1b13b1a39113a4fdbd0c18ce508d68a39a93a626c
