@@ -1,0 +1,57 @@
+- name: invalidesum_under_section_8_subsection_2_is_subject_to_duty
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-26'
+    end: '2024-11-26'
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.payment_is_invalidesum_mentioned_in_section_8_subsection_2
+      : true
+      ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.payment_is_invalidesum_mentioned_in_section_11_a_subsection_6
+      : false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.paid_invalidesum_amount: 1000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#payment_is_qualifying_invalidesum:
+    - holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#invalidesum_duty:
+    - 400
+- name: invalidesum_under_section_11_a_subsection_6_is_subject_to_duty
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-26'
+    end: '2024-11-26'
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.payment_is_invalidesum_mentioned_in_section_8_subsection_2
+      : false
+      ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.payment_is_invalidesum_mentioned_in_section_11_a_subsection_6
+      : true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.paid_invalidesum_amount: 2500
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#payment_is_qualifying_invalidesum:
+    - holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#invalidesum_duty:
+    - 1000
+- name: nonqualifying_payment_is_not_subject_to_invalidesum_duty
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-26'
+    end: '2024-11-26'
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.payment_is_invalidesum_mentioned_in_section_8_subsection_2
+      : false
+      ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.payment_is_invalidesum_mentioned_in_section_11_a_subsection_6
+      : false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#input.paid_invalidesum_amount: 1000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#payment_is_qualifying_invalidesum:
+    - not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c#invalidesum_duty:
+    - 0
