@@ -1,0 +1,361 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+    source_sha256: 34d64dc81110b2932c4d70e84d121b9037aa38f4f7db4c4333f8681d55f91176
+  summary: Personer omfattet af § 74, stk. 2, har ret til ledighedsydelse ved ledighed
+    inden for 78 uger efter ustøttet beskæftigelse, når de forinden var visiteret
+    til fleksjob. Barsels- og sorgorlov medregnes ikke. Efter 9 måneders ustøttet
+    beskæftigelse inden for 18 måneder efter fleksjobs ophør kan ledighedsydelse modtages
+    efter § 74 a, stk. 2. Retten omfatter midlertidige ikke-selvforskyldte afbrydelser,
+    bevares ved sygdom, barsel, sorgorlov og flytning og kan opstå ved flytterelateret
+    opsigelse, hvis § 74 g er opfyldt.
+rules:
+- name: sickness_follow_up_chapter
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 74 f, stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: Under sygdom sker opfølgningen efter kapitel 7 i lov om en aktiv
+            beskæftigelsesindsats.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '7'
+- name: entitlement_period_after_unsubsidized_employment_weeks
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 74 f, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: inden for 78 uger efter ansættelse i ustøttet beskæftigelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '78'
+- name: required_unsubsidized_employment_months_after_flexjob
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 74 f, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: ansat i ustøttet beskæftigelse i sammenlagt 9 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '9'
+- name: employment_measurement_period_after_flexjob_months
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 74 f, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: inden for 18 måneder efter ophør af fleksjob
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: counted_weeks_after_unsubsidized_employment
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Week
+  source: Aktivloven § 74 f, stk. 1, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: Perioder med ledighedsydelse under barsel eller sorgorlov medregnes
+            ikke.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: weeks_since_unsubsidized_employment - weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+- name: unemployment_benefit_entitlement_under_subsection_1
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: Personer, der er omfattet af § 74, stk. 2, har ret til ledighedsydelse
+            ved ledighed
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: inden for 78 uger efter ansættelse i ustøttet beskæftigelse
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: kun udbetales, indtil personen har haft beskæftigelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_is_covered_by_section_74_subsection_2
+
+      and person_is_unemployed
+
+      and person_was_referred_for_flexjob_before_unsubsidized_employment
+
+      and counted_weeks_after_unsubsidized_employment <= entitlement_period_after_unsubsidized_employment_weeks
+
+      and not person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2'
+- name: unemployment_benefit_entitlement_under_subsection_2
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: i sammenlagt 9 måneder inden for 18 måneder efter ophør af fleksjob
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: kan den pågældende modtage ledighedsydelse, jf. § 74 a, stk. 2
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'employment_was_within_period_after_flexjob_ended
+
+      and months_of_unsubsidized_employment_after_flexjob_ended >= required_unsubsidized_employment_months_after_flexjob
+
+      and meets_conditions_under_section_74_a_subsection_2'
+- name: unemployment_benefit_entitlement_under_subsections_1_or_2
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: Personer, der er berettiget til ledighedsydelse efter stk. 1 og
+            2
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'unemployment_benefit_entitlement_under_subsection_1
+
+      or unemployment_benefit_entitlement_under_subsection_2'
+- name: temporary_work_interruption_entitlement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: ret til ledighedsydelse ved midlertidige afbrydelser i arbejdet
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: som ikke kan tilregnes den pågældende
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'unemployment_benefit_entitlement_under_subsections_1_or_2
+
+      and work_interruption_is_temporary
+
+      and work_interruption_is_not_attributable_to_person'
+- name: protected_leave_period
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: i perioder med sygdom, barsel eller sorgorlov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_is_ill
+
+      or person_is_on_maternity_leave
+
+      or person_is_on_bereavement_leave'
+- name: unemployment_benefit_retained_during_protected_leave
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: bevarer ledighedsydelsen i perioder med sygdom, barsel eller sorgorlov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'receives_unemployment_benefit_under_subsections_1_or_2
+
+      and protected_leave_period'
+- name: unemployment_benefit_retained_after_municipality_move
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: bevarer retten til ydelsen ved flytning til en anden kommune
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'receives_unemployment_benefit_under_subsections_1_or_2
+
+      and person_has_moved_to_another_municipality'
+- name: unemployment_benefit_entitlement_after_move_related_resignation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 74 f, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: opsiger et job i ustøttet beskæftigelse
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f
+          excerpt: hvis betingelserne for udbetaling af ledighedsydelse er opfyldt,
+            jf. § 74 g
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_has_moved_to_another_municipality
+
+      and person_resigned_from_unsubsidized_employment_in_connection_with_move
+
+      and conditions_for_payment_under_section_74_g_are_met'
+inputs:
+- name: person_is_covered_by_section_74_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: person_is_unemployed
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: person_was_referred_for_flexjob_before_unsubsidized_employment
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: weeks_since_unsubsidized_employment
+  entity: Person
+  dtype: Count
+  period: Week
+- name: weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+  entity: Person
+  dtype: Count
+  period: Week
+- name: person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: months_of_unsubsidized_employment_after_flexjob_ended
+  entity: Person
+  dtype: Count
+  period: Week
+- name: employment_was_within_period_after_flexjob_ended
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: meets_conditions_under_section_74_a_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: work_interruption_is_temporary
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: work_interruption_is_not_attributable_to_person
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: receives_unemployment_benefit_under_subsections_1_or_2
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: person_is_ill
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: person_is_on_maternity_leave
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: person_is_on_bereavement_leave
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: person_has_moved_to_another_municipality
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: person_resigned_from_unsubsidized_employment_in_connection_with_move
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: conditions_for_payment_under_section_74_g_are_met
+  entity: Person
+  dtype: Boolean
+  period: Week
