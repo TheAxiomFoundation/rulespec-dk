@@ -1,0 +1,66 @@
+- name: qualifying_person_with_children_in_the_realm_receives_monthly_supplement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_has_maintenance_duty_for_child_under_18: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.children_reside_in_the_realm: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_eu_ees_citizen_entitled_to_assistance_under_eu_law: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_covered_by_bilateral_agreement: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#child_supplement_entitlement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#monthly_child_supplement: 2687
+- name: person_not_receiving_cash_assistance_has_no_child_supplement_entitlement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_receives_cash_assistance_under_section_16: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_has_maintenance_duty_for_child_under_18: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.children_reside_in_the_realm: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_eu_ees_citizen_entitled_to_assistance_under_eu_law: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_covered_by_bilateral_agreement: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#child_supplement_entitlement: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#monthly_child_supplement: 0
+- name: person_without_maintenance_duty_has_no_child_supplement_entitlement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_has_maintenance_duty_for_child_under_18: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.children_reside_in_the_realm: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_eu_ees_citizen_entitled_to_assistance_under_eu_law: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_covered_by_bilateral_agreement: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#child_supplement_entitlement: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#monthly_child_supplement: 0
+- name: person_without_child_in_the_realm_or_exception_has_no_entitlement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_has_maintenance_duty_for_child_under_18: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.children_reside_in_the_realm: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_eu_ees_citizen_entitled_to_assistance_under_eu_law: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_covered_by_bilateral_agreement: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#child_supplement_entitlement: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#monthly_child_supplement: 0
+- name: eu_ees_exception_preserves_entitlement_when_children_do_not_reside_in_realm
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_has_maintenance_duty_for_child_under_18: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.children_reside_in_the_realm: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_eu_ees_citizen_entitled_to_assistance_under_eu_law: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_covered_by_bilateral_agreement: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#child_supplement_entitlement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#monthly_child_supplement: 2687
+- name: bilateral_agreement_exception_preserves_entitlement_when_children_do_not_reside_in_realm
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_receives_cash_assistance_under_section_16: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_has_maintenance_duty_for_child_under_18: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.children_reside_in_the_realm: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_eu_ees_citizen_entitled_to_assistance_under_eu_law: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#input.person_is_covered_by_bilateral_agreement: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#child_supplement_entitlement: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-17#monthly_child_supplement: 2687
