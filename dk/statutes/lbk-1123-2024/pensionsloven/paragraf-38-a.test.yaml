@@ -1,0 +1,68 @@
+- name: pension_payment_ceases_after_qualifying_decision
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.decision_establishes_right_to_care_allowance_under_referenced_provisions
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.care_allowance_can_be_paid_from_pension_payment_cessation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_first_month_after_care_allowance_decision: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_cessation_applies: holds
+- name: pension_payment_does_not_cease_without_qualifying_decision
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.decision_establishes_right_to_care_allowance_under_referenced_provisions
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.care_allowance_can_be_paid_from_pension_payment_cessation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_first_month_after_care_allowance_decision: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_cessation_applies: not_holds
+- name: pension_payment_does_not_cease_when_care_allowance_is_not_payable_from_cessation
+  period: 2024-11
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.decision_establishes_right_to_care_allowance_under_referenced_provisions
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.care_allowance_can_be_paid_from_pension_payment_cessation: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_first_month_after_care_allowance_decision: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_cessation_applies: not_holds
+- name: pension_payment_does_not_cease_before_first_month_after_decision
+  period: 2024-10
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.decision_establishes_right_to_care_allowance_under_referenced_provisions
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.care_allowance_can_be_paid_from_pension_payment_cessation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_first_month_after_care_allowance_decision: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_cessation_applies: not_holds
+- name: pension_payment_resumes_in_month_of_close_relative_death
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.pension_payment_ceased_under_subsection_1: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_close_relative_dies: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_recipient_requests_resumption: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_resumption_applies: holds
+- name: pension_payment_resumes_in_month_of_request
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.pension_payment_ceased_under_subsection_1: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_close_relative_dies: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_recipient_requests_resumption: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_resumption_applies: holds
+- name: pension_payment_does_not_resume_without_prior_cessation
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.pension_payment_ceased_under_subsection_1: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_close_relative_dies: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_recipient_requests_resumption: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_resumption_applies: not_holds
+- name: pension_payment_does_not_resume_without_death_or_request
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.pension_payment_ceased_under_subsection_1: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_close_relative_dies: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#input.month_is_month_in_which_recipient_requests_resumption: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-38-a#pension_payment_resumption_applies: not_holds
