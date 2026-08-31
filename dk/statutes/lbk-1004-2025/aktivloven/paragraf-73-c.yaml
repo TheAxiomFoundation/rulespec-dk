@@ -1,0 +1,262 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+    source_sha256: a4dfbddf19ba914803ae8379b5eaef0726770bd252d7f439466a24157d44b06a
+  summary: '"En revalidend, der har været i revalidering i 12 sammenhængende måneder
+    ... har ret til op til 4 ugers ferie"; ferien skal afholdes inden for de 12 følgende
+    måneder, samlet højst 4 uger og højst 2 uger pr. ferieperiode.'
+rules:
+- name: rehabilitation_offer_first_chapter
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 73 c, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: tilbud efter kapitel 11 og 12
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '11'
+- name: specially_arranged_projects_chapter
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 73 c, stk. 1, 1. pkt., og stk. 2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: særligt tilrettelagte projekter efter kapitel 14
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '14'
+- name: required_consecutive_rehabilitation_months
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 73 c, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: 12 sammenhængende måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12'
+- name: vacation_must_be_taken_within_following_months
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 73 c, stk. 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: inden for de 12 følgende måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12'
+- name: maximum_total_paid_vacation_weeks
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 73 c, stk. 1, 1. og 5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: op til 4 ugers ferie
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '4'
+- name: maximum_vacation_period_weeks
+  kind: parameter
+  dtype: Count
+  source: Aktivloven § 73 c, stk. 1, 6. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: En ferieperiode må højst vare 2 uger.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: revalidend_qualifies_after_required_rehabilitation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 73 c, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: En revalidend, der har været i revalidering i 12 sammenhængende
+            måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_is_revalidend
+
+      and has_completed_required_consecutive_rehabilitation'
+- name: vacation_placement_is_valid
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 73 c, stk. 2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: personen har indgået aftale med kommunen om feriens placering
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: medmindre det i væsentlig grad modvirker tilbud
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: træffer kommunen afgørelse herom
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '(vacation_placement_agreed_with_municipality
+
+      or municipality_has_decided_vacation_placement)
+
+      and (vacation_placement_considers_personal_and_family_circumstances
+
+      or consideration_would_substantially_counteract_rehabilitation_offer)'
+- name: entitled_to_paid_vacation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 73 c, stk. 1-2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: Det er en betingelse, at personen i øvrigt opfylder betingelserne
+            for at modtage ydelsen
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: skal denne ferie afholdes først
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: Ferien skal afholdes inden for de 12 følgende måneder.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: En ferieperiode må højst vare 2 uger.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'revalidend_qualifies_after_required_rehabilitation
+
+      and vacation_placement_is_valid
+
+      and remains_eligible_for_previous_benefit_during_vacation
+
+      and vacation_is_within_following_vacation_window
+
+      and holiday_with_compensation_has_been_taken_first
+
+      and requested_vacation_period_weeks <= maximum_vacation_period_weeks'
+- name: payable_vacation_weeks
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Month
+  source: Aktivloven § 73 c, stk. 1, 1. og 5.-6. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-c
+          excerpt: Den samlede ferie kan højst udgøre 4 uger. En ferieperiode må højst
+            vare 2 uger.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if entitled_to_paid_vacation:\n  min(\n    requested_vacation_period_weeks,\n\
+      \    max(0, maximum_total_paid_vacation_weeks - paid_vacation_weeks_already_taken)\n\
+      \  )\nelse: 0"
+inputs:
+- name: person_is_revalidend
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_completed_required_consecutive_rehabilitation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: remains_eligible_for_previous_benefit_during_vacation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: vacation_is_within_following_vacation_window
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: holiday_with_compensation_has_been_taken_first
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: vacation_placement_agreed_with_municipality
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: municipality_has_decided_vacation_placement
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: vacation_placement_considers_personal_and_family_circumstances
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: consideration_would_substantially_counteract_rehabilitation_offer
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: requested_vacation_period_weeks
+  entity: Person
+  dtype: Count
+  period: Month
+- name: paid_vacation_weeks_already_taken
+  entity: Person
+  dtype: Count
+  period: Month
