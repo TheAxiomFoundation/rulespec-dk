@@ -1,0 +1,56 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-j
+    source_sha256: 75c6e1ff6fb041e5946911f058757d57e4828c120b980ca77def869f20d6af9e
+  summary: Udgifter til rådgivning vedrørende investering i aktier m.v. med henblik
+    på erhvervelse af selskaber m.v. for at deltage i ledelsen og driften kan ikke
+    fradrages ved opgørelsen af den skattepligtige indkomst.
+inputs:
+- name: expense_is_for_advisory_services
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+- name: advisory_services_concern_investment_in_shares_or_similar_interests
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+- name: investment_aims_wholly_or_partly_to_acquire_one_or_more_companies_or_similar_entities
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+- name: acquisition_aims_to_participate_in_management_and_operation_of_acquired_entities
+  entity: TaxUnit
+  dtype: Boolean
+  period: Year
+rules:
+- name: advisory_investment_expense_deduction_is_disallowed
+  kind: derived
+  entity: TaxUnit
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 8 J
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-j
+          excerpt: Udgifter til rådgivning vedrørende investering i aktier m.v.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-j
+          excerpt: kan ikke fradrages ved opgørelsen af den skattepligtige indkomst.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'expense_is_for_advisory_services
+
+      and advisory_services_concern_investment_in_shares_or_similar_interests
+
+      and investment_aims_wholly_or_partly_to_acquire_one_or_more_companies_or_similar_entities
+
+      and acquisition_aims_to_participate_in_management_and_operation_of_acquired_entities'
