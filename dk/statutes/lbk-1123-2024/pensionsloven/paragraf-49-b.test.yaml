@@ -1,0 +1,28 @@
+- name: compensation_supplement_equals_smaller_annual_increase
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2023-01-01'
+    end: '2023-12-31'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#input.determination_is_on_january_first_in_compensation_period: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#input.increase_in_basic_amount_due_to_percentage_deduction_under_section_49_a
+    : 100
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#input.increase_in_pension_supplement_due_to_percentage_deduction_under_section_49_a
+    : 80
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#compensation_supplement: 80
+- name: compensation_supplement_is_zero_outside_compensation_determination
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2023-01-01'
+    end: '2023-12-31'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#input.determination_is_on_january_first_in_compensation_period: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#input.increase_in_basic_amount_due_to_percentage_deduction_under_section_49_a
+    : 100
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#input.increase_in_pension_supplement_due_to_percentage_deduction_under_section_49_a
+    : 80
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49-b#compensation_supplement: 0
