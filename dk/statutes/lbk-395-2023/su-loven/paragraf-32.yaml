@@ -1,0 +1,68 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-32
+    source_sha256: 6af96b71652ad982ee1a7219b09e41241e0a279b3c192a0befa0c767572637f8
+  summary: Støttetiden efter § 17 og slutlånstiden efter § 21 betragtes som brugt,
+    selv om uddannelsesstøtte, der er udbetalt, kræves tilbage, fordi egenindkomsten
+    overstiger årsfribeløbet eller uddannelsesfribeløbet.
+inputs:
+- name: paid_educational_support_is_required_to_be_repaid
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: own_income_exceeds_annual_free_amount
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: own_income_exceeds_education_free_amount
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: support_time_under_section_17_is_treated_as_used
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 32
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-32
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-32
+          excerpt: fordi egenindkomsten overstiger årsfribeløbet eller uddannelsesfribeløbet.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: "paid_educational_support_is_required_to_be_repaid\nand (\n  own_income_exceeds_annual_free_amount\n\
+      \  or own_income_exceeds_education_free_amount\n)"
+- name: final_loan_time_under_section_21_is_treated_as_used
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 32
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-32
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-32
+          excerpt: fordi egenindkomsten overstiger årsfribeløbet eller uddannelsesfribeløbet.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: "paid_educational_support_is_required_to_be_repaid\nand (\n  own_income_exceeds_annual_free_amount\n\
+      \  or own_income_exceeds_education_free_amount\n)"
