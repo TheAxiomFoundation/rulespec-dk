@@ -1,0 +1,229 @@
+format: rulespec/v1
+rules:
+- name: seafarers_exclusion_item_number
+  kind: parameter
+  dtype: Integer
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 1) Vederlag omfattet af sømandsbeskatningslovens §§ 5-8.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '1'
+- name: library_fee_exclusion_item_number
+  kind: parameter
+  dtype: Integer
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 2) Ydelser i henhold til lov om biblioteksafgift.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '2'
+- name: non_taxable_remuneration_exclusion_item_number
+  kind: parameter
+  dtype: Integer
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 'Følgende medregnes ikke i grundlaget for arbejdsmarkedsbidrag:
+            1) Vederlag omfattet af sømandsbeskatningslovens §§ 5-8. 2) Ydelser i
+            henhold til lov om biblioteksafgift. 3) Vederlag som nævnt i § 2, stk.
+            1, nr. 1 og 2, i det omfang sådanne vederlag ikke skal medregnes ved opgørelsen
+            af den skattepligtige indkomst. 4) Vederlag som nævnt i nr. 3, når dette
+            indbetales på en pensionsordning. 5) Indbetalinger til den obligatoriske
+            pensionsordning efter § 17 s i lov om Arbejdsmarkedets Tillægspension.'
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '3'
+- name: pension_paid_remuneration_exclusion_item_number
+  kind: parameter
+  dtype: Integer
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 4) Vederlag som nævnt i nr. 3, når dette indbetales på en pensionsordning.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '4'
+- name: mandatory_pension_contribution_exclusion_item_number
+  kind: parameter
+  dtype: Integer
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 5) Indbetalinger til den obligatoriske pensionsordning efter §
+            17 s i lov om Arbejdsmarkedets Tillægspension.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '5'
+- name: seafarer_remuneration_excluded_from_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 1) Vederlag omfattet af sømandsbeskatningslovens §§ 5-8.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: remuneration_is_covered_by_seafarers_tax_act_sections_5_to_8
+- name: library_fee_payment_excluded_from_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 2) Ydelser i henhold til lov om biblioteksafgift.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: payment_is_under_library_fee_act
+- name: non_taxable_remuneration_excluded_from_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 3) Vederlag som nævnt i § 2, stk. 1, nr. 1 og 2, i det omfang sådanne
+            vederlag ikke skal medregnes ved opgørelsen af den skattepligtige indkomst.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: 'remuneration_is_described_in_section_2_subsection_1_items_1_or_2
+
+      and remuneration_is_not_included_in_taxable_income'
+- name: pension_paid_non_taxable_remuneration_excluded_from_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 4) Vederlag som nævnt i nr. 3, når dette indbetales på en pensionsordning.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: 'non_taxable_remuneration_excluded_from_contribution_base
+
+      and remuneration_is_paid_into_pension_scheme'
+- name: mandatory_atp_pension_contribution_excluded_from_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 3, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: 5) Indbetalinger til den obligatoriske pensionsordning efter §
+            17 s i lov om Arbejdsmarkedets Tillægspension.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: contribution_is_paid_to_mandatory_pension_scheme_under_atp_act_section_17_s
+- name: payment_excluded_from_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+          excerpt: Følgende medregnes ikke i grundlaget for arbejdsmarkedsbidrag
+  versions:
+  - effective_from: '2020-02-07'
+    formula: 'seafarer_remuneration_excluded_from_contribution_base
+
+      or library_fee_payment_excluded_from_contribution_base
+
+      or non_taxable_remuneration_excluded_from_contribution_base
+
+      or pension_paid_non_taxable_remuneration_excluded_from_contribution_base
+
+      or mandatory_atp_pension_contribution_excluded_from_contribution_base'
+inputs:
+- name: remuneration_is_covered_by_seafarers_tax_act_sections_5_to_8
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: payment_is_under_library_fee_act
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: remuneration_is_described_in_section_2_subsection_1_items_1_or_2
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: remuneration_is_not_included_in_taxable_income
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: remuneration_is_paid_into_pension_scheme
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: contribution_is_paid_to_mandatory_pension_scheme_under_atp_act_section_17_s
+  entity: Person
+  dtype: Boolean
+  period: Year
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3
+    source_sha256: fabf0cf29f20a14d7dc8a8390d251e6832990e37fe10a51e0577f50c637b2935
