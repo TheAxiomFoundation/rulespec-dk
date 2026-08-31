@@ -1,0 +1,180 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+    source_sha256: d828032b25371f97648a2217866f06196f301f239abf983a4b222633ab549f42
+  summary: '§ 6, stk. 1: "Udbetaling Danmark kan bestemme, at en dansk statsborger,
+    som har opholdt sig mange år i udlandet, kan få hjælp til forsørgelse, når hjemrejse
+    derved kan undgås og andre forhold taler herfor." Det er betingelse, at hverken
+    ansøgeren eller ægtefællen har indtægter eller formue, der kan dække det nødvendige
+    behov.
+
+    Stk. 2: Hjælpen fastsættes på grundlag af indstilling fra udenrigstjenesten med
+    udgangspunkt i ansøgerens udgifter og levevilkårene i landet og kan ikke overstige
+    folkepensionens grundbeløb med fradrag for eventuelle indtægter.'
+inputs:
+- name: applicant_is_danish_citizen
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: applicant_has_lived_many_years_abroad
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: assistance_avoids_applicant_returning_home
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: other_circumstances_support_assistance
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: applicant_has_income_or_assets_covering_necessary_need
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: applicant_spouse_has_income_or_assets_covering_necessary_need
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: foreign_service_has_recommended_assistance
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: assistance_determination_uses_applicant_expenses
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: assistance_determination_uses_country_living_conditions
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: folkepension_basic_amount
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: applicant_eventual_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: proposed_monthly_assistance_amount
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+rules:
+- name: assistance_may_be_granted
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 6, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: en dansk statsborger, som har opholdt sig mange år i udlandet
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: når hjemrejse derved kan undgås og andre forhold taler herfor
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: hverken ansøgeren eller ægtefællen har indtægter eller formue,
+            der kan dække det nødvendige behov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'applicant_is_danish_citizen
+
+      and applicant_has_lived_many_years_abroad
+
+      and assistance_avoids_applicant_returning_home
+
+      and other_circumstances_support_assistance
+
+      and not applicant_has_income_or_assets_covering_necessary_need
+
+      and not applicant_spouse_has_income_or_assets_covering_necessary_need'
+- name: assistance_amount_determination_basis_holds
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 6, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: på grundlag af en indstilling fra udenrigstjenesten
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: med udgangspunkt i ansøgerens udgifter og levevilkårene i det pågældende
+            land
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'foreign_service_has_recommended_assistance
+
+      and assistance_determination_uses_applicant_expenses
+
+      and assistance_determination_uses_country_living_conditions'
+- name: maximum_monthly_assistance_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 6, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: kan ikke overstige et månedligt beløb, der svarer til folkepensionens
+            grundbeløb med fradrag for eventuelle indtægter
+  versions:
+  - effective_from: '2025-06-30'
+    formula: folkepension_basic_amount - applicant_eventual_income
+- name: proposed_monthly_assistance_may_be_set
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 6, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: Hjælpen efter stk. 1 fastsættes på grundlag af en indstilling fra
+            udenrigstjenesten
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-6
+          excerpt: Hjælpen kan ikke overstige et månedligt beløb
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'assistance_may_be_granted
+
+      and assistance_amount_determination_basis_holds
+
+      and proposed_monthly_assistance_amount <= maximum_monthly_assistance_amount'
