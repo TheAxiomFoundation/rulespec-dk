@@ -1,0 +1,57 @@
+- name: mandatory_deductions_apply_to_prior_period_afterpayment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.early_pension_is_afterpaid_for_period_before_award: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.gross_early_pension_afterpayment: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.sick_pay_paid_for_same_period: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.unemployment_benefits_paid_for_same_period: 200
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.cash_benefit_paid_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.self_support_and_repatriation_benefit_paid_for_same_period: 75
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.transition_benefit_paid_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.unemployment_allowance_paid_for_same_period: 125
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.resource_course_benefit_paid_for_same_period: 80
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.education_assistance_paid_for_same_period: 40
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.cash_assistance_paid_for_same_period: 60
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#mandatory_deductions_from_early_pension_afterpayment: 755
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#early_pension_afterpayment_after_mandatory_deductions: 245
+- name: no_mandatory_deduction_when_not_afterpaid_for_prior_period
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.early_pension_is_afterpaid_for_period_before_award: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.gross_early_pension_afterpayment: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.sick_pay_paid_for_same_period: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.unemployment_benefits_paid_for_same_period: 200
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.cash_benefit_paid_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.self_support_and_repatriation_benefit_paid_for_same_period: 75
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.transition_benefit_paid_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.unemployment_allowance_paid_for_same_period: 125
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.resource_course_benefit_paid_for_same_period: 80
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.education_assistance_paid_for_same_period: 40
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.cash_assistance_paid_for_same_period: 60
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#mandatory_deductions_from_early_pension_afterpayment: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#early_pension_afterpayment_after_mandatory_deductions: 1000
+- name: mandatory_deductions_cannot_make_afterpayment_negative
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.early_pension_is_afterpaid_for_period_before_award: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.gross_early_pension_afterpayment: 500
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.sick_pay_paid_for_same_period: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.unemployment_benefits_paid_for_same_period: 200
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.cash_benefit_paid_for_same_period: 50
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.self_support_and_repatriation_benefit_paid_for_same_period: 75
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.transition_benefit_paid_for_same_period: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.unemployment_allowance_paid_for_same_period: 125
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.resource_course_benefit_paid_for_same_period: 80
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.education_assistance_paid_for_same_period: 40
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.cash_assistance_paid_for_same_period: 60
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#mandatory_deductions_from_early_pension_afterpayment: 755
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#early_pension_afterpayment_after_mandatory_deductions: 0
+- name: authority_to_deduct_overpayments_in_early_pension_payment
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#input.payment_is_early_pension: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#may_deduct_overpaid_pension_and_housing_support: holds
