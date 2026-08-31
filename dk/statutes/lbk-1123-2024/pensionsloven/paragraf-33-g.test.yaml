@@ -1,0 +1,99 @@
+- name: mandatory_pension_contribution_rate_2020
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2020-01-01'
+    end: '2020-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.003
+- name: mandatory_pension_contribution_rate_2021
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2021-01-01'
+    end: '2021-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.006
+- name: mandatory_pension_contribution_rate_2022
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2022-01-01'
+    end: '2022-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.009
+- name: mandatory_pension_contribution_rate_from_2030
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2030-01-01'
+    end: '2030-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.033
+- name: mandatory_pension_contribution_rate_2023
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2023-01-01'
+    end: '2023-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.012
+- name: mandatory_pension_contribution_rate_2024
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.015
+- name: mandatory_pension_contribution_rate_2025
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.018
+- name: mandatory_pension_contribution_rate_2026
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.021
+- name: mandatory_pension_contribution_rate_2027
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2027-01-01'
+    end: '2027-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.024
+- name: mandatory_pension_contribution_rate_2028
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2028-01-01'
+    end: '2028-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.027
+- name: mandatory_pension_contribution_rate_2029
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2029-01-01'
+    end: '2029-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-33-g#mandatory_pension_contribution_rate: 0.03
