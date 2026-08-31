@@ -1,0 +1,89 @@
+- name: private_rental_housing_subsidy_used_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_private_rental_housing_promotion_act: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_supported_private_youth_housing_act: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_used_in_accordance_with_act: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#subsidy_excluded_from_taxable_income: holds
+- name: subsidy_not_used_is_not_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_private_rental_housing_promotion_act: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_supported_private_youth_housing_act: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_used_in_accordance_with_act: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#subsidy_excluded_from_taxable_income: not_holds
+- name: supported_private_youth_housing_subsidy_used_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_private_rental_housing_promotion_act: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_supported_private_youth_housing_act: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_used_in_accordance_with_act: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#subsidy_excluded_from_taxable_income: holds
+- name: unlisted_subsidy_is_not_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_private_rental_housing_promotion_act: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_granted_under_supported_private_youth_housing_act: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_used_in_accordance_with_act: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#subsidy_excluded_from_taxable_income: not_holds
+- name: private_rental_housing_property_acquisition_sum_is_reduced
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.property_subsidy_granted_under_private_rental_housing_promotion_act
+    : true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.property_subsidy_granted_under_supported_private_youth_housing_act
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.acquisition_sum_under_general_rules: 10000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_amount: 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#subsidy_adjusted_acquisition_sum_applies: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#acquisition_sum_after_subsidy: 9000
+- name: supported_private_youth_housing_property_acquisition_sum_is_reduced
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.property_subsidy_granted_under_private_rental_housing_promotion_act
+    : false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.property_subsidy_granted_under_supported_private_youth_housing_act
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.acquisition_sum_under_general_rules: 12000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_amount: 2000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#subsidy_adjusted_acquisition_sum_applies: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#acquisition_sum_after_subsidy: 10000
+- name: unsubsidized_property_does_not_use_subsidy_adjusted_acquisition_sum
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.property_subsidy_granted_under_private_rental_housing_promotion_act
+    : false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.property_subsidy_granted_under_supported_private_youth_housing_act
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.acquisition_sum_under_general_rules: 10000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#input.subsidy_amount: 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#subsidy_adjusted_acquisition_sum_applies: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-x#acquisition_sum_after_subsidy: 0

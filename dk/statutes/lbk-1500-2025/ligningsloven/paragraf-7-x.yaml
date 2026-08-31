@@ -1,0 +1,106 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-x
+    source_sha256: 96e2b5e110cf05ffe15f4c3e0d268f0980c7b8c8b2a82729011e4fc8dbf69f3a
+  summary: Til den skattepligtige indkomst medregnes ikke tilskud, der ydes og anvendes
+    i henhold til lov om fremme af privat udlejningsbyggeri eller lov om støttede
+    private ungdomsboliger. Ved opgørelse af fortjeneste og tab på fast ejendom, hvortil
+    der er ydet sådant tilskud, anvendes anskaffelsessummen efter de almindelige regler
+    fratrukket tilskuddet.
+inputs:
+- name: subsidy_granted_under_private_rental_housing_promotion_act
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: subsidy_granted_under_supported_private_youth_housing_act
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: subsidy_used_in_accordance_with_act
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: property_subsidy_granted_under_private_rental_housing_promotion_act
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: property_subsidy_granted_under_supported_private_youth_housing_act
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: acquisition_sum_under_general_rules
+  entity: Asset
+  dtype: Money
+  period: Year
+- name: subsidy_amount
+  entity: Asset
+  dtype: Money
+  period: Year
+rules:
+- name: subsidy_excluded_from_taxable_income
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 7 X, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-x
+          excerpt: Til den skattepligtige indkomst medregnes ikke tilskud, der ydes
+            og anvendes
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-x
+          excerpt: i henhold til lov om fremme af privat udlejningsbyggeri eller lov
+            om støttede private ungdomsboliger
+  versions:
+  - effective_from: '2025-11-24'
+    formula: "subsidy_used_in_accordance_with_act\nand (\n  subsidy_granted_under_private_rental_housing_promotion_act\n\
+      \  or subsidy_granted_under_supported_private_youth_housing_act\n)"
+- name: subsidy_adjusted_acquisition_sum_applies
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 7 X, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-x
+          excerpt: fast ejendom, hvortil der er ydet tilskud efter lov om fremme af
+            privat udlejningsbyggeri eller lov om støttede private ungdomsboliger
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'property_subsidy_granted_under_private_rental_housing_promotion_act
+
+      or property_subsidy_granted_under_supported_private_youth_housing_act'
+- name: acquisition_sum_after_subsidy
+  kind: derived
+  entity: Asset
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 7 X, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-x
+          excerpt: anvendes anskaffelsessummen opgjort efter de almindelige regler
+            fratrukket tilskuddet
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'if subsidy_adjusted_acquisition_sum_applies: acquisition_sum_under_general_rules
+      - subsidy_amount else: 0'
