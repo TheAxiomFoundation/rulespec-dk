@@ -1,0 +1,63 @@
+- name: normal_rate_monthly_maxima
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_paid_with_double_rate: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#monthly_out_of_home_stipendium_maximum_excluding_double_rate: 5753
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-8#monthly_out_of_home_base_grant_outside_clip_card_age_18_or_19_maximum_excluding_double_rate
+    : 3690
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#monthly_home_rate_base_grant_maximum_excluding_double_rate: 893
+- name: double_rate_excludes_stated_normal_rate_maxima
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_paid_with_double_rate: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#monthly_out_of_home_stipendium_maximum_excluding_double_rate: 0
+    ? dk:statutes/lbk-395-2023/su-loven/paragraf-8#monthly_out_of_home_base_grant_outside_clip_card_age_18_or_19_maximum_excluding_double_rate
+    : 0
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#monthly_home_rate_base_grant_maximum_excluding_double_rate: 0
+- name: documented_out_of_home_within_clip_card_qualifies
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.educational_seeker_documents_living_away_from_home: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_within_the_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_outside_the_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_period_is_after_month_educational_seeker_turns_20: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#educational_seeker_qualifies_for_out_of_home_rate: holds
+- name: missing_out_of_home_documentation_blocks_within_clip_card_path
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.educational_seeker_documents_living_away_from_home: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_within_the_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_outside_the_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_period_is_after_month_educational_seeker_turns_20: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#educational_seeker_qualifies_for_out_of_home_rate: not_holds
+- name: documented_out_of_home_outside_clip_card_after_age_20_qualifies
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.educational_seeker_documents_living_away_from_home: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_within_the_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_outside_the_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_period_is_after_month_educational_seeker_turns_20: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#educational_seeker_qualifies_for_out_of_home_rate: holds
+- name: outside_clip_card_before_age_20_path_does_not_qualify
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.educational_seeker_documents_living_away_from_home: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_within_the_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_outside_the_clip_card: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_period_is_after_month_educational_seeker_turns_20: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#educational_seeker_qualifies_for_out_of_home_rate: not_holds
+- name: no_clip_card_path_does_not_qualify
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.educational_seeker_documents_living_away_from_home: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_within_the_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_is_outside_the_clip_card: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#input.stipendium_period_is_after_month_educational_seeker_turns_20: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-8#educational_seeker_qualifies_for_out_of_home_rate: not_holds
