@@ -1,0 +1,36 @@
+- name: rounds_down_to_nearest_hundred_and_permits_tax
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#input.taxable_amount_before_rounding: 250
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#input.tax_amount_paid_or_collected: 12
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#taxable_amount_after_rounding: 200
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#tax_is_payable: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#tax_payment_or_collection_is_whole_krone: holds
+- name: no_tax_for_amount_below_minimum_and_fractional_collection_is_not_whole_krone
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#input.taxable_amount_before_rounding: 99
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#input.tax_amount_paid_or_collected: 12.5
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#taxable_amount_after_rounding: 0
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#tax_is_payable: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#tax_payment_or_collection_is_whole_krone: not_holds
+- name: minimum_amount_remains_tax_payable
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#input.taxable_amount_before_rounding: 100
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#input.tax_amount_paid_or_collected: 1
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#taxable_amount_after_rounding: 100
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#tax_is_payable: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36#tax_payment_or_collection_is_whole_krone: holds
