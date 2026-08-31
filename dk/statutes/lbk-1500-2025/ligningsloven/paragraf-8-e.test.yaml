@@ -1,0 +1,48 @@
+- name: farmer_deduction_is_not_limited_for_private_home_heating
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.person_is_farmer: true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.has_deduction_under_section_6_subsection_1_a_for_straw_harvesting_and_storage_expenses
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.straw_is_used_for_heating_in_plant_supplying_private_home: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#deduction_not_limited_due_to_private_home_heating: holds
+- name: non_farmer_does_not_satisfy_farmer_specific_rule
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.person_is_farmer: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.has_deduction_under_section_6_subsection_1_a_for_straw_harvesting_and_storage_expenses
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.straw_is_used_for_heating_in_plant_supplying_private_home: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#deduction_not_limited_due_to_private_home_heating: not_holds
+- name: no_qualifying_straw_expense_deduction_does_not_satisfy_rule
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.person_is_farmer: true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.has_deduction_under_section_6_subsection_1_a_for_straw_harvesting_and_storage_expenses
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.straw_is_used_for_heating_in_plant_supplying_private_home: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#deduction_not_limited_due_to_private_home_heating: not_holds
+- name: no_private_home_heating_use_does_not_satisfy_specific_exception
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.person_is_farmer: true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.has_deduction_under_section_6_subsection_1_a_for_straw_harvesting_and_storage_expenses
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#input.straw_is_used_for_heating_in_plant_supplying_private_home: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-8-e#deduction_not_limited_due_to_private_home_heating: not_holds
