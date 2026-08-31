@@ -1,0 +1,42 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-o
+    source_sha256: b77d306f095c5cb97e8190d3160961438482fdce5331eb25fbccce2539bfd3ce
+  summary: § 24 o. §§ 24 l-24 n kan ikke fraviges ved aftale, herunder ved aftale
+    om fratrædelsesordning.
+rules:
+- name: protected_section_series_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 24 o
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-o
+          excerpt: §§ 24 l-24 n
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '24'
+- name: agreement_may_derogate_from_protected_rules
+  kind: derived
+  entity: Agreement
+  dtype: Judgment
+  period: Year
+  source: ATP-loven § 24 o
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-o
+          excerpt: §§ 24 l-24 n kan ikke fraviges ved aftale
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'false'
