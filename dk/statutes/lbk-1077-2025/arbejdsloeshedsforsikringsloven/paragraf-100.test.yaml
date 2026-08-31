@@ -1,0 +1,48 @@
+- name: eligible_person_may_bring_timely_appeal
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_is_made_by_udbetaling_danmark_under_chapter_11_c
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_concerns_person: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.weeks_after_notice_of_decision_when_appeal_is_brought
+    : 4
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_to_employment_committee_available: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_is_lodged_timely: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_may_be_brought_to_employment_committee: holds
+- name: decision_not_made_by_udbetaling_danmark_is_not_appealable_under_section
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_is_made_by_udbetaling_danmark_under_chapter_11_c
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_concerns_person: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.weeks_after_notice_of_decision_when_appeal_is_brought
+    : 4
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_to_employment_committee_available: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_is_lodged_timely: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_may_be_brought_to_employment_committee: not_holds
+- name: person_not_concerned_by_decision_may_not_use_appeal
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_is_made_by_udbetaling_danmark_under_chapter_11_c
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_concerns_person: false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.weeks_after_notice_of_decision_when_appeal_is_brought
+    : 4
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_to_employment_committee_available: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_is_lodged_timely: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_may_be_brought_to_employment_committee: not_holds
+- name: appeal_brought_after_deadline_is_not_timely
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_is_made_by_udbetaling_danmark_under_chapter_11_c
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.decision_concerns_person: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#input.weeks_after_notice_of_decision_when_appeal_is_brought
+    : 5
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_to_employment_committee_available: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_is_lodged_timely: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100#appeal_may_be_brought_to_employment_committee: not_holds
