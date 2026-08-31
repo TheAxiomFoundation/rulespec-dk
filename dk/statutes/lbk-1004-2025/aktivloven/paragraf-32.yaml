@@ -1,0 +1,199 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+    source_sha256: 78013098a451a0dbe2a0e028adc75f71386b7ec66aa954758fe1478408a96c1f
+  summary: '§ 32, stk. 1: Kommunen foretager fradrag i hjælpen for ferie dækket af
+    feriegodtgørelse eller ferietillæg. Stk. 2: ferie med højere dagligt beløb skal
+    afholdes før ferie med kontanthjælp, og dagene fradrages. Stk. 3: lavere feriegodtgørelse
+    eller ferietillæg kan suppleres op til kontanthjælpens beregnede dagssats. Stk.
+    4: En feriedag efter ferieloven svarer til 1,4 dage med kontanthjælp.'
+inputs:
+- name: has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: holds_holiday
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: received_vacation_compensation_under_holiday_act
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: received_vacation_supplement_after_child_act_assistance
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: calculated_daily_cash_assistance
+  entity: Person
+  dtype: Money
+  period: Day
+- name: vacation_days_covered_by_vacation_compensation_or_supplement
+  entity: Person
+  dtype: Count
+  period: Day
+- name: has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: vacation_compensation_or_supplement_daily_amount
+  entity: Person
+  dtype: Money
+  period: Day
+- name: cash_assistance_holiday_days_entitlement
+  entity: Person
+  dtype: Count
+  period: Day
+- name: vacation_compensation_or_supplement_paid_during_holiday
+  entity: Person
+  dtype: Boolean
+  period: Day
+rules:
+- name: holiday_act_day_cash_assistance_day_equivalence
+  kind: parameter
+  dtype: Decimal
+  source: Aktivloven § 32, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: unit
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+          excerpt: En feriedag efter ferieloven svarer til 1,4 dage med kontanthjælp.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1.4'
+- name: cash_assistance_deduction_for_holiday_covered_by_vacation_payment
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Day
+  source: Aktivloven § 32, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+          excerpt: Kommunen fradrager et beløb svarende til hjælpen for det antal
+            dage
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if not has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12\n\
+      \  and holds_holiday\n  and (received_vacation_compensation_under_holiday_act\n\
+      \    or received_vacation_supplement_after_child_act_assistance):\n  calculated_daily_cash_assistance\
+      \ * vacation_days_covered_by_vacation_compensation_or_supplement\nelse: 0"
+- name: higher_vacation_payment_holiday_must_precede_cash_assistance_holiday
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Aktivloven § 32, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+          excerpt: skal afholde denne ferie, inden der kan afholdes ferie med kontanthjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+
+      and has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+
+      and vacation_compensation_or_supplement_daily_amount > calculated_daily_cash_assistance'
+- name: holiday_days_deducted_for_higher_vacation_payment
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Day
+  source: Aktivloven § 32, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+          excerpt: Kommunen fradrager antallet af feriedage efter 1. pkt. i antallet
+            af dage med ret til ferie efter § 13, stk.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12\n\
+      \  and has_earned_vacation_compensation_or_supplement_after_child_act_assistance\n\
+      \  and vacation_compensation_or_supplement_daily_amount > calculated_daily_cash_assistance:\n\
+      \  min(\n    cash_assistance_holiday_days_entitlement,\n    vacation_days_covered_by_vacation_compensation_or_supplement\n\
+      \  )\nelse: 0"
+- name: vacation_payment_can_be_supplemented_with_cash_assistance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Aktivloven § 32, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+          excerpt: med et lavere beløb pr. dag end den beregnede sats pr. dag for
+            kontanthjælpen
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12
+
+      and has_earned_vacation_compensation_or_supplement_after_child_act_assistance
+
+      and vacation_compensation_or_supplement_paid_during_holiday
+
+      and vacation_compensation_or_supplement_daily_amount < calculated_daily_cash_assistance'
+- name: daily_cash_assistance_supplement_for_lower_vacation_payment
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Day
+  source: Aktivloven § 32, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+          excerpt: 12, og som har optjent ret til feriegodtgørelse eller ferietillæg
+            efter ophør med hjælp efter § 87 i barnets lov med et lavere beløb pr.
+            dag end den beregnede sats pr. dag for kontanthjælpen, kan få suppleret
+            feriegodtgørelsen eller ferietillægget, som udbetales under ferien, med
+            kontanthjælp op til den beregnede sats pr. dag for kontanthjælpen.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if has_right_to_holiday_with_cash_assistance_under_section_13_subsection_12\n\
+      \  and has_earned_vacation_compensation_or_supplement_after_child_act_assistance\n\
+      \  and vacation_compensation_or_supplement_paid_during_holiday\n  and vacation_compensation_or_supplement_daily_amount\
+      \ < calculated_daily_cash_assistance:\n  max(0, calculated_daily_cash_assistance\
+      \ - vacation_compensation_or_supplement_daily_amount)\nelse: 0"
+- name: cash_assistance_days_equivalent_to_holiday_act_days
+  kind: derived
+  entity: Person
+  dtype: Decimal
+  period: Day
+  source: Aktivloven § 32, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-32
+          excerpt: En feriedag efter ferieloven svarer til 1,4 dage med kontanthjælp.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: vacation_days_covered_by_vacation_compensation_or_supplement * holiday_act_day_cash_assistance_day_equivalence
