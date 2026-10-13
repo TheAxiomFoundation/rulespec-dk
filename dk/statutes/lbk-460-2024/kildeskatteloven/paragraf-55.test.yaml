@@ -1,0 +1,106 @@
+- name: immediate_repayment_when_all_conditions_hold
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_already_paid: 2000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.projected_final_tax: 1000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.transferred_restska_t_and_related_amounts_under_section_61_3: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.pension_tax_charge_under_section_25_a_5_to_9: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_excess_is_substantial: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.waiting_for_ordinary_repayment_is_manifestly_unreasonable: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.repayment_request_made_before_end_of_collection_calendar_year: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.amount_considered_overpaid_by_customs_and_tax_administration: 800
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#final_tax_with_statutory_additions: 1200
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_repayment_conditions_hold: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_preliminary_tax_repayment: 800
+- name: no_repayment_when_preliminary_tax_does_not_exceed_liability
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_already_paid: 1000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.projected_final_tax: 1000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.transferred_restska_t_and_related_amounts_under_section_61_3: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.pension_tax_charge_under_section_25_a_5_to_9: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_excess_is_substantial: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.waiting_for_ordinary_repayment_is_manifestly_unreasonable: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.repayment_request_made_before_end_of_collection_calendar_year: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.amount_considered_overpaid_by_customs_and_tax_administration: 800
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#final_tax_with_statutory_additions: 1200
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_repayment_conditions_hold: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_preliminary_tax_repayment: 0
+- name: no_repayment_when_excess_is_not_substantial
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_already_paid: 2000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.projected_final_tax: 1000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.transferred_restska_t_and_related_amounts_under_section_61_3: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.pension_tax_charge_under_section_25_a_5_to_9: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_excess_is_substantial: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.waiting_for_ordinary_repayment_is_manifestly_unreasonable: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.repayment_request_made_before_end_of_collection_calendar_year: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.amount_considered_overpaid_by_customs_and_tax_administration: 800
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#final_tax_with_statutory_additions: 1200
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_repayment_conditions_hold: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_preliminary_tax_repayment: 0
+- name: no_repayment_when_waiting_is_not_manifestly_unreasonable
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_already_paid: 2000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.projected_final_tax: 1000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.transferred_restska_t_and_related_amounts_under_section_61_3: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.pension_tax_charge_under_section_25_a_5_to_9: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_excess_is_substantial: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.waiting_for_ordinary_repayment_is_manifestly_unreasonable: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.repayment_request_made_before_end_of_collection_calendar_year: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.amount_considered_overpaid_by_customs_and_tax_administration: 800
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#final_tax_with_statutory_additions: 1200
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_repayment_conditions_hold: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_preliminary_tax_repayment: 0
+- name: no_repayment_when_request_is_late
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_already_paid: 2000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.projected_final_tax: 1000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.transferred_restska_t_and_related_amounts_under_section_61_3: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.pension_tax_charge_under_section_25_a_5_to_9: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_excess_is_substantial: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.waiting_for_ordinary_repayment_is_manifestly_unreasonable: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.repayment_request_made_before_end_of_collection_calendar_year: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.amount_considered_overpaid_by_customs_and_tax_administration: 800
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#final_tax_with_statutory_additions: 1200
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_repayment_conditions_hold: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#immediate_preliminary_tax_repayment: 0
+- name: no_interest_on_immediate_repayment
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_already_paid: 2000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.projected_final_tax: 1000
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.transferred_restska_t_and_related_amounts_under_section_61_3: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.pension_tax_charge_under_section_25_a_5_to_9: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.preliminary_tax_excess_is_substantial: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.waiting_for_ordinary_repayment_is_manifestly_unreasonable: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.repayment_request_made_before_end_of_collection_calendar_year: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#input.amount_considered_overpaid_by_customs_and_tax_administration: 800
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-55#interest_is_payable_on_immediate_preliminary_tax_repayment: not_holds

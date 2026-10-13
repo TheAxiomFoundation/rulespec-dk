@@ -1,0 +1,141 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-55
+    source_sha256: 996cca142410926fc037e84e541eadc0bf499008590a62a17814ae65850c4728
+  summary: '§ 55, stk. 1: Når allerede betalt foreløbig skat væsentligt må antages
+    at overstige slutskatten med tillæg af eventuel overført restskat m.v. efter §
+    61, stk. 3, og eventuel afgift efter pensionsbeskatningslovens § 25 A, stk. 5-9,
+    og det er åbenbart urimeligt at afvente tilbagebetalingstidspunktet, tilbagebetales
+    det for meget betalte beløb straks. Begæring skal fremsættes inden udgangen af
+    opkrævningsåret. Stk. 2: Der ydes ikke renter.'
+inputs:
+- name: preliminary_tax_already_paid
+  entity: Person
+  dtype: Money
+  period: Year
+- name: projected_final_tax
+  entity: Person
+  dtype: Money
+  period: Year
+- name: transferred_restska_t_and_related_amounts_under_section_61_3
+  entity: Person
+  dtype: Money
+  period: Year
+- name: pension_tax_charge_under_section_25_a_5_to_9
+  entity: Person
+  dtype: Money
+  period: Year
+- name: preliminary_tax_excess_is_substantial
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: waiting_for_ordinary_repayment_is_manifestly_unreasonable
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: repayment_request_made_before_end_of_collection_calendar_year
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: amount_considered_overpaid_by_customs_and_tax_administration
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: final_tax_with_statutory_additions
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: § 55, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-55
+          excerpt: slutskatten med tillæg af eventuel overført restskat m.v. efter
+            § 61, stk. 3, og af eventuel afgift omfattet af pensionsbeskatningslovens
+            § 25 A, stk. 5-9
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'projected_final_tax
+
+      + transferred_restska_t_and_related_amounts_under_section_61_3
+
+      + pension_tax_charge_under_section_25_a_5_to_9'
+- name: immediate_repayment_conditions_hold
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 55, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-55
+          excerpt: Må det antages, at den allerede betalte foreløbige skat væsentligt
+            vil overstige
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-55
+          excerpt: vil det virke åbenbart urimeligt at afvente
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-55
+          excerpt: Begæring om tilbagebetaling skal være fremsat inden udgangen af
+            det kalenderår, hvori den foreløbige skat opkræves.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'preliminary_tax_already_paid > final_tax_with_statutory_additions
+
+      and preliminary_tax_excess_is_substantial
+
+      and waiting_for_ordinary_repayment_is_manifestly_unreasonable
+
+      and repayment_request_made_before_end_of_collection_calendar_year'
+- name: immediate_preliminary_tax_repayment
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: § 55, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-55
+          excerpt: tilbagebetales det beløb, som efter told- og skatteforvaltningens
+            skøn er betalt for meget, straks
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'if immediate_repayment_conditions_hold: amount_considered_overpaid_by_customs_and_tax_administration
+      else: 0'
+- name: interest_is_payable_on_immediate_preliminary_tax_repayment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 55, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-55
+          excerpt: Der ydes ikke renter ved tilbagebetaling af skat efter stk. 1.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'false'
