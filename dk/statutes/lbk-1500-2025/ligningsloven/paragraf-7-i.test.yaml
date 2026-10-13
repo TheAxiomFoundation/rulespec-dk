@@ -1,0 +1,126 @@
+- name: qualifying_inflation_guarantee_payment_is_tax_exempt
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_paid_by_state: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_inflation_guarantee: true
+      ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+      : true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.issuance_is_of_index_regulated_bonds: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.bonds_finance_new_or_rebuilding_ships: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_recipient_is_borrower: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#inflation_guarantee_payment_is_tax_exempt_for_borrower:
+    - holds
+- name: non_state_payment_is_not_tax_exempt_under_section_7_i
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_paid_by_state: false
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_inflation_guarantee: true
+      ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+      : true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.issuance_is_of_index_regulated_bonds: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.bonds_finance_new_or_rebuilding_ships: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_recipient_is_borrower: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#inflation_guarantee_payment_is_tax_exempt_for_borrower:
+    - not_holds
+- name: non_inflation_guarantee_payment_is_not_tax_exempt_under_section_7_i
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_paid_by_state: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_inflation_guarantee: false
+      ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+      : true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.issuance_is_of_index_regulated_bonds: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.bonds_finance_new_or_rebuilding_ships: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_recipient_is_borrower: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#inflation_guarantee_payment_is_tax_exempt_for_borrower:
+    - not_holds
+- name: payment_outside_ship_credit_fund_issuance_is_not_tax_exempt_under_section_7_i
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_paid_by_state: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_inflation_guarantee: true
+      ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+      : false
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.issuance_is_of_index_regulated_bonds: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.bonds_finance_new_or_rebuilding_ships: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_recipient_is_borrower: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#inflation_guarantee_payment_is_tax_exempt_for_borrower:
+    - not_holds
+- name: non_index_regulated_bond_issuance_is_not_tax_exempt_under_section_7_i
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_paid_by_state: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_inflation_guarantee: true
+      ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+      : true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.issuance_is_of_index_regulated_bonds: false
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.bonds_finance_new_or_rebuilding_ships: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_recipient_is_borrower: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#inflation_guarantee_payment_is_tax_exempt_for_borrower:
+    - not_holds
+- name: bonds_not_financing_ship_construction_are_not_tax_exempt_under_section_7_i
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_paid_by_state: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_inflation_guarantee: true
+      ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+      : true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.issuance_is_of_index_regulated_bonds: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.bonds_finance_new_or_rebuilding_ships: false
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_recipient_is_borrower: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#inflation_guarantee_payment_is_tax_exempt_for_borrower:
+    - not_holds
+- name: payment_to_non_borrower_is_not_tax_exempt_for_borrower_under_section_7_i
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_paid_by_state: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_inflation_guarantee: true
+      ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_is_in_connection_with_danmarks_skibskreditfonds_issuance
+      : true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.issuance_is_of_index_regulated_bonds: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.bonds_finance_new_or_rebuilding_ships: true
+      dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#input.payment_recipient_is_borrower: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-i#inflation_guarantee_payment_is_tax_exempt_for_borrower:
+    - not_holds
