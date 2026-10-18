@@ -1,0 +1,170 @@
+- name: subsection_1_all_conditions_met
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_covered_by_section_74_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_unemployed: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_was_referred_for_flexjob_before_unsubsidized_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_since_unsubsidized_employment: 80
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+    : 2
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#counted_weeks_after_unsubsidized_employment: 78
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsection_1: holds
+- name: subsection_1_not_covered_by_section_74_subsection_2
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_covered_by_section_74_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_unemployed: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_was_referred_for_flexjob_before_unsubsidized_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_since_unsubsidized_employment: 80
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+    : 2
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#counted_weeks_after_unsubsidized_employment: 78
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsection_1: not_holds
+- name: subsection_1_not_unemployed
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_covered_by_section_74_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_unemployed: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_was_referred_for_flexjob_before_unsubsidized_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_since_unsubsidized_employment: 80
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+    : 2
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#counted_weeks_after_unsubsidized_employment: 78
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsection_1: not_holds
+- name: subsection_1_no_prior_flexjob_referral
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_covered_by_section_74_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_unemployed: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_was_referred_for_flexjob_before_unsubsidized_employment: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_since_unsubsidized_employment: 80
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+    : 2
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#counted_weeks_after_unsubsidized_employment: 78
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsection_1: not_holds
+- name: subsection_1_outside_counted_78_weeks
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_covered_by_section_74_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_unemployed: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_was_referred_for_flexjob_before_unsubsidized_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_since_unsubsidized_employment: 81
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+    : 2
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#counted_weeks_after_unsubsidized_employment: 79
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsection_1: not_holds
+- name: subsection_1_employment_requirement_reached
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_covered_by_section_74_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_unemployed: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_was_referred_for_flexjob_before_unsubsidized_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_since_unsubsidized_employment: 80
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+    : 2
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+    : true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#counted_weeks_after_unsubsidized_employment: 78
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsection_1: not_holds
+- name: subsection_2_qualification_and_temporary_interruption
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.employment_was_within_period_after_flexjob_ended: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.months_of_unsubsidized_employment_after_flexjob_ended: 9
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.meets_conditions_under_section_74_a_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_covered_by_section_74_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_unemployed: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_was_referred_for_flexjob_before_unsubsidized_employment: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_since_unsubsidized_employment: 0
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.weeks_receiving_unemployment_benefit_during_maternity_or_bereavement_leave
+    : 0
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_had_employment_required_for_unemployment_benefits_under_section_53_subsection_2
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.work_interruption_is_temporary: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.work_interruption_is_not_attributable_to_person: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsection_2: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_under_subsections_1_or_2: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#temporary_work_interruption_entitlement: holds
+- name: protected_leave_retains_benefit
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.receives_unemployment_benefit_under_subsections_1_or_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_ill: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_on_maternity_leave: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_is_on_bereavement_leave: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#protected_leave_period: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_retained_during_protected_leave: holds
+- name: municipality_move_retains_benefit
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.receives_unemployment_benefit_under_subsections_1_or_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_moved_to_another_municipality: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_retained_after_municipality_move: holds
+- name: move_related_resignation_with_section_74_g_conditions
+  period:
+    period_kind: custom
+    name: week
+    start: '2025-07-07'
+    end: '2025-07-13'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_has_moved_to_another_municipality: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.person_resigned_from_unsubsidized_employment_in_connection_with_move
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#input.conditions_for_payment_under_section_74_g_are_met: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-f#unemployment_benefit_entitlement_after_move_related_resignation: holds
