@@ -1,0 +1,243 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+    source_sha256: 4ab1b767df7b55880248efac2e2ef99be1d65ed85453428528df4ecee7e8eff1
+  summary: '§ 82 b, stk. 1-3: Kommunen yder hjælp til tilskudsberettiget medicin til
+    kontanthjælpsmodtagere efter § 16 efter 12 måneder ud af de seneste 18 måneder.
+    Hjælpen udgør 100 pct. af egenbetalingen efter tilskud efter kapitel 42 i sundhedsloven,
+    men højst udgiften til billigste præparat. Reglerne gælder tilsvarende for egne
+    børn under 18 år med samme CPR-adresse; barnet har ret fra tidspunktet, hvor forælderen
+    har ret til kontanthjælp.'
+rules:
+- name: medicine_subsidy_law_chapter
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 82 b, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: efter tilskud efter kapitel 42 i sundhedsloven
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '42'
+- name: medicine_payment_assistance_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 82 b, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: udgør 100 pct. af kontanthjælpsmodtagerens egenbetaling
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: kan ikke overstige personens udgift til det billigste præparat
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if person_has_right_to_medicine_payment_assistance: max(0, min(medicine_payment_reimbursement_rate
+      * medicine_out_of_pocket_payment_after_subsidy, cost_of_cheapest_medicine_preparation))
+      else: 0'
+- name: child_medicine_payment_assistance_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 82 b, stk. 2-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: Stk. 1 og 2 finder tilsvarende anvendelse for en kontanthjælpsmodtagers
+            egne børn
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: kan ikke overstige personens udgift til det billigste præparat
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if child_has_right_to_medicine_payment_assistance: max(0, min(medicine_payment_reimbursement_rate
+      * medicine_out_of_pocket_payment_after_subsidy, cost_of_cheapest_medicine_preparation))
+      else: 0'
+- name: required_cash_assistance_receipt_months
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 82 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: i 12 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12'
+- name: cash_assistance_assessment_window_months
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 82 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: ud af de seneste 18 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: medicine_payment_reimbursement_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 82 b, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: udgør 100 pct.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: child_age_limit_years
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 82 b, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: børn under 18 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: person_has_right_to_medicine_payment_assistance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 82 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: personer, der modtager kontanthjælp efter § 16
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: har modtaget kontanthjælpen i 12 måneder ud af de seneste 18 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_receives_cash_assistance_under_section_16
+
+      and medicine_is_eligible_for_subsidy
+
+      and months_of_cash_assistance_received_in_latest_assessment_window >= required_cash_assistance_receipt_months'
+- name: child_has_right_to_medicine_payment_assistance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 82 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: egne børn under 18 år
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: 1 og 2 finder tilsvarende anvendelse for en kontanthjælpsmodtagers
+            egne børn under 18 år, hvor kontanthjælpsmodtageren og barnet er bopælsregistreret
+            i Det Centrale Personregister (CPR) på samme adresse.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-82-b
+          excerpt: fra det tidspunkt, hvor forælderen har ret til kontanthjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'medicine_is_eligible_for_subsidy
+
+      and person_is_own_child_of_cash_assistance_recipient
+
+      and child_age_in_years < child_age_limit_years
+
+      and child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+
+      and parent_has_right_to_cash_assistance_under_section_16'
+inputs:
+- name: person_receives_cash_assistance_under_section_16
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: months_of_cash_assistance_received_in_latest_assessment_window
+  entity: Person
+  dtype: Count
+  period: Month
+- name: medicine_is_eligible_for_subsidy
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: medicine_out_of_pocket_payment_after_subsidy
+  entity: Person
+  dtype: Money
+  period: Month
+- name: cost_of_cheapest_medicine_preparation
+  entity: Person
+  dtype: Money
+  period: Month
+- name: person_is_own_child_of_cash_assistance_recipient
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: child_age_in_years
+  entity: Person
+  dtype: Integer
+  period: Month
+- name: child_and_cash_assistance_recipient_are_cpr_registered_at_same_address
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: parent_has_right_to_cash_assistance_under_section_16
+  entity: Person
+  dtype: Boolean
+  period: Month
