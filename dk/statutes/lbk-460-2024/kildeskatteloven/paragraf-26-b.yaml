@@ -1,0 +1,215 @@
+format: rulespec/v1
+rules:
+- name: asset_transfer_covered
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 26 B, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: andre aktiver end de i § 26 A nævnte
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'transferred_by_spouse_to_cohabiting_spouse
+
+      and not asset_is_listed_in_section_26_a'
+- name: asset_gain_or_loss_excluded_from_taxable_income
+  kind: derived
+  entity: Asset
+  dtype: Money
+  period: Year
+  source: Kildeskatteloven § 26 B, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: fortjeneste eller tab, som derved fremkommer, ikke medregnes ved
+            opgørelsen af overdragerens skattepligtige indkomst
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'max(0, (if asset_transfer_covered: gain_or_loss_arising_from_transfer
+      else: 0))'
+- name: liability_transfer_gain_or_loss_excluded_from_taxable_income
+  kind: derived
+  entity: Liability
+  dtype: Money
+  period: Year
+  source: Kildeskatteloven § 26 B, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: fortjeneste eller tab, som derved fremkommer, ikke medregnes ved
+            opgørelsen af overdragerens skattepligtige indkomst
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'max(0, (if liability_transfer_covered: gain_or_loss_arising_from_liability_transfer
+      else: 0))'
+- name: acquirer_deemed_to_have_same_asset_acquisition_time
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 26 B, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: Aktiverne og passiverne anses for anskaffet henholdsvis påtaget
+            af erhververen på samme tidspunkter, for samme beløb og med samme formål
+            som de oprindelige anskaffelser m.m.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: asset_transfer_covered
+- name: acquirer_asset_acquisition_amount
+  kind: derived
+  entity: Asset
+  dtype: Money
+  period: Year
+  source: Kildeskatteloven § 26 B, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: for samme beløb
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'if asset_transfer_covered: original_acquisition_amount else: 0'
+- name: acquirer_deemed_to_have_same_asset_acquisition_purpose
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 26 B, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: med samme formål som de oprindelige anskaffelser m.m.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: asset_transfer_covered
+- name: liability_transfer_covered
+  kind: derived
+  entity: Liability
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 26 B, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: eller passiver til sin samlevende ægtefælle
+  versions:
+  - effective_from: '2024-05-03'
+    formula: liability_transferred_by_spouse_to_cohabiting_spouse
+- name: acquirer_deemed_to_have_same_liability_assumption_time
+  kind: derived
+  entity: Liability
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 26 B, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: Aktiverne og passiverne anses for anskaffet henholdsvis påtaget
+            af erhververen på samme tidspunkter, for samme beløb og med samme formål
+            som de oprindelige anskaffelser m.m.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: liability_transfer_covered
+- name: acquirer_liability_assumption_amount
+  kind: derived
+  entity: Liability
+  dtype: Money
+  period: Year
+  source: Kildeskatteloven § 26 B, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: for samme beløb
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'if liability_transfer_covered: original_liability_amount else: 0'
+- name: acquirer_deemed_to_have_same_liability_assumption_purpose
+  kind: derived
+  entity: Liability
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 26 B, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+          excerpt: med samme formål som de oprindelige anskaffelser m.m.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: liability_transfer_covered
+inputs:
+- name: transferred_by_spouse_to_cohabiting_spouse
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: asset_is_listed_in_section_26_a
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: gain_or_loss_arising_from_transfer
+  entity: Asset
+  dtype: Money
+  period: Year
+- name: original_acquisition_amount
+  entity: Asset
+  dtype: Money
+  period: Year
+- name: liability_transferred_by_spouse_to_cohabiting_spouse
+  entity: Liability
+  dtype: Boolean
+  period: Year
+- name: gain_or_loss_arising_from_liability_transfer
+  entity: Liability
+  dtype: Money
+  period: Year
+- name: original_liability_amount
+  entity: Liability
+  dtype: Money
+  period: Year
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-26-b
+    source_sha256: 8b7cc912681cd5350a678adacca44046cd9f695cbb52872e0f8b7b380a9bb5e4

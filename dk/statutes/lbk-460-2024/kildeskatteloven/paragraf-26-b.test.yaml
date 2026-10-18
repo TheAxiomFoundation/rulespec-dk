@@ -1,0 +1,101 @@
+- name: covered_asset_transfer_with_loss
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.transferred_by_spouse_to_cohabiting_spouse: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.asset_is_listed_in_section_26_a: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.gain_or_loss_arising_from_transfer: -100
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_transfer_covered: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_gain_or_loss_excluded_from_taxable_income: 0
+- name: covered_liability_transfer_with_loss
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.liability_transferred_by_spouse_to_cohabiting_spouse: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.gain_or_loss_arising_from_liability_transfer: -80
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#liability_transfer_covered: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#liability_transfer_gain_or_loss_excluded_from_taxable_income: 0
+- name: covered_asset_transfer
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.transferred_by_spouse_to_cohabiting_spouse: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.asset_is_listed_in_section_26_a: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.gain_or_loss_arising_from_transfer: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.original_acquisition_amount: 500
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_transfer_covered: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_gain_or_loss_excluded_from_taxable_income: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_asset_acquisition_time: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_asset_acquisition_amount: 500
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_asset_acquisition_purpose: holds
+- name: section_26_a_asset_not_covered
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.transferred_by_spouse_to_cohabiting_spouse: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.asset_is_listed_in_section_26_a: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.gain_or_loss_arising_from_transfer: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.original_acquisition_amount: 500
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_transfer_covered: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_gain_or_loss_excluded_from_taxable_income: 0
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_asset_acquisition_time: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_asset_acquisition_amount: 0
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_asset_acquisition_purpose: not_holds
+- name: transfer_not_to_cohabiting_spouse
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.transferred_by_spouse_to_cohabiting_spouse: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.asset_is_listed_in_section_26_a: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.gain_or_loss_arising_from_transfer: 100
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.original_acquisition_amount: 500
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_transfer_covered: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#asset_gain_or_loss_excluded_from_taxable_income: 0
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_asset_acquisition_time: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_asset_acquisition_amount: 0
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_asset_acquisition_purpose: not_holds
+- name: covered_liability_transfer
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.liability_transferred_by_spouse_to_cohabiting_spouse: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.gain_or_loss_arising_from_liability_transfer: 80
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.original_liability_amount: 400
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#liability_transfer_covered: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#liability_transfer_gain_or_loss_excluded_from_taxable_income: 80
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_liability_assumption_time: holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_liability_assumption_amount: 400
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_liability_assumption_purpose: holds
+- name: liability_transfer_not_to_cohabiting_spouse
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.liability_transferred_by_spouse_to_cohabiting_spouse: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.gain_or_loss_arising_from_liability_transfer: 80
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#input.original_liability_amount: 400
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#liability_transfer_covered: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#liability_transfer_gain_or_loss_excluded_from_taxable_income: 0
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_liability_assumption_time: not_holds
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_liability_assumption_amount: 0
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-26-b#acquirer_deemed_to_have_same_liability_assumption_purpose: not_holds
