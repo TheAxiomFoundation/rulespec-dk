@@ -1,0 +1,38 @@
+- name: maintenance_assistance_default_payment_timing
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.payment_is_assistance_for_maintenance: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#maintenance_assistance_payment_default_frequency_is_monthly: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#maintenance_assistance_payment_default_is_one_month_in_arrears: holds
+- name: non_maintenance_assistance_has_no_section_89_default_timing_rule
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.payment_is_assistance_for_maintenance: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#maintenance_assistance_payment_default_frequency_is_monthly: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#maintenance_assistance_payment_default_is_one_month_in_arrears: not_holds
+- name: one_time_assistance_shorter_period_authorized_when_reasoned_doubt_exists
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.payment_is_one_time_assistance: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.municipality_has_reasoned_doubt_recipient_will_fulfill_assistance_conditions_for_entire_covered_period
+    : true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#one_time_assistance_may_be_paid_for_shorter_period: holds
+- name: one_time_assistance_shorter_period_not_authorized_when_payment_is_not_one_time_assistance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.payment_is_one_time_assistance: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.municipality_has_reasoned_doubt_recipient_will_fulfill_assistance_conditions_for_entire_covered_period
+    : true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#one_time_assistance_may_be_paid_for_shorter_period: not_holds
+- name: one_time_assistance_shorter_period_not_authorized_without_reasoned_doubt
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.payment_is_one_time_assistance: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#input.municipality_has_reasoned_doubt_recipient_will_fulfill_assistance_conditions_for_entire_covered_period
+    : false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-89#one_time_assistance_may_be_paid_for_shorter_period: not_holds
