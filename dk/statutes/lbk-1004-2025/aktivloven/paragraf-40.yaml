@@ -1,0 +1,98 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-40
+    source_sha256: f300a7320b2e80b3b7357034e766ce49affd9f72c06c82c75901d26dd3ff2e34
+  summary: Hjælpen efter §§ 16-20 til personer, der er omfattet af § 39, nedsættes
+    med tre gange sanktionssatsen efter § 35, stk. 4, jf. § 35, stk. 5. Der kan i
+    en kalendermåned kun ske en enkelt nedsættelse efter stk. 1.
+inputs:
+- name: person_is_covered_by_section_39
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_assistance_under_sections_16_to_20
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: reduction_under_subsection_1_has_already_occurred_in_calendar_month
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: sanction_rate_under_section_35_subsection_4_calculated_under_subsection_5
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+rules:
+- name: sanction_rate_multiplier
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 40, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-40
+          excerpt: tre gange sanktionssatsen
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: assistance_reduction_under_subsection_1_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 40, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-40
+          excerpt: Hjælpen efter §§ 16-20 til personer, der er omfattet af § 39
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-40
+          excerpt: Der kan i en kalendermåned kun ske en enkelt nedsættelse efter
+            stk. 1.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_is_covered_by_section_39
+
+      and person_receives_assistance_under_sections_16_to_20
+
+      and not reduction_under_subsection_1_has_already_occurred_in_calendar_month'
+- name: assistance_reduction_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 40, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-40
+          excerpt: nedsættes med tre gange sanktionssatsen efter § 35, stk. 4, jf.
+            § 35, stk. 5
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-40
+          excerpt: Der kan i en kalendermåned kun ske en enkelt nedsættelse efter
+            stk. 1.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if assistance_reduction_under_subsection_1_applies: sanction_rate_multiplier
+      * sanction_rate_under_section_35_subsection_4_calculated_under_subsection_5
+      else: 0'
