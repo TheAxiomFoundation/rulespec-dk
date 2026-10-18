@@ -1,0 +1,52 @@
+- name: foertidspension_recipient_transitions_on_first_day_of_following_month
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_foertidspension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_seniorpension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_tidlig_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.day_is_first_of_month_after_reaching_folkepension_age: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#automatically_transitions_to_folkepension: holds
+- name: seniorpension_recipient_transitions_on_first_day_of_following_month
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_foertidspension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_seniorpension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_tidlig_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.day_is_first_of_month_after_reaching_folkepension_age: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#automatically_transitions_to_folkepension: holds
+- name: tidlig_pension_recipient_transitions_on_first_day_of_following_month
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_foertidspension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_seniorpension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_tidlig_pension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.day_is_first_of_month_after_reaching_folkepension_age: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#automatically_transitions_to_folkepension: holds
+- name: transition_does_not_occur_before_first_day_of_following_month
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-31'
+    end: '2024-10-31'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_foertidspension: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_seniorpension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.person_has_right_to_tidlig_pension: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#input.day_is_first_of_month_after_reaching_folkepension_age: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-37#automatically_transitions_to_folkepension: not_holds
