@@ -1,0 +1,174 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+    source_sha256: 010d937816698c5c119056b4eb27d85b5c5449c55abd4e2f04b6b12215e11700
+  summary: 'Til efterlevende ægtefæller efter medlemmer født den 1. juli 1925 eller
+    senere,
+
+    som dør den 1. juli 1992 eller senere, udbetales et engangsbeløb; separation
+
+    berører ikke retten. Pensionsydelsen udgør 35 pct. af egenpension og bonuspension
+
+    og kapitaliseres med livsvarig udbetaling fra dødsfaldet, dog tidligst fra 67
+    år,
+
+    med særregel for tidligt påbegyndt pension.'
+inputs:
+- name: person_is_surviving_spouse_of_deceased_member
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_was_born_on_or_after_statutory_date
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_died_on_or_after_statutory_date
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_age_at_death
+  entity: Person
+  dtype: Integer
+  period: Year
+- name: deceased_member_started_pension_before_minimum_commencement_age
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_earned_own_pension
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: deceased_member_earned_bonus_pension
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: capitalization_factor_from_death
+  entity: Person
+  dtype: Decimal
+  period: Year
+- name: capitalization_factor_from_minimum_commencement_age
+  entity: Person
+  dtype: Decimal
+  period: Year
+rules:
+- name: survivor_pension_percentage
+  kind: parameter
+  dtype: Rate
+  source: ATP-loven § 11, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: udgør 35 pct. af den egenpension og bonuspension
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '0.35'
+- name: minimum_pension_commencement_age
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 11, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: dog tidligst fra den pågældendes 67. år
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '67'
+- name: survivor_lump_sum_entitlement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: ATP-loven § 11, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: Til efterlevende ægtefæller efter medlemmer af tillægspensionsordningen,
+            der er født den 1. juli 1925 eller senere, og som dør den 1. juli 1992
+            eller senere, udbetales der ved dødsfaldet et engangsbeløb.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: Retten til engangsbeløbet berøres ikke af, at separation mellem
+            ægtefællerne har fundet sted.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'person_is_surviving_spouse_of_deceased_member
+
+      and deceased_member_was_born_on_or_after_statutory_date
+
+      and deceased_member_died_on_or_after_statutory_date'
+- name: survivor_pension_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: ATP-loven § 11, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: Stk. 3. Pensionsydelsen, jf. stk. 2, udgør 35 pct. af den egenpension
+            og bonuspension, som det pågældende medlem ved dødsfaldet har optjent
+            ret til.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: survivor_pension_percentage * (deceased_member_earned_own_pension + deceased_member_earned_bonus_pension)
+- name: survivor_lump_sum_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: ATP-loven § 11, stk. 2-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: Beløbet svarer til den kapitaliserede værdi af en pensionsydelse
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: Hvis afdøde havde påbegyndt pensionsudbetalingen før det 67. år,
+            jf. § 9, stk.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: dog tidligst fra den pågældendes 67. år
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11
+          excerpt: samme forventede restlevetid for mænd og kvinder
+  versions:
+  - effective_from: '2024-11-01'
+    formula: "if survivor_lump_sum_entitlement:\n  survivor_pension_benefit * (if\
+      \ deceased_member_started_pension_before_minimum_commencement_age or deceased_member_age_at_death\
+      \ >= minimum_pension_commencement_age: capitalization_factor_from_death else:\
+      \ capitalization_factor_from_minimum_commencement_age)\nelse: 0"

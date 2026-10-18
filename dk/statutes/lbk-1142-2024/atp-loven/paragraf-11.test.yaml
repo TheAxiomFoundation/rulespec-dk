@@ -1,0 +1,105 @@
+- name: entitlement_holds_when_all_statutory_conditions_hold
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.person_is_surviving_spouse_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_died_on_or_after_statutory_date: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_entitlement: holds
+- name: entitlement_does_not_hold_without_surviving_spouse_status
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.person_is_surviving_spouse_of_deceased_member: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_died_on_or_after_statutory_date: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_entitlement: not_holds
+- name: entitlement_does_not_hold_for_member_born_before_statutory_date
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.person_is_surviving_spouse_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_was_born_on_or_after_statutory_date: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_died_on_or_after_statutory_date: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_entitlement: not_holds
+- name: entitlement_does_not_hold_for_death_before_statutory_date
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.person_is_surviving_spouse_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_died_on_or_after_statutory_date: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_entitlement: not_holds
+- name: lump_sum_uses_death_commencement_factor_for_early_pension
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.person_is_surviving_spouse_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_age_at_death: 60
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_started_pension_before_minimum_commencement_age: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_earned_own_pension: 1000
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_earned_bonus_pension: 200
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.capitalization_factor_from_death: 10
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.capitalization_factor_from_minimum_commencement_age: 8
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_entitlement: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_pension_benefit: 420
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_amount: 4200
+- name: lump_sum_uses_age_67_commencement_factor_before_pension_starts
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.person_is_surviving_spouse_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_age_at_death: 60
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_started_pension_before_minimum_commencement_age: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_earned_own_pension: 1000
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_earned_bonus_pension: 200
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.capitalization_factor_from_death: 10
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.capitalization_factor_from_minimum_commencement_age: 8
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_entitlement: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_pension_benefit: 420
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_amount: 3360
+- name: auto_zero_survivor_lump_sum_amount
+  period:
+    period_kind: tax_year
+    start: '2024-11-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.capitalization_factor_from_death: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.capitalization_factor_from_minimum_commencement_age: 0
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_age_at_death: 0
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_died_on_or_after_statutory_date: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_earned_bonus_pension: 0
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_earned_own_pension: 0
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_started_pension_before_minimum_commencement_age: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.deceased_member_was_born_on_or_after_statutory_date: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#input.person_is_surviving_spouse_of_deceased_member: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11#survivor_lump_sum_amount: 0
