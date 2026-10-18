@@ -1,0 +1,65 @@
+- name: first_time_jobseeker_may_receive_return_home_assistance
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_is_family_member_of_person_with_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_without_administrative_conditions: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_residence_without_administrative_conditions_duration_months
+    : 3
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.assistance_is_in_connection_with_return_home: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#assistance_limited_to_return_home: holds
+- name: first_time_jobseeker_may_not_receive_non_return_home_assistance
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_is_family_member_of_person_with_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_without_administrative_conditions: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_residence_without_administrative_conditions_duration_months
+    : 3
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.assistance_is_in_connection_with_return_home: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#assistance_limited_to_return_home: not_holds
+- name: family_member_may_receive_return_home_assistance
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_is_family_member_of_person_with_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_without_administrative_conditions: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_residence_without_administrative_conditions_duration_months
+    : 3
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.assistance_is_in_connection_with_return_home: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#assistance_limited_to_return_home: holds
+- name: short_term_resident_may_receive_return_home_assistance
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_is_family_member_of_person_with_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_without_administrative_conditions: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_residence_without_administrative_conditions_duration_months
+    : 3
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.assistance_is_in_connection_with_return_home: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#assistance_limited_to_return_home: holds
+- name: residence_exceeding_short_term_limit_does_not_qualify
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_is_family_member_of_person_with_right_of_residence_as_first_time_jobseeker_under_community_rules
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_has_right_of_residence_without_administrative_conditions: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.person_residence_without_administrative_conditions_duration_months
+    : 4
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#input.assistance_is_in_connection_with_return_home: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-12-a#assistance_limited_to_return_home: not_holds
