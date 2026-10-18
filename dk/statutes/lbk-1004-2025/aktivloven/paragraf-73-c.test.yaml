@@ -1,0 +1,76 @@
+- name: qualifying_revalidend_has_paid_vacation_for_two_week_period
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.person_is_revalidend: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.has_completed_required_consecutive_rehabilitation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.remains_eligible_for_previous_benefit_during_vacation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_is_within_following_vacation_window: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.holiday_with_compensation_has_been_taken_first: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_agreed_with_municipality: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.municipality_has_decided_vacation_placement: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_considers_personal_and_family_circumstances: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.consideration_would_substantially_counteract_rehabilitation_offer: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.requested_vacation_period_weeks: 2
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.paid_vacation_weeks_already_taken: 0
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#revalidend_qualifies_after_required_rehabilitation: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#vacation_placement_is_valid: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#entitled_to_paid_vacation: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#payable_vacation_weeks: 2
+- name: municipality_decision_validates_placement_when_no_agreement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.person_is_revalidend: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.has_completed_required_consecutive_rehabilitation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.remains_eligible_for_previous_benefit_during_vacation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_is_within_following_vacation_window: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.holiday_with_compensation_has_been_taken_first: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_agreed_with_municipality: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.municipality_has_decided_vacation_placement: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_considers_personal_and_family_circumstances: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.consideration_would_substantially_counteract_rehabilitation_offer: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.requested_vacation_period_weeks: 2
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.paid_vacation_weeks_already_taken: 0
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#revalidend_qualifies_after_required_rehabilitation: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#vacation_placement_is_valid: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#entitled_to_paid_vacation: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#payable_vacation_weeks: 2
+- name: holiday_compensation_must_be_taken_before_paid_vacation
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.person_is_revalidend: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.has_completed_required_consecutive_rehabilitation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.remains_eligible_for_previous_benefit_during_vacation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_is_within_following_vacation_window: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.holiday_with_compensation_has_been_taken_first: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_agreed_with_municipality: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.municipality_has_decided_vacation_placement: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_considers_personal_and_family_circumstances: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.consideration_would_substantially_counteract_rehabilitation_offer: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.requested_vacation_period_weeks: 2
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.paid_vacation_weeks_already_taken: 0
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#revalidend_qualifies_after_required_rehabilitation: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#vacation_placement_is_valid: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#entitled_to_paid_vacation: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#payable_vacation_weeks: 0
+- name: vacation_period_cannot_exceed_two_weeks
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.person_is_revalidend: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.has_completed_required_consecutive_rehabilitation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.remains_eligible_for_previous_benefit_during_vacation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_is_within_following_vacation_window: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.holiday_with_compensation_has_been_taken_first: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_agreed_with_municipality: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.municipality_has_decided_vacation_placement: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.vacation_placement_considers_personal_and_family_circumstances: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.consideration_would_substantially_counteract_rehabilitation_offer: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.requested_vacation_period_weeks: 3
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#input.paid_vacation_weeks_already_taken: 0
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#revalidend_qualifies_after_required_rehabilitation: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#vacation_placement_is_valid: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#entitled_to_paid_vacation: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-c#payable_vacation_weeks: 0
