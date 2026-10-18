@@ -1,0 +1,51 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-39
+    source_sha256: 71d9b123b02604a2fc39facf1eadf7fb39f83bcdaa177c2d245ebad4e7cb0bac
+  summary: Der tilbageholdes i løn og svares arbejdsgiverbidrag af løn, der indtjenes
+    fra og med begyndelsen af den lønningsuge, i hvilken den 1. april 1964 falder,
+    for månedslønnede dog fra og med den 1. april 1964.
+inputs:
+- name: wage_is_monthly_paid
+  entity: Employer
+  dtype: Boolean
+  period: Month
+- name: wage_earned_from_monthly_paid_commencement_date
+  entity: Employer
+  dtype: Boolean
+  period: Month
+- name: wage_earned_from_payroll_week_commencement
+  entity: Employer
+  dtype: Boolean
+  period: Month
+rules:
+- name: wage_withholding_and_employer_contribution_apply
+  kind: derived
+  entity: Employer
+  dtype: Judgment
+  period: Month
+  source: ATP-loven § 39
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-39
+          excerpt: fra og med begyndelsen af den lønningsuge, i hvilken den 1. april
+            1964 falder, for månedslønnede dog fra og med den 1. april 1964
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-39
+          excerpt: Der tilbageholdes i løn og svares arbejdsgiverbidrag af løn
+  versions:
+  - effective_from: '1964-04-01'
+    formula: '(wage_is_monthly_paid and wage_earned_from_monthly_paid_commencement_date)
+
+      or
+
+      (not wage_is_monthly_paid and wage_earned_from_payroll_week_commencement)'
