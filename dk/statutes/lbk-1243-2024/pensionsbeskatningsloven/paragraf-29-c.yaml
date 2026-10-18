@@ -1,0 +1,80 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c
+    source_sha256: 8f80fd2883882e81120d25322c7a630acb0d46c4dfddba1e3162cdeb59511101
+  summary: Ved udbetaling af invalidesum som nævnt i § 8, stk. 2, og § 11 A, stk.
+    6, svares en afgift på 40 pct. af det udbetalte beløb.
+inputs:
+- name: payment_is_invalidesum_mentioned_in_section_8_subsection_2
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_is_invalidesum_mentioned_in_section_11_a_subsection_6
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: paid_invalidesum_amount
+  entity: Payment
+  dtype: Money
+  period: Year
+rules:
+- name: invalidesum_duty_rate
+  kind: parameter
+  dtype: Rate
+  source: Pensionsbeskatningsloven § 29 C
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c
+          excerpt: en afgift på 40 pct.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '0.40'
+- name: payment_is_qualifying_invalidesum
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 29 C
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c
+          excerpt: invalidesum som nævnt i § 8, stk. 2, og § 11 A, stk. 6
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'payment_is_invalidesum_mentioned_in_section_8_subsection_2
+
+      or payment_is_invalidesum_mentioned_in_section_11_a_subsection_6'
+- name: invalidesum_duty
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Year
+  source: Pensionsbeskatningsloven § 29 C
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c
+          excerpt: svares en afgift på 40 pct. af det udbetalte beløb
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-c
+          excerpt: 40 pct.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: "if payment_is_qualifying_invalidesum:\n  paid_invalidesum_amount * invalidesum_duty_rate\n\
+      else: 0"
