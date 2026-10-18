@@ -1,0 +1,454 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+    source_sha256: ad91db3ec50d9b3323011ac50b1f32e6104ad6fa74e66b4775262a0ccb680373
+  summary: Bidraget til den obligatoriske pensionsordning beregnes med procentsatser
+    fra 0,3 pct. i 2020 til 3,3 pct. fra 2030.
+rules:
+- name: contribution_schedule_second_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2021 med 0,6 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2021'
+- name: contribution_schedule_third_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2022 med 0,9 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2022'
+- name: contribution_schedule_fourth_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2023 med 1,2 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2023'
+- name: contribution_schedule_fifth_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2024 med 1,5 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2024'
+- name: contribution_schedule_sixth_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2025 med 1,8 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2025'
+- name: contribution_schedule_seventh_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2026 med 2,1 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2026'
+- name: contribution_schedule_eighth_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2027 med 2,4 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2027'
+- name: contribution_schedule_ninth_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2028 med 2,7 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2028'
+- name: contribution_schedule_tenth_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2029 med 3,0 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2029'
+- name: contribution_schedule_final_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: Fra 2030 med 3,3 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2030'
+- name: contribution_schedule_first_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 1) I 2020 med 0,3 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '1'
+- name: contribution_schedule_second_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 2) I 2021 med 0,6 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2'
+- name: contribution_schedule_third_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 3) I 2022 med 0,9 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '3'
+- name: contribution_schedule_fourth_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 4) I 2023 med 1,2 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '4'
+- name: contribution_schedule_fifth_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 5) I 2024 med 1,5 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '5'
+- name: contribution_schedule_sixth_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 6) I 2025 med 1,8 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '6'
+- name: contribution_schedule_seventh_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 7) I 2026 med 2,1 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '7'
+- name: contribution_schedule_eighth_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 8) I 2027 med 2,4 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '8'
+- name: contribution_schedule_ninth_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 9) I 2028 med 2,7 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '9'
+- name: contribution_schedule_tenth_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 10) I 2029 med 3,0 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '10'
+- name: contribution_schedule_eleventh_item
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: 11) Fra 2030 med 3,3 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '11'
+- name: contribution_schedule_initial_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 85 a, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2020 med 0,3 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2020'
+- name: mandatory_pension_contribution_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 85 a, nr. 1-11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2020 med 0,3 pct.
+      - path: versions[1].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2021 med 0,6 pct.
+      - path: versions[2].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2022 med 0,9 pct.
+      - path: versions[3].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2023 med 1,2 pct.
+      - path: versions[4].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2024 med 1,5 pct.
+      - path: versions[5].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2025 med 1,8 pct.
+      - path: versions[6].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2026 med 2,1 pct.
+      - path: versions[7].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2027 med 2,4 pct.
+      - path: versions[8].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2028 med 2,7 pct.
+      - path: versions[9].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: I 2029 med 3,0 pct.
+      - path: versions[10].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: Fra 2030 med 3,3 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '0.003'
+  - effective_from: '2021-01-01'
+    formula: '0.006'
+  - effective_from: '2022-01-01'
+    formula: '0.009'
+  - effective_from: '2023-01-01'
+    formula: '0.012'
+  - effective_from: '2024-01-01'
+    formula: '0.015'
+  - effective_from: '2025-01-01'
+    formula: '0.018'
+  - effective_from: '2026-01-01'
+    formula: '0.021'
+  - effective_from: '2027-01-01'
+    formula: '0.024'
+  - effective_from: '2028-01-01'
+    formula: '0.027'
+  - effective_from: '2029-01-01'
+    formula: '0.030'
+  - effective_from: '2030-01-01'
+    formula: '0.033'
+- name: mandatory_pension_contribution_amount
+  kind: derived
+  entity: MandatoryPensionContribution
+  dtype: Decimal
+  period: Year
+  source: § 85 a, indledende punktum
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: Bidraget til den obligatoriske pensionsordning beregnes med følgende
+            procentsatser
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-85-a
+          excerpt: Fra 2030 med 3,3 pct.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: mandatory_pension_contribution_basis * mandatory_pension_contribution_rate
+inputs:
+- name: mandatory_pension_contribution_basis
+  entity: MandatoryPensionContribution
+  dtype: Decimal
+  period: Year
