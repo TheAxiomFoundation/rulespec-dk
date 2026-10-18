@@ -1,0 +1,37 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-27-i
+    source_sha256: 78e4a4ce25e1545f29c0333f12b2ebd4611b58bb4910964e183413265edc5e54
+  summary: En digital meddelelse anses for at være kommet frem, når den er tilgængelig
+    for adressaten for meddelelsen.
+inputs:
+- name: digital_message_is_available_to_addressee
+  entity: DigitalMessage
+  dtype: Boolean
+  period: Day
+rules:
+- name: digital_message_is_deemed_received
+  kind: derived
+  entity: DigitalMessage
+  dtype: Judgment
+  period: Day
+  source: § 27 i.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-27-i
+          excerpt: når den er tilgængelig for adressaten for meddelelsen
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-27-i
+          excerpt: anses for at være kommet frem
+  versions:
+  - effective_from: '2024-11-01'
+    formula: digital_message_is_available_to_addressee
