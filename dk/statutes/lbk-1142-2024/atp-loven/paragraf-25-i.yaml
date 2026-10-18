@@ -1,0 +1,44 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-25-i
+    source_sha256: 6b9de8302afc7b51fdd51ec23857c306830055708754bf54a38dbbf6494fbb0c
+  summary: Regnskabsåret følger kalenderåret. Dette krav er tillige gældende for eventuelle
+    datterselskaber.
+rules:
+- name: calendar_year_accounting_required
+  kind: derived
+  entity: ATP
+  dtype: Judgment
+  period: Year
+  source: § 25 i, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-25-i
+          excerpt: Regnskabsåret følger kalenderåret.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'true'
+- name: subsidiary_calendar_year_accounting_required
+  kind: derived
+  entity: ATPSubsidiary
+  dtype: Judgment
+  period: Year
+  source: § 25 i, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-25-i
+          excerpt: Dette krav er tillige gældende for eventuelle datterselskaber.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'true'
