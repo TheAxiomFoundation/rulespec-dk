@@ -1,0 +1,40 @@
+- name: self_employed_person_not_using_business_scheme_has_adjusted_contribution_base
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.uses_business_scheme: false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.personal_income_from_self_employment: 1000
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.library_fee_payments_in_personal_income: 100
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.negative_personal_income_carried_forward: 200
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.pension_related_portion_of_carried_forward_negative_income
+    : 50
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#contribution_base_under_section_4_applies: holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#deductible_carried_forward_negative_personal_income: 150
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#self_employment_contribution_base: 750
+- name: business_scheme_user_is_outside_section_4_contribution_base
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.uses_business_scheme: true
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.personal_income_from_self_employment: 1000
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.library_fee_payments_in_personal_income: 100
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.negative_personal_income_carried_forward: 200
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#input.pension_related_portion_of_carried_forward_negative_income
+    : 50
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#contribution_base_under_section_4_applies: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#deductible_carried_forward_negative_personal_income: 150
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#self_employment_contribution_base: 0
+- name: pension_contributions_are_not_deducted_from_contribution_base
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4#pension_contributions_do_not_reduce_contribution_base: holds
