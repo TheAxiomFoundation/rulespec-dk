@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-1142-2024/atp-loven/paragraf-24-e.yaml",
+      "sha256": "7a026ff124232b27bfeb365edd0e8ad18bb62fc19b8aec2d7b9d881a239165b1"
+    },
+    {
+      "path": "dk/statutes/lbk-1142-2024/atp-loven/paragraf-24-e.test.yaml",
+      "sha256": "8ca1e07395a99fc99e15a1e3ef9181777224f4a027bd697d7601878a45424f1d"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-1142-2024/atp-loven/paragraf-24-e",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-1142-2024-atp-loven-paragraf-24-e/workspace/context-manifest.json",
+  "context_manifest_sha256": "5324607a47ddd699d1333b1a19f0dac263ceadbb5542fd4e56b127b0f1297d83",
+  "generated_at": "2026-08-31T01:24:07.004280+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-1142-2024/atp-loven/paragraf-24-e.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "7a026ff124232b27bfeb365edd0e8ad18bb62fc19b8aec2d7b9d881a239165b1",
+  "generation_prompt_sha256": "042790f7af1ad5e32b5e162301ad162b0b960463d5e826f5493c68b4d4437d22",
+  "model": "gpt-5.6-terra",
+  "run_id": "0d2870c5",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "Y8eyHIUIw5yPM8yOM83ApXtXuyKENPxxHeUV4eeghDbYgZqknbfwZCjjuIgSedEdDxK+fTNB57z7lVs/SNEhBg=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2024-11-01",
+    "generation_input_sha256": "500a6ffdfe8b57e48805a348e223d89f40129a76e4527fa55cd88fde51c9b985",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-1142-2024/atp-loven/paragraf-24-e",
+    "resolved_corpus_citation_path": "dk/statute/lbk-1142-2024/atp-loven/paragraf-24-e",
+    "resolved_text_sha256": "500a6ffdfe8b57e48805a348e223d89f40129a76e4527fa55cd88fde51c9b985",
+    "row": {
+      "body_sha256": "500a6ffdfe8b57e48805a348e223d89f40129a76e4527fa55cd88fde51c9b985",
+      "citation_path": "dk/statute/lbk-1142-2024/atp-loven/paragraf-24-e",
+      "document_class": "statute",
+      "expression_date": "2024-11-01",
+      "jurisdiction": "dk",
+      "line_number": 883,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "bb77fae0-c7c7-5be6-981c-986cae56abff",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-1142-2024-atp-loven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "500a6ffdfe8b57e48805a348e223d89f40129a76e4527fa55cd88fde51c9b985"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-1142-2024-atp-loven-paragraf-24-e.json",
+  "trace_sha256": "6f9b94e5482c4b9b84550a0037068197e6be0f51a6b864d08764161c5cec3a62",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}
