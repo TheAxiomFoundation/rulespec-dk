@@ -1,0 +1,36 @@
+- name: refusal_of_doctor_performed_operation_is_not_relevant
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_performed_operation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_prescribed_medicine: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_equally_invasive_medical_treatment: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_seniorpension_entitlement_assessment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_disability_pension_entitlement_assessment: holds
+- name: refusal_of_doctor_prescribed_medicine_is_not_relevant
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_performed_operation: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_prescribed_medicine: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_equally_invasive_medical_treatment: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_seniorpension_entitlement_assessment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_disability_pension_entitlement_assessment: holds
+- name: refusal_of_equally_invasive_medical_treatment_is_not_relevant
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_performed_operation: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_prescribed_medicine: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_equally_invasive_medical_treatment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_seniorpension_entitlement_assessment: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_disability_pension_entitlement_assessment: holds
+- name: no_covered_refusal_has_no_section_18_a_protection
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_performed_operation: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_doctor_prescribed_medicine: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#input.person_refuses_equally_invasive_medical_treatment: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_seniorpension_entitlement_assessment: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-18-a#refusal_is_not_relevant_to_disability_pension_entitlement_assessment: not_holds
