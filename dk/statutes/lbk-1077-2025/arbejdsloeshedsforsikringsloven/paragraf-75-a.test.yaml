@@ -1,0 +1,84 @@
+- name: entitlement_ceases_when_membership_ceases
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased: holds
+- name: entitlement_ceases_by_end_of_month_of_folkepension_age
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased: holds
+- name: entitlement_ceases_on_death
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased: holds
+- name: entitlement_does_not_cease_without_a_stated_cessation_event
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased: not_holds
+- name: section_74_o_recipient_entitlement_ceases_when_membership_ceases
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_is_covered_by_section_74_o
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: false
+  output:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased_for_recipient_covered_by_section_74_o
+    : holds
+- name: section_74_o_recipient_entitlement_ceases_by_end_of_month_of_folkepension_age
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_is_covered_by_section_74_o
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: false
+  output:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased_for_recipient_covered_by_section_74_o
+    : holds
+- name: section_74_o_recipient_entitlement_ceases_on_death
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_is_covered_by_section_74_o
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: true
+  output:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased_for_recipient_covered_by_section_74_o
+    : holds
+- name: section_74_o_extension_does_not_apply_to_recipient_outside_section_74_o
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_is_covered_by_section_74_o
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_membership_has_ceased: true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.month_ends_when_afterloen_recipient_reaches_folkepension_age
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#input.afterloen_recipient_has_died: false
+  output:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a#right_to_afterloen_has_ceased_for_recipient_covered_by_section_74_o
+    : not_holds
