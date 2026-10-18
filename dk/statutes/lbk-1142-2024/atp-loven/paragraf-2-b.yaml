@@ -1,0 +1,148 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+    source_sha256: fc9abc407e3ff844832dc7b32e802d50f133bb227838227638dc65eeaf96f66a
+  summary: 'Følgende personer kan efter eget ønske betale bidrag til Arbejdsmarkedets
+    Tillægspension for perioder, hvor de modtager de nævnte ydelser: 1) medlemmer
+    af en arbejdsløshedskasse med overgangsydelse eller efterløn, 2) modtagere af
+    fleksydelse, 3) modtagere af efterløn uden dansk arbejdsløshedskasse efter § 74
+    o og 4) personer omfattet af lov om delpension.'
+inputs:
+- name: person_is_member_of_unemployment_insurance_fund
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_transition_benefit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_early_retirement_benefit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_flex_benefit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_covered_by_partial_pension_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: eligibility_category_1_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 2 b, no. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 1) Personer, der er medlem af en arbejdsløshedskasse
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '1'
+- name: eligibility_category_2_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 2 b, no. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 2) personer, der modtager fleksydelse
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '2'
+- name: eligibility_category_3_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 2 b, no. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 3) personer, der i medfør af § 74 o
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '3'
+- name: eligibility_category_4_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 2 b, no. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 4) personer, der er omfattet af lov om delpension
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '4'
+- name: voluntary_atp_contribution_permitted
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: ATP-loven § 2 b, chapeau and nos. 1-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: kan efter eget ønske betale bidrag til Arbejdsmarkedets Tillægspension
+            for perioder, hvor de modtager de nævnte ydelser
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 1) Personer, der er medlem af en arbejdsløshedskasse, og som modtager
+            overgangsydelse eller efterløn
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 2) personer, der modtager fleksydelse efter lov om fleksydelse
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 3) personer, der i medfør af § 74 o i lov om arbejdsløshedsforsikring
+            m.v., modtager efterløn uden at være medlem af en dansk arbejdsløshedskasse
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-2-b
+          excerpt: 4) personer, der er omfattet af lov om delpension
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '(person_is_member_of_unemployment_insurance_fund
+
+      and (person_receives_transition_benefit
+
+      or person_receives_early_retirement_benefit))
+
+      or person_receives_flex_benefit
+
+      or person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+
+      or person_is_covered_by_partial_pension_act'
