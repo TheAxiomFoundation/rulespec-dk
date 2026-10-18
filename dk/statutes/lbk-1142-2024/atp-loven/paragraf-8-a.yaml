@@ -1,0 +1,70 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-8-a
+    source_sha256: 23c65b3ba4315fe8f86e53df490b6d597bed618f9faccf0b4cce0edc679cdb1d
+  summary: '"Af bidrag, der vedrører tiden fra den 1. juli 1992 indtil den 1. januar
+    2002, ydes en årlig pension på 100 kr. for hvert indbetalt bidragsbeløb på 396
+    kr."'
+inputs:
+- name: paid_contributions_pertaining_to_specified_period
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+rules:
+- name: annual_pension_per_contribution_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: ATP-loven § 8 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-8-a
+          excerpt: ydes en årlig pension på 100 kr.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '100'
+- name: contribution_amount_per_pension_increment
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: ATP-loven § 8 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-8-a
+          excerpt: for hvert indbetalt bidragsbeløb på 396 kr.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '396'
+- name: annual_pension_from_historical_contributions
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: ATP-loven § 8 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-8-a
+          excerpt: Af bidrag, der vedrører tiden fra den 1. juli 1992 indtil den 1.
+            januar 2002, ydes en årlig pension på 100 kr. for hvert indbetalt bidragsbeløb
+            på 396 kr.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: (paid_contributions_pertaining_to_specified_period / contribution_amount_per_pension_increment)
+      * annual_pension_per_contribution_amount
