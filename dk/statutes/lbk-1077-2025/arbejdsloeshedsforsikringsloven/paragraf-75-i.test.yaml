@@ -1,0 +1,48 @@
+- name: eligible_member_receives_rounded_education_loan
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_participates_in_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_is_covered_by_section_48_a_subsection_2
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.highest_unemployment_benefit_rate: 1000
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_previous_unemployment_benefit_rate: 500
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#education_loan_entitlement: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#education_loan_amount: 189
+- name: member_not_in_education_offer_has_no_loan_entitlement
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_participates_in_education_offer_under_section_96
+    : false
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_is_covered_by_section_48_a_subsection_2
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.highest_unemployment_benefit_rate: 1000
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_previous_unemployment_benefit_rate: 500
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#education_loan_entitlement: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#education_loan_amount: 0
+- name: member_covered_by_section_48_a_subsection_2_has_no_loan_entitlement
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_participates_in_education_offer_under_section_96
+    : true
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_is_covered_by_section_48_a_subsection_2
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.highest_unemployment_benefit_rate: 1000
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#input.member_previous_unemployment_benefit_rate: 500
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#education_loan_entitlement: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i#education_loan_amount: 0
