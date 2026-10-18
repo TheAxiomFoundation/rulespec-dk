@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-1500-2025/ligningsloven/paragraf-13-a.yaml",
+      "sha256": "f7f9c179d22bb26b6b30edfc6483cc75d3cfd54e33d7eb39a51c441f971562c2"
+    },
+    {
+      "path": "dk/statutes/lbk-1500-2025/ligningsloven/paragraf-13-a.test.yaml",
+      "sha256": "af0354319921430a625f02839737becb712e68c452d305078a1b39a172e29f73"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-1500-2025-ligningsloven-paragraf-13-a/workspace/context-manifest.json",
+  "context_manifest_sha256": "2e1e1390c488903dcbc977f5e9d9507116b91093328f032b864a93f3201b17df",
+  "generated_at": "2026-08-31T11:03:06.485440+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-1500-2025/ligningsloven/paragraf-13-a.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "f7f9c179d22bb26b6b30edfc6483cc75d3cfd54e33d7eb39a51c441f971562c2",
+  "generation_prompt_sha256": "da48aab232446ef5ac990ab3801e114ec0947a3095403b4744274fb5ab250f2c",
+  "model": "gpt-5.6-terra",
+  "run_id": "d671dc03",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "F0Vcw9LFLDzbi6eSCu/Ub1xuBin/GGa2Zb9AnM2W/x+jCxzZWuIen++mWI+7FjWz5c/z4iLqDq9p0GSrwRfcAg=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2025-11-24",
+    "generation_input_sha256": "bf644ff786f8b3130b939f59654ea09eb7007794d35b907c0451c2ede8486b91",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a",
+    "resolved_corpus_citation_path": "dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a",
+    "resolved_text_sha256": "bf644ff786f8b3130b939f59654ea09eb7007794d35b907c0451c2ede8486b91",
+    "row": {
+      "body_sha256": "bf644ff786f8b3130b939f59654ea09eb7007794d35b907c0451c2ede8486b91",
+      "citation_path": "dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a",
+      "document_class": "statute",
+      "expression_date": "2025-11-24",
+      "jurisdiction": "dk",
+      "line_number": 1199,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "8b0bc834-e81e-5427-a4b4-fbf28fcfdb55",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-1500-2025-ligningsloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "bf644ff786f8b3130b939f59654ea09eb7007794d35b907c0451c2ede8486b91"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-1500-2025-ligningsloven-paragraf-13-a.json",
+  "trace_sha256": "03a6298d0b7ca1495158c712b4bd371e2f997a826dd6ed9b969536dd8732680c",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}

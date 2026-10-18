@@ -1,0 +1,64 @@
+- name: self_employed_person_deducts_own_and_paid_working_spouse_premiums
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_taxable: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_operates_independent_business: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_qualifying_working_spouse: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.spouses_elect_deduction_by_self_employed_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_person: 1200
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_qualifying_working_spouse_paid_by_person
+    : 800
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_paid_by_qualifying_working_spouse: 600
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#deductible_insurance_premium_payments: 2000
+- name: spouses_elect_self_employed_person_for_working_spouse_paid_premiums
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_taxable: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_operates_independent_business: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_qualifying_working_spouse: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.spouses_elect_deduction_by_self_employed_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_person: 1200
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_qualifying_working_spouse_paid_by_person
+    : 800
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_paid_by_qualifying_working_spouse: 600
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#deductible_insurance_premium_payments: 2600
+- name: working_spouse_deducts_own_paid_premiums_after_election
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_taxable: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_operates_independent_business: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_qualifying_working_spouse: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.spouses_elect_deduction_by_self_employed_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_person: 1200
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_qualifying_working_spouse_paid_by_person
+    : 800
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_paid_by_qualifying_working_spouse: 600
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#deductible_insurance_premium_payments: 600
+- name: non_self_employed_non_working_spouse_has_no_deduction_under_section
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_taxable: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_operates_independent_business: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.person_is_qualifying_working_spouse: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.spouses_elect_deduction_by_self_employed_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_person: 1200
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_for_qualifying_working_spouse_paid_by_person
+    : 800
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#input.covered_premium_payments_paid_by_qualifying_working_spouse: 600
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-13-a#deductible_insurance_premium_payments: 0

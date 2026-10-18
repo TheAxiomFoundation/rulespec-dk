@@ -1,0 +1,82 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a
+    source_sha256: bf644ff786f8b3130b939f59654ea09eb7007794d35b907c0451c2ede8486b91
+  summary: '"Ved opgørelsen af den skattepligtige indkomst kan skattepligtige personer,
+    der driver selvstændig erhvervsvirksomhed, fradrage udgifter til præmiebetalinger
+    til syge- og arbejdsskadeforsikringer for sig selv og for en medarbejdende ægtefælle."
+    Stk. 2 permits the spouses to elect whether qualifying premium expenses paid by
+    the working spouse are deducted by the self-employed person or the working spouse.'
+inputs:
+- name: person_is_taxable
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_operates_independent_business
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_is_qualifying_working_spouse
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: spouses_elect_deduction_by_self_employed_person
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: covered_premium_payments_for_person
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: covered_premium_payments_for_qualifying_working_spouse_paid_by_person
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: covered_premium_payments_paid_by_qualifying_working_spouse
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+rules:
+- name: deductible_insurance_premium_payments
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Ligningsloven § 13 A, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a
+          excerpt: 1 finder tilsvarende anvendelse for en medarbejdende ægtefælle,
+            som selv afholder udgifterne til præmiebetalinger til syge- og arbejdsskadeforsikringer.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a
+          excerpt: Det er en betingelse, at forsikringen er omfattet af lov om sygedagpenge
+            eller lov om arbejdsskadesikring.
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-13-a
+          excerpt: Udgifterne efter 1. pkt. kan efter ægtefællernes valg fradrages
+            ved opgørelsen af den skattepligtige indkomst enten hos den selvstændigt
+            erhvervsdrivende eller hos dennes medarbejdende ægtefælle.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: "if person_is_taxable and person_operates_independent_business:\n  covered_premium_payments_for_person\n\
+      \  + covered_premium_payments_for_qualifying_working_spouse_paid_by_person\n\
+      \  + (if spouses_elect_deduction_by_self_employed_person:\n      covered_premium_payments_paid_by_qualifying_working_spouse\n\
+      \    else:\n      0)\nelse:\n  if person_is_taxable\n    and person_is_qualifying_working_spouse\n\
+      \    and not spouses_elect_deduction_by_self_employed_person:\n    covered_premium_payments_paid_by_qualifying_working_spouse\n\
+      \  else:\n    0"
