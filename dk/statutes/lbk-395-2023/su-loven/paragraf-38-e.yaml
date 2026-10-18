@@ -1,0 +1,65 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-38-e
+    source_sha256: 1a0df415b4eb7b72fbd8181874fcdfea5145c292354ab1821d3304be96d5a055
+  summary: Den uddannelsessøgende skal oplyse sit personnummer ved ansøgning om uddannelsesstøtte
+    og ved henvendelse til styrelsen i øvrigt.
+inputs:
+- name: applies_for_education_support
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: provides_personnummer_with_education_support_application
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: contacts_the_agency_other_than_with_education_support_application
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: provides_personnummer_when_contacting_the_agency
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: personnummer_disclosure_with_education_support_application_complied_with
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 38 e, 1. led
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-38-e
+          excerpt: skal oplyse sit personnummer ved ansøgning om uddannelsesstøtte
+  versions:
+  - effective_from: '2023-04-01'
+    formula: 'not applies_for_education_support
+
+      or provides_personnummer_with_education_support_application'
+- name: personnummer_disclosure_when_contacting_the_agency_complied_with
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 38 e, 2. led
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-38-e
+          excerpt: ved henvendelse til styrelsen i øvrigt
+  versions:
+  - effective_from: '2023-04-01'
+    formula: 'not contacts_the_agency_other_than_with_education_support_application
+
+      or provides_personnummer_when_contacting_the_agency'

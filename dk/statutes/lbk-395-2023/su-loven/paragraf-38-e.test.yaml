@@ -1,0 +1,42 @@
+- name: education_support_application_with_personnummer_complies
+  period: 2023-04
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.applies_for_education_support: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.provides_personnummer_with_education_support_application: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#personnummer_disclosure_with_education_support_application_complied_with: holds
+- name: education_support_application_without_personnummer_does_not_comply
+  period: 2023-04
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.applies_for_education_support: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.provides_personnummer_with_education_support_application: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#personnummer_disclosure_with_education_support_application_complied_with: not_holds
+- name: no_education_support_application_is_inapplicable
+  period: 2023-04
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.applies_for_education_support: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.provides_personnummer_with_education_support_application: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#personnummer_disclosure_with_education_support_application_complied_with: holds
+- name: agency_contact_with_personnummer_complies
+  period: 2023-04
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.contacts_the_agency_other_than_with_education_support_application: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.provides_personnummer_when_contacting_the_agency: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#personnummer_disclosure_when_contacting_the_agency_complied_with: holds
+- name: agency_contact_without_personnummer_does_not_comply
+  period: 2023-04
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.contacts_the_agency_other_than_with_education_support_application: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.provides_personnummer_when_contacting_the_agency: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#personnummer_disclosure_when_contacting_the_agency_complied_with: not_holds
+- name: no_agency_contact_is_inapplicable
+  period: 2023-04
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.contacts_the_agency_other_than_with_education_support_application: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#input.provides_personnummer_when_contacting_the_agency: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-38-e#personnummer_disclosure_when_contacting_the_agency_complied_with: holds
