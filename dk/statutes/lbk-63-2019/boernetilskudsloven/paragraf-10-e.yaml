@@ -1,0 +1,161 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+    source_sha256: badb5679ece5da1004ee2cdac8e0e7ffd34e8fc1df8ba92c8014e1b9d8d19a15
+  summary: '§ 10 e, stk. 1-2: Supplerende børnetilskud beregnes som 55 pct. af forskellen
+    mellem den relevante SU-sum og ansøgerens aktuelle indtægt. Stk. 3: Aktuel indtægt
+    er personlig indkomst plus positiv kapitalindkomst og aktieindkomst, bortset fra
+    udbytteindkomst op til 5.000 kr.'
+inputs:
+- name: personal_income_before_basic_amounts_and_bottom_deductions
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: positive_capital_income_used_for_income_tax_under_section_7
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: non_dividend_share_income_taxed_under_section_8_a
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: dividend_income_taxed_under_section_8_a
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: stipendium_under_su_law_section_8_subsection_1_number_2
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: su_amount_under_section_10_b_subsection_1
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: su_amount_under_section_10_b_subsection_2
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+rules:
+- name: supplementary_child_allowance_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 10 e, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: beregnes som 55 pct. af forskellen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.55'
+- name: dividend_income_disregard
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 10 e, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: udbytteindkomst op til 5.000 kr.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '5000'
+- name: current_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 10 e, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: Ansøgerens aktuelle indtægt opgøres som personlig indkomst med
+            tillæg af positiv kapitalindkomst
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: bortset fra udbytteindkomst op til 5.000 kr.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'personal_income_before_basic_amounts_and_bottom_deductions
+
+      + positive_capital_income_used_for_income_tax_under_section_7
+
+      + non_dividend_share_income_taxed_under_section_8_a
+
+      + max(0, dividend_income_taxed_under_section_8_a - dividend_income_disregard)'
+- name: supplementary_child_allowance_for_single_provider
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 10 e, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: Supplerende børnetilskud for en enlig forsørger beregnes som 55
+            pct. af forskellen
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: stipendium, jf. § 8, stk. 1, nr. 2, og § 10 b, stk. 1, i SU-loven
+  versions:
+  - effective_from: '2019-01-21'
+    formula: "max(0, supplementary_child_allowance_rate * (\n  stipendium_under_su_law_section_8_subsection_1_number_2\n\
+      \  + su_amount_under_section_10_b_subsection_1\n  - current_income\n))"
+- name: supplementary_child_allowance_for_cohabiting_provider
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 10 e, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: Supplerende børnetilskud for en samlevende forsørger beregnes som
+            55 pct. af forskellen
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-10-e
+          excerpt: stipendium, jf. § 8, stk. 1, nr. 2, og § 10 b, stk. 2, i SU-loven
+  versions:
+  - effective_from: '2019-01-21'
+    formula: "max(0, supplementary_child_allowance_rate * (\n  stipendium_under_su_law_section_8_subsection_1_number_2\n\
+      \  + su_amount_under_section_10_b_subsection_2\n  - current_income\n))"
