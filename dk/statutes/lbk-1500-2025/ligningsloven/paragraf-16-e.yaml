@@ -1,0 +1,132 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+    source_sha256: 5e27f03fd21b8b4c65af4873b90fbdc7353eb1d1e0083111c9699e064fce67b3
+  summary: Hvis et omfattet selskab m.v. direkte eller indirekte yder lån til en fysisk
+    person med forbindelse efter § 2, behandles lånet som hævning uden tilbagebetalingspligt.
+    Dette gælder tilsvarende for sikkerhedsstillelser og midler stillet til rådighed,
+    med undtagelser for sædvanlige forretningsmæssige dispositioner, sædvanlige pengeinstitutlån
+    og selvfinansieringslån efter selskabsloven § 206, stk. 2. Tilbagebetaling af
+    beskattede lån m.v. medregnes ikke i selskabets skattepligtige indkomst.
+rules:
+- name: self_financing_loan_reference_subsection
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Ligningsloven § 16 E, stk. 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+          excerpt: lån til selvfinansiering som nævnt i selskabsloven § 206, stk.
+            2
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '2'
+- name: repayment_excluded_from_corporation_taxable_income
+  kind: derived
+  entity: Corporation
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 16 E, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+          excerpt: Ved tilbagebetaling af lån m.v., der er beskattet efter stk. 1,
+            medregnes det tilbagebetalte ikke ved opgørelsen af selskabets skattepligtige
+            indkomst.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: max(0, repaid_amount_of_loan_or_related_advance_taxed_under_subsection_1)
+- name: advance_treated_as_withdrawal_without_repayment_obligation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 16 E, stk. 1, 1.-3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+          excerpt: behandles lånet efter skattelovgivningens almindelige regler om
+            hævninger uden tilbagebetalingspligt
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+          excerpt: forudsat at der mellem långiver og låntager er en forbindelse omfattet
+            af § 2
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+          excerpt: finder ikke anvendelse på lån, der ydes som led i en sædvanlig
+            forretningsmæssig disposition
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+          excerpt: på sædvanlige lån fra pengeinstitutter eller på lån til selvfinansiering
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-16-e
+          excerpt: finder tilsvarende anvendelse på sikkerhedsstillelser og på midler,
+            der stilles til rådighed
+  versions:
+  - effective_from: '2025-11-24'
+    formula: "lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent\n\
+      and (\n  lender_directly_or_indirectly_lends_to_person\n  or lender_provides_security_to_person\n\
+      \  or lender_makes_funds_available_to_person\n)\nand lender_and_person_have_connection_covered_by_section_2\n\
+      and not advance_is_part_of_ordinary_business_transaction\nand not advance_is_customary_loan_from_credit_institution\n\
+      and not advance_is_self_financing_loan_under_companies_act_section_206_subsection_2"
+inputs:
+- name: lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: lender_directly_or_indirectly_lends_to_person
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: lender_provides_security_to_person
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: lender_makes_funds_available_to_person
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: lender_and_person_have_connection_covered_by_section_2
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: advance_is_part_of_ordinary_business_transaction
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: advance_is_customary_loan_from_credit_institution
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: repaid_amount_of_loan_or_related_advance_taxed_under_subsection_1
+  entity: Corporation
+  dtype: Money
+  period: Year
