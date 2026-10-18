@@ -1,0 +1,417 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+    source_sha256: 6283d71504b3d0e69cde92a399eab813514b190a8ef483173327e099db8f2731
+  summary: Kommunen indbetaler ATP-bidrag for personer, der er fyldt 16 år, og som
+    modtager hjælp efter de nævnte bestemmelser. For § 16, stk. 1, nr. 2 kræves 12
+    sammenhængende måneder samt ingen angivne nedsættelser eller fradrag. For øvrige
+    nævnte ydelser gælder beregnede månedlige minimumsydelser på 16.382 kr. eller
+    12.326 kr. i 2024-niveau. ATP-bidrag indbetales ikke ved tilbagebetalingspligt
+    efter § 93.
+rules:
+- name: minimum_age_for_atp_contribution
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: personer, der er fyldt 16 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '16'
+- name: section_16_qualifying_period_months
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: en sammenhængende periode på 12 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12'
+- name: section_10_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 10 f, 10 h og 10 j
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '10'
+- name: section_36_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 30-33, 36-40 a, 42 og 43
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '36'
+- name: section_40_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 30-33, 36-40 a, 42 og 43
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '40'
+- name: section_42_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 30-33, 36-40 a, 42 og 43
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '42'
+- name: section_43_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 30-33, 36-40 a, 42 og 43
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '43'
+- name: section_69_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 1 og stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 68 og 69 j
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '69'
+- name: section_73_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 68 a, 69 j, 73 f og 73 g
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '73'
+- name: minimum_help_amount_price_level_year
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2024'
+- name: other_help_satisfies_atp_payment_conditions
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: den månedlige ydelse, der er beregnet, efter at der er foretaget
+            fradrag efter reglerne i §§ 68 a, 69 j, 73 f og 73 g og § 74 d, stk. 2
+            og 3
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: mindst udgør 16.382 kr. (2024-niveau) til en person med forsørgelsespligt
+            over for et eller flere børn
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: mindst udgør 12.326 kr. (2024-niveau) til andre
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "receives_help_under_sections_68_69_j_71_or_74_a\nand (\n  (person_has_maintenance_obligation_for_one_or_more_children\n\
+      \    and monthly_help_calculated_after_deductions_under_sections_68_a_69_j_73_f_73_g_and_section_74_d\
+      \ >= monthly_help_minimum_for_person_with_maintenance_obligation)\n  or (\n\
+      \    not person_has_maintenance_obligation_for_one_or_more_children\n    and\
+      \ monthly_help_calculated_after_deductions_under_sections_68_a_69_j_73_f_73_g_and_section_74_d\
+      \ >= monthly_help_minimum_for_other_persons\n  )\n)"
+- name: monthly_help_minimum_for_person_with_maintenance_obligation
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: mindst udgør 16.382 kr. (2024-niveau) til en person med forsørgelsespligt
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '16382'
+- name: monthly_help_minimum_for_other_persons
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 79, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: mindst udgør 12.326 kr. (2024-niveau) til andre
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12326'
+- name: receives_help_under_sections_68_69_j_71_or_74_a
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 79, stk. 1 og stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: §§ 68 og 69 j, § 71, stk. 1, og § 74 a, stk. 2 og 3
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'receives_help_under_section_68
+
+      or receives_help_under_section_69_j
+
+      or receives_help_under_section_71_subsection_1
+
+      or receives_help_under_section_74_a_subsection_2_or_3'
+- name: section_16_help_satisfies_atp_payment_conditions
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 79, stk. 2-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: en sammenhængende periode på 12 måneder
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: hjælpen ikke er nedsat efter §§ 10 f, 10 h og 10 j og § 26, stk.
+            2
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: ikke er foretaget fradrag i hjælpen efter reglerne i §§ 30-33,
+            36-40 a, 42 og 43
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'receives_help_under_section_16_subsection_1_number_2
+
+      and has_received_section_16_subsection_1_number_2_help_for_12_consecutive_months
+
+      and section_16_help_is_not_reduced_under_section_10_f
+
+      and section_16_help_is_not_reduced_under_section_10_h
+
+      and section_16_help_is_not_reduced_under_section_10_j
+
+      and section_16_help_is_not_reduced_under_section_26_subsection_2
+
+      and no_deduction_in_section_16_help_under_sections_30_to_33
+
+      and no_deduction_in_section_16_help_under_sections_36_to_40_a
+
+      and no_deduction_in_section_16_help_under_section_42
+
+      and no_deduction_in_section_16_help_under_section_43'
+- name: atp_contribution_must_be_paid_for_person
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 79, stk. 1 og stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: personer, der er fyldt 16 år
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: Kommunen indbetaler ikke ATP-bidrag, hvis hjælpen er ydet med tilbagebetalingspligt
+            efter § 93.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-79
+          excerpt: Kommunen indbetaler ikke ATP-bidrag, hvis hjælpen er ydet med tilbagebetalingspligt
+            efter § 93
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "person_is_at_least_16_years_old\nand (\n  section_16_help_satisfies_atp_payment_conditions\n\
+      \  or other_help_satisfies_atp_payment_conditions\n)\nand not help_is_provided_with_repayment_obligation_under_section_93"
+inputs:
+- name: person_is_at_least_16_years_old
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_help_under_section_16_subsection_1_number_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_received_section_16_subsection_1_number_2_help_for_12_consecutive_months
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: section_16_help_is_not_reduced_under_section_10_f
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: section_16_help_is_not_reduced_under_section_10_h
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: section_16_help_is_not_reduced_under_section_10_j
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: section_16_help_is_not_reduced_under_section_26_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: no_deduction_in_section_16_help_under_sections_30_to_33
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: no_deduction_in_section_16_help_under_sections_36_to_40_a
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: no_deduction_in_section_16_help_under_section_42
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: no_deduction_in_section_16_help_under_section_43
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_help_under_section_68
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_help_under_section_69_j
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_help_under_section_71_subsection_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: receives_help_under_section_74_a_subsection_2_or_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_maintenance_obligation_for_one_or_more_children
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: monthly_help_calculated_after_deductions_under_sections_68_a_69_j_73_f_73_g_and_section_74_d
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: help_is_provided_with_repayment_obligation_under_section_93
+  entity: Person
+  dtype: Boolean
+  period: Month
