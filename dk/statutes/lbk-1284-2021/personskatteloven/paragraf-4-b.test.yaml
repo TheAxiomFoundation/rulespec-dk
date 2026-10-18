@@ -1,0 +1,12 @@
+- name: cfc_income_sums_income_referred_to_in_ligningsloven
+  period:
+    period_kind: tax_year
+    start: '2021-06-14'
+    end: '2021-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-b#input.cfc_income_under_ligningsloven_section_16_h: 1200
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-b#input.cfc_income_under_ligningsloven_section_16_i_subsections_6_and_7
+    : 800
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-b#cfc_income: 2000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-b#cfc_income_included_in_taxable_income_for_sections_6_to_8_a: not_holds
