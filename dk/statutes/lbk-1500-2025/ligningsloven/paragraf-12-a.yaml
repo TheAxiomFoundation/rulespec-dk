@@ -1,0 +1,268 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+    source_sha256: 06d7646875314067e205835670640cd5424572d0ea5e10238a2bd1bfe8409ecb
+  summary: § 12 A. Ejendomsværdiskat betales som ved ejerens egen beboelse, når boligen
+    stilles til rådighed for ejerens eller ægtefællens forældre, stedforældre eller
+    bedsteforældre. Kun lejebetaling over 250 pct. af ejendomsværdiskatten medregnes.
+    Boligen skal ligge i tilknytning til ejerens eller ægtefællens bolig, og en slægtning
+    skal have den angivne pensionsstatus. Stk. 2 sidestiller en samlever gennem de
+    sidste to år med en ægtefælle.
+inputs:
+- name: dwelling_would_be_subject_to_property_value_tax_if_owner_occupied
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: dwelling_is_adjacent_to_owner_or_spouse_occupied_dwelling
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: housing_is_available_to_owners_parent
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: housing_is_available_to_owners_stepparent
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: housing_is_available_to_owners_grandparent
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: owner_has_spouse
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: cohabitant_has_lived_with_owner_during_last_two_years_before_housing_is_available
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: housing_is_available_to_spouse_equivalents_parent
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: housing_is_available_to_spouse_equivalents_stepparent
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: housing_is_available_to_spouse_equivalents_grandparent
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: parent_stepparent_or_grandparent_is_disability_pensioner
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: parent_stepparent_or_grandparent_is_senior_pensioner
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: parent_stepparent_or_grandparent_is_early_retirement_pensioner
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: parent_stepparent_or_grandparent_receives_unemployment_early_retirement_benefit
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: parent_stepparent_or_grandparent_receives_flexible_early_retirement_benefit
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: parent_stepparent_or_grandparent_has_reached_state_pension_age
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: property_value_tax_if_owner_occupied
+  entity: Person
+  dtype: Money
+  period: Year
+- name: rental_payment_for_housing
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: rental_payment_income_inclusion_multiplier
+  kind: parameter
+  dtype: Rate
+  source: Ligningsloven § 12 A, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: overstiger 250 pct. af ejendomsværdiskatten
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '2.5'
+- name: cohabitant_treated_as_spouse
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 12 A, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: Den skattepligtiges samlever gennem de sidste to år, inden friboligen
+            stilles til rådighed, sidestilles med en ægtefælle.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: cohabitant_has_lived_with_owner_during_last_two_years_before_housing_is_available
+- name: spouse_equivalent_exists
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 12 A, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: ejerens eller dennes ægtefælles
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: Den skattepligtiges samlever gennem de sidste to år, inden friboligen
+            stilles til rådighed, sidestilles med en ægtefælle.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: owner_has_spouse or cohabitant_treated_as_spouse
+- name: housing_available_to_qualifying_relative
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 12 A, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: ejerens eller dennes ægtefælles forældre, stedforældre eller bedsteforældre
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'housing_is_available_to_owners_parent
+
+      or housing_is_available_to_owners_stepparent
+
+      or housing_is_available_to_owners_grandparent
+
+      or (spouse_equivalent_exists and housing_is_available_to_spouse_equivalents_parent)
+
+      or (spouse_equivalent_exists and housing_is_available_to_spouse_equivalents_stepparent)
+
+      or (spouse_equivalent_exists and housing_is_available_to_spouse_equivalents_grandparent)'
+- name: qualifying_relative_has_required_pension_status
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 12 A, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: førtidspensionist, seniorpensionist, tidlig pensionist, efterlønsmodtager,
+            fleksydelsesmodtager eller har nået folkepensionsalderen
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'parent_stepparent_or_grandparent_is_disability_pensioner
+
+      or parent_stepparent_or_grandparent_is_senior_pensioner
+
+      or parent_stepparent_or_grandparent_is_early_retirement_pensioner
+
+      or parent_stepparent_or_grandparent_receives_unemployment_early_retirement_benefit
+
+      or parent_stepparent_or_grandparent_receives_flexible_early_retirement_benefit
+
+      or parent_stepparent_or_grandparent_has_reached_state_pension_age'
+- name: special_housing_arrangement_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 12 A, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: Det er en betingelse, at boligen, der stilles til rådighed, findes
+            i tilknytning til en bolig, som den skattepligtige eller dennes ægtefælle
+            bebor.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: Det er endvidere en betingelse, at en af forældrene, stedforældrene
+            eller bedsteforældrene er
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'dwelling_would_be_subject_to_property_value_tax_if_owner_occupied
+
+      and housing_available_to_qualifying_relative
+
+      and dwelling_is_adjacent_to_owner_or_spouse_occupied_dwelling
+
+      and qualifying_relative_has_required_pension_status'
+- name: property_value_tax_for_special_housing_arrangement
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 12 A, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: betales der ejendomsværdiskat svarende til, hvad der skulle være
+            betalt i ejendomsværdiskat, såfremt ejeren selv beboede boligen
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'if special_housing_arrangement_applies: property_value_tax_if_owner_occupied
+      else: 0'
+- name: taxable_rental_payment_for_special_housing_arrangement
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 12 A, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-12-a
+          excerpt: Til den skattepligtige indkomst medregnes kun den del af en eventuel
+            lejebetaling, der overstiger 250 pct. af ejendomsværdiskatten.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'if special_housing_arrangement_applies: max(0, rental_payment_for_housing
+      - (rental_payment_income_inclusion_multiplier * property_value_tax_for_special_housing_arrangement))
+      else: 0'
