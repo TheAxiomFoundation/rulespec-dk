@@ -1,0 +1,95 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-87
+    source_sha256: f9613cca287cb738df15415fd257d696e7758a599f1424532e4a6c91c7ef8543
+  summary: Told- og skatteforvaltningen kan pålægge virksomhedens ejer eller ansvarlige
+    daglige ledelse daglige bøder ved manglende efterlevelse af påbud efter § 85,
+    stk. 4 og 5. Bøderne skal udgøre mindst 1.000 kr. pr. dag.
+inputs:
+- name: person_is_owner_of_business
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_is_responsible_for_daily_management_of_that_business
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_has_failed_to_comply_with_order_under_section_85_subsections_4_or_5
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: daily_fine_has_been_imposed
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: daily_fine_amount
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Day
+rules:
+- name: minimum_daily_fine_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Day
+  source: Kildeskatteloven § 87, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-87
+          excerpt: mindst 1.000 kr. pr. dag
+  versions:
+  - effective_from: '2024-05-03'
+    formula: '1000'
+- name: daily_fine_may_be_imposed
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Kildeskatteloven § 87, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-87
+          excerpt: kan pålægge ejeren af en virksomhed eller den ansvarlige daglige
+            ledelse heraf daglige bøder for manglende efterlevelse af påbud efter
+            § 85, stk. 4 og 5
+  versions:
+  - effective_from: '2024-05-03'
+    formula: '(person_is_owner_of_business or person_is_responsible_for_daily_management_of_that_business)
+
+      and person_has_failed_to_comply_with_order_under_section_85_subsections_4_or_5'
+- name: imposed_daily_fine_satisfies_minimum
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Kildeskatteloven § 87, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-87
+          excerpt: De daglige bøder skal udgøre mindst 1.000 kr. pr. dag.
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-87
+          excerpt: mindst 1.000 kr. pr. dag
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'daily_fine_has_been_imposed
+
+      and daily_fine_amount >= minimum_daily_fine_amount'
