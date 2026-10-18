@@ -1,0 +1,44 @@
+- name: chapter_4_recipient_with_unpaid_offer_payment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_4: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_6c: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_has_unpaid_payment_for_day_or_club_offer_under_daytilbudsloven_or_barnets_lov
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.future_monthly_payment_for_day_or_club_offer: 1200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#municipality_may_deduct_future_monthly_payment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#deductible_future_monthly_payment: 1200
+- name: chapter_6c_recipient_with_unpaid_offer_payment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_4: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_6c: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_has_unpaid_payment_for_day_or_club_offer_under_daytilbudsloven_or_barnets_lov
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.future_monthly_payment_for_day_or_club_offer: 1200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#municipality_may_deduct_future_monthly_payment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#deductible_future_monthly_payment: 1200
+- name: no_assistance_under_the_specified_chapters
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_4: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_6c: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_has_unpaid_payment_for_day_or_club_offer_under_daytilbudsloven_or_barnets_lov
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.future_monthly_payment_for_day_or_club_offer: 1200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#municipality_may_deduct_future_monthly_payment: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#deductible_future_monthly_payment: 0
+- name: payment_has_been_paid
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_4: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_receives_assistance_under_chapter_6c: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.person_has_unpaid_payment_for_day_or_club_offer_under_daytilbudsloven_or_barnets_lov
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#input.future_monthly_payment_for_day_or_club_offer: 1200
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#municipality_may_deduct_future_monthly_payment: not_holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-96#deductible_future_monthly_payment: 0
