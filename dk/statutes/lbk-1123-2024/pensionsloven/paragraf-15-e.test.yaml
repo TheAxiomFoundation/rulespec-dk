@@ -1,0 +1,76 @@
+- name: lifelong_supplement_waiting_percentage_at_deferral_cessation
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.deferral_has_ceased: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.cessation_is_due_to_death: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.whole_months_pension_deferred: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.supplement_payment_months: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_at_cessation: 300
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_over_ten_year_period_at_cessation
+    : 240
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage_is_calculated: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage: 0.08
+- name: deferral_not_ceased_does_not_calculate_waiting_percentage
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.deferral_has_ceased: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.cessation_is_due_to_death: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.whole_months_pension_deferred: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.supplement_payment_months: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_at_cessation: 300
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_over_ten_year_period_at_cessation
+    : 240
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage_is_calculated: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage: 0
+- name: death_cessation_does_not_calculate_waiting_percentage
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.deferral_has_ceased: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.cessation_is_due_to_death: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.whole_months_pension_deferred: 25
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.supplement_payment_months: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_at_cessation: 300
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_over_ten_year_period_at_cessation
+    : 240
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage_is_calculated: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage: 0
+- name: one_hundred_twenty_month_supplement_waiting_percentage
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.deferral_has_ceased: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.cessation_is_due_to_death: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.whole_months_pension_deferred: 15
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.supplement_payment_months: 120
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_at_cessation: 300
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.life_expectancy_in_whole_months_over_ten_year_period_at_cessation
+    : 240
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage_is_calculated: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage: 0.06
+- name: separately_assessed_periods_when_pension_was_deferred_twice
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.folkepension_deferred_twice_with_intervening_pension_payment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage_is_assessed_for_each_deferral_period: holds
+- name: no_separate_period_assessment_when_pension_not_deferred_twice
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.folkepension_deferred_twice_with_intervening_pension_payment: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#waiting_percentage_is_assessed_for_each_deferral_period: not_holds
+- name: lump_sum_is_prohibited_after_death_cessation
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.cessation_is_due_to_death: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#lump_sum_payment_after_death_cessation_is_prohibited: holds
+- name: lump_sum_prohibition_does_not_hold_without_death_cessation
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#input.cessation_is_due_to_death: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-e#lump_sum_payment_after_death_cessation_is_prohibited: not_holds
