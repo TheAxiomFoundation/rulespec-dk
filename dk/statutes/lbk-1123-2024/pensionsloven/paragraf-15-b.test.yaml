@@ -1,0 +1,88 @@
+- name: compliant_deferral_request_submission
+  period: 2024-10
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.deferral_request_submitted_simultaneously_with_or_after_pension_application
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_submission_complies: holds
+- name: late_invalid_deferral_request_submission
+  period: 2024-10
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.deferral_request_submitted_simultaneously_with_or_after_pension_application
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_submission_complies: not_holds
+- name: deferral_request_effective_when_first_day_and_pension_payable
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.deferral_request_submitted_simultaneously_with_or_after_pension_application
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.day_of_month: 1
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.old_age_pension_can_be_paid_on_day: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_submission_complies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_effective_on_day: holds
+- name: deferral_request_not_effective_before_first_day
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-31'
+    end: '2024-10-31'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.deferral_request_submitted_simultaneously_with_or_after_pension_application
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.day_of_month: 2
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.old_age_pension_can_be_paid_on_day: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_submission_complies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_effective_on_day: not_holds
+- name: deferral_request_not_effective_before_pension_payable
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.deferral_request_submitted_simultaneously_with_or_after_pension_application
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.day_of_month: 1
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.old_age_pension_can_be_paid_on_day: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_submission_complies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#deferral_request_effective_on_day: not_holds
+- name: first_pension_deferral_available
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.prior_pension_deferral_count: 0
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.intervening_pension_payment_has_occurred_since_previous_deferral
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#further_pension_deferral_available: holds
+- name: second_pension_deferral_available_after_intervening_payment
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.prior_pension_deferral_count: 1
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.intervening_pension_payment_has_occurred_since_previous_deferral
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#further_pension_deferral_available: holds
+- name: further_deferral_unavailable_without_intervening_payment
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.prior_pension_deferral_count: 1
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.intervening_pension_payment_has_occurred_since_previous_deferral
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#further_pension_deferral_available: not_holds
+- name: further_deferral_unavailable_after_maximum_count
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.prior_pension_deferral_count: 2
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#input.intervening_pension_payment_has_occurred_since_previous_deferral
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-b#further_pension_deferral_available: not_holds
