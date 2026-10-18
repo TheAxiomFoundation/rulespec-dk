@@ -1,0 +1,135 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17
+    source_sha256: 55c94895fd6caa9b5719082fb60e6b2b1e0ebd3cff4446e4253b90bf08307bb9
+  summary: Renter af gæld kan ikke fradrages ved opgørelsen af den skattepligtige
+    indkomst i det omfang, skyldneren som gave eller som arveforskud har påtaget sig
+    gælden over for livsarvinger eller disses ægtefæller eller over for fonds, legater
+    eller lignende, der helt eller delvis er oprettet til fordel for bestemte familier.
+    Stedbørn og plejebørn sidestilles med livsarvinger.
+inputs:
+- name: interest_on_debt
+  entity: Person
+  dtype: Money
+  period: Year
+- name: debtor_assumed_debt_as_gift
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: debtor_assumed_debt_as_advance_inheritance
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: debt_creditor_is_lineal_descendant
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: debt_creditor_is_stepchild_or_fosterchild
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: debt_creditor_is_spouse_of_lineal_descendant
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: debt_creditor_is_family_benefit_foundation_or_similar
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: debt_assumed_as_gift_or_advance_inheritance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 17, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17
+          excerpt: som gave eller som arveforskud har påtaget sig gælden
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'debtor_assumed_debt_as_gift
+
+      or debtor_assumed_debt_as_advance_inheritance'
+- name: debt_creditor_is_lineal_descendant_or_equated_child
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 17, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17
+          excerpt: Stedbørn og plejebørn sidestilles med livsarvinger.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'debt_creditor_is_lineal_descendant
+
+      or debt_creditor_is_stepchild_or_fosterchild'
+- name: debt_creditor_is_disqualifying_recipient
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 17, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17
+          excerpt: livsarvinger eller disses ægtefæller eller over for fonds, legater
+            eller lignende
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17
+          excerpt: Stedbørn og plejebørn sidestilles med livsarvinger.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'debt_creditor_is_lineal_descendant_or_equated_child
+
+      or debt_creditor_is_spouse_of_lineal_descendant
+
+      or debt_creditor_is_family_benefit_foundation_or_similar'
+- name: non_deductible_interest_on_assumed_debt
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 17, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17
+          excerpt: Renter af gæld kan ikke fradrages ved opgørelsen af den skattepligtige
+            indkomst i det omfang, skyldneren som gave eller som arveforskud har påtaget
+            sig gælden over for livsarvinger eller disses ægtefæller eller over for
+            fonds, legater eller lignende, der helt eller delvis er oprettet til fordel
+            for bestemte familier.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17
+          excerpt: over for livsarvinger eller disses ægtefæller eller over for fonds,
+            legater eller lignende
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'if debt_assumed_as_gift_or_advance_inheritance and debt_creditor_is_disqualifying_recipient:
+      interest_on_debt else: 0'
