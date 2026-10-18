@@ -1,0 +1,33 @@
+- name: benefit_is_reduced_to_preserve_monthly_cap
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.member_receives_non_act_benefits_due_to_unemployment
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.unreduced_monthly_unemployment_benefit: 1000
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.monthly_non_act_benefits_due_to_unemployment: 800
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.maximum_monthly_unemployment_benefit_payable_under_sections_48_5_and_49_5_and_6
+    : 1500
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#coordinated_monthly_unemployment_benefit: 700
+- name: benefit_is_not_reduced_when_total_is_within_cap
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.member_receives_non_act_benefits_due_to_unemployment
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.unreduced_monthly_unemployment_benefit: 1000
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.monthly_non_act_benefits_due_to_unemployment: 300
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.maximum_monthly_unemployment_benefit_payable_under_sections_48_5_and_49_5_and_6
+    : 1500
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#coordinated_monthly_unemployment_benefit: 1000
+- name: no_coordination_without_non_act_benefits_due_to_unemployment
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.member_receives_non_act_benefits_due_to_unemployment
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.unreduced_monthly_unemployment_benefit: 1000
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.monthly_non_act_benefits_due_to_unemployment: 800
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#input.maximum_monthly_unemployment_benefit_payable_under_sections_48_5_and_49_5_and_6
+    : 1500
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51#coordinated_monthly_unemployment_benefit: 1000
