@@ -1,0 +1,109 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36
+    source_sha256: ed827b0e3d0c7ac8db1f54e44337ec024d2ac0c2b604ff1e18e9c39c59c2dca4
+  summary: Forinden afgiftsberegningen afrundes det afgiftspligtige beløb nedad til
+    det nærmeste kronebeløb, der kan deles med 100. Er beløbet mindre end 100 kr.,
+    svares ingen afgift. Ved betaling og opkrævning af afgift efter denne lov betales
+    og opkræves kun hele kronebeløb.
+inputs:
+- name: taxable_amount_before_rounding
+  entity: TaxUnit
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: tax_amount_paid_or_collected
+  entity: TaxUnit
+  dtype: Money
+  unit: DKK
+  period: Year
+rules:
+- name: taxable_amount_rounding_increment
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: § 36, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36
+          excerpt: kronebeløb, der kan deles med 100
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '100'
+- name: minimum_taxable_amount_for_tax
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: § 36, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36
+          excerpt: Er beløbet mindre end 100 kr., svares ingen afgift.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '100'
+- name: taxable_amount_after_rounding
+  kind: derived
+  entity: TaxUnit
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: § 36, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36
+          excerpt: afrundes det afgiftspligtige beløb nedad til det nærmeste kronebeløb,
+            der kan deles med 100
+  versions:
+  - effective_from: '2024-11-26'
+    formula: floor(taxable_amount_before_rounding / taxable_amount_rounding_increment)
+      * taxable_amount_rounding_increment
+- name: tax_is_payable
+  kind: derived
+  entity: TaxUnit
+  dtype: Judgment
+  period: Year
+  source: § 36, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36
+          excerpt: Er beløbet mindre end 100 kr., svares ingen afgift.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: taxable_amount_before_rounding >= minimum_taxable_amount_for_tax
+- name: tax_payment_or_collection_is_whole_krone
+  kind: derived
+  entity: TaxUnit
+  dtype: Judgment
+  period: Year
+  source: § 36, stk. 2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: unit
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-36
+          excerpt: betales og opkræves kun hele kronebeløb
+  versions:
+  - effective_from: '2024-11-26'
+    formula: tax_amount_paid_or_collected == floor(tax_amount_paid_or_collected)
