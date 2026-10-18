@@ -1,0 +1,124 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-3
+    source_sha256: 9c61f81c5e39f719d16c607aceb140bb09a3d082756bf8514f00ef0b0afad40d
+  summary: Der ydes et ekstra børnetilskud, som udgør 3.360 kr. årlig, hvis der ydes
+    ordinært børnetilskud efter § 2, nr. 1, nr. 2, eller nr. 3, og indehaveren af
+    forældremyndigheden har barnet hos sig. Der ydes kun et ekstra børnetilskud uanset
+    antallet af børn.
+inputs:
+- name: ordinary_child_supplement_is_paid_under_section_2_number_1
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: ordinary_child_supplement_is_paid_under_section_2_number_2
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: ordinary_child_supplement_is_paid_under_section_2_number_3
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: parental_authority_holder_has_child_with_them
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: annual_extra_child_supplement_amount
+  kind: parameter
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: § 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-3
+          excerpt: udgør 3.360 kr. årlig
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '3360'
+- name: maximum_extra_child_supplements_per_parental_authority_holder
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: § 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-3
+          excerpt: Der ydes kun et ekstra børnetilskud uanset antallet af børn.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '1'
+- name: eligible_for_extra_child_supplement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-3
+          excerpt: hvis der ydes ordinært børnetilskud efter § 2, nr. 1, nr. 2, eller
+            nr. 3, og indehaveren af forældremyndigheden har barnet hos sig
+  versions:
+  - effective_from: '2019-01-21'
+    formula: "parental_authority_holder_has_child_with_them\nand (\n  ordinary_child_supplement_is_paid_under_section_2_number_1\n\
+      \  or ordinary_child_supplement_is_paid_under_section_2_number_2\n  or ordinary_child_supplement_is_paid_under_section_2_number_3\n\
+      )"
+- name: extra_child_supplement_count
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Year
+  source: § 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-3
+          excerpt: Der ydes kun et ekstra børnetilskud uanset antallet af børn.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'if eligible_for_extra_child_supplement: maximum_extra_child_supplements_per_parental_authority_holder
+      else: 0'
+- name: extra_child_supplement
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: § 3, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-3
+          excerpt: Der ydes endvidere et ekstra børnetilskud, som udgør 3.360 kr.
+            årlig
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-3
+          excerpt: Der ydes kun et ekstra børnetilskud uanset antallet af børn.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: extra_child_supplement_count * annual_extra_child_supplement_amount
