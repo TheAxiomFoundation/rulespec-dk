@@ -1,0 +1,132 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+    source_sha256: 49348fcfb24e96347b181a7d3b2d6d2af91e86f5892bf2c56706cd3f58af9542
+  summary: Afgørelser truffet af Udbetaling Danmark, jf. kapitel 11 c, kan af den,
+    som afgørelsen vedrører, indbringes for Ankestyrelsens Beskæftigelsesudvalg. Klagen
+    skal indbringes, inden 4 uger efter at klageren har fået meddelelse om afgørelsen.
+inputs:
+- name: decision_is_made_by_udbetaling_danmark_under_chapter_11_c
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: decision_concerns_person
+  entity: Person
+  dtype: Boolean
+  period: Week
+- name: weeks_after_notice_of_decision_when_appeal_is_brought
+  entity: Person
+  dtype: Decimal
+  period: Week
+rules:
+- name: udbetaling_danmark_decision_chapter_number
+  kind: parameter
+  dtype: Integer
+  source: § 100, 1. pkt. (kapitel 11 c)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: jf. kapitel 11 c
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '11'
+- name: appeal_lodgment_deadline_weeks
+  kind: parameter
+  dtype: Count
+  source: § 100, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: inden 4 uger efter
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '4'
+- name: appeal_to_employment_committee_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: § 100, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: Afgørelser truffet af Udbetaling Danmark, jf. kapitel 11 c
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: af den, som afgørelsen vedrører
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: Afgørelser truffet af Udbetaling Danmark, jf. kapitel 11 c, kan
+            af den, som afgørelsen vedrører, indbringes for Ankestyrelsens Beskæftigelsesudvalg.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'decision_is_made_by_udbetaling_danmark_under_chapter_11_c
+
+      and decision_concerns_person'
+- name: appeal_is_lodged_timely
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: § 100, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: Klagen skal indbringes, inden 4 uger efter at klageren har fået
+            meddelelse om afgørelsen.
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: inden 4 uger efter
+  versions:
+  - effective_from: '2025-08-28'
+    formula: weeks_after_notice_of_decision_when_appeal_is_brought <= appeal_lodgment_deadline_weeks
+- name: appeal_may_be_brought_to_employment_committee
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Week
+  source: § 100
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: Afgørelser truffet af Udbetaling Danmark, jf. kapitel 11 c, kan
+            af den, som afgørelsen vedrører, indbringes for Ankestyrelsens Beskæftigelsesudvalg.
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100
+          excerpt: Klagen skal indbringes, inden 4 uger efter
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'appeal_to_employment_committee_available
+
+      and appeal_is_lodged_timely'
