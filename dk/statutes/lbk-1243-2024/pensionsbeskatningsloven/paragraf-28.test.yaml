@@ -1,0 +1,103 @@
+- name: capital_payout_charge_applies
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_capital_insurance_or_pension_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_sections_25_and_27: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#capital_insurance_payout_charge: 520
+- name: capital_payout_charge_not_for_other_payout_type
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_capital_insurance_or_pension_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_sections_25_and_27: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#capital_insurance_payout_charge: 0
+- name: capital_payout_charge_not_for_section_25_or_27_case
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_capital_insurance_or_pension_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_sections_25_and_27: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#capital_insurance_payout_charge: 0
+- name: age_savings_payout_standard_charge
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_age_savings_or_age_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_section_25_a: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.foreign_deduction_eligible_contributions_remaining: 0
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_after_former_owners_death: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#foreign_deduction_eligible_payout_amount: 0
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#age_savings_payout_charge: 200
+- name: age_savings_partial_payout_prioritizes_foreign_deductible_contributions
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_age_savings_or_age_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_section_25_a: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.foreign_deduction_eligible_contributions_remaining: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_after_former_owners_death: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#foreign_deduction_eligible_payout_amount: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#age_savings_payout_charge: 360
+- name: age_savings_foreign_deductible_payout_after_former_owner_death
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_age_savings_or_age_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_section_25_a: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.foreign_deduction_eligible_contributions_remaining: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_after_former_owners_death: true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#foreign_deduction_eligible_payout_amount: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#age_savings_payout_charge: 280
+- name: age_savings_payout_not_for_other_payout_type
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_age_savings_or_age_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_section_25_a: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.foreign_deduction_eligible_contributions_remaining: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_after_former_owners_death: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#foreign_deduction_eligible_payout_amount: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#age_savings_payout_charge: 0
+- name: age_savings_payout_not_for_section_25_a_case
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_from_age_savings_or_age_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_not_covered_by_section_25_a: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.foreign_deduction_eligible_contributions_remaining: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#input.payout_is_after_former_owners_death: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#foreign_deduction_eligible_payout_amount: 400
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-28#age_savings_payout_charge: 0
