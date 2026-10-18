@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-460-2024/kildeskatteloven/paragraf-67-a.yaml",
+      "sha256": "1f8ffc28e014891ad837501af640060a75fd41389aa47b61521e597a6c065a56"
+    },
+    {
+      "path": "dk/statutes/lbk-460-2024/kildeskatteloven/paragraf-67-a.test.yaml",
+      "sha256": "6ad37708dcb2f07190252f84a28238e0099515863301bbb022bfd534a7d58c09"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-460-2024/kildeskatteloven/paragraf-67-a",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-460-2024-kildeskatteloven-paragraf-67-a/workspace/context-manifest.json",
+  "context_manifest_sha256": "c63e1b41248a4d2fe36ad7cf5a82407f70e9c6d4200105f1d1fe932e046bd041",
+  "generated_at": "2026-08-31T00:43:13.246722+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-460-2024/kildeskatteloven/paragraf-67-a.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "1f8ffc28e014891ad837501af640060a75fd41389aa47b61521e597a6c065a56",
+  "generation_prompt_sha256": "ebbb5e32031f0eff456d6f16bc1bf36c38a7ff2da00627a1d4dd8d807455bcbf",
+  "model": "gpt-5.6-terra",
+  "run_id": "c929703e",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "NWMHvxDQotsgMiCVthiZ2ka4Ynv69QXNjn/T3wJ9LqjZ4rhOJwzW5uzBqiPlvB9Eip1EN1GLSfNEdaccdhX5Aw=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2024-05-03",
+    "generation_input_sha256": "77fe1a7a31bb9f1846c0a36a9553130b1bc5b2e4146427803b13ddae64898751",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-460-2024/kildeskatteloven/paragraf-67-a",
+    "resolved_corpus_citation_path": "dk/statute/lbk-460-2024/kildeskatteloven/paragraf-67-a",
+    "resolved_text_sha256": "77fe1a7a31bb9f1846c0a36a9553130b1bc5b2e4146427803b13ddae64898751",
+    "row": {
+      "body_sha256": "77fe1a7a31bb9f1846c0a36a9553130b1bc5b2e4146427803b13ddae64898751",
+      "citation_path": "dk/statute/lbk-460-2024/kildeskatteloven/paragraf-67-a",
+      "document_class": "statute",
+      "expression_date": "2024-05-03",
+      "jurisdiction": "dk",
+      "line_number": 780,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "78a2b6c7-e217-5f81-861c-bc87c7f91b98",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-460-2024-kildeskatteloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "77fe1a7a31bb9f1846c0a36a9553130b1bc5b2e4146427803b13ddae64898751"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-460-2024-kildeskatteloven-paragraf-67-a.json",
+  "trace_sha256": "a90ef542bb8d7416f50735db9165e2597950482b82a145ef59035fde907c2628",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}

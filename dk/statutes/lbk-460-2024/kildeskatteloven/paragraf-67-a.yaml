@@ -1,0 +1,27 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-67-a
+    source_sha256: 77fe1a7a31bb9f1846c0a36a9553130b1bc5b2e4146427803b13ddae64898751
+  summary: Fristen efter forældelseslovens § 3, stk. 1, er 5 år for krav omfattet
+    af §§ 65-65 D.
+rules:
+- name: limitation_period_for_claims_covered_by_sections_65_to_65_d
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Kildeskatteloven § 67 A
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-67-a
+          excerpt: Fristen efter forældelseslovens § 3, stk. 1, er 5 år for krav omfattet
+            af §§ 65-65 D.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: '5'
