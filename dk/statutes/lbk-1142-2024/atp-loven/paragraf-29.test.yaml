@@ -1,0 +1,37 @@
+- name: benefit_claim_is_protected_when_no_legal_enforcement_is_attempted
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_for_benefits_under_this_act: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_arrest: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_execution: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_other_legal_proceedings: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#benefit_claim_subject_to_legal_enforcement: not_holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#benefit_claim_protected_from_legal_enforcement: holds
+- name: benefit_claim_cannot_be_subject_to_arrest
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_for_benefits_under_this_act: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_arrest: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_execution: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_other_legal_proceedings: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#benefit_claim_subject_to_legal_enforcement: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#benefit_claim_protected_from_legal_enforcement: not_holds
+- name: benefit_claim_cannot_be_subject_to_execution
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_for_benefits_under_this_act: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_arrest: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_execution: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_subject_to_other_legal_proceedings: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#benefit_claim_subject_to_legal_enforcement: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#benefit_claim_protected_from_legal_enforcement: not_holds
+- name: entitled_persons_transaction_concerning_benefit_claim_is_invalid
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.claim_is_for_benefits_under_this_act: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#input.entitled_person_has_concluded_legal_transaction_concerning_claim: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-29#legal_transaction_concerning_benefit_claim_invalid: holds
