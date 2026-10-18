@@ -1,0 +1,284 @@
+format: rulespec/v1
+rules:
+- name: one_time_assistance_maximum_duration_months
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 25 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: op til 1 måneds engangshjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: young_person_age_threshold
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: Aktivloven § 25 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: personer under 25 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '25'
+- name: one_time_assistance_amount_price_level_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Aktivloven § 25 a, stk. 2-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2024'
+- name: ordinary_one_time_assistance_maximum
+  kind: parameter
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: Aktivloven § 25 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: højst udgøre 6.587 kr. (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '6587'
+- name: young_person_living_with_parents_one_time_assistance_maximum
+  kind: parameter
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: Aktivloven § 25 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: højst udgøre 3.276 kr. (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3276'
+- name: advance_decision_deadline_days_before_release
+  kind: parameter
+  dtype: Integer
+  period: Day
+  source: Aktivloven § 25 a, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: senest 14 dage forud for løsladelsen
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '14'
+- name: person_qualifies_for_one_time_assistance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 25 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: personer, der ikke opfylder betingelserne i § 13 b, indtil de har
+            ret til en hel måneds kontanthjælp efter §§ 16-20
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: op til 1 måneds engangshjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_does_not_meet_conditions_under_section_13_b
+
+      and person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+
+      and person_has_applied_for_one_time_assistance
+
+      and assistance_period_does_not_exceed_one_month'
+- name: maximum_one_time_assistance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: Aktivloven § 25 a, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: Hjælpen efter stk. 1 kan højst udgøre 6.587 kr.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: For personer under 25 år, som bor hos en eller begge forældre
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if person_qualifies_for_one_time_assistance:\n  if person_is_under_25_and_lives_with_one_or_both_parents:\n\
+      \    young_person_living_with_parents_one_time_assistance_maximum\n  else:\n\
+      \    ordinary_one_time_assistance_maximum\nelse:\n  0"
+- name: advance_decision_is_timely
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Aktivloven § 25 a, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: senest 14 dage forud for løsladelsen
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_is_to_be_released_from_prison
+
+      and person_has_requested_advance_decision
+
+      and days_before_release_when_advance_decision_is_made >= advance_decision_deadline_days_before_release'
+- name: municipality_must_make_concrete_advance_assessment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Aktivloven § 25 a, stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: Kommunen skal foretage en konkret vurdering
+  versions:
+  - effective_from: '2025-06-30'
+    formula: advance_decision_is_timely
+- name: advance_one_time_assistance_is_payable_on_release_day
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Aktivloven § 25 a, stk. 4, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: Engangshjælpen skal udbetales til pågældende på dagen for løsladelsen
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'advance_assessment_finds_person_expected_to_meet_one_time_assistance_conditions
+
+      and day_is_persons_release_day'
+- name: repayment_of_advance_one_time_assistance_is_required
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Aktivloven § 25 a, stk. 4, 4.-5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+          excerpt: skal kommunen kræve hjælpen tilbagebetalt. Tilbagebetalingen sker
+            efter § 95.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'advance_one_time_assistance_was_paid
+
+      and actual_one_time_assistance_conditions_are_not_met_on_release_day'
+inputs:
+- name: person_does_not_meet_conditions_under_section_13_b
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_not_yet_entitled_to_full_month_of_cash_assistance_under_sections_16_to_20
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_applied_for_one_time_assistance
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: assistance_period_does_not_exceed_one_month
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_under_25_and_lives_with_one_or_both_parents
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_to_be_released_from_prison
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_has_requested_advance_decision
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: days_before_release_when_advance_decision_is_made
+  entity: Person
+  dtype: Integer
+  period: Day
+- name: advance_assessment_finds_person_expected_to_meet_one_time_assistance_conditions
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_persons_release_day
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: advance_one_time_assistance_was_paid
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: actual_one_time_assistance_conditions_are_not_met_on_release_day
+  entity: Person
+  dtype: Boolean
+  period: Day
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-25-a
+    source_sha256: a79e9596e3c774592681f76779af8dd294d2085b54c374d73c429b40d317b3aa
