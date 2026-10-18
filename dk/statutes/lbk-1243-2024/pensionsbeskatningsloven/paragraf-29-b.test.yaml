@@ -1,0 +1,72 @@
+- name: capitalized_atp_lump_sum_is_taxed_at_40_percent
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_amount: 1000
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_capitalized_lump_sum_under_atp_sections_9_11_11_a_12_or_13
+    : true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_atp_section_14_b_1_or_14_e_1
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_social_pension_sections_33_c_4_or_8_33_d_3_or_5_or_33_e_2
+    : false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_capitalized_lump_sum_is_subject_to_duty: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_section_14_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#social_pension_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#lump_sum_payment_duty: 400
+- name: atp_section_14_lump_sum_is_taxed_at_40_percent
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_amount: 1000
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_capitalized_lump_sum_under_atp_sections_9_11_11_a_12_or_13
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_atp_section_14_b_1_or_14_e_1
+    : true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_social_pension_sections_33_c_4_or_8_33_d_3_or_5_or_33_e_2
+    : false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_capitalized_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_section_14_lump_sum_is_subject_to_duty: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#social_pension_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#lump_sum_payment_duty: 400
+- name: social_pension_lump_sum_is_taxed_at_40_percent
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_amount: 1000
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_capitalized_lump_sum_under_atp_sections_9_11_11_a_12_or_13
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_atp_section_14_b_1_or_14_e_1
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_social_pension_sections_33_c_4_or_8_33_d_3_or_5_or_33_e_2
+    : true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_capitalized_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_section_14_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#social_pension_lump_sum_is_subject_to_duty: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#lump_sum_payment_duty: 400
+- name: non_listed_payment_is_not_taxed_under_section_29_b
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_amount: 1000
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_capitalized_lump_sum_under_atp_sections_9_11_11_a_12_or_13
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_atp_section_14_b_1_or_14_e_1
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#input.payment_is_lump_sum_under_social_pension_sections_33_c_4_or_8_33_d_3_or_5_or_33_e_2
+    : false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_capitalized_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#atp_section_14_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#social_pension_lump_sum_is_subject_to_duty: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b#lump_sum_payment_duty: 0

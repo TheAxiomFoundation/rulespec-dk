@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b.yaml",
+      "sha256": "33dc7d492d3c6c86e0a9c92283f9568f2f951413b749ead065479ac444aa87ac"
+    },
+    {
+      "path": "dk/statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b.test.yaml",
+      "sha256": "6a17086c2bc2fd9182a42175aaf3af1d5f30231f238d040debc6d5e77bd593e7"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-1243-2024-pensionsbeskatningsloven-paragraf-29-b/workspace/context-manifest.json",
+  "context_manifest_sha256": "ee95bc996a19f5fe9f91fc6b1a6f82ff2c28f60c07bcfdf6aae1f45c485c1d39",
+  "generated_at": "2026-08-31T10:23:13.179493+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "33dc7d492d3c6c86e0a9c92283f9568f2f951413b749ead065479ac444aa87ac",
+  "generation_prompt_sha256": "fee680dc857982fcf3ac02fdd279dc987f4cd0503443078225a1c607e897e079",
+  "model": "gpt-5.6-terra",
+  "run_id": "2dc3492d",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "mb9WZgmKqq01py517rCoi2dK6MbjEaZa0sCoGJyNtb76SoVuqyD4G59NjUrBbNG/7Hmc+WbtJwwiaJbQDeDcCw=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2024-11-26",
+    "generation_input_sha256": "9b6b9c2e47989afa19379dc6d5960320c95a2a37bda06a8938f4bb201681c26a",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b",
+    "resolved_corpus_citation_path": "dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b",
+    "resolved_text_sha256": "9b6b9c2e47989afa19379dc6d5960320c95a2a37bda06a8938f4bb201681c26a",
+    "row": {
+      "body_sha256": "9b6b9c2e47989afa19379dc6d5960320c95a2a37bda06a8938f4bb201681c26a",
+      "citation_path": "dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-b",
+      "document_class": "statute",
+      "expression_date": "2024-11-26",
+      "jurisdiction": "dk",
+      "line_number": 625,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "466282ca-573c-5524-a66f-a11d479e3579",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-1243-2024-pensionsbeskatningsloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "9b6b9c2e47989afa19379dc6d5960320c95a2a37bda06a8938f4bb201681c26a"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-1243-2024-pensionsbeskatningsloven-paragraf-29-b.json",
+  "trace_sha256": "b9934912254325bec17299b7d052045214143bbca1b9248ea5a0aa4713b5e2f9",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}
