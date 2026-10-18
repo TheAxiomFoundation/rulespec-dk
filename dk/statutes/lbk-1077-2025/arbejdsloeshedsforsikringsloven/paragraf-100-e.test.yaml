@@ -1,0 +1,39 @@
+- name: adult_may_be_used_as_interpreter
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#input.person_age: 18
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#input.oral_communication_concerns_unproblematic_matter
+    : false
+  output:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#person_may_be_used_as_interpreter_in_oral_communication
+    : holds
+- name: minor_may_be_used_for_unproblematic_matter
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#input.person_age: 17
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#input.oral_communication_concerns_unproblematic_matter
+    : true
+  output:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#person_may_be_used_as_interpreter_in_oral_communication
+    : holds
+- name: minor_may_not_be_used_for_non_unproblematic_matter
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-08-28'
+    end: '2025-08-28'
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#input.person_age: 17
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#input.oral_communication_concerns_unproblematic_matter
+    : false
+  output:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e#person_may_be_used_as_interpreter_in_oral_communication
+    : not_holds
