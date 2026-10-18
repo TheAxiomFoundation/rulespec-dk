@@ -1,0 +1,12 @@
+- name: pension_is_not_paid_when_residence_period_is_below_minimum
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-7-a#input.residence_months_in_earning_period: 11
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-7-a#pension_not_paid_for_insufficient_residence_period: holds
+- name: insufficient_residence_nonpayment_does_not_hold_at_minimum
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-7-a#input.residence_months_in_earning_period: 12
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-7-a#pension_not_paid_for_insufficient_residence_period: not_holds
