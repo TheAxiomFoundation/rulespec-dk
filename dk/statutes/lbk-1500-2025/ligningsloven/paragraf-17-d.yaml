@@ -1,0 +1,52 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17-d
+    source_sha256: 0db3b96401816b82e1ef6c8e792305853ef8a504744cbf3f4ceed998eca72d29
+  summary: Gevinster, som bortloddes af pengeinstitutter til indehavere af gevinstkonti
+    efter lov om gevinstopsparing, kan ikke fradrages ved opgørelsen af pengeinstituttets
+    skattepligtige indkomst.
+inputs:
+- name: business_is_financial_institution
+  entity: Business
+  dtype: Boolean
+  period: Year
+- name: distributed_gains_are_to_holders_of_prize_savings_accounts
+  entity: Business
+  dtype: Boolean
+  period: Year
+- name: prize_savings_accounts_are_under_law_on_prize_savings
+  entity: Business
+  dtype: Boolean
+  period: Year
+rules:
+- name: distributed_prize_savings_gain_deduction_prohibited
+  kind: derived
+  entity: Business
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 17 D
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17-d
+          excerpt: Gevinster, som bortloddes af pengeinstitutter til indehavere af
+            gevinstkonti efter lov om gevinstopsparing, kan ikke fradrages
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17-d
+          excerpt: kan ikke fradrages ved opgørelsen af pengeinstituttets skattepligtige
+            indkomst
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'business_is_financial_institution
+
+      and distributed_gains_are_to_holders_of_prize_savings_accounts
+
+      and prize_savings_accounts_are_under_law_on_prize_savings'

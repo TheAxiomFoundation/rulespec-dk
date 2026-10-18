@@ -1,0 +1,44 @@
+- name: qualifying_distributed_prize_savings_gains_are_not_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.business_is_financial_institution: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.distributed_gains_are_to_holders_of_prize_savings_accounts: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.prize_savings_accounts_are_under_law_on_prize_savings: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#distributed_prize_savings_gain_deduction_prohibited: holds
+- name: non_financial_business_is_outside_prize_savings_gain_prohibition
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.business_is_financial_institution: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.distributed_gains_are_to_holders_of_prize_savings_accounts: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.prize_savings_accounts_are_under_law_on_prize_savings: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#distributed_prize_savings_gain_deduction_prohibited: not_holds
+- name: gain_not_distributed_to_account_holder_is_outside_prohibition
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.business_is_financial_institution: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.distributed_gains_are_to_holders_of_prize_savings_accounts: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.prize_savings_accounts_are_under_law_on_prize_savings: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#distributed_prize_savings_gain_deduction_prohibited: not_holds
+- name: account_not_under_prize_savings_law_is_outside_prohibition
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.business_is_financial_institution: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.distributed_gains_are_to_holders_of_prize_savings_accounts: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#input.prize_savings_accounts_are_under_law_on_prize_savings: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-d#distributed_prize_savings_gain_deduction_prohibited: not_holds
