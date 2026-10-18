@@ -1,0 +1,95 @@
+- name: special_support_available_for_high_housing_costs
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_satisfies_conditions_under_section_11_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_high_housing_costs: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_substantial_maintenance_burden: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#may_receive_special_support: holds
+- name: special_support_available_for_substantial_maintenance_burden
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_satisfies_conditions_under_section_11_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_high_housing_costs: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_substantial_maintenance_burden: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#may_receive_special_support: holds
+- name: special_support_not_available_without_section_11_conditions
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_satisfies_conditions_under_section_11_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_high_housing_costs: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_substantial_maintenance_burden: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#may_receive_special_support: not_holds
+- name: special_support_not_available_without_high_costs_or_maintenance_burden
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_satisfies_conditions_under_section_11_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_high_housing_costs: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_has_substantial_maintenance_burden: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#may_receive_special_support: not_holds
+- name: investigation_requirement_satisfied_before_grant
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.municipality_is_to_grant_special_support: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.reasonable_cheaper_dwelling_investigated_before_grant: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#cheaper_dwelling_investigation_requirement_satisfied: holds
+- name: investigation_requirement_not_satisfied_when_granting_without_investigation
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.municipality_is_to_grant_special_support: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.reasonable_cheaper_dwelling_investigated_before_grant: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#cheaper_dwelling_investigation_requirement_satisfied: not_holds
+- name: investigation_requirement_inapplicable_without_grant
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.municipality_is_to_grant_special_support: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.reasonable_cheaper_dwelling_investigated_before_grant: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#cheaper_dwelling_investigation_requirement_satisfied: holds
+- name: reduction_or_cessation_permitted_after_concrete_moveable_dwelling_found
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.municipality_has_found_concrete_vacant_reasonable_cheaper_dwelling: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_can_move_into_found_cheaper_dwelling: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#special_support_may_be_reduced_or_cease_due_to_cheaper_dwelling: holds
+- name: reduction_or_cessation_not_permitted_without_concrete_dwelling
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.municipality_has_found_concrete_vacant_reasonable_cheaper_dwelling: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_can_move_into_found_cheaper_dwelling: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#special_support_may_be_reduced_or_cease_due_to_cheaper_dwelling: not_holds
+- name: reduction_or_cessation_not_permitted_when_person_cannot_move_in
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.municipality_has_found_concrete_vacant_reasonable_cheaper_dwelling: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_can_move_into_found_cheaper_dwelling: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#special_support_may_be_reduced_or_cease_due_to_cheaper_dwelling: not_holds
+- name: sanction_reduction_preserves_hypothetical_special_support_amount
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_receives_assistance_reduced_due_to_sanction: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.special_support_amount_without_sanction: 850
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#special_support_amount_during_sanction_reduction: 850
+- name: sanction_reduction_clamps_negative_hypothetical_special_support_amount
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_receives_assistance_reduced_due_to_sanction: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.special_support_amount_without_sanction: -850
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#special_support_amount_during_sanction_reduction: 0
+- name: sanction_preservation_amount_inapplicable_without_sanction_reduction
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.person_receives_assistance_reduced_due_to_sanction: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#input.special_support_amount_without_sanction: 850
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-87#special_support_amount_during_sanction_reduction: 0
