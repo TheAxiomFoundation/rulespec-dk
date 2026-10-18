@@ -1,0 +1,245 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-d
+    source_sha256: b916cd156a6181f22b847c0f00b4a0a07cbfe0d783fbcd08056138835fedae05
+  summary: 'Revalidenden bevarer revalideringsydelsen, når personen har ret til fravær
+
+    efter barselslovens oplistede bestemmelser, i det omfang der under fraværet
+
+    ville have været ret til dagpenge som ledig efter barselslovens oplistede bestemmelser.'
+rules:
+- name: listed_leave_section_8_reference
+  kind: parameter
+  dtype: Integer
+  source: aktivloven § 73 d, listed leave provision
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-d
+          excerpt: §§ 7, 7 a, 8, 8 a og 8 b
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '8'
+- name: has_listed_leave_right
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: aktivloven § 73 d, first condition
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-d
+          excerpt: ret til fravær ved graviditet, barsel, adoption og sorgorlov efter
+            barselslovens § 6, stk. 1 og 2, §§ 7, 7 a, 8, 8 a og 8 b, § 9, stk. 1,
+            § 13, § 14, stk. 1 og 2, og § 14 a
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'leave_right_under_barselsloven_6_1
+
+      or leave_right_under_barselsloven_6_2
+
+      or leave_right_under_barselsloven_7
+
+      or leave_right_under_barselsloven_7_a
+
+      or leave_right_under_barselsloven_8
+
+      or leave_right_under_barselsloven_8_a
+
+      or leave_right_under_barselsloven_8_b
+
+      or leave_right_under_barselsloven_9_1
+
+      or leave_right_under_barselsloven_13
+
+      or leave_right_under_barselsloven_14_1
+
+      or leave_right_under_barselsloven_14_2
+
+      or leave_right_under_barselsloven_14_a'
+- name: would_have_listed_unemployed_maternity_benefit_right
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: aktivloven § 73 d, extent condition
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-d
+          excerpt: i det omfang der under fraværet ville have været ret til dagpenge
+            som ledig efter barselslovens § 20, § 21, stk. 1 og 2, § 21 b, stk. 1-3,
+            § 21 c, stk. 1-3, § 21 d, § 23 b, stk. 1-3, og § 23 c, stk. 1 og 2
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'unemployed_maternity_benefit_right_under_barselsloven_20
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_1
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_2
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_b_1
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_b_2
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_b_3
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_c_1
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_c_2
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_c_3
+
+      or unemployed_maternity_benefit_right_under_barselsloven_21_d
+
+      or unemployed_maternity_benefit_right_under_barselsloven_23_b_1
+
+      or unemployed_maternity_benefit_right_under_barselsloven_23_b_2
+
+      or unemployed_maternity_benefit_right_under_barselsloven_23_b_3
+
+      or unemployed_maternity_benefit_right_under_barselsloven_23_c_1
+
+      or unemployed_maternity_benefit_right_under_barselsloven_23_c_2'
+- name: revalidation_benefit_retained
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: aktivloven § 73 d
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-73-d
+          excerpt: Revalidenden bevarer revalideringsydelsen, når personen har ret
+            til fravær
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'has_listed_leave_right
+
+      and would_have_listed_unemployed_maternity_benefit_right'
+inputs:
+- name: leave_right_under_barselsloven_6_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_6_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_7
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_7_a
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_8
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_8_a
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_8_b
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_9_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_13
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_14_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_14_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: leave_right_under_barselsloven_14_a
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_20
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_b_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_b_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_b_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_c_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_c_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_c_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_21_d
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_23_b_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_23_b_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_23_b_3
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_23_c_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployed_maternity_benefit_right_under_barselsloven_23_c_2
+  entity: Person
+  dtype: Boolean
+  period: Month
