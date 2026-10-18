@@ -1,0 +1,152 @@
+- name: part_i_pension_arrangement_reduces_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: holds
+- name: corresponding_foreign_pension_arrangement_reduces_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: holds
+- name: labour_market_cost_of_living_fund_savings_reduce_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: holds
+- name: section_2_number_3_pension_does_not_reduce_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: not_holds
+- name: section_2_number_4_letter_c_pension_does_not_reduce_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: not_holds
+- name: section_2_number_4_letter_d_pension_does_not_reduce_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: not_holds
+- name: section_2_number_4_letter_e_pension_does_not_reduce_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: not_holds
+- name: section_2_number_4_letter_f_pension_does_not_reduce_early_pension
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_part_i: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_corresponding_foreign_arrangement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_labour_market_cost_of_living_fund_savings
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_3
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_c
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_d
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_e
+    : false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#input.pension_arrangement_is_covered_by_pensions_tax_act_section_2_number_4_letter_f
+    : true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-g#pension_arrangement_reduces_early_pension: not_holds
