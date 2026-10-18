@@ -1,0 +1,93 @@
+- name: deferral_within_maximum_duration
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.total_deferred_pension_months: 120
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_is_within_maximum_duration: holds
+- name: deferral_exceeds_maximum_duration
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.total_deferred_pension_months: 121
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_is_within_maximum_duration: not_holds
+- name: deferral_ends_at_maximum_duration
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.total_deferred_pension_months: 120
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_at_maximum_duration: holds
+- name: deferral_does_not_end_before_maximum_duration
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.total_deferred_pension_months: 119
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_at_maximum_duration: not_holds
+- name: deferral_ends_on_first_day_after_request
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.request_to_end_pension_deferral_made: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.day_is_first_of_month_after_deferral_end_request: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_after_request: holds
+- name: deferral_does_not_end_before_first_day_after_request
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-31'
+    end: '2024-10-31'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.request_to_end_pension_deferral_made: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.day_is_first_of_month_after_deferral_end_request: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_after_request: not_holds
+- name: deferral_does_not_end_without_request
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.request_to_end_pension_deferral_made: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.day_is_first_of_month_after_deferral_end_request: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_after_request: not_holds
+- name: deferral_ends_day_after_death_while_active
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-22'
+    end: '2024-10-22'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.pension_deferral_is_active: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.person_died: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.day_is_day_after_death: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_day_after_death: holds
+- name: deferral_does_not_end_for_death_when_not_deferred
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-22'
+    end: '2024-10-22'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.pension_deferral_is_active: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.person_died: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.day_is_day_after_death: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_day_after_death: not_holds
+- name: deferral_does_not_end_before_day_after_death
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.pension_deferral_is_active: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.person_died: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#input.day_is_day_after_death: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-15-c#pension_deferral_ends_day_after_death: not_holds
