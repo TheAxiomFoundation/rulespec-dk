@@ -1,0 +1,120 @@
+- name: folkepension_is_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: true
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - holds
+- name: foertidspension_is_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: true
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - holds
+- name: seniorpension_is_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: true
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - holds
+- name: tidlig_pension_is_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: true
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - holds
+- name: chapter_2_supplement_is_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: true
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - holds
+- name: chapter_2_a_supplement_is_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: true
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - holds
+- name: chapter_11_supplement_is_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - holds
+- name: other_payment_is_not_pension_under_this_act
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_folkepension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_foertidspension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_seniorpension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_tidlig_pension: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_2_a: false
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#input.payment_is_supplement_under_chapter_11: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-1#pension_under_this_act:
+    - not_holds
