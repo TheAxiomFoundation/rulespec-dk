@@ -1,0 +1,8 @@
+- name: participation_alone_is_not_sufficient
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-4#participation_alone_suffices_for_self_employment_income: not_holds
