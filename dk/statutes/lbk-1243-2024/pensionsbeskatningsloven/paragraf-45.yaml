@@ -1,0 +1,164 @@
+format: rulespec/v1
+rules:
+- name: pension_arrangement_covered_chapter_number
+  kind: parameter
+  entity: Asset
+  dtype: Integer
+  period: Year
+  source: Pensionsbeskatningsloven § 45, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45
+          excerpt: en ordning, som omfattes af kapitel 1
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '1'
+- name: bonus_interest_or_similar_accrual_excluded_from_taxable_income
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 45, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45
+          excerpt: bortses fra tilskrivning af bonus og renter m.v. vedrørende en
+            ordning, som omfattes af kapitel 1
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'asset_is_chapter_1_pension_arrangement
+
+      and asset_return_is_bonus_interest_or_similar_accrual'
+- name: security_return_is_listed_in_subsection_2
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 45, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45
+          excerpt: Det samme gælder fortjeneste og tab ved indfrielse eller salg af
+            værdipapirer, salg af tegningsrettigheder, samt fortjenester og tab, der
+            skyldes kursændringer på beholdningen af værdipapirer, udlodning af likvidationsprovenu
+            eller lignende, når værdipapirerne er led i en rateopsparing i pensionsøjemed,
+            en aldersopsparing eller en opsparing i pensionsøjemed.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'return_is_gain_or_loss_on_security_redemption_or_sale
+
+      or return_is_proceeds_from_sale_of_subscription_rights
+
+      or return_is_gain_or_loss_due_to_security_price_change
+
+      or return_is_liquidation_proceeds_distribution
+
+      or return_is_similar_security_return'
+- name: security_is_in_qualifying_pension_savings_account
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 45, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45
+          excerpt: led i en rateopsparing i pensionsøjemed, en aldersopsparing eller
+            en opsparing i pensionsøjemed
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'security_is_part_of_rate_pension_savings
+
+      or security_is_part_of_old_age_savings
+
+      or security_is_part_of_pension_savings'
+- name: listed_security_return_excluded_from_taxable_income
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 45, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45
+          excerpt: Det samme gælder fortjeneste og tab ved indfrielse eller salg af
+            værdipapirer, salg af tegningsrettigheder, samt fortjenester og tab, der
+            skyldes kursændringer på beholdningen af værdipapirer, udlodning af likvidationsprovenu
+            eller lignende, når værdipapirerne er led i en rateopsparing i pensionsøjemed,
+            en aldersopsparing eller en opsparing i pensionsøjemed.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'asset_is_security
+
+      and security_return_is_listed_in_subsection_2
+
+      and security_is_in_qualifying_pension_savings_account'
+inputs:
+- name: asset_is_chapter_1_pension_arrangement
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: asset_return_is_bonus_interest_or_similar_accrual
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: asset_is_security
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: return_is_gain_or_loss_on_security_redemption_or_sale
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: return_is_proceeds_from_sale_of_subscription_rights
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: return_is_gain_or_loss_due_to_security_price_change
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: return_is_liquidation_proceeds_distribution
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: return_is_similar_security_return
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: security_is_part_of_rate_pension_savings
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: security_is_part_of_old_age_savings
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: security_is_part_of_pension_savings
+  entity: Asset
+  dtype: Boolean
+  period: Year
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45
+    source_sha256: b659f480d71efe118348373e592d66c26433d029a5e7913492b08932c3532431
