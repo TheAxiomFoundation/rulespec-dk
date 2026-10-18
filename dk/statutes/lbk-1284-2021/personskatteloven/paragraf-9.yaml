@@ -1,0 +1,492 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+    source_sha256: 798c30d57a52434a6a986eb2d22ad3a455abf5481d508f14f7282bf90e5f5614
+  summary: Indkomstskatten efter §§ 6, 7, 7 a og 8 og § 8 a, stk. 2, nedsættes med
+    skatteværdien af personfradrag. Værdien beregnet med § 8-procenten fragår først
+    § 8 og derefter §§ 6, 7 og 7 a samt § 8 a, stk. 2; værdien beregnet med § 6-procenten
+    fragår først § 6 og derefter §§ 8, 7 og 7 a samt § 8 a, stk. 2. § 8 c-skat, kommunal
+    indkomstskat og kirkeskat nedsættes tilsvarende.
+rules:
+- name: cited_section_7_number
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 9, 1., 3. og 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: §§ 6, 7, 7 a og 8
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '7'
+- name: cited_section_8_number
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 9, 1., 3. og 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: §§ 6, 7, 7 a og 8
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '8'
+- name: tax_under_section_8_c_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: Indkomstskat efter § 8 c og indkomstskat til kommunen samt kirkeskat
+            nedsættes på tilsvarende måde.
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, tax_under_section_8_c - person_allowance_tax_value_for_section_8_c_tax)
+- name: tax_under_section_8_after_section_8_rate_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 1. og 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: beregnet med skatteprocenten efter § 8 ikke kan fradrages i skatten
+            efter § 8
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, adjusted_tax_under_section_8 - person_allowance_tax_value_at_section_8_rate)
+- name: remaining_section_8_rate_allowance_after_section_8
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: ikke kan fradrages i skatten efter § 8, fragår den i nævnte rækkefølge
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, person_allowance_tax_value_at_section_8_rate - adjusted_tax_under_section_8)
+- name: tax_under_section_6_after_section_8_rate_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 6, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, adjusted_tax_under_section_6 - remaining_section_8_rate_allowance_after_section_8)
+- name: remaining_section_8_rate_allowance_after_section_6
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 6, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, remaining_section_8_rate_allowance_after_section_8 - adjusted_tax_under_section_6)
+- name: tax_under_section_7_after_section_8_rate_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 6, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, adjusted_tax_under_section_7 - remaining_section_8_rate_allowance_after_section_6)
+- name: remaining_section_8_rate_allowance_after_section_7
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 6, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, remaining_section_8_rate_allowance_after_section_6 - adjusted_tax_under_section_7)
+- name: tax_under_section_7_a_after_section_8_rate_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 6, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, adjusted_tax_under_section_7_a - remaining_section_8_rate_allowance_after_section_7)
+- name: remaining_section_8_rate_allowance_after_section_7_a
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 6, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, remaining_section_8_rate_allowance_after_section_7 - adjusted_tax_under_section_7_a)
+- name: tax_under_section_8_a_subsection_2_after_section_8_rate_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: og § 8 a, stk. 2
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, adjusted_tax_under_section_8_a_subsection_2 - remaining_section_8_rate_allowance_after_section_7_a)
+- name: remaining_section_6_rate_allowance_after_section_6
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: beregnet med skatteprocenten efter § 6 ikke kan fradrages i skatten
+            efter § 6
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, person_allowance_tax_value_at_section_6_rate - tax_under_section_6_after_section_8_rate_allowance)
+- name: tax_under_section_6_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 1. og 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: nedsættes med skatteværdien af personfradrag
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, tax_under_section_6_after_section_8_rate_allowance - person_allowance_tax_value_at_section_6_rate)
+- name: tax_under_section_8_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 8, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, tax_under_section_8_after_section_8_rate_allowance - remaining_section_6_rate_allowance_after_section_6)
+- name: remaining_section_6_rate_allowance_after_section_8
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 8, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, remaining_section_6_rate_allowance_after_section_6 - tax_under_section_8_after_section_8_rate_allowance)
+- name: tax_under_section_7_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 8, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, tax_under_section_7_after_section_8_rate_allowance - remaining_section_6_rate_allowance_after_section_8)
+- name: remaining_section_6_rate_allowance_after_section_7
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 8, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, remaining_section_6_rate_allowance_after_section_8 - tax_under_section_7_after_section_8_rate_allowance)
+- name: tax_under_section_7_a_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 8, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, tax_under_section_7_a_after_section_8_rate_allowance - remaining_section_6_rate_allowance_after_section_7)
+- name: remaining_section_6_rate_allowance_after_section_7_a
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: i nævnte rækkefølge i skatterne efter §§ 8, 7 og 7 a
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, remaining_section_6_rate_allowance_after_section_7 - tax_under_section_7_a_after_section_8_rate_allowance)
+- name: tax_under_section_8_a_subsection_2_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 1. og 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: og § 8 a, stk. 2
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, tax_under_section_8_a_subsection_2_after_section_8_rate_allowance
+      - remaining_section_6_rate_allowance_after_section_7_a)
+- name: municipal_income_tax_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: Indkomstskat efter § 8 c og indkomstskat til kommunen samt kirkeskat
+            nedsættes på tilsvarende måde.
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, municipal_income_tax - person_allowance_tax_value_for_municipal_income_tax)
+- name: church_tax_after_person_allowance
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+  source: Personskatteloven § 9, 5. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-9
+          excerpt: samt kirkeskat nedsættes på tilsvarende måde
+  versions:
+  - effective_from: '2021-06-14'
+    formula: max(0, church_tax - person_allowance_tax_value_for_church_tax)
+inputs:
+- name: adjusted_tax_under_section_6
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: adjusted_tax_under_section_7
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: adjusted_tax_under_section_7_a
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: adjusted_tax_under_section_8
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: adjusted_tax_under_section_8_a_subsection_2
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: person_allowance_tax_value_at_section_8_rate
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: person_allowance_tax_value_at_section_6_rate
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: tax_under_section_8_c
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: person_allowance_tax_value_for_section_8_c_tax
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: municipal_income_tax
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: person_allowance_tax_value_for_municipal_income_tax
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: church_tax
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
+- name: person_allowance_tax_value_for_church_tax
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: DKK
