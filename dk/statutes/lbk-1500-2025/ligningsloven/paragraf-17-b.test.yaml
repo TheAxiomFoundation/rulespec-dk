@@ -1,0 +1,20 @@
+- name: section_30_payment_is_excluded_and_cannot_change_prior_assessments
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-b#input.amount_paid_under_property_tax_act_section_30: 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-b#property_tax_act_section_30_payment_excluded_from_taxable_income: 1000
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-b#prior_income_assessments_may_be_changed_due_to_section_30_payment: not_holds
+- name: negative_section_30_payment_is_clamped_to_zero
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-b#input.amount_paid_under_property_tax_act_section_30: -1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-b#property_tax_act_section_30_payment_excluded_from_taxable_income: 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-17-b#prior_income_assessments_may_be_changed_due_to_section_30_payment: not_holds

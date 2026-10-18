@@ -1,0 +1,51 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17-b
+    source_sha256: 49a8878303041650ac922b0f88aeb004dec2673209d7cebb4d8b4cb13690c4d2
+  summary: Beløb, der udbetales efter ejendomsskattelovens § 30, medregnes ikke ved
+    opgørelsen af modtagerens skattepligtige indkomst og giver ikke anledning til
+    ændring af modtagerens indkomstansættelser for tidligere indkomstår.
+inputs:
+- name: amount_paid_under_property_tax_act_section_30
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: property_tax_act_section_30_payment_excluded_from_taxable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 17 B
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17-b
+          excerpt: medregnes ikke ved opgørelsen af modtagerens skattepligtige indkomst
+  versions:
+  - effective_from: '2025-11-24'
+    formula: max(0, amount_paid_under_property_tax_act_section_30)
+- name: prior_income_assessments_may_be_changed_due_to_section_30_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 17 B
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-17-b
+          excerpt: giver ikke anledning til ændring af modtagerens indkomstansættelser
+            for tidligere indkomstår
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'false'
