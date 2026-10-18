@@ -1,0 +1,73 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49-b
+    source_sha256: 41b53a7e85346603dab38b65193896b82da98a5496049df89eb1be63e5d51fe0
+  summary: Pensionstillæg forhøjes hver 1. januar i perioden 2016-2023 med et kompensationstillæg,
+    som svarer til den mindre samlede stigning af grundbeløbet og pensionstillægget
+    som følge af fradraget af en procentsats efter § 49 a.
+inputs:
+- name: determination_is_on_january_first_in_compensation_period
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: increase_in_basic_amount_due_to_percentage_deduction_under_section_49_a
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: increase_in_pension_supplement_due_to_percentage_deduction_under_section_49_a
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+rules:
+- name: compensation_supplement_adjustment_day
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49 b.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49-b
+          excerpt: hver 1. januar
+  versions:
+  - effective_from: '2016-01-01'
+    formula: '1'
+- name: compensation_supplement
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49 b.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49-b
+          excerpt: hver 1. januar i perioden 2016-2023
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49-b
+          excerpt: svarer til den mindre samlede stigning af grundbeløbet og pensionstillægget
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49-b
+          excerpt: som følge af fradraget af en procentsats, jf. § 49 a
+  versions:
+  - effective_from: '2016-01-01'
+    formula: "if determination_is_on_january_first_in_compensation_period:\n  min(\n\
+      \    increase_in_basic_amount_due_to_percentage_deduction_under_section_49_a,\n\
+      \    increase_in_pension_supplement_due_to_percentage_deduction_under_section_49_a\n\
+      \  )\nelse: 0"
