@@ -1,0 +1,33 @@
+- name: standard_labour_market_contribution_for_tax_liable_person
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.person_is_tax_liable_in_denmark: true
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.contribution_basis: 10000
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.person_is_no_older_than_17_at_end_of_income_year: false
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#labour_market_contribution: 800
+- name: youth_is_exempt_from_labour_market_contribution
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.person_is_tax_liable_in_denmark: true
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.contribution_basis: 10000
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.person_is_no_older_than_17_at_end_of_income_year: true
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#labour_market_contribution: 0
+- name: person_not_tax_liable_does_not_pay_labour_market_contribution
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.person_is_tax_liable_in_denmark: false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.contribution_basis: 10000
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#input.person_is_no_older_than_17_at_end_of_income_year: false
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1#labour_market_contribution: 0
