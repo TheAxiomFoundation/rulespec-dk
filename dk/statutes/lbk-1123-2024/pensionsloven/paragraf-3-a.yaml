@@ -1,0 +1,365 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+    source_sha256: 72e76e5a2bcbe379bd4c141de837e1c10ba88d564443bdf7eccd85b80693869b
+  summary: '"Udlændinge omfattet af § 2, stk. 2, nr. 2" who take residence in their
+    home country or former country of residence after award of folkepension retain
+    the right to receive the pension base amount and specified supplements. Stk. 2
+    gives a corresponding right to specified permit holders within § 2, stk. 2, nr.
+    1; persons under nr. 3-5 and nr. 7 must return together with the family-connected
+    person.'
+rules:
+- name: family_connection_permit_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 3) § 9, stk. 1, nr. 1 eller 2
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '3'
+- name: first_foreigner_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: § 2, stk. 2, nr. 1
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: second_foreigner_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: § 2, stk. 2, nr. 2
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2'
+- name: parent_permit_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 4) udlændingelovens § 9 c, stk. 1
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '4'
+- name: asylum_seeking_foreigner_permit_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 2, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 6) udlændingelovens § 9 c
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '6'
+- name: minor_asylum_seeker_connection_permit_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 2, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 7) udlændingelovens § 9 c, stk. 1
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '7'
+- name: pension_supplement_section_15_f_number
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: tillæg efter §§ 15 f og 15 g
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '15'
+- name: parent_permit_minimum_age
+  kind: parameter
+  dtype: Integer
+  source: § 3 a, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: personer over 18 år
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '18'
+- name: retention_path_for_section_2_item_2_foreigner
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: Udlændinge omfattet af § 2, stk. 2, nr. 2, som tager bopæl i hjemlandet
+            eller det tidligere opholdsland efter at have fået tillagt folkepension
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'person_is_foreigner_covered_by_section_2_subsection_2_item_2
+
+      and person_has_taken_residence_in_home_or_former_country_after_folkepension_award'
+- name: permit_path_under_section_9_b
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 1) § 9 b
+  versions:
+  - effective_from: '2024-10-21'
+    formula: person_has_residence_permit_under_aliens_act_section_9_b
+- name: permit_path_following_section_9_b
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 2) § 9 c, stk. 1 i umiddelbar forlængelse af en opholdstilladelse
+            efter § 9 b
+  versions:
+  - effective_from: '2024-10-21'
+    formula: person_has_section_9_c_1_permit_immediately_following_section_9_b_permit
+- name: permit_path_due_to_family_connection
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 3) § 9, stk. 1, nr. 1 eller 2, som følge af tilknytning til en
+            person
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'person_has_section_9_1_item_1_or_2_permit_due_to_family_connection
+
+      and person_returns_with_family_connected_person'
+- name: permit_path_based_on_parent_permit
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 4) udlændingelovens § 9 c, stk. 1, når tilladelsen er meddelt til
+            personer over 18 år, hvis fader eller moder
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'person_is_over_18_with_section_9_c_1_permit_based_on_parent_permit
+
+      and person_returns_with_family_connected_person'
+- name: permit_path_as_spouse_or_child
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 2, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 5) udlændingelovens § 9 c, stk. 1, når tilladelsen er meddelt en
+            ægtefælle eller et barn
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'person_has_section_9_c_1_permit_as_spouse_or_child_of_covered_person
+
+      and person_returns_with_family_connected_person'
+- name: permit_path_for_asylum_seeking_foreigner
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 2, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 6) udlændingelovens § 9 c, når tilladelsen er meddelt en asylsøgende
+            udlænding
+  versions:
+  - effective_from: '2024-10-21'
+    formula: person_has_section_9_c_permit_as_asylum_seeking_foreigner
+- name: permit_path_due_to_minor_asylum_seeker_connection
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 2, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: 7) udlændingelovens § 9 c, stk. 1, når tilladelsen er givet som
+            følge af tilknytning til en mindreårig asylsøgende udlænding
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'person_has_section_9_c_1_permit_due_to_connection_with_minor_asylum_seeker
+
+      and person_returns_with_family_connected_person'
+- name: right_to_retain_folkepension
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 3 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: bevarer retten til at modtage folkepensionens grundbeløb og tillæg
+            efter §§ 15 f og 15 g
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: Tilsvarende ret har udlændinge omfattet af § 2, stk. 2, nr. 1
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-3-a
+          excerpt: Retten til at bevare pensionen for personer nævnt i nr. 3-5 og
+            nr. 7 er betinget af
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "retention_path_for_section_2_item_2_foreigner\nor (\n  person_is_foreigner_covered_by_section_2_subsection_2_item_1\n\
+      \  and (\n    permit_path_under_section_9_b\n    or permit_path_following_section_9_b\n\
+      \    or permit_path_due_to_family_connection\n    or permit_path_based_on_parent_permit\n\
+      \    or permit_path_as_spouse_or_child\n    or permit_path_for_asylum_seeking_foreigner\n\
+      \    or permit_path_due_to_minor_asylum_seeker_connection\n  )\n)"
+inputs:
+- name: person_is_foreigner_covered_by_section_2_subsection_2_item_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_taken_residence_in_home_or_former_country_after_folkepension_award
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_foreigner_covered_by_section_2_subsection_2_item_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_residence_permit_under_aliens_act_section_9_b
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_section_9_c_1_permit_immediately_following_section_9_b_permit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_section_9_1_item_1_or_2_permit_due_to_family_connection
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_over_18_with_section_9_c_1_permit_based_on_parent_permit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_section_9_c_1_permit_as_spouse_or_child_of_covered_person
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_section_9_c_permit_as_asylum_seeking_foreigner
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_section_9_c_1_permit_due_to_connection_with_minor_asylum_seeker
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_returns_with_family_connected_person
+  entity: Person
+  dtype: Boolean
+  period: Month
