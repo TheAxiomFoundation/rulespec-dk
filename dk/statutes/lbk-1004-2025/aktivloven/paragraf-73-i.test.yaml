@@ -1,0 +1,201 @@
+- name: eligibility_all_conditions_hold
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: holds
+- name: eligibility_fails_at_age_gate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: eligibility_fails_at_functional_capacity_gate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: eligibility_fails_at_education_gate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: eligibility_fails_at_pre_rehabilitation_participation_gate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: eligibility_fails_before_required_benefit_months
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 3
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: eligibility_fails_at_su_education_gate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: eligibility_fails_at_reasonable_period_gate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: eligibility_fails_at_work_capacity_gate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: not_holds
+- name: support_paid_for_qualifying_expenses_below_cap
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.necessary_housing_extra_expenses_after_housing_security_including_electricity_and_heating
+    : 1500
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.pre_rehabilitation_is_ongoing: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.cash_assistance_is_paid_for_current_month: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.special_youth_supplement_is_paid_for_current_month: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.current_month_is_on_or_after_first_full_calendar_month_after_eligibility
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.preceding_consecutive_housing_support_payment_months: 3
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_payment_administration_conditions: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_payment_conditions: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#monthly_housing_support: 1500
+- name: support_is_capped_at_maximum
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.necessary_housing_extra_expenses_after_housing_security_including_electricity_and_heating
+    : 3000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.pre_rehabilitation_is_ongoing: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.cash_assistance_is_paid_for_current_month: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.special_youth_supplement_is_paid_for_current_month: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.current_month_is_on_or_after_first_full_calendar_month_after_eligibility
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.preceding_consecutive_housing_support_payment_months: 3
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_eligibility: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_payment_administration_conditions: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#housing_support_payment_conditions: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#monthly_housing_support: 2000
+- name: auto_zero_monthly_housing_support
+  period:
+    period_kind: month
+    start: '2025-07-01'
+    end: '2025-07-31'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.cash_assistance_is_paid_for_current_month: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.current_month_is_on_or_after_first_full_calendar_month_after_eligibility
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.months_receiving_cash_assistance_and_special_youth_supplement: 0
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.necessary_housing_extra_expenses_after_housing_security_including_electricity_and_heating
+    : 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_complete_su_qualifying_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_cannot_take_up_work: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_no_vocationally_qualifying_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_has_reduced_physical_or_mental_functional_capacity: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_is_under_25_years: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.person_participates_in_pre_rehabilitation_under_chapter_21: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.pre_rehabilitation_is_ongoing: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.preceding_consecutive_housing_support_payment_months: 13
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.rehabilitation_is_not_expected_to_bring_person_into_work_within_reasonable_period
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#input.special_youth_supplement_is_paid_for_current_month: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-73-i#monthly_housing_support: 0
