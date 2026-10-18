@@ -1,0 +1,46 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-10
+    source_sha256: 297c681b3662e43d91b6458ac54e413b1df91755fd0b233e663eb882fd0ae01c
+  summary: Børne- og ungeydelsen indgår ikke ved beregning af ydelser efter den sociale
+    lovgivning eller efter lovgivningen om uddannelsesstøtte.
+inputs:
+- name: payment_is_child_and_youth_benefit
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: calculation_is_under_social_legislation
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: calculation_is_under_education_support_legislation
+  entity: Payment
+  dtype: Boolean
+  period: Month
+rules:
+- name: child_and_youth_benefit_excluded_from_social_or_education_support_calculation
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-10
+          excerpt: Børne- og ungeydelsen indgår ikke
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-603-2025/boerne-og-ungeydelsesloven/paragraf-10
+          excerpt: efter den sociale lovgivning eller efter lovgivningen om uddannelsesstøtte
+  versions:
+  - effective_from: '2025-05-12'
+    formula: "payment_is_child_and_youth_benefit\nand (\n  calculation_is_under_social_legislation\n\
+      \  or calculation_is_under_education_support_legislation\n)"
