@@ -1,0 +1,12 @@
+- name: folkepension_may_be_paid_after_reaching_folkepension_age
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-12#input.person_has_reached_folkepension_age: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-12#folkepension_may_be_paid: holds
+- name: folkepension_may_not_be_paid_before_reaching_folkepension_age
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-12#input.person_has_reached_folkepension_age: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-12#folkepension_may_be_paid: not_holds
