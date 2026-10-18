@@ -1,0 +1,342 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+    source_sha256: b4835fc5c1145b01306bedff14202f560c79be398af0f964a5c379561c14ec63
+  summary: '"Personlig indkomst omfatter alle de indkomster, der indgår i den skattepligtige
+    indkomst, og som ikke er kapitalindkomst." Ved opgørelsen fradrages de elleve
+    opregnede udgifts-, bidrags-, afskrivnings- og indskudskategorier.'
+rules:
+- name: deduction_category_1
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 1.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 1) udgifter, som i årets løb er anvendt
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '1'
+- name: deduction_category_2
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 2) udgifter, som nævnt i ligningslovens §§ 8
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '2'
+- name: deduction_category_3
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 3.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 3) bidrag og præmier til pensionsordninger
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '3'
+- name: deduction_category_5
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 5.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 5) nedskrivning af varelager
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '5'
+- name: deduction_category_7
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 7.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 7) henlæggelser efter § 22 b og § 22 d
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '7'
+- name: deduction_category_8
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 8.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 8) udgifter, der er fradragsberettigede efter ligningslovens §
+            9 B
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '8'
+- name: deduction_category_9
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 9.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 9) tilbagebetalt skattepligtig kontanthjælp
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '9'
+- name: deduction_category_10
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 10.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 10) skattemæssige afskrivninger, tab og fradrag
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '10'
+- name: deduction_category_11
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 11.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: 11) indskud på iværksætterkonto
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '11'
+- name: pension_taxation_act_section_13_reference
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 1.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: ligningslovens §§ 9 G og 13
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '13'
+- name: pension_taxation_act_section_52_reference
+  kind: parameter
+  dtype: Integer
+  source: Personskatteloven § 3, stk. 2, nr. 3.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: pensionsbeskatningslovens §§ 18 og 52
+  versions:
+  - effective_from: '2021-06-14'
+    formula: '52'
+- name: personal_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 3, stk. 1-2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: Personlig indkomst omfatter alle de indkomster, der indgår i den
+            skattepligtige indkomst, og som ikke er kapitalindkomst.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: Ved opgørelsen af den personlige indkomst fra­dra‍ges
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: Ved opgørelsen af den personlige indkomst fra­dra‍ges 1) udgifter,
+            som i årets løb er anvendt til at erhverve, sikre og vedligeholde indkomst
+            ved selvstændig erhvervsvirksomhed, dog med undtagelse af de i § 4, stk.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: udgifter, som nævnt i ligningslovens §§ 8, stk. 1, 8 B, 8 K, 8
+            L, 8 N, 14, stk. 1, 14 F og 30 A
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: bidrag og præmier til pensionsordninger mv.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: forskelsbeløb og nedskrivning på husdyrbesætninger
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: nedskrivning af varelager
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: arbejdsmarkedsbidrag og obligatoriske udenlandske sociale bidrag
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: henlæggelser efter § 22 b og § 22 d i virksomhedsskatteloven
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: udgifter, der er fradragsberettigede efter ligningslovens § 9 B
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: tilbagebetalt skattepligtig kontanthjælp
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: skattemæssige afskrivninger, tab og fradrag
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-3
+          excerpt: indskud på iværksætterkonto
+  versions:
+  - effective_from: '2021-06-14'
+    formula: 'income_included_in_taxable_income_other_than_capital_income
+
+      - business_expenses_other_than_excepted_expenses
+
+      - specified_business_expenses_and_transferred_income
+
+      - deductible_pension_contributions_and_premiums
+
+      - livestock_difference_amounts_and_write_downs
+
+      - inventory_write_down
+
+      - labour_market_contributions_and_mandatory_foreign_social_contributions
+
+      - business_tax_scheme_allocations
+
+      - deductible_expenses_under_ligningsloven_section_9_b
+
+      - repaid_taxable_cash_assistance
+
+      - depreciation_losses_and_deductions_for_self_employed_persons
+
+      - entrepreneur_account_deposit'
+inputs:
+- name: income_included_in_taxable_income_other_than_capital_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: business_expenses_other_than_excepted_expenses
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: specified_business_expenses_and_transferred_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: deductible_pension_contributions_and_premiums
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: livestock_difference_amounts_and_write_downs
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: inventory_write_down
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: labour_market_contributions_and_mandatory_foreign_social_contributions
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: business_tax_scheme_allocations
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: deductible_expenses_under_ligningsloven_section_9_b
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: repaid_taxable_cash_assistance
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: depreciation_losses_and_deductions_for_self_employed_persons
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: entrepreneur_account_deposit
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
