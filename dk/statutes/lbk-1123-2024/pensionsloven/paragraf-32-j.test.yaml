@@ -1,0 +1,76 @@
+- name: qualifying_pension_payment_is_added_without_public_support_deduction
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.age_when_pension_payment_was_made: 61
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.folk_pension_age: 67
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount: 1000
+      ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount_causing_deduction_in_other_public_support
+      : 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_qualifies_for_pension_assessment_addition:
+    - holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_amount_added_to_pension_assessment:
+    - 1000
+- name: pension_payment_at_age_sixty_does_not_qualify
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.age_when_pension_payment_was_made: 60
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.folk_pension_age: 67
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount: 1000
+      ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount_causing_deduction_in_other_public_support
+      : 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_qualifies_for_pension_assessment_addition:
+    - not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_amount_added_to_pension_assessment:
+    - 0
+- name: pension_payment_within_three_years_before_folk_pension_age_does_not_qualify
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.age_when_pension_payment_was_made: 64
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.folk_pension_age: 67
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount: 1000
+      ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount_causing_deduction_in_other_public_support
+      : 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_qualifies_for_pension_assessment_addition:
+    - not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_amount_added_to_pension_assessment:
+    - 0
+- name: public_support_deduction_reduces_qualifying_payment_amount
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.age_when_pension_payment_was_made: 61
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.folk_pension_age: 67
+      dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount: 1000
+      ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#input.pension_payment_amount_causing_deduction_in_other_public_support
+      : 250
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_qualifies_for_pension_assessment_addition:
+    - holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32-j#pension_payment_amount_added_to_pension_assessment:
+    - 750
