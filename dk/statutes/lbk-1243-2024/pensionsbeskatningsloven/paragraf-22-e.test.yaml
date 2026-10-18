@@ -1,0 +1,319 @@
+- name: timely_qualifying_repayment_is_allowed
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_allowed: holds
+- name: life_annuity_qualifies
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+- name: instalment_insurance_qualifies
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+- name: instalment_savings_qualifies
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+- name: retirement_insurance_qualifies
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+- name: retirement_savings_qualifies
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+- name: supplementary_lump_sum_qualifies
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+- name: unlisted_arrangement_does_not_qualify
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: not_holds
+- name: repayment_after_thirty_days_is_not_allowed
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_allowed: not_holds
+- name: repayment_after_january_nineteenth_is_not_allowed
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_allowed: not_holds
+- name: repayment_exceeding_contribution_is_not_allowed
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 1200
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_allowed: not_holds
+- name: qualifying_partial_repayment_amount
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_amount: 600
+- name: tax_free_repayment_amount_is_capped_at_contribution
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 1200
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_amount: 1000
+- name: late_repayment_has_no_tax_free_repayment_amount
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_amount: 0
+- name: unlisted_arrangement_has_no_tax_free_repayment_amount
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_amount: 0
+- name: allowed_repayment_is_not_contribution_or_taxable_payment
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_allowed: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#repayment_is_not_treated_as_contribution: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#repayment_is_not_treated_as_taxable_payment: holds
+- name: disallowed_repayment_has_no_special_treatment
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-12-01'
+    end: '2024-12-01'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_life_annuity: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_instalment_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_insurance: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_retirement_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_arrangement_is_supplementary_lump_sum: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_within_thirty_days_after_payment: false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_is_no_later_than_january_nineteenth_following_calendar_year
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.pension_contribution_amount: 1000
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#input.repayment_amount: 600
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#pension_arrangement_qualifies_for_repayment: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#tax_free_repayment_allowed: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#repayment_is_not_treated_as_contribution: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e#repayment_is_not_treated_as_taxable_payment: not_holds

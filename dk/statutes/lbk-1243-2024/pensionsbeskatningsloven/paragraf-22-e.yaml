@@ -1,0 +1,189 @@
+format: rulespec/v1
+rules:
+- name: tax_free_repayment_allowed
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Day
+  source: § 22 E, 1. og 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: kan senest 30 dage efter indbetalingen, dog senest den 19. januar
+            i det følgende kalenderår, helt eller delvis tilbagebetales
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: Der kan ikke afgiftsfrit tilbagebetales et større beløb, end der
+            er indbetalt.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'pension_arrangement_qualifies_for_repayment
+
+      and repayment_is_within_thirty_days_after_payment
+
+      and repayment_is_no_later_than_january_nineteenth_following_calendar_year
+
+      and repayment_amount <= pension_contribution_amount'
+- name: repayment_deadline_days_after_payment
+  kind: parameter
+  dtype: Integer
+  source: § 22 E, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: senest 30 dage efter indbetalingen
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '30'
+- name: latest_repayment_day_in_following_calendar_year
+  kind: parameter
+  dtype: Integer
+  source: § 22 E, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: senest den 19. januar i det følgende kalenderår
+  versions:
+  - effective_from: '2024-11-26'
+    formula: '19'
+- name: pension_arrangement_qualifies_for_repayment
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Day
+  source: § 22 E, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: pensionsordning med løbende udbetalinger, rateforsikring, rateopsparing,
+            aldersforsikring, aldersopsparing eller supplerende engangssum
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'pension_arrangement_is_life_annuity
+
+      or pension_arrangement_is_instalment_insurance
+
+      or pension_arrangement_is_instalment_savings
+
+      or pension_arrangement_is_retirement_insurance
+
+      or pension_arrangement_is_retirement_savings
+
+      or pension_arrangement_is_supplementary_lump_sum'
+- name: tax_free_repayment_amount
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Day
+  source: § 22 E, 1. og 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: Der kan ikke afgiftsfrit tilbagebetales et større beløb, end der
+            er indbetalt.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'if pension_arrangement_qualifies_for_repayment and repayment_is_within_thirty_days_after_payment
+      and repayment_is_no_later_than_january_nineteenth_following_calendar_year: min(repayment_amount,
+      pension_contribution_amount) else: 0'
+- name: repayment_is_not_treated_as_contribution
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Day
+  source: § 22 E, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: Det tilbagebetalte beløb betragtes hverken som en indbetaling
+  versions:
+  - effective_from: '2024-11-26'
+    formula: tax_free_repayment_allowed
+- name: repayment_is_not_treated_as_taxable_payment
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Day
+  source: § 22 E, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+          excerpt: hverken som en indbetaling eller en afgiftspligtig udbetaling
+  versions:
+  - effective_from: '2024-11-26'
+    formula: tax_free_repayment_allowed
+inputs:
+- name: pension_arrangement_is_life_annuity
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: pension_arrangement_is_instalment_insurance
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: pension_arrangement_is_instalment_savings
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: pension_arrangement_is_retirement_insurance
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: pension_arrangement_is_retirement_savings
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: pension_arrangement_is_supplementary_lump_sum
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: repayment_is_within_thirty_days_after_payment
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: repayment_is_no_later_than_january_nineteenth_following_calendar_year
+  entity: Payment
+  dtype: Boolean
+  period: Day
+- name: pension_contribution_amount
+  entity: Payment
+  dtype: Money
+  period: Day
+- name: repayment_amount
+  entity: Payment
+  dtype: Money
+  period: Day
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-22-e
+    source_sha256: 2978492def487221ddedf9f6d88104ac2105abdaf4b34296194fe9c5df416d9b
