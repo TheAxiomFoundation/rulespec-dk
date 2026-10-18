@@ -1,0 +1,119 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-t
+    source_sha256: 1ee5f32047e75e2b6dcde0aee0b9be30799b258cde7cd647966c609e1fc1bef8
+  summary: Der gives ikke fradrag for udgifter til cigaretter, røgtobak, cigarer,
+    cerutter, cigarillos, cigaretpapir, skrå eller snus ydet som led i ansættelse
+    eller afholdt til repræsentation eller reklame. Vareprøver fra registrerede tobaksvirksomheder
+    til detailhandelen er undtaget.
+inputs:
+- name: expense_is_cigarettes
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_smoking_tobacco
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_cigars
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_cigarillos
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_cerutes
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_cigarette_paper
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_chewing_tobacco
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_snus
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_provided_as_part_of_employment
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_incurred_for_representation
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_incurred_for_advertising
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: expense_is_sample_delivered_by_registered_tobacco_business_to_retailer
+  entity: Asset
+  dtype: Boolean
+  period: Year
+rules:
+- name: expense_is_listed_tobacco_product
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 8 T, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-t
+          excerpt: cigaretter, røgtobak, cigarer, cerutter, cigarillos, cigaretpapir,
+            skrå eller snus
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'expense_is_cigarettes
+
+      or expense_is_smoking_tobacco
+
+      or expense_is_cigars
+
+      or expense_is_cerutes
+
+      or expense_is_cigarillos
+
+      or expense_is_cigarette_paper
+
+      or expense_is_chewing_tobacco
+
+      or expense_is_snus'
+- name: tobacco_expense_deduction_disallowed
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 8 T, 1. og 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-t
+          excerpt: der er ydet som led i et ansættelsesforhold, eller som er afholdt
+            til repræsentation eller reklame
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-t
+          excerpt: omfatter ikke vareprøver udleveret af registrerede tobaksvirksomheder
+            til detailhandelen
+  versions:
+  - effective_from: '2025-11-24'
+    formula: "expense_is_listed_tobacco_product\nand (\n  expense_is_provided_as_part_of_employment\n\
+      \  or expense_is_incurred_for_representation\n  or expense_is_incurred_for_advertising\n\
+      )\nand not expense_is_sample_delivered_by_registered_tobacco_business_to_retailer"
