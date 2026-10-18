@@ -1,0 +1,70 @@
+- name: regulation_and_rounding_rules
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.amount_before_regulation: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.adjustment_percentage_for_financial_year: 0.01
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.statutory_rate_regulation_percentage: 0.03
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_is_shorter_than_calendar_year: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_share_of_calendar_year: 1
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.amount_before_rounding: 1250
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#regulated_pension_amount: 103000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#regulated_disability_and_senior_pension_amount: 102700
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#rate_regulated_amount: 103000
+- name: regulation_and_rounding_rules_effective_outputs
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.amount_before_regulation: 100000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.adjustment_percentage_for_financial_year: 0.01
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.statutory_rate_regulation_percentage: 0.03
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_is_shorter_than_calendar_year: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_share_of_calendar_year: 1
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.amount_before_rounding: 1250
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#amount_rounded_to_nearest_multiple_of_twelve: 1248
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#amount_rounded_to_nearest_multiple_of_one_hundred: 1300
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#amount_rounded_to_nearest_krone: 1250
+- name: single_reduction_amount_and_short_period_proration
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.person_is_single: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_is_shorter_than_calendar_year: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_share_of_calendar_year: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.amount_before_proportional_reduction: 100000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#heating_and_health_supplement_reduction_amount: 518
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#proportionately_reduced_amount_for_short_income_basis_period: 50000
+- name: couple_reduction_amount
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.person_is_single: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#heating_and_health_supplement_reduction_amount: 1044
+- name: full_calendar_year_is_not_reduced
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_is_shorter_than_calendar_year: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.income_basis_period_share_of_calendar_year: 0.5
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#input.amount_before_proportional_reduction: 100000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-49#proportionately_reduced_amount_for_short_income_basis_period: 100000

@@ -1,0 +1,939 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+    source_sha256: 78619937a123f150c6e849a600d4a686a8c2407c2c82bb801b0f9cb782a7bf97
+  summary: '§ 49, stk. 1, nr. 3: Mediechecken udgør 704 kr. i 2021 og 938 kr. i 2022
+    og frem.'
+rules:
+- name: media_cheque_third_calendar_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 704 kr. i 2021
+  versions:
+  - effective_from: '2021-01-01'
+    formula: '2021'
+- name: media_cheque_continuing_calendar_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 938 kr. i 2022 og frem
+  versions:
+  - effective_from: '2022-01-01'
+    formula: '2022'
+- name: pension_regulation_percentage_points
+  kind: parameter
+  dtype: Decimal
+  period: Year
+  source: § 49, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: med 2,0 pct. tillagt tilpasningsprocenten
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2'
+- name: media_cheque_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 3) Mediechecken efter § 14 e
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '3'
+- name: spouse_income_percentage_disregard_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 4) Fradragsbeløbet i den opgjorte indtægt
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '4'
+- name: pension_supplement_disregard_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 5) Fradragsbeløbet i den opgjorte indtægt for pensionstillæg
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '5'
+- name: supplementary_benefits_disregard_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 6) Fradragsbeløbet i den opgjorte indtægt for varmetillæg
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '6'
+- name: health_supplement_asset_limit_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 7) Formuegrænsen for tildeling af helbredstillæg
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '7'
+- name: disability_and_senior_pension_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 8) Førtidspensionen og seniorpensionen efter § 16
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '8'
+- name: disability_pension_spouse_disregard_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 9) Fradragsbeløbet i den opgjorte indtægt for ægtefælle
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '9'
+- name: disability_and_senior_income_disregard_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 10) Fradragsbeløbet i det samlede indtægtsgrundlag
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '10'
+- name: spouse_income_cap_list_branch
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 11) For en ægtefælle eller samlever, der er pensionist
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '11'
+- name: media_cheque_initial_calendar_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 235 kr. i 2019
+  versions:
+  - effective_from: '2019-01-01'
+    formula: '2019'
+- name: first_regulation_calendar_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 3, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: Reguleringen sker første gang den 1. januar 2020.
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '2020'
+- name: annual_regulation_base_factor
+  kind: parameter
+  dtype: Decimal
+  period: Year
+  source: § 49, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: reguleres en gang årligt den 1. januar
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '1'
+- name: krone_rounding_multiple
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 4, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: afrundes til nærmeste kronebeløb
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: rounding_multiple_of_twelve
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: kronebeløb, der kan deles med 12
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '12'
+- name: rounding_multiple_of_one_hundred
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: kronebeløb, der kan deles med 100
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '100'
+- name: heating_and_health_supplement_reduction_divisor
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 49, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: divideret med 100
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '100'
+- name: heating_and_health_supplement_reduction_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 49, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: nedsættes med 1 pct.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.01'
+- name: pension_regulation_increment_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 49, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: med 2,0 pct. tillagt tilpasningsprocenten
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '0.02'
+- name: disability_and_senior_pension_regulation_increment_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 49, stk. 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: med 1,7 pct. tillagt tilpasningsprocenten
+  versions:
+  - effective_from: '2020-01-01'
+    formula: '0.017'
+- name: regulated_pension_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 3, 1. pkt., and stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: reguleres en gang årligt den 1. januar med 2,0 pct. tillagt tilpasningsprocenten
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: beløb nedsættes forholdsmæssigt, hvis opgørelsesperioden for indtægtsgrundlaget
+            er kortere end kalenderåret
+  versions:
+  - effective_from: '2020-01-01'
+    formula: 'if income_basis_period_is_shorter_than_calendar_year: amount_before_regulation
+      * (annual_regulation_base_factor + pension_regulation_increment_rate + adjustment_percentage_for_financial_year)
+      * income_basis_period_share_of_calendar_year else: amount_before_regulation
+      * (annual_regulation_base_factor + pension_regulation_increment_rate + adjustment_percentage_for_financial_year)'
+- name: regulated_disability_and_senior_pension_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 3, 2. pkt., and stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: reguleres en gang årligt den 1. januar med 1,7 pct. tillagt tilpasningsprocenten
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: beløb nedsættes forholdsmæssigt, hvis opgørelsesperioden for indtægtsgrundlaget
+            er kortere end kalenderåret
+  versions:
+  - effective_from: '2020-01-01'
+    formula: 'if income_basis_period_is_shorter_than_calendar_year: amount_before_regulation
+      * (annual_regulation_base_factor + disability_and_senior_pension_regulation_increment_rate
+      + adjustment_percentage_for_financial_year) * income_basis_period_share_of_calendar_year
+      else: amount_before_regulation * (annual_regulation_base_factor + disability_and_senior_pension_regulation_increment_rate
+      + adjustment_percentage_for_financial_year)'
+- name: rate_regulated_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 3, 3. pkt., and stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: reguleres en gang årligt den 1. januar med satsreguleringsprocenten
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: beløb nedsættes forholdsmæssigt, hvis opgørelsesperioden for indtægtsgrundlaget
+            er kortere end kalenderåret
+  versions:
+  - effective_from: '2020-01-01'
+    formula: 'if income_basis_period_is_shorter_than_calendar_year: amount_before_regulation
+      * (annual_regulation_base_factor + statutory_rate_regulation_percentage) * income_basis_period_share_of_calendar_year
+      else: amount_before_regulation * (annual_regulation_base_factor + statutory_rate_regulation_percentage)'
+- name: amount_rounded_to_nearest_multiple_of_twelve
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: afrundes til nærmeste kronebeløb, der kan deles med 12
+  versions:
+  - effective_from: '2024-10-21'
+    formula: floor((amount_before_rounding / rounding_multiple_of_twelve) + ((rounding_multiple_of_twelve
+      / rounding_multiple_of_twelve) / 2)) * rounding_multiple_of_twelve
+- name: amount_rounded_to_nearest_multiple_of_one_hundred
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 4, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: afrundes til nærmeste kronebeløb, der kan deles med 100
+  versions:
+  - effective_from: '2024-10-21'
+    formula: floor((amount_before_rounding / rounding_multiple_of_one_hundred) + ((rounding_multiple_of_one_hundred
+      / rounding_multiple_of_one_hundred) / 2)) * rounding_multiple_of_one_hundred
+- name: amount_rounded_to_nearest_krone
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 4, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: afrundes til nærmeste kronebeløb
+  versions:
+  - effective_from: '2024-10-21'
+    formula: floor((amount_before_rounding / krone_rounding_multiple) + ((krone_rounding_multiple
+      / krone_rounding_multiple) / 2)) * krone_rounding_multiple
+- name: heating_and_health_supplement_reduction_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: beregnes som differencen mellem fradragsbeløbet efter § 49, stk.
+            1, nr. 5, og fradragsbeløbet efter § 49, stk. 1, nr. 6, divideret med
+            100
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'if person_is_single: (pension_supplement_income_disregard_single - heating_health_media_income_disregard_single)
+      / heating_and_health_supplement_reduction_divisor else: (pension_supplement_income_disregard_couple
+      - heating_health_media_income_disregard_couple) / heating_and_health_supplement_reduction_divisor'
+- name: basic_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: Grundbeløbet efter § 12, stk. 1, udgør 75.924 kr. årligt.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '75924'
+- name: pension_supplement_single
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 83.076 kr. for enlige
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '83076'
+- name: pension_supplement_couple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 41.436 kr. for gifte og samlevende
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '41436'
+- name: media_cheque
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: Mediechecken efter § 14 e udgør 235 kr. i 2019
+      - path: versions[1].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 469 kr. i 2020
+      - path: versions[2].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 704 kr. i 2021
+      - path: versions[3].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 938 kr. i 2022 og frem
+  versions:
+  - effective_from: '2019-01-01'
+    formula: '235'
+  - effective_from: '2020-01-01'
+    formula: '469'
+  - effective_from: '2021-01-01'
+    formula: '704'
+  - effective_from: '2022-01-01'
+    formula: '938'
+- name: non_pensioner_spouse_income_disregard_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: § 49, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: udgør 54 pct. af dennes indtægt
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.54'
+- name: pension_supplement_income_disregard_single
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 72.800 kr. for enlige
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '72800'
+- name: pension_supplement_income_disregard_couple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 145.900 kr. for gifte og samlevende
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '145900'
+- name: heating_health_media_income_disregard_single
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 21.000 kr. for enlige
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '21000'
+- name: heating_health_media_income_disregard_couple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 41.500 kr. for gifte og samlevende
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '41500'
+- name: health_supplement_asset_limit
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: udgør 87.900 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '87900'
+- name: disability_and_senior_pension_single
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: for enlige 226.500 kr. årligt
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '226500'
+- name: disability_and_senior_pension_supplement_single
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: pensionstillæg 62.028 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '62028'
+- name: disability_and_senior_pension_couple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: For gifte og samlevende udgør førtidspensionen og seniorpensionen
+            192.528 kr. årligt.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '192528'
+- name: disability_and_senior_pension_supplement_couple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: pensionstillæg 53.304 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '53304'
+- name: disability_or_senior_non_pensioner_spouse_income_disregard
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: udgør 249.728 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '249728'
+- name: disability_or_senior_income_disregard_single
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 78.800 kr. for enlige
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '78800'
+- name: disability_or_senior_income_disregard_couple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: 125.000 kr. for gifte eller samlevende
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '125000'
+- name: pensioner_spouse_income_cap
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: maksimalt indgå 387.400 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '387400'
+- name: non_pensioner_spouse_income_cap
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: maksimalt indgå 256.100 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '256100'
+- name: supplementary_labour_market_pension_contribution
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 1, nr. 12
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: udgør 6.396 kr. årligt
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '6396'
+- name: proportionately_reduced_amount_for_short_income_basis_period
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 49, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-49
+          excerpt: beløb nedsættes forholdsmæssigt, hvis opgørelsesperioden for indtægtsgrundlaget
+            er kortere end kalenderåret
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'if income_basis_period_is_shorter_than_calendar_year: amount_before_proportional_reduction
+      * income_basis_period_share_of_calendar_year else: amount_before_proportional_reduction'
+inputs:
+- name: amount_before_regulation
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: adjustment_percentage_for_financial_year
+  entity: Person
+  dtype: Rate
+  period: Year
+- name: statutory_rate_regulation_percentage
+  entity: Person
+  dtype: Rate
+  period: Year
+- name: amount_before_rounding
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: person_is_single
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: income_basis_period_is_shorter_than_calendar_year
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: income_basis_period_share_of_calendar_year
+  entity: Person
+  dtype: Decimal
+  period: Year
+- name: amount_before_proportional_reduction
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
