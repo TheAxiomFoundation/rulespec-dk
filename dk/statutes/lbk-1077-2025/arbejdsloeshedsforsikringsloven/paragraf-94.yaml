@@ -1,0 +1,47 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-94
+    source_sha256: 052418e57a1a8bd705b53b26106963b9969c2e0aa0f08a4a6c2363c38bdfeaa4
+  summary: Direktøren for Styrelsen for Arbejdsmarked og Rekruttering og personalet
+    i Styrelsen for Arbejdsmarked og Rekruttering og i jobcentrene må ikke være ansat
+    eller have lønnet hverv i en anerkendt arbejdsløshedskasse.
+inputs:
+- name: person_is_director_of_the_danish_agency_for_labour_market_and_recruitment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_staff_of_the_danish_agency_for_labour_market_and_recruitment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_staff_of_a_jobcentre
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: employment_or_paid_engagement_in_recognized_unemployment_fund_prohibited
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 94
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-94
+          excerpt: Direktøren for Styrelsen for Arbejdsmarked og Rekruttering og personalet
+            i Styrelsen for Arbejdsmarked og Rekruttering og i jobcentrene må ikke
+            være ansat eller have lønnet hverv i en anerkendt arbejdsløshedskasse.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'person_is_director_of_the_danish_agency_for_labour_market_and_recruitment
+
+      or person_is_staff_of_the_danish_agency_for_labour_market_and_recruitment
+
+      or person_is_staff_of_a_jobcentre'
