@@ -1,0 +1,140 @@
+- name: qualifying_pension_deduction
+  period:
+    period_kind: tax_year
+    start: '2022-01-01'
+    end: '2022-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_business_conversion_amount: 100
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.business_conversion_amount_under_section_4_subsection_4_second_sentence
+    : 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxable_dividends_from_share_based_investment_companies_and_minimum_taxation_institutes
+    : 30
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.gains_and_losses_under_share_gain_tax_act_sections_12_to_14_and_section_19_b
+    : 10
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.reimbursed_investment_incentives_relating_to_specified_investment_certificates
+    : 5
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_gains_relating_to_shares_under_share_gain_tax_act_section_19_c
+    : 15
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_under_ligningsloven_section_16_a_subsection_5: 2
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.employee_investment_company_payments_and_gains: 3
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.section_19_b_amounts_reallocated_to_personal_income: 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_has_disposed_of_shares_in_company_where_taxpayer_was_principal_shareholder
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_scheme_is_covered_by_pensionsbeskatningsloven_section_15_a
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_elects_share_income_deduction_for_pension_contributions
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_contributions_or_premiums_for_qualifying_pension_scheme
+    : 40
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_before_pension_deduction: 125
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#pension_contribution_deduction_in_share_income: 40
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_after_pension_deduction: 85
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_included_in_personal_income: 20
+- name: no_deduction_without_share_disposal
+  period:
+    period_kind: tax_year
+    start: '2022-01-01'
+    end: '2022-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_business_conversion_amount: 100
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.business_conversion_amount_under_section_4_subsection_4_second_sentence
+    : 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxable_dividends_from_share_based_investment_companies_and_minimum_taxation_institutes
+    : 30
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.gains_and_losses_under_share_gain_tax_act_sections_12_to_14_and_section_19_b
+    : 10
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.reimbursed_investment_incentives_relating_to_specified_investment_certificates
+    : 5
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_gains_relating_to_shares_under_share_gain_tax_act_section_19_c
+    : 15
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_under_ligningsloven_section_16_a_subsection_5: 2
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.employee_investment_company_payments_and_gains: 3
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.section_19_b_amounts_reallocated_to_personal_income: 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_has_disposed_of_shares_in_company_where_taxpayer_was_principal_shareholder
+    : false
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_scheme_is_covered_by_pensionsbeskatningsloven_section_15_a
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_elects_share_income_deduction_for_pension_contributions
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_contributions_or_premiums_for_qualifying_pension_scheme
+    : 40
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_before_pension_deduction: 125
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#pension_contribution_deduction_in_share_income: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_after_pension_deduction: 125
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_included_in_personal_income: 20
+- name: no_deduction_without_qualifying_pension_scheme
+  period:
+    period_kind: tax_year
+    start: '2022-01-01'
+    end: '2022-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_business_conversion_amount: 100
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.business_conversion_amount_under_section_4_subsection_4_second_sentence
+    : 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxable_dividends_from_share_based_investment_companies_and_minimum_taxation_institutes
+    : 30
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.gains_and_losses_under_share_gain_tax_act_sections_12_to_14_and_section_19_b
+    : 10
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.reimbursed_investment_incentives_relating_to_specified_investment_certificates
+    : 5
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_gains_relating_to_shares_under_share_gain_tax_act_section_19_c
+    : 15
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_under_ligningsloven_section_16_a_subsection_5: 2
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.employee_investment_company_payments_and_gains: 3
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.section_19_b_amounts_reallocated_to_personal_income: 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_has_disposed_of_shares_in_company_where_taxpayer_was_principal_shareholder
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_scheme_is_covered_by_pensionsbeskatningsloven_section_15_a
+    : false
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_elects_share_income_deduction_for_pension_contributions
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_contributions_or_premiums_for_qualifying_pension_scheme
+    : 40
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_before_pension_deduction: 125
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#pension_contribution_deduction_in_share_income: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_after_pension_deduction: 125
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_included_in_personal_income: 20
+- name: no_deduction_without_election
+  period:
+    period_kind: tax_year
+    start: '2022-01-01'
+    end: '2022-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_business_conversion_amount: 100
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.business_conversion_amount_under_section_4_subsection_4_second_sentence
+    : 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxable_dividends_from_share_based_investment_companies_and_minimum_taxation_institutes
+    : 30
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.gains_and_losses_under_share_gain_tax_act_sections_12_to_14_and_section_19_b
+    : 10
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.reimbursed_investment_incentives_relating_to_specified_investment_certificates
+    : 5
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_and_gains_relating_to_shares_under_share_gain_tax_act_section_19_c
+    : 15
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.dividends_under_ligningsloven_section_16_a_subsection_5: 2
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.employee_investment_company_payments_and_gains: 3
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.section_19_b_amounts_reallocated_to_personal_income: 20
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_has_disposed_of_shares_in_company_where_taxpayer_was_principal_shareholder
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_scheme_is_covered_by_pensionsbeskatningsloven_section_15_a
+    : true
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.taxpayer_elects_share_income_deduction_for_pension_contributions
+    : false
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#input.pension_contributions_or_premiums_for_qualifying_pension_scheme
+    : 40
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_before_pension_deduction: 125
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#pension_contribution_deduction_in_share_income: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_after_pension_deduction: 125
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_included_in_personal_income: 20
+- name: share_income_is_not_taxable_income
+  period:
+    period_kind: tax_year
+    start: '2022-01-01'
+    end: '2022-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-4-a#share_income_included_in_taxable_income: not_holds
