@@ -1,0 +1,44 @@
+- name: concurrent_entitlements_pay_only_the_higher_section_11_a_amount
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_is_after_member_of_supplementary_pension_scheme: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_11_a: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_14_e: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_11_a: 800
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_14_e: 600
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#concurrent_child_amount_coordination_applies: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#highest_concurrent_child_amount_payable: 800
+- name: coordination_does_not_apply_when_child_is_not_after_member
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_is_after_member_of_supplementary_pension_scheme: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_11_a: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_14_e: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_11_a: 800
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_14_e: 600
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#concurrent_child_amount_coordination_applies: not_holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#highest_concurrent_child_amount_payable: 0
+- name: coordination_does_not_apply_without_section_11_a_entitlement
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_is_after_member_of_supplementary_pension_scheme: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_11_a: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_14_e: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_11_a: 800
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_14_e: 600
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#concurrent_child_amount_coordination_applies: not_holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#highest_concurrent_child_amount_payable: 0
+- name: coordination_does_not_apply_without_section_14_e_entitlement
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_is_after_member_of_supplementary_pension_scheme: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_11_a: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.child_has_right_to_amount_under_section_14_e: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_11_a: 800
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#input.amount_under_section_14_e: 600
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#concurrent_child_amount_coordination_applies: not_holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-f#highest_concurrent_child_amount_payable: 0
