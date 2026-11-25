@@ -1,0 +1,33 @@
+- name: prior_period_payment_may_be_paid_when_conditions_were_met_on_hypothetical_due_date
+  period: 2019-02
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#input.contribution_payment_is_sought_for_time_before_contribution_document_date
+      : true
+      dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#input.conditions_were_met_on_hypothetical_due_date: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#contribution_payment_for_prior_period_may_be_paid:
+    - holds
+- name: payment_not_available_under_prior_period_rule_when_not_sought_for_time_before_document_date
+  period: 2019-02
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#input.contribution_payment_is_sought_for_time_before_contribution_document_date
+      : false
+      dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#input.conditions_were_met_on_hypothetical_due_date: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#contribution_payment_for_prior_period_may_be_paid:
+    - not_holds
+- name: payment_not_available_under_prior_period_rule_when_conditions_not_met_on_hypothetical_due_date
+  period: 2019-02
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#input.contribution_payment_is_sought_for_time_before_contribution_document_date
+      : true
+      dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#input.conditions_were_met_on_hypothetical_due_date: false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-13#contribution_payment_for_prior_period_may_be_paid:
+    - not_holds

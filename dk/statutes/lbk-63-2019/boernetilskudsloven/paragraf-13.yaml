@@ -1,0 +1,46 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-13
+    source_sha256: 02404b81411359e7dd14b110cdff6e68520d5dd8bbff61794fdd17f0bae65b8f
+  summary: '"Søges bidrag udbetalt for tiden forud for bidragsdokumentets dato, kan
+    bidrag udbetales i det omfang, betingelserne har været opfyldt på de forfaldsdage,
+    der ville være indtrådt, hvis bidragsdokumentet havde foreligget ved bidragsperiodens
+    begyndelse."'
+inputs:
+- name: contribution_payment_is_sought_for_time_before_contribution_document_date
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: conditions_were_met_on_hypothetical_due_date
+  entity: Payment
+  dtype: Boolean
+  period: Month
+rules:
+- name: contribution_payment_for_prior_period_may_be_paid
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 13
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-13
+          excerpt: Søges bidrag udbetalt for tiden forud for bidragsdokumentets dato
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-13
+          excerpt: betingelserne har været opfyldt på de forfaldsdage, der ville være
+            indtrådt
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'contribution_payment_is_sought_for_time_before_contribution_document_date
+
+      and conditions_were_met_on_hypothetical_due_date'
