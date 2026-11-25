@@ -1,0 +1,55 @@
+- name: section_11_and_12_amount_is_highest
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.spouse_is_after_member_of_supplementary_pension_scheme: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_sections_11_and_12: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_section_14_b: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_sections_11_and_12: 300
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_section_14_b: 200
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_only_rule_applies: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_payable_when_entitlements_concur: 300
+- name: section_14_b_amount_is_highest
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.spouse_is_after_member_of_supplementary_pension_scheme: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_sections_11_and_12: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_section_14_b: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_sections_11_and_12: 200
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_section_14_b: 300
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_only_rule_applies: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_payable_when_entitlements_concur: 300
+- name: rule_does_not_apply_when_person_is_not_spouse_after_member
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.spouse_is_after_member_of_supplementary_pension_scheme: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_sections_11_and_12: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_section_14_b: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_sections_11_and_12: 300
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_section_14_b: 200
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_only_rule_applies: not_holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_payable_when_entitlements_concur: 0
+- name: rule_does_not_apply_without_sections_11_and_12_entitlement
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.spouse_is_after_member_of_supplementary_pension_scheme: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_sections_11_and_12: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_section_14_b: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_sections_11_and_12: 300
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_section_14_b: 200
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_only_rule_applies: not_holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_payable_when_entitlements_concur: 0
+- name: rule_does_not_apply_without_section_14_b_entitlement
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.spouse_is_after_member_of_supplementary_pension_scheme: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_sections_11_and_12: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.has_right_to_amount_under_section_14_b: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_sections_11_and_12: 300
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#input.amount_under_section_14_b: 200
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_only_rule_applies: not_holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-14-d#highest_amount_payable_when_entitlements_concur: 0
