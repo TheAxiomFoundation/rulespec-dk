@@ -1,0 +1,660 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+    source_sha256: baee5fa231b5c3bb2556dcd8c7595cf156a4f435b19f3063e982284a1ff204d9
+  summary: '"mindst en af de personer, der har forsørgelsespligt over for barnet,
+    har haft bopæl eller beskæftigelse i mindst 6 år her i riget inden for de seneste
+    10 år"; otherwise stk. 2 pays 8,3 pct. after 6 months through 91,7 pct. after
+    66 months. Stk. 3 excludes EU, EØS and Swiss citizens entitled under EU law.'
+rules:
+- name: first_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 1) Efter 6 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '1'
+- name: second_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 2) Efter 12 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '2'
+- name: third_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 3) Efter 18 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '3'
+- name: fourth_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 4) Efter 24 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '4'
+- name: fifth_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 5) Efter 30 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '5'
+- name: seventh_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 7) Efter 42 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '7'
+- name: eighth_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 8) Efter 48 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '8'
+- name: ninth_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 9) Efter 54 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '9'
+- name: tenth_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 10) Efter 60 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '10'
+- name: eleventh_partial_payment_schedule_position
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 5 a, stk. 2, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: 11) Efter 66 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '11'
+- name: six_year_residence_or_employment_requirement
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: § 5 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: i mindst 6 år her i riget
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '6'
+- name: first_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 6 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '6'
+- name: second_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 12 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '12'
+- name: third_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 18 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '18'
+- name: fourth_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 24 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '24'
+- name: fifth_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 30 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '30'
+- name: sixth_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 36 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '36'
+- name: seventh_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 42 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '42'
+- name: eighth_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 48 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '48'
+- name: ninth_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 54 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '54'
+- name: tenth_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 60 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '60'
+- name: eleventh_partial_payment_month_threshold
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: § 5 a, stk. 2, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Efter 66 måneders bopæl eller beskæftigelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '66'
+- name: first_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 8,3 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.083'
+- name: second_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 16,7 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.167'
+- name: third_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 25 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.25'
+- name: fourth_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 33,3 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.333'
+- name: fifth_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 41,7 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.417'
+- name: sixth_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 50,0 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.5'
+- name: seventh_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 58,3 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.583'
+- name: eighth_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 66,7 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.667'
+- name: ninth_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 75,0 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.75'
+- name: tenth_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 83,3 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.833'
+- name: eleventh_partial_payment_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 2, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: udbetales 91,7 pct. af ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '0.917'
+- name: residence_employment_rules_apply
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 5 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Stk. 1 og 2 gælder ikke for borgere fra EU, EØS eller Schweiz
+  versions:
+  - effective_from: '2019-01-21'
+    formula: not child_is_entitled_to_benefit_under_eu_law
+- name: benefit_entitlement_under_residence_employment_rules
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 5 a, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: en betingelse for ret til ydelser
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: i det omfang disse efter EU-retten er berettiget til ydelsen
+  versions:
+  - effective_from: '2019-01-21'
+    formula: "other_conditions_for_benefit_are_met\nand (\n  child_is_entitled_to_benefit_under_eu_law\n\
+      \  or person_with_maintenance_obligation_has_six_years_of_residence_or_employment\n\
+      \  or maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation\
+      \ >= first_partial_payment_month_threshold\n)"
+- name: benefit_payment_fraction
+  kind: derived
+  entity: Person
+  dtype: Rate
+  period: Month
+  source: § 5 a, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Hvis kravet i stk. 1 ikke er opfyldt, udbetales følgende forholdsmæssige
+            andel af ydelsen
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-5-a
+          excerpt: Stk. 1 og 2 gælder ikke for borgere fra EU, EØS eller Schweiz
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'if child_is_entitled_to_benefit_under_eu_law: 1 else:
+
+      if person_with_maintenance_obligation_has_six_years_of_residence_or_employment:
+      1 else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= eleventh_partial_payment_month_threshold: eleventh_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= tenth_partial_payment_month_threshold: tenth_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= ninth_partial_payment_month_threshold: ninth_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= eighth_partial_payment_month_threshold: eighth_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= seventh_partial_payment_month_threshold: seventh_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= sixth_partial_payment_month_threshold: sixth_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= fifth_partial_payment_month_threshold: fifth_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= fourth_partial_payment_month_threshold: fourth_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= third_partial_payment_month_threshold: third_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= second_partial_payment_month_threshold: second_partial_payment_rate else:
+
+      if maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+      >= first_partial_payment_month_threshold: first_partial_payment_rate else:
+
+      0'
+inputs:
+- name: other_conditions_for_benefit_are_met
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: child_is_entitled_to_benefit_under_eu_law
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_with_maintenance_obligation_has_six_years_of_residence_or_employment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: maximum_months_of_residence_or_employment_for_person_with_maintenance_obligation
+  entity: Person
+  dtype: Count
+  period: Month
