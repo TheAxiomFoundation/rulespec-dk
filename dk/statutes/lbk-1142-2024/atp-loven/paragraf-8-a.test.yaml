@@ -1,0 +1,10 @@
+- name: annual_pension_for_one_historical_contribution_amount
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-8-a#input.paid_contributions_pertaining_to_specified_period: 396
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-8-a#annual_pension_from_historical_contributions: 100
