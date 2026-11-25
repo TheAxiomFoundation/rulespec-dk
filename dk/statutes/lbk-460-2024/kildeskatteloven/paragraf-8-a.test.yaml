@@ -1,0 +1,78 @@
+- name: business_deemed_discontinued_when_all_specified_assets_disposed
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_is_in_denmark: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_inventory_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_machinery_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_operating_assets_have_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_fixtures_have_been_disposed_of: true
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#business_is_deemed_discontinued: holds
+- name: business_not_deemed_discontinued_outside_denmark
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_is_in_denmark: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_inventory_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_machinery_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_operating_assets_have_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_fixtures_have_been_disposed_of: true
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#business_is_deemed_discontinued: not_holds
+- name: business_not_deemed_discontinued_without_inventory_disposal
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_is_in_denmark: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_inventory_has_been_disposed_of: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_machinery_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_operating_assets_have_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_fixtures_have_been_disposed_of: true
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#business_is_deemed_discontinued: not_holds
+- name: business_not_deemed_discontinued_without_machinery_disposal
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_is_in_denmark: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_inventory_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_machinery_has_been_disposed_of: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_operating_assets_have_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_fixtures_have_been_disposed_of: true
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#business_is_deemed_discontinued: not_holds
+- name: business_not_deemed_discontinued_without_operating_asset_disposal
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_is_in_denmark: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_inventory_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_machinery_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_operating_assets_have_been_disposed_of: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_fixtures_have_been_disposed_of: true
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#business_is_deemed_discontinued: not_holds
+- name: business_not_deemed_discontinued_without_fixture_disposal
+  period:
+    period_kind: tax_year
+    start: '2024-05-03'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_is_in_denmark: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_inventory_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_machinery_has_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_operating_assets_have_been_disposed_of: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#input.business_fixtures_have_been_disposed_of: false
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-8-a#business_is_deemed_discontinued: not_holds

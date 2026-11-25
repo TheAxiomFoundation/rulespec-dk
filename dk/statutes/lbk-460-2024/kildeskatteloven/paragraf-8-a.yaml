@@ -1,0 +1,59 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-8-a
+    source_sha256: 577acb9fcde14b48e39d3351c7eedaf45fb5c930dec3311f743bfc798147f57e
+  summary: 'Virksomhed her i landet anses først for opgivet, når afståelse af virksomhedens
+
+    varelager, maskiner, driftsmidler og inventar m.v. har fundet sted.'
+inputs:
+- name: business_is_in_denmark
+  entity: Business
+  dtype: Boolean
+  period: Year
+- name: business_inventory_has_been_disposed_of
+  entity: Business
+  dtype: Boolean
+  period: Year
+- name: business_machinery_has_been_disposed_of
+  entity: Business
+  dtype: Boolean
+  period: Year
+- name: business_operating_assets_have_been_disposed_of
+  entity: Business
+  dtype: Boolean
+  period: Year
+- name: business_fixtures_have_been_disposed_of
+  entity: Business
+  dtype: Boolean
+  period: Year
+rules:
+- name: business_is_deemed_discontinued
+  kind: derived
+  entity: Business
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 8 A
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-8-a
+          excerpt: Virksomhed her i landet anses først for opgivet, når afståelse
+            af virksomhedens varelager, maskiner, driftsmidler og inventar m.v. har
+            fundet sted.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'business_is_in_denmark
+
+      and business_inventory_has_been_disposed_of
+
+      and business_machinery_has_been_disposed_of
+
+      and business_operating_assets_have_been_disposed_of
+
+      and business_fixtures_have_been_disposed_of'
