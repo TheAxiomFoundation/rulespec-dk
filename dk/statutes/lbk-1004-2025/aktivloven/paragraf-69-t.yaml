@@ -1,0 +1,156 @@
+format: rulespec/v1
+rules:
+- name: maximum_refusion_hours_per_week
+  kind: parameter
+  dtype: Decimal
+  period: Week
+  source: Aktivloven § 69 t, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-69-t
+          excerpt: kan højst ydes for 37 timer pr. uge
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '37'
+- name: employer_is_entitled_to_refusion
+  kind: derived
+  entity: Employer
+  dtype: Judgment
+  period: Week
+  source: Aktivloven § 69 t, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-69-t
+          excerpt: En arbejdsgiver, der udbetaler løn under sygefravær til en sygemeldt,
+            der påbegynder et jobafklaringsforløb, har ret til refusion
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'employer_pays_wages_during_sick_absence
+
+      and employee_is_reported_sick
+
+      and employee_begins_job_clarification_programme'
+- name: refund_before_apportionment
+  kind: derived
+  entity: Employer
+  dtype: Money
+  unit: DKK
+  period: Week
+  source: Aktivloven § 69 t, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-69-t
+          excerpt: Refusionen kan dog højst udgøre et beløb svarende til den udbetalte
+            løn og kan højst ydes for 37 timer pr. uge.
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-69-t
+          excerpt: et beløb pr. time, der beregnes ud fra den ressourceforløbsydelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if employer_is_entitled_to_refusion:\n  min(\n    wages_paid_during_sick_absence,\n\
+      \    hourly_refusion_amount_based_on_resource_programme_benefit * min(hours_for_which_employer_pays_wages,\
+      \ maximum_refusion_hours_per_week)\n  )\nelse: 0"
+- name: apportioned_refusion_before_sickness_benefit_reduction
+  kind: derived
+  entity: Employer
+  dtype: Money
+  unit: DKK
+  period: Week
+  source: Aktivloven § 69 t, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-69-t
+          excerpt: udbetales refusionen til den enkelte arbejdsgiver forholdsmæssigt
+            ud fra antallet af timer i det enkelte arbejdsforhold
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if employer_is_entitled_to_refusion:\n  if employee_receives_wages_from_multiple_employers:\n\
+      \    total_refusion_under_subsections_1_to_2 * hours_for_which_employer_pays_wages\
+      \ / total_hours_in_all_employment_relationships\n  else: refund_before_apportionment\n\
+      else: 0"
+- name: employer_refusion
+  kind: derived
+  entity: Employer
+  dtype: Money
+  unit: DKK
+  period: Week
+  source: Aktivloven § 69 t, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-69-t
+          excerpt: Refusion efter stk. 1-3 nedsættes med det beløb, som arbejdsgiveren
+            har ret til efter lov om sygedagpenge.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: max(0, apportioned_refusion_before_sickness_benefit_reduction - employer_entitlement_under_sickness_benefit_act)
+inputs:
+- name: employer_pays_wages_during_sick_absence
+  entity: Employer
+  dtype: Boolean
+  period: Week
+- name: employee_is_reported_sick
+  entity: Employer
+  dtype: Boolean
+  period: Week
+- name: employee_begins_job_clarification_programme
+  entity: Employer
+  dtype: Boolean
+  period: Week
+- name: wages_paid_during_sick_absence
+  entity: Employer
+  dtype: Money
+  unit: DKK
+  period: Week
+- name: hourly_refusion_amount_based_on_resource_programme_benefit
+  entity: Employer
+  dtype: Money
+  unit: DKK
+  period: Week
+- name: hours_for_which_employer_pays_wages
+  entity: Employer
+  dtype: Decimal
+  period: Week
+- name: employee_receives_wages_from_multiple_employers
+  entity: Employer
+  dtype: Boolean
+  period: Week
+- name: total_refusion_under_subsections_1_to_2
+  entity: Employer
+  dtype: Money
+  unit: DKK
+  period: Week
+- name: total_hours_in_all_employment_relationships
+  entity: Employer
+  dtype: Decimal
+  period: Week
+- name: employer_entitlement_under_sickness_benefit_act
+  entity: Employer
+  dtype: Money
+  unit: DKK
+  period: Week
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-69-t
+    source_sha256: 11f63083744fb76e07e9256f26f6dc31bd1eda6609e9fd268c42a5ce8cc0e878
