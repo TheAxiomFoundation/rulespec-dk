@@ -1,0 +1,9 @@
+- name: limitation_period_for_claims_covered_by_sections_65_to_65_d
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input: {}
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-67-a#limitation_period_for_claims_covered_by_sections_65_to_65_d: 5
