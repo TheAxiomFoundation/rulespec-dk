@@ -1,0 +1,42 @@
+- name: all_statutory_deduction_categories_reduce_personal_income
+  period:
+    period_kind: tax_year
+    start: '2021-06-14'
+    end: '2021-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.income_included_in_taxable_income_other_than_capital_income: 1000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.business_expenses_other_than_excepted_expenses: 10
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.specified_business_expenses_and_transferred_income: 20
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.deductible_pension_contributions_and_premiums: 30
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.livestock_difference_amounts_and_write_downs: 40
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.inventory_write_down: 50
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.labour_market_contributions_and_mandatory_foreign_social_contributions
+    : 60
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.business_tax_scheme_allocations: 70
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.deductible_expenses_under_ligningsloven_section_9_b: 80
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.repaid_taxable_cash_assistance: 90
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.depreciation_losses_and_deductions_for_self_employed_persons: 100
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.entrepreneur_account_deposit: 110
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#personal_income: 340
+- name: taxable_noncapital_income_is_personal_income_without_deductions
+  period:
+    period_kind: tax_year
+    start: '2021-06-14'
+    end: '2021-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.income_included_in_taxable_income_other_than_capital_income: 1000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.business_expenses_other_than_excepted_expenses: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.specified_business_expenses_and_transferred_income: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.deductible_pension_contributions_and_premiums: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.livestock_difference_amounts_and_write_downs: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.inventory_write_down: 0
+    ? dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.labour_market_contributions_and_mandatory_foreign_social_contributions
+    : 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.business_tax_scheme_allocations: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.deductible_expenses_under_ligningsloven_section_9_b: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.repaid_taxable_cash_assistance: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.depreciation_losses_and_deductions_for_self_employed_persons: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#input.entrepreneur_account_deposit: 0
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-3#personal_income: 1000
