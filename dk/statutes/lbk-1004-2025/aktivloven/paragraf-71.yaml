@@ -1,0 +1,608 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+    source_sha256: 893462cebbe3ec05e8d2a3e9d7668b302490c6a7f3d9c0f6af0ae61557827983
+  summary: § 71 fastsætter månedlige revalideringsydelser efter alder, forsørgelse,
+    bopæl, graviditet og dokumenteret psykisk lidelse; et bidragstillæg med loft;
+    en højere sats ved tidligere gennemsnitsindtægt; kontanthjælp som erstatningsydelse;
+    og bevarelse af forsørgelsesgrundlaget under forrevalidering.
+rules:
+- name: documented_disorder_nonresident_children_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 7) 16.382 kr. (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '7'
+- name: documented_disorder_not_living_with_parents_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 8) 12.326 kr. (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '8'
+- name: cash_assistance_supplement_upper_section_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: med eventuelle tillæg efter §§ 17 og 18
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: prior_income_reference_upper_section_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: indtægter, jf. §§ 72 og 73
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '73'
+- name: stated_amount_level_year
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 1-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 20.373 kr. (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2024'
+- name: under30_own_child_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 1)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: age_25_nonresident_children_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 2)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: age_25_no_child_support_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 3)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: under25_not_living_with_parents_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 4)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '4'
+- name: under25_living_with_parents_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 5)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '5'
+- name: under30_supporting_own_child_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 1) 20.373 kr. (2024-niveau), når personen forsørger eget barn i
+            hjemmet
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '20373'
+- name: age_25_nonresident_children_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 2) 16.382 kr. (2024-niveau), når personen er fyldt 25 år og har
+            forsørgelsespligt over for ikke hjemmeboende børn
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '16382'
+- name: under25_not_living_with_parents_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 4) 7.945 kr. (2024-niveau), når personen er under 25 år og ikke
+            bor hos en eller begge forældre
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '7945'
+- name: under25_pregnancy_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 6) 12.326 kr. (2024-niveau), når personen er under 25 år, er gravid
+            og har passeret 12. svangerskabsuge
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12326'
+- name: under25_documented_disorder_nonresident_children_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 7) 16.382 kr. (2024-niveau), når personen er under 25 år og har
+            en dokumenteret psykisk lidelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '16382'
+- name: child_contribution_supplement
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 71, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: En person under 25 år, som har en dokumenteret bidragspligt over
+            for et barn, og som modtager revalideringsydelse efter satserne i stk.
+            2, nr. 4 eller 5, får et månedligt tillæg, der svarer til det fastsatte
+            bidrag, dog højst normalbidraget.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if has_documented_child_contribution_obligation\nand (ordinary_monthly_revalidation_rate\
+      \ == under25_not_living_with_parents_rate\nor ordinary_monthly_revalidation_rate\
+      \ == under25_living_with_parents_rate):\n  min(fixed_monthly_child_contribution,\
+      \ normal_child_contribution)\nelse: 0"
+- name: revalidation_benefit_including_supplement_cap
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: Revalideringsydelsen inklusive tillæg kan pr. måned højst udgøre
+            16.382 kr. (2024-niveau).
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '16382'
+- name: adult_monthly_revalidation_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: 20.373 kr. (2024-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '20373'
+- name: age_25_no_child_support_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: (2024-niveau), når personen er fyldt 25 år og har forsørgelsespligt
+            over for ikke hjemmeboende børn, 3) 12.326 kr.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12326'
+- name: under25_living_with_parents_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: (2024-niveau), når personen er under 25 år og ikke bor hos en eller
+            begge forældre, 5) 3.834 kr.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3834'
+- name: under25_documented_disorder_not_living_with_parents_rate
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Aktivloven § 71, stk. 2, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: (2024-niveau), når personen er under 25 år og har en dokumenteret
+            psykisk lidelse, der er diagnosticeret som skizofreni, skizotypisk sindslidelse,
+            vedvarende psykotisk tilstand, korterevarende psykotisk tilstand, skizoaffektiv
+            lidelse, uspecificeret ikke organisk betinget psykose eller emotionelt
+            ustabil personlighedsstruktur af borderlinetype, og har forsørgelsespligt
+            over for ikke hjemmeboende børn, og 8) 12.326 kr.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12326'
+- name: adult_age_threshold
+  kind: parameter
+  dtype: Decimal
+  source: Aktivloven § 71, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: fyldt 30 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '30'
+- name: age_25_threshold
+  kind: parameter
+  dtype: Decimal
+  source: Aktivloven § 71, stk. 2, nr. 2-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: fyldt 25 år
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '25'
+- name: pregnancy_week_threshold
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 2, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: passeret 12. svangerskabsuge
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '12'
+- name: income_lookback_calendar_months
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 71, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: de 6 kalendermåneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '6'
+- name: average_prior_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 71, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: Stk. 4. Har personer omfattet af stk. 2, nr. 2-8, i de 6 kalendermåneder,
+            der ligger forud for den måned, hvori beslutningen om revalidering er
+            truffet, haft indtægter, jf. §§ 72 og 73, der gennemsnitligt overstiger
+            20.373 kr. (2024-niveau) pr. måned, udgør revalideringsydelsen 20.373
+            kr. (2024-niveau).
+  versions:
+  - effective_from: '2025-06-30'
+    formula: relevant_income_in_prior_six_calendar_months / income_lookback_calendar_months
+- name: ordinary_monthly_revalidation_rate
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 71, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: For personer under 30 år udgør revalideringsydelsen et månedligt
+            beløb
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: når personen forsørger eget barn i hjemmet
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if age_years >= adult_age_threshold: adult_monthly_revalidation_rate
+      else: if supports_own_child_in_home: under30_supporting_own_child_rate else:
+      if age_years >= age_25_threshold and has_support_obligation_for_nonresident_children:
+      age_25_nonresident_children_rate else: if age_years >= age_25_threshold and
+      not has_support_obligation_for_children: age_25_no_child_support_rate else:
+      if is_pregnant_and_has_passed_twelfth_week: under25_pregnancy_rate else: if
+      has_documented_listed_mental_disorder and has_support_obligation_for_nonresident_children:
+      under25_documented_disorder_nonresident_children_rate else: if has_documented_listed_mental_disorder
+      and not lives_with_one_or_both_parents: under25_documented_disorder_not_living_with_parents_rate
+      else: if not lives_with_one_or_both_parents: under25_not_living_with_parents_rate
+      else: under25_living_with_parents_rate'
+- name: higher_income_rate_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 71, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: personer omfattet af stk. 2, nr. 2-8
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: gennemsnitligt overstiger 20.373 kr.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'age_years < adult_age_threshold
+
+      and not supports_own_child_in_home
+
+      and average_prior_income > adult_monthly_revalidation_rate'
+- name: contribution_supplement_applied_to_debt
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 71, stk. 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: Er bidraget forskudsvis udlagt på tidspunktet for udbetaling af
+            hjælp, benyttes tillægget til afdrag på bidragsgælden.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if contribution_has_been_advanced: child_contribution_supplement else:
+      0'
+- name: monthly_revalidation_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 71, stk. 3-5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: erstatter denne ydelse revalideringsydelsen
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-71
+          excerpt: Revalideringsydelsen inklusive tillæg kan pr. måned højst udgøre
+            16.382 kr.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if receives_cash_assistance_under_section_16_subsection_2: cash_assistance_with_sections_17_and_18_supplements
+      else: if higher_income_rate_applies: adult_monthly_revalidation_rate else: min(ordinary_monthly_revalidation_rate
+      + child_contribution_supplement, revalidation_benefit_including_supplement_cap)'
+inputs:
+- name: normal_child_contribution
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: age_years
+  entity: Person
+  dtype: Decimal
+  period: Month
+- name: supports_own_child_in_home
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_support_obligation_for_nonresident_children
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_support_obligation_for_children
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: lives_with_one_or_both_parents
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: is_pregnant_and_has_passed_twelfth_week
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_documented_listed_mental_disorder
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: has_documented_child_contribution_obligation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: fixed_monthly_child_contribution
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: contribution_has_been_advanced
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: relevant_income_in_prior_six_calendar_months
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: receives_cash_assistance_under_section_16_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: cash_assistance_with_sections_17_and_18_supplements
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month

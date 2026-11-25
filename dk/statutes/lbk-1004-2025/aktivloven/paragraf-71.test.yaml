@@ -1,0 +1,137 @@
+- name: adult_rate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 30
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#ordinary_monthly_revalidation_rate: 20373
+- name: child_contribution_supplement_for_rate_item_four
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_child_contribution_obligation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.fixed_monthly_child_contribution: 2000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.normal_child_contribution: 1500
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.contribution_has_been_advanced: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#ordinary_monthly_revalidation_rate: 7945
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#child_contribution_supplement: 1500
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#contribution_supplement_applied_to_debt: 1500
+- name: child_contribution_supplement_not_available_for_pregnancy_rate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_child_contribution_obligation: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.fixed_monthly_child_contribution: 2000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.normal_child_contribution: 1500
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.contribution_has_been_advanced: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#ordinary_monthly_revalidation_rate: 12326
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#child_contribution_supplement: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#contribution_supplement_applied_to_debt: 0
+- name: under25_not_living_with_parents_rate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#ordinary_monthly_revalidation_rate: 7945
+- name: under25_documented_disorder_nonresident_children_rate
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#ordinary_monthly_revalidation_rate: 16382
+- name: higher_income_rate_and_cash_assistance_replacement
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 24
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.relevant_income_in_prior_six_calendar_months: 126000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.receives_cash_assistance_under_section_16_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.cash_assistance_with_sections_17_and_18_supplements: 15000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_child_contribution_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.fixed_monthly_child_contribution: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.contribution_has_been_advanced: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.normal_child_contribution: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#average_prior_income: 21000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#higher_income_rate_applies: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#monthly_revalidation_benefit: 15000
+- name: auto_output_child_contribution_supplement
+  period:
+    period_kind: month
+    start: '2025-07-01'
+    end: '2025-07-31'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.cash_assistance_with_sections_17_and_18_supplements: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.contribution_has_been_advanced: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.fixed_monthly_child_contribution: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_child_contribution_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.receives_cash_assistance_under_section_16_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.relevant_income_in_prior_six_calendar_months: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.normal_child_contribution: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#child_contribution_supplement: 0
+- name: auto_output_contribution_supplement_applied_to_debt
+  period:
+    period_kind: month
+    start: '2025-07-01'
+    end: '2025-07-31'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.age_years: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.cash_assistance_with_sections_17_and_18_supplements: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.contribution_has_been_advanced: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.fixed_monthly_child_contribution: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_child_contribution_obligation: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_documented_listed_mental_disorder: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.has_support_obligation_for_nonresident_children: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.is_pregnant_and_has_passed_twelfth_week: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.lives_with_one_or_both_parents: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.receives_cash_assistance_under_section_16_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.relevant_income_in_prior_six_calendar_months: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.supports_own_child_in_home: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#input.normal_child_contribution: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-71#contribution_supplement_applied_to_debt: 0
