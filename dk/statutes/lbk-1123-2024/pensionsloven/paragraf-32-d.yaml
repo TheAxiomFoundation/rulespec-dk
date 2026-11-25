@@ -1,0 +1,116 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-d
+    source_sha256: 24c87692a859d6365e71da3622d86b0212d14f28e1d72460f23f5701632e80f0
+  summary: I førtidspension og seniorpension, som efterbetales for en periode forud
+    for tilkendelsen, fratrækkes specificerede forsørgelsesydelser udbetalt for samme
+    periode. For meget udbetalt pension og boligstøtte kan fratrækkes pensionen.
+inputs:
+- name: payment_is_retroactive_disability_or_senior_pension_under_section_33_2
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: retroactive_pension_before_mandatory_offsets
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_sickness_benefit_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_unemployment_benefit_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_cash_benefit_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_self_support_and_repatriation_benefit_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_transition_benefit_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_flex_job_unemployment_benefit_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_resource_course_benefit_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_education_assistance_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: paid_cash_assistance_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: overpaid_pension_amount
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: overpaid_housing_support_amount
+  entity: Payment
+  dtype: Money
+  period: Month
+rules:
+- name: retroactive_pension_after_mandatory_offsets
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  source: § 32 d, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-d
+          excerpt: fratrækkes sygedagpenge, arbejdsløshedsdagpenge, kontantydelse
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-d
+          excerpt: efterbetales for en periode, der ligger forud for tilkendelsen
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-d
+          excerpt: udbetalt for den samme periode
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "if payment_is_retroactive_disability_or_senior_pension_under_section_33_2:\n\
+      \  max(0, retroactive_pension_before_mandatory_offsets - paid_sickness_benefit_for_same_period\
+      \ - paid_unemployment_benefit_for_same_period - paid_cash_benefit_for_same_period\
+      \ - paid_self_support_and_repatriation_benefit_for_same_period - paid_transition_benefit_for_same_period\
+      \ - paid_flex_job_unemployment_benefit_for_same_period - paid_resource_course_benefit_for_same_period\
+      \ - paid_education_assistance_for_same_period - paid_cash_assistance_for_same_period)\n\
+      else: 0"
+- name: overpaid_pension_or_housing_support_may_be_deducted
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 32 d, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-d
+          excerpt: For meget udbetalt pension og boligstøtte kan fratrækkes pensionen.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'overpaid_pension_amount > 0
+
+      or overpaid_housing_support_amount > 0'
