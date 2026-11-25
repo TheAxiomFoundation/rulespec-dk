@@ -1,0 +1,46 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-t
+    source_sha256: c0c73af3372d3c62548ead021e6bdf7476d5583188e97058e3acde3a62d386b6
+  summary: Til den skattepligtige indkomst medregnes ikke udbetalinger mv. fra stater,
+    fonde, organisationer mv., såfremt de er udbetalt som følge af nazistiske overgreb
+    mod personer under Anden Verdenskrig.
+inputs:
+- name: payment_is_from_state_fund_organization_or_similar
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: payment_is_paid_as_result_of_nazi_atrocities_during_second_world_war
+  entity: Payment
+  dtype: Boolean
+  period: Year
+rules:
+- name: payment_excluded_from_taxable_income
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 7 T
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-t
+          excerpt: udbetalinger mv. fra stater, fonde, organisationer mv.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-t
+          excerpt: Til den skattepligtige indkomst medregnes ikke udbetalinger mv.
+            fra stater, fonde, organisationer mv., såfremt de er udbetalt som følge
+            af nazistiske overgreb mod personer under Anden Verdenskrig.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'payment_is_from_state_fund_organization_or_similar
+
+      and payment_is_paid_as_result_of_nazi_atrocities_during_second_world_war'
