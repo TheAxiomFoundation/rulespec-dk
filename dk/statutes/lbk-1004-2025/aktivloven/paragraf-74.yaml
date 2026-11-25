@@ -1,0 +1,418 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+    source_sha256: c84f032e72968013339373ca831114e58bc98b861ed44c02d885590fef2f2497
+  summary: '"Ledighedsydelse udbetales af kommunen til personer, der er berettiget
+    til fleksjob"
+
+    in the five listed circumstances in stk. 1. Persons formerly entitled to
+
+    ledighedsydelse or employed in fleksjob who transition to unsupported employment
+
+    may receive it in the four listed circumstances in stk. 2.'
+rules:
+- name: flexjob_eligibility_chapter_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: kapitel 20 i lov om en aktiv beskæftigelsesindsats
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '20'
+- name: flexjob_eligibility_after_visitation_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 1) i perioden efter visitationen
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: flexjob_eligibility_unemployment_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 2) ved ledighed efter et fleksjob
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: flexjob_eligibility_leave_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 3) i perioder med sygdom, barsel eller sorgorlov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: flexjob_eligibility_holiday_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 4) ved afholdelse af ferie
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '4'
+- name: flexjob_eligibility_faultless_interruption_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 1, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 5) ved midlertidige afbrydelser i arbejdet
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '5'
+- name: unsupported_employment_unemployment_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 1) ved ledighed, der indtræffer efter ansættelse i ustøttet beskæftigelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: unsupported_employment_leave_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 2) i perioder med sygdom, barsel eller sorgorlov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: unsupported_employment_holiday_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 3) ved afholdelse af ferie
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: unsupported_employment_faultless_interruption_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 74, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: 4) ved midlertidige afbrydelser i arbejdet
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '4'
+- name: eligible_for_unemployment_benefit_as_flexjob_entitled_person
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: personer, der er berettiget til fleksjob
+  versions:
+  - effective_from: '2025-06-30'
+    formula: person_is_entitled_to_flexjob_under_chapter_20
+- name: unemployment_benefit_available_after_visitation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: i perioden efter visitationen, indtil den pågældende ansættes i
+            fleksjob
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_as_flexjob_entitled_person
+
+      and period_is_after_visitation_and_before_flexjob_employment'
+- name: unemployment_benefit_available_after_flexjob_unemployment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: ved ledighed efter et fleksjob
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_as_flexjob_entitled_person
+
+      and person_is_unemployed_after_flexjob'
+- name: unemployment_benefit_available_during_flexjob_leave
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: i perioder med sygdom, barsel eller sorgorlov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_as_flexjob_entitled_person
+
+      and period_has_sickness_maternity_or_bereavement_leave'
+- name: unemployment_benefit_available_during_flexjob_holiday
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: ved afholdelse af ferie
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_as_flexjob_entitled_person
+
+      and person_is_taking_holiday'
+- name: unemployment_benefit_available_during_faultless_flexjob_interruption
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 1, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: midlertidige afbrydelser i arbejdet, som ikke kan tilregnes den
+            pågældende
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_as_flexjob_entitled_person
+
+      and work_is_temporarily_interrupted_without_person_at_fault'
+- name: eligible_for_unemployment_benefit_after_unsupported_employment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: har været berettiget til ledighedsydelse eller har været ansat
+            i fleksjob, men som er overgået til ansættelse i ustøttet beskæftigelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '(person_was_entitled_to_unemployment_benefit or person_was_employed_in_flexjob)
+
+      and person_has_transitioned_to_unsupported_employment'
+- name: unemployment_benefit_available_after_unsupported_employment_unemployment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: ved ledighed, der indtræffer efter ansættelse i ustøttet beskæftigelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_after_unsupported_employment
+
+      and person_is_unemployed_after_unsupported_employment'
+- name: unemployment_benefit_available_during_unsupported_employment_leave
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: i perioder med sygdom, barsel eller sorgorlov
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_after_unsupported_employment
+
+      and period_has_sickness_maternity_or_bereavement_leave'
+- name: unemployment_benefit_available_during_unsupported_employment_holiday
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: ved afholdelse af ferie
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_after_unsupported_employment
+
+      and person_is_taking_holiday'
+- name: unemployment_benefit_available_during_faultless_unsupported_employment_interruption
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 74, stk. 2, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74
+          excerpt: midlertidige afbrydelser i arbejdet, som ikke kan tilregnes den
+            pågældende
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'eligible_for_unemployment_benefit_after_unsupported_employment
+
+      and work_is_temporarily_interrupted_without_person_at_fault'
+inputs:
+- name: person_is_entitled_to_flexjob_under_chapter_20
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: period_is_after_visitation_and_before_flexjob_employment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_unemployed_after_flexjob
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: period_has_sickness_maternity_or_bereavement_leave
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_taking_holiday
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: work_is_temporarily_interrupted_without_person_at_fault
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_was_entitled_to_unemployment_benefit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_was_employed_in_flexjob
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_transitioned_to_unsupported_employment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_unemployed_after_unsupported_employment
+  entity: Person
+  dtype: Boolean
+  period: Month

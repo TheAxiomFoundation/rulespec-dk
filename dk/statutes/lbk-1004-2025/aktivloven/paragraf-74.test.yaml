@@ -1,0 +1,206 @@
+- name: flexjob_entitlement_holds
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+- name: flexjob_entitlement_does_not_hold
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: not_holds
+- name: benefit_after_visitation
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.period_is_after_visitation_and_before_flexjob_employment: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_after_visitation: holds
+- name: benefit_not_available_after_visitation_when_period_ends
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.period_is_after_visitation_and_before_flexjob_employment: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_after_visitation: not_holds
+- name: benefit_after_flexjob_unemployment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_unemployed_after_flexjob: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_after_flexjob_unemployment: holds
+- name: benefit_not_available_without_flexjob_unemployment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_unemployed_after_flexjob: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_after_flexjob_unemployment: not_holds
+- name: benefit_during_flexjob_leave
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.period_has_sickness_maternity_or_bereavement_leave: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_flexjob_leave: holds
+- name: benefit_not_available_without_flexjob_leave
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.period_has_sickness_maternity_or_bereavement_leave: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_flexjob_leave: not_holds
+- name: benefit_during_flexjob_holiday
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_taking_holiday: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_flexjob_holiday: holds
+- name: benefit_not_available_without_flexjob_holiday
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_taking_holiday: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_flexjob_holiday: not_holds
+- name: benefit_during_faultless_flexjob_interruption
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.work_is_temporarily_interrupted_without_person_at_fault: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_faultless_flexjob_interruption: holds
+- name: benefit_not_available_during_fault_attributable_flexjob_interruption
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_entitled_to_flexjob_under_chapter_20: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.work_is_temporarily_interrupted_without_person_at_fault: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_as_flexjob_entitled_person: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_faultless_flexjob_interruption: not_holds
+- name: unsupported_employment_transition_after_prior_benefit
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+- name: unsupported_employment_transition_after_flexjob
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+- name: unsupported_employment_transition_requires_prior_status
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: not_holds
+- name: unsupported_employment_transition_requires_transition
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: not_holds
+- name: benefit_after_unsupported_employment_unemployment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_unemployed_after_unsupported_employment: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_after_unsupported_employment_unemployment: holds
+- name: benefit_not_available_without_unsupported_employment_unemployment
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_unemployed_after_unsupported_employment: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_after_unsupported_employment_unemployment: not_holds
+- name: benefit_during_unsupported_employment_leave
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.period_has_sickness_maternity_or_bereavement_leave: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_unsupported_employment_leave: holds
+- name: benefit_not_available_without_unsupported_employment_leave
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.period_has_sickness_maternity_or_bereavement_leave: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_unsupported_employment_leave: not_holds
+- name: benefit_during_unsupported_employment_holiday
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_taking_holiday: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_unsupported_employment_holiday: holds
+- name: benefit_not_available_without_unsupported_employment_holiday
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_is_taking_holiday: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_unsupported_employment_holiday: not_holds
+- name: benefit_during_faultless_unsupported_employment_interruption
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.work_is_temporarily_interrupted_without_person_at_fault: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_faultless_unsupported_employment_interruption
+    : holds
+- name: benefit_not_available_during_fault_attributable_unsupported_employment_interruption
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_entitled_to_unemployment_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_was_employed_in_flexjob: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.person_has_transitioned_to_unsupported_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#input.work_is_temporarily_interrupted_without_person_at_fault: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#eligible_for_unemployment_benefit_after_unsupported_employment: holds
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74#unemployment_benefit_available_during_faultless_unsupported_employment_interruption
+    : not_holds
