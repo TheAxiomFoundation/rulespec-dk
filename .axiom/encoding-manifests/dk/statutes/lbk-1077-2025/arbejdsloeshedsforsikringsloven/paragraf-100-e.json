@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e.yaml",
+      "sha256": "8c93822219fda9000dd0b2c4da236a1096f257b3516bd76911470c9b7aa1caf1"
+    },
+    {
+      "path": "dk/statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e.test.yaml",
+      "sha256": "c428b9d05da6402848cb3dc65061ad0c33587a03a136ca3abd2f2e6ab84268f8"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-1077-2025-arbejdsloeshedsforsikringsloven-paragraf-100-e/workspace/context-manifest.json",
+  "context_manifest_sha256": "89281c5ceae8841c9101ffaf5b26ab5ac4f5c2f8e2fb5a988d2d91b11f4fac2d",
+  "generated_at": "2026-08-31T00:38:56.069875+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "8c93822219fda9000dd0b2c4da236a1096f257b3516bd76911470c9b7aa1caf1",
+  "generation_prompt_sha256": "4fd16520586e37737de2a4c540fcb945cde4fbf2e9e936e6697bc1657eec50c5",
+  "model": "gpt-5.6-terra",
+  "run_id": "606114d4",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "QNupwpnsUvSBdd3Pcz0xqGNHv8RNkQnsVxIrrKFDK6h3O3XGAhCJRcMqiCVcXIHas2qjx6mN54qCmNssJSZqAA=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2025-08-28",
+    "generation_input_sha256": "ab62f4b1d730afa687fbab1b31e5ce85e421a3dfe99d4ab8c5d43001b1d4f9a4",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e",
+    "resolved_corpus_citation_path": "dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e",
+    "resolved_text_sha256": "ab62f4b1d730afa687fbab1b31e5ce85e421a3dfe99d4ab8c5d43001b1d4f9a4",
+    "row": {
+      "body_sha256": "ab62f4b1d730afa687fbab1b31e5ce85e421a3dfe99d4ab8c5d43001b1d4f9a4",
+      "citation_path": "dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-100-e",
+      "document_class": "statute",
+      "expression_date": "2025-08-28",
+      "jurisdiction": "dk",
+      "line_number": 1094,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "e9b2b1d2-a4f9-5966-84ff-ad88ce48c470",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-1077-2025-arbejdsloeshedsforsikringsloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "ab62f4b1d730afa687fbab1b31e5ce85e421a3dfe99d4ab8c5d43001b1d4f9a4"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-1077-2025-arbejdsloeshedsforsikringsloven-paragraf-100-e.json",
+  "trace_sha256": "888a16d2a6666fad80bd648bbe119bc8dd776aab1ab4157a188019bbe127d2af",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}
