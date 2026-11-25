@@ -1,0 +1,283 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+    source_sha256: 9ac6d661dc959dbc13e7c49c9c848bb23ee7026bb2e24678269357cdfae8fb60
+  summary: § 8. Det månedlige stipendium med udeboendesats udgør, medmindre det udbetales
+    med dobbelt sats, højst 5.753 kr. (2013-niveau). Stk. 2 fastsætter 3.690 kr. for
+    grundstipendium med udeboendesats uden for klippekortet for 18- og 19-årige. Stk.
+    3 fastsætter 893 kr. for grundstipendium med hjemmeboendesats. Stk. 4 giver udeboendesats
+    ved dokumenteret udeboende inden for klippekortet eller efter den måned, hvor
+    den uddannelsessøgende fylder 20 år.
+inputs:
+- name: stipendium_is_paid_with_double_rate
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: educational_seeker_documents_living_away_from_home
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: stipendium_is_within_the_clip_card
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: stipendium_is_outside_the_clip_card
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: stipendium_period_is_after_month_educational_seeker_turns_20
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: monthly_out_of_home_rate_limit
+  kind: parameter
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: SU-loven § 8, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: højst 5.753 kr. (2013-niveau)
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '5753'
+- name: monthly_out_of_home_base_grant_outside_clip_card_age_18_or_19_limit
+  kind: parameter
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: SU-loven § 8, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: højst 3.690 kr. (2013-niveau)
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '3690'
+- name: monthly_home_rate_base_grant_limit
+  kind: parameter
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: SU-loven § 8, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: højst 893 kr. (2013-niveau)
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '893'
+- name: base_amount_price_level_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: SU-loven § 8, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: (2013-niveau)
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '2013'
+- name: outside_home_rate_within_clip_card_path
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: SU-loven § 8, stk. 4, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: 1) inden for klippekortet
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '1'
+- name: outside_home_rate_outside_clip_card_path
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: SU-loven § 8, stk. 4, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: 2) uden for klippekortet
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '2'
+- name: outside_clip_card_base_grant_first_age
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: SU-loven § 8, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: på 18 og 19 år
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '18'
+- name: outside_clip_card_base_grant_second_age
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: SU-loven § 8, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: på 18 og 19 år
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '19'
+- name: outside_home_rate_age_threshold
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: SU-loven § 8, stk. 4, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: den uddannelsessøgende fylder 20 år
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '20'
+- name: monthly_out_of_home_stipendium_maximum_excluding_double_rate
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: SU-loven § 8, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: medmindre det udbetales med dobbelt sats, højst 5.753 kr.
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: højst 5.753 kr. (2013-niveau)
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'if stipendium_is_paid_with_double_rate: 0 else: monthly_out_of_home_rate_limit'
+- name: monthly_out_of_home_base_grant_outside_clip_card_age_18_or_19_maximum_excluding_double_rate
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: SU-loven § 8, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: medmindre det udbetales med dobbelt sats, højst 3.690 kr.
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: højst 3.690 kr. (2013-niveau)
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'if stipendium_is_paid_with_double_rate: 0 else: monthly_out_of_home_base_grant_outside_clip_card_age_18_or_19_limit'
+- name: monthly_home_rate_base_grant_maximum_excluding_double_rate
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+  source: SU-loven § 8, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: medmindre det udbetales med dobbeltsats, højst 893 kr.
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: højst 893 kr. (2013-niveau)
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'if stipendium_is_paid_with_double_rate: 0 else: monthly_home_rate_base_grant_limit'
+- name: educational_seeker_qualifies_for_out_of_home_rate
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 8, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: dokumenterer at være udeboende
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: 1) inden for klippekortet
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-8
+          excerpt: En uddannelsessøgende får stipendium med udeboendesats, når den
+            uddannelsessøgende dokumenterer at være udeboende og får stipendium 1)
+            inden for klippekortet eller 2) uden for klippekortet og stipendiet vedrører
+            en periode efter den måned, hvor den uddannelsessøgende fylder 20 år.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: "educational_seeker_documents_living_away_from_home\nand (\n  stipendium_is_within_the_clip_card\n\
+      \  or (\n    stipendium_is_outside_the_clip_card\n    and stipendium_period_is_after_month_educational_seeker_turns_20\n\
+      \  )\n)"
