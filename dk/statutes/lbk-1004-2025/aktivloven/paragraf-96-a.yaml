@@ -1,0 +1,247 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+    source_sha256: bff5a9c40e1d40912c4e3fef072b045f99d08ebbe5c598ed37225343fb198226
+  summary: Når Udbetaling Danmark har udbetalt børnebidrag forskudsvis og bidragsbetaleren
+    modtager kontanthjælp, kan kommunen efter anmodning fradrage et beløb, højst børnetillægget
+    efter § 17. Fradrag kan ikke ske for personer, der forsørger eget barn under 18
+    år i hjemmet, eller for bidrag uden for hjælpens kalendermåned. Ved forskudsbetaling
+    for mere end 1 måned kan alene den forholdsmæssige månedlige del fradrages. Fradrag
+    standses ved underretning om fogedsag efter ophævet lejemål og genoptages efter
+    de angivne afslutningstidspunkter.
+rules:
+- name: own_child_home_age_limit
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 96 a, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: eget barn under 18 år i hjemmet
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: advance_payment_single_month_limit
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 96 a, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: forskudsvis udbetaling for mere end 1 måned ad gangen
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: eviction_deduction_resumption_delay_months
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 96 a, stk. 3, 4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: med virkning fra 3 måneder efter den måned
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: advanced_child_support_for_assistance_month
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  source: § 96 a, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: forskudsvis udbetaling for mere end 1 måned ad gangen
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: forholdsmæssigt svarer til den kalendermåned, som hjælpen udbetales
+            for
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if advance_payment_month_count > advance_payment_single_month_limit:
+      child_support_advanced_amount / advance_payment_month_count else: child_support_advanced_amount'
+- name: housing_enforcement_suspension_applies
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 96 a, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: Fradrag efter stk. 1 kan ikke foretages, hvis kommunen får underretning
+  versions:
+  - effective_from: '2025-06-30'
+    formula: municipality_notified_of_enforcement_request_for_rent_arrears
+- name: housing_enforcement_timing_allows_deduction
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 96 a, stk. 3, 1. og 3.-4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: 1 med virkning fra måneden efter den måned, i hvilken fogedsagen
+            er afsluttet.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: med virkning fra 3 måneder efter den måned, i hvilken udsættelsen
+            har fundet sted
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '(not municipality_notified_of_enforcement_request_for_rent_arrears)
+
+      or (enforcement_case_concluded_without_eviction
+
+      and assistance_payment_month_is_on_or_after_month_following_case_closure)
+
+      or (enforcement_case_concluded_with_eviction
+
+      and assistance_payment_month_is_on_or_after_third_month_following_eviction)'
+- name: deduction_from_cash_assistance_allowed
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 96 a, stk. 1, 1. pkt., stk. 2, 1.-2. pkt., og stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: efter anmodning fra Udbetaling Danmark
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: kan ikke foretages ved udbetaling af hjælp til personer, der forsørger
+            eget barn under 18 år i hjemmet
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: alene foretages fradrag for børnebidrag, som forfalder i samme
+            kalendermåned
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'udbetaling_danmark_requested_deduction
+
+      and contributor_receives_cash_assistance_under_section_16
+
+      and not contributor_supports_own_child_under_18_at_home
+
+      and child_support_is_due_in_assistance_payment_month
+
+      and housing_enforcement_timing_allows_deduction'
+- name: cash_assistance_deduction_amount
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  source: § 96 a, stk. 1, 1.-2. pkt., og stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: Der kan højst foretages fradrag svarende til børnetillægget efter
+            § 17
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96-a
+          excerpt: alene foretages fradrag for et beløb, der forholdsmæssigt svarer
+            til den kalendermåned
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if deduction_from_cash_assistance_allowed: min(advanced_child_support_for_assistance_month,
+      child_supplement_amount_under_section_17) else: 0'
+inputs:
+- name: udbetaling_danmark_requested_deduction
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: contributor_receives_cash_assistance_under_section_16
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: contributor_supports_own_child_under_18_at_home
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: child_support_is_due_in_assistance_payment_month
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: municipality_notified_of_enforcement_request_for_rent_arrears
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: enforcement_case_concluded_without_eviction
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: assistance_payment_month_is_on_or_after_month_following_case_closure
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: enforcement_case_concluded_with_eviction
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: assistance_payment_month_is_on_or_after_third_month_following_eviction
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: child_support_advanced_amount
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: advance_payment_month_count
+  entity: Payment
+  dtype: Integer
+  period: Month
+- name: child_supplement_amount_under_section_17
+  entity: Payment
+  dtype: Money
+  period: Month
