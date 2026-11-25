@@ -1,0 +1,124 @@
+- name: seafarer_remuneration_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_covered_by_seafarers_tax_act_sections_5_to_8
+    : true
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.payment_is_under_library_fee_act: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_described_in_section_2_subsection_1_items_1_or_2
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_not_included_in_taxable_income: false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_paid_into_pension_scheme: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.contribution_is_paid_to_mandatory_pension_scheme_under_atp_act_section_17_s
+    : false
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#seafarer_remuneration_excluded_from_contribution_base: holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#library_fee_payment_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#non_taxable_remuneration_excluded_from_contribution_base: not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#pension_paid_non_taxable_remuneration_excluded_from_contribution_base
+    : not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#mandatory_atp_pension_contribution_excluded_from_contribution_base
+    : not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#payment_excluded_from_contribution_base: holds
+- name: library_fee_payment_is_excluded
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_covered_by_seafarers_tax_act_sections_5_to_8
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.payment_is_under_library_fee_act: true
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_described_in_section_2_subsection_1_items_1_or_2
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_not_included_in_taxable_income: false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_paid_into_pension_scheme: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.contribution_is_paid_to_mandatory_pension_scheme_under_atp_act_section_17_s
+    : false
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#seafarer_remuneration_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#library_fee_payment_excluded_from_contribution_base: holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#non_taxable_remuneration_excluded_from_contribution_base: not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#pension_paid_non_taxable_remuneration_excluded_from_contribution_base
+    : not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#mandatory_atp_pension_contribution_excluded_from_contribution_base
+    : not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#payment_excluded_from_contribution_base: holds
+- name: pension_paid_non_taxable_remuneration_is_excluded
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_covered_by_seafarers_tax_act_sections_5_to_8
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.payment_is_under_library_fee_act: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_described_in_section_2_subsection_1_items_1_or_2
+    : true
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_not_included_in_taxable_income: true
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_paid_into_pension_scheme: true
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.contribution_is_paid_to_mandatory_pension_scheme_under_atp_act_section_17_s
+    : false
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#seafarer_remuneration_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#library_fee_payment_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#non_taxable_remuneration_excluded_from_contribution_base: holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#pension_paid_non_taxable_remuneration_excluded_from_contribution_base
+    : holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#mandatory_atp_pension_contribution_excluded_from_contribution_base
+    : not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#payment_excluded_from_contribution_base: holds
+- name: mandatory_atp_pension_contribution_is_excluded
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_covered_by_seafarers_tax_act_sections_5_to_8
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.payment_is_under_library_fee_act: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_described_in_section_2_subsection_1_items_1_or_2
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_not_included_in_taxable_income: false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_paid_into_pension_scheme: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.contribution_is_paid_to_mandatory_pension_scheme_under_atp_act_section_17_s
+    : true
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#seafarer_remuneration_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#library_fee_payment_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#non_taxable_remuneration_excluded_from_contribution_base: not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#pension_paid_non_taxable_remuneration_excluded_from_contribution_base
+    : not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#mandatory_atp_pension_contribution_excluded_from_contribution_base
+    : holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#payment_excluded_from_contribution_base: holds
+- name: unlisted_payment_is_not_excluded
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_covered_by_seafarers_tax_act_sections_5_to_8
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.payment_is_under_library_fee_act: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_described_in_section_2_subsection_1_items_1_or_2
+    : false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_not_included_in_taxable_income: false
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.remuneration_is_paid_into_pension_scheme: false
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#input.contribution_is_paid_to_mandatory_pension_scheme_under_atp_act_section_17_s
+    : false
+  output:
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#seafarer_remuneration_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#library_fee_payment_excluded_from_contribution_base: not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#non_taxable_remuneration_excluded_from_contribution_base: not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#pension_paid_non_taxable_remuneration_excluded_from_contribution_base
+    : not_holds
+    ? dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#mandatory_atp_pension_contribution_excluded_from_contribution_base
+    : not_holds
+    dk:statutes/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-3#payment_excluded_from_contribution_base: not_holds
