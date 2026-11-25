@@ -1,0 +1,20 @@
+- name: digital_message_available_is_deemed_received
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-27-i#input.digital_message_is_available_to_addressee: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-27-i#digital_message_is_deemed_received: holds
+- name: digital_message_unavailable_is_not_deemed_received
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-27-i#input.digital_message_is_available_to_addressee: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-27-i#digital_message_is_deemed_received: not_holds
