@@ -1,0 +1,120 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-j
+    source_sha256: 59fdc1853f600af0cae954190a35f595b026a05e096ac83e82bfcca4fdd018fb
+  summary: Pensionsopgørelsen efter § 32 i, stk. 2, tillægges pensionsbeløb udbetalt
+    efter personens 60. år, men inden 3 år før folkepensionsalderen. Dette gælder
+    ikke i det omfang pensionen har medført fradrag i anden offentlig forsørgelsesydelse.
+inputs:
+- name: age_when_pension_payment_was_made
+  entity: Payment
+  dtype: Decimal
+  period: Year
+- name: folk_pension_age
+  entity: Payment
+  dtype: Decimal
+  period: Year
+- name: pension_payment_amount
+  entity: Payment
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: pension_payment_amount_causing_deduction_in_other_public_support
+  entity: Payment
+  dtype: Money
+  unit: DKK
+  period: Year
+rules:
+- name: pension_assessment_reference_section
+  kind: parameter
+  dtype: Integer
+  source: § 32 j, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-j
+          excerpt: Pensionsopgørelsen efter § 32 i, stk. 2
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '32'
+- name: qualifying_payment_minimum_age
+  kind: parameter
+  dtype: Integer
+  source: § 32 j, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-j
+          excerpt: efter personens 60. år
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '60'
+- name: years_before_folk_pension_age
+  kind: parameter
+  dtype: Integer
+  source: § 32 j, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-j
+          excerpt: inden 3 år før personen når folkepensionsalderen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '3'
+- name: pension_payment_qualifies_for_pension_assessment_addition
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: § 32 j, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-j
+          excerpt: udbetalt efter personens 60. år, men inden 3 år før personen når
+            folkepensionsalderen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'age_when_pension_payment_was_made > qualifying_payment_minimum_age
+
+      and age_when_pension_payment_was_made < folk_pension_age - years_before_folk_pension_age'
+- name: pension_payment_amount_added_to_pension_assessment
+  kind: derived
+  entity: Payment
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 32 j, stk. 1, 1. pkt., og stk. 2.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-j
+          excerpt: tillægges pensionsbeløb
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-32-j
+          excerpt: i det omfang pensionen har medført fradrag i anden offentlig forsørgelsesydelse
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "if pension_payment_qualifies_for_pension_assessment_addition:\n  max(0,\
+      \ pension_payment_amount - pension_payment_amount_causing_deduction_in_other_public_support)\n\
+      else: 0"
