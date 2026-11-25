@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-1004-2025/aktivloven/paragraf-74-f.yaml",
+      "sha256": "15e0cdcc491b7a468fb371c3b26caf76ba4dcc7746ce905a2eaa2dc129f214a0"
+    },
+    {
+      "path": "dk/statutes/lbk-1004-2025/aktivloven/paragraf-74-f.test.yaml",
+      "sha256": "bad2834042b8b034638027e51b0362d1a5752e18aa4ac3bbdba1928ed488298d"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-1004-2025-aktivloven-paragraf-74-f/workspace/context-manifest.json",
+  "context_manifest_sha256": "ae3001f7ce0e6a7be90dbd576c3a2c1751c8590d1ae394c1e2cd706cfe024fbe",
+  "generated_at": "2026-08-31T10:38:00.573606+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-1004-2025/aktivloven/paragraf-74-f.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "15e0cdcc491b7a468fb371c3b26caf76ba4dcc7746ce905a2eaa2dc129f214a0",
+  "generation_prompt_sha256": "f71023de54fb837bbc37ff2847cdc1761a4e6d87aeb95eb0f47f119c7ce88416",
+  "model": "gpt-5.6-terra",
+  "run_id": "7b1040c7",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "rJDZB7l3Jcd1OkSkIISyGG6hM5U1SGzTaibItPB+R5dI2HL068PlHtjEC6mVHh5Phgev+E4KMWrc73XQ9EO0Aw=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2025-06-30",
+    "generation_input_sha256": "34d64dc81110b2932c4d70e84d121b9037aa38f4f7db4c4333f8681d55f91176",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f",
+    "resolved_corpus_citation_path": "dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f",
+    "resolved_text_sha256": "34d64dc81110b2932c4d70e84d121b9037aa38f4f7db4c4333f8681d55f91176",
+    "row": {
+      "body_sha256": "34d64dc81110b2932c4d70e84d121b9037aa38f4f7db4c4333f8681d55f91176",
+      "citation_path": "dk/statute/lbk-1004-2025/aktivloven/paragraf-74-f",
+      "document_class": "statute",
+      "expression_date": "2025-06-30",
+      "jurisdiction": "dk",
+      "line_number": 492,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "ad245c61-3975-5483-9700-44e193f30aaa",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-1004-2025-aktivloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "34d64dc81110b2932c4d70e84d121b9037aa38f4f7db4c4333f8681d55f91176"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-1004-2025-aktivloven-paragraf-74-f.json",
+  "trace_sha256": "e49b07d0a2f09c71b532c3cec783c2f0e9971125ecea3223432fbc030b2f020a",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}
