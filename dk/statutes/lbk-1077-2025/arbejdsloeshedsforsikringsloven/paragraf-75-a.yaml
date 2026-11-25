@@ -1,0 +1,81 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a
+    source_sha256: ee751bd7e573461e664afaaa7eac369ac5c92e61107502164961213fb24973fc
+  summary: Retten til efterløn ophører, når medlemskabet ophører, dog senest ved udgangen
+    af den måned, hvor efterlønsmodtageren når folkepensionsalderen, eller ved den
+    pågældendes død. Reglen gælder tilsvarende for efterlønsmodtagere omfattet af
+    § 74 o.
+inputs:
+- name: afterloen_recipient_membership_has_ceased
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: month_ends_when_afterloen_recipient_reaches_folkepension_age
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: afterloen_recipient_has_died
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: afterloen_recipient_is_covered_by_section_74_o
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: right_to_afterloen_has_ceased
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Arbejdsløshedsforsikringsloven § 75 a, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a
+          excerpt: Retten til efterløn ophører, når medlemskabet ophører, dog senest
+            ved udgangen af den måned, hvor efterlønsmodtageren når folkepensionsalderen,
+            jf. lov om social pension, eller ved den pågældendes død.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'afterloen_recipient_membership_has_ceased
+
+      or month_ends_when_afterloen_recipient_reaches_folkepension_age
+
+      or afterloen_recipient_has_died'
+- name: right_to_afterloen_has_ceased_for_recipient_covered_by_section_74_o
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Arbejdsløshedsforsikringsloven § 75 a, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a
+          excerpt: 1. pkt. finder tilsvarende anvendelse for efterlønsmodtagere, der
+            er omfattet af § 74 o.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-a
+          excerpt: Retten til efterløn ophører, når medlemskabet ophører, dog senest
+            ved udgangen af den måned, hvor efterlønsmodtageren når folkepensionsalderen,
+            jf. lov om social pension, eller ved den pågældendes død. 1. pkt. finder
+            tilsvarende anvendelse for efterlønsmodtagere, der er omfattet af § 74
+            o.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: "afterloen_recipient_is_covered_by_section_74_o\nand (\n  afterloen_recipient_membership_has_ceased\n\
+      \  or month_ends_when_afterloen_recipient_reaches_folkepension_age\n  or afterloen_recipient_has_died\n\
+      )"
