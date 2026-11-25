@@ -1,0 +1,78 @@
+- name: director_salary_without_work_obligation_paid_monthly_complies
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_director: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_financial_management_member: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_in_agreed_notice_period: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_not_matched_by_usual_work_obligation: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_paid_monthly: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#salary_payment_monthly_payment_requirement_complied:
+    - holds
+- name: financial_management_salary_without_work_obligation_paid_monthly_complies
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_director: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_financial_management_member: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_in_agreed_notice_period: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_not_matched_by_usual_work_obligation: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_paid_monthly: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#salary_payment_monthly_payment_requirement_complied:
+    - holds
+- name: qualifying_salary_not_paid_monthly_does_not_comply
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_director: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_financial_management_member: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_in_agreed_notice_period: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_not_matched_by_usual_work_obligation: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_paid_monthly: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#salary_payment_monthly_payment_requirement_complied:
+    - not_holds
+- name: salary_outside_agreed_notice_period_is_inapplicable
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_director: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_financial_management_member: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_in_agreed_notice_period: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_not_matched_by_usual_work_obligation: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_paid_monthly: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#salary_payment_monthly_payment_requirement_complied:
+    - holds
+- name: salary_matched_by_usual_work_obligation_is_inapplicable
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_director: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_financial_management_member: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_in_agreed_notice_period: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_not_matched_by_usual_work_obligation: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_paid_monthly: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#salary_payment_monthly_payment_requirement_complied:
+    - holds
+- name: salary_to_other_recipient_is_inapplicable
+  period: 2024-11
+  input: {}
+  tables:
+    Payment:
+    - dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_director: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_salary_to_financial_management_member: false
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_in_agreed_notice_period: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_not_matched_by_usual_work_obligation: true
+      dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#input.payment_is_paid_monthly: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-m#salary_payment_monthly_payment_requirement_complied:
+    - holds
