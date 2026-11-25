@@ -1,0 +1,75 @@
+- name: udbetaling_danmark_may_deduct_overpaid_pension_when_responsible
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.pension_was_overpaid: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.udbetaling_danmark_is_responsible_for_pension_payment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#udbetaling_danmark_may_deduct_overpaid_pension: holds
+- name: udbetaling_danmark_cannot_deduct_pension_without_overpayment
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.pension_was_overpaid: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.udbetaling_danmark_is_responsible_for_pension_payment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#udbetaling_danmark_may_deduct_overpaid_pension: not_holds
+- name: udbetaling_danmark_cannot_deduct_pension_without_payment_responsibility
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.pension_was_overpaid: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.udbetaling_danmark_is_responsible_for_pension_payment: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#udbetaling_danmark_may_deduct_overpaid_pension: not_holds
+- name: udbetaling_danmark_may_deduct_overpaid_housing_support_when_responsible
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.housing_support_was_overpaid: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.udbetaling_danmark_is_responsible_for_housing_support_payment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#udbetaling_danmark_may_deduct_overpaid_housing_support: holds
+- name: udbetaling_danmark_cannot_deduct_housing_support_without_overpayment
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.housing_support_was_overpaid: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.udbetaling_danmark_is_responsible_for_housing_support_payment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#udbetaling_danmark_may_deduct_overpaid_housing_support: not_holds
+- name: udbetaling_danmark_cannot_deduct_housing_support_without_payment_responsibility
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.housing_support_was_overpaid: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.udbetaling_danmark_is_responsible_for_housing_support_payment: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#udbetaling_danmark_may_deduct_overpaid_housing_support: not_holds
+- name: municipality_may_deduct_overpaid_pension_when_responsible
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.pension_was_overpaid: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.municipality_is_responsible_for_pension_payment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#municipality_may_deduct_overpaid_pension: holds
+- name: municipality_cannot_deduct_pension_without_overpayment
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.pension_was_overpaid: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.municipality_is_responsible_for_pension_payment: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#municipality_may_deduct_overpaid_pension: not_holds
+- name: municipality_cannot_deduct_pension_without_payment_responsibility
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.pension_was_overpaid: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.municipality_is_responsible_for_pension_payment: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#municipality_may_deduct_overpaid_pension: not_holds
+- name: municipality_may_request_deduction_of_personal_supplement_claim
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.municipality_has_repayment_claim_for_personal_supplement: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#municipality_may_request_deduction_of_personal_supplement_claim: holds
+- name: municipality_cannot_request_deduction_without_personal_supplement_claim
+  period: 2024-10
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#input.municipality_has_repayment_claim_for_personal_supplement: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-32#municipality_may_request_deduction_of_personal_supplement_claim: not_holds
