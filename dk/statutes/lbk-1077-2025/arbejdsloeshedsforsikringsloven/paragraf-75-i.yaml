@@ -1,0 +1,130 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+    source_sha256: d7a8762a31b5656d7c5858fe715f0260501a1c9d73e1baf4d97a864a5fc17a8e
+  summary: '§ 75 i, stk. 1: Et medlem, der deltager i tilbud om en uddannelse efter
+    § 96 i lov om en aktiv beskæftigelsesindsats, har ret til at låne et beløb svarende
+    til forskellen mellem 80 pct. af højeste dagpengesats og medlemmets hidtidige
+    dagpengesats med fradrag af 37 pct. Lånebeløbet afrundes til nærmeste hele kronebeløb.
+    Stk. 2: Stk. 1 gælder ikke for medlemmer, der er omfattet af § 48 a, stk. 2.'
+inputs:
+- name: member_participates_in_education_offer_under_section_96
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: member_is_covered_by_section_48_a_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: highest_unemployment_benefit_rate
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Day
+- name: member_previous_unemployment_benefit_rate
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Day
+rules:
+- name: highest_rate_percentage
+  kind: parameter
+  dtype: Rate
+  source: § 75 i, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+          excerpt: 80 pct. af højeste dagpengesats
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '0.80'
+- name: highest_unemployment_benefit_rate_reference_section
+  kind: parameter
+  dtype: Integer
+  source: § 75 i, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+          excerpt: jf. §§ 47 og 70
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '70'
+- name: loan_deduction_percentage
+  kind: parameter
+  dtype: Rate
+  source: § 75 i, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+          excerpt: med fradrag af 37 pct.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '0.37'
+- name: education_loan_entitlement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 75 i, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+          excerpt: Et medlem, der deltager i tilbud om en uddannelse efter § 96
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+          excerpt: Stk. 1 gælder ikke for medlemmer, der er omfattet af § 48 a, stk.
+            2.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'member_participates_in_education_offer_under_section_96
+
+      and not member_is_covered_by_section_48_a_subsection_2'
+- name: education_loan_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Day
+  source: § 75 i, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+          excerpt: Et medlem, der deltager i tilbud om en uddannelse efter § 96 i
+            lov om en aktiv beskæftigelsesindsats, har ret til at låne et beløb svarende
+            til forskellen mellem 80 pct. af højeste dagpengesats, jf. §§ 47 og 70,
+            og medlemmets hidtidige dagpengesats med fradrag af 37 pct.
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-75-i
+          excerpt: Lånebeløbet afrundes til nærmeste hele kronebeløb.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: "if education_loan_entitlement:\n  floor((((highest_unemployment_benefit_rate\
+      \ * highest_rate_percentage) - member_previous_unemployment_benefit_rate) *\
+      \ (1 - loan_deduction_percentage)) + 0.5)\nelse: 0"
