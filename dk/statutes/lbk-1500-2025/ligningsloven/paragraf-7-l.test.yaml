@@ -1,0 +1,26 @@
+- name: contributions_subject_to_withholding_are_excluded_for_section_2_income
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#input.income_is_covered_by_arbejdsmarkedsbidragsloven_section_2: true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#input.contributions_subject_to_withholding_under_kildeskatteloven_section_49_b
+    : 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#contributions_excluded_from_taxable_income: 1000
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#contributions_excluded_from_income_under_kildeskatteloven_section_48_f
+    : 1000
+- name: contributions_are_not_excluded_outside_section_2_income_scope
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#input.income_is_covered_by_arbejdsmarkedsbidragsloven_section_2: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#input.contributions_subject_to_withholding_under_kildeskatteloven_section_49_b
+    : 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#contributions_excluded_from_taxable_income: 0
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-l#contributions_excluded_from_income_under_kildeskatteloven_section_48_f
+    : 0
