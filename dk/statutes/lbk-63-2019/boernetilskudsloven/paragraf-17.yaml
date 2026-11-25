@@ -1,0 +1,101 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-17
+    source_sha256: 80d21b1b6601e0e71a5020e344f0d8bbce5fdc9b947528c881471a989c1b44f6
+  summary: '§ 17. Retten til at kræve et bidrag udbetalt forskudsvis vedvarer til
+    og med årsdagen for bidragets forfaldsdag.
+
+    Stk. 2. Hvis barnet forsørges af det offentlige, eller forældrene samlever, kan
+    bidrag kun udbetales for tiden indtil den offentlige forsørgelses eller samlivets
+    begyndelse.'
+inputs:
+- name: claim_is_made_on_or_before_anniversary_of_contribution_due_date
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: child_is_publicly_supported_when_advance_payment_claimed
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: parents_cohabit_when_advance_payment_claimed
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: requested_payment_time_is_before_public_support_begins
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: requested_payment_time_is_before_parental_cohabitation_begins
+  entity: Person
+  dtype: Boolean
+  period: Day
+rules:
+- name: right_to_claim_advance_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Børnetilskudsloven § 17, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-17
+          excerpt: Retten til at kræve et bidrag udbetalt forskudsvis vedvarer til
+            og med årsdagen for bidragets forfaldsdag.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: claim_is_made_on_or_before_anniversary_of_contribution_due_date
+- name: requested_payment_time_permitted_despite_public_support_or_cohabitation
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Børnetilskudsloven § 17, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-17
+          excerpt: kan bidrag kun udbetales for tiden indtil den offentlige forsørgelses
+            begyndelse eller samlivets begyndelse.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: '(not child_is_publicly_supported_when_advance_payment_claimed or requested_payment_time_is_before_public_support_begins)
+
+      and
+
+      (not parents_cohabit_when_advance_payment_claimed or requested_payment_time_is_before_parental_cohabitation_begins)'
+- name: advance_payment_for_requested_time_may_be_paid
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Børnetilskudsloven § 17
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-17
+          excerpt: Retten til at kræve et bidrag udbetalt forskudsvis vedvarer til
+            og med årsdagen for bidragets forfaldsdag.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-17
+          excerpt: kan bidrag kun udbetales for tiden indtil den offentlige forsørgelses
+            begyndelse eller samlivets begyndelse.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'right_to_claim_advance_payment
+
+      and requested_payment_time_permitted_despite_public_support_or_cohabitation'

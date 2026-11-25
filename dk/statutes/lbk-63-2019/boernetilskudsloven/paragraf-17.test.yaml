@@ -1,0 +1,114 @@
+- name: claim_and_requested_time_permitted_without_public_support_or_cohabitation
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.claim_is_made_on_or_before_anniversary_of_contribution_due_date
+    : true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.child_is_publicly_supported_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.parents_cohabit_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_public_support_begins: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_parental_cohabitation_begins
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#right_to_claim_advance_payment: holds
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#requested_payment_time_permitted_despite_public_support_or_cohabitation
+    : holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#advance_payment_for_requested_time_may_be_paid: holds
+- name: claim_right_expires_after_anniversary
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.claim_is_made_on_or_before_anniversary_of_contribution_due_date
+    : false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.child_is_publicly_supported_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.parents_cohabit_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_public_support_begins: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_parental_cohabitation_begins
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#right_to_claim_advance_payment: not_holds
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#requested_payment_time_permitted_despite_public_support_or_cohabitation
+    : holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#advance_payment_for_requested_time_may_be_paid: not_holds
+- name: public_support_blocks_payment_from_its_beginning
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.claim_is_made_on_or_before_anniversary_of_contribution_due_date
+    : true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.child_is_publicly_supported_when_advance_payment_claimed: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.parents_cohabit_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_public_support_begins: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_parental_cohabitation_begins
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#right_to_claim_advance_payment: holds
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#requested_payment_time_permitted_despite_public_support_or_cohabitation
+    : not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#advance_payment_for_requested_time_may_be_paid: not_holds
+- name: payment_before_public_support_remains_permitted
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.claim_is_made_on_or_before_anniversary_of_contribution_due_date
+    : true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.child_is_publicly_supported_when_advance_payment_claimed: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.parents_cohabit_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_public_support_begins: true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_parental_cohabitation_begins
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#right_to_claim_advance_payment: holds
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#requested_payment_time_permitted_despite_public_support_or_cohabitation
+    : holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#advance_payment_for_requested_time_may_be_paid: holds
+- name: parental_cohabitation_blocks_payment_from_its_beginning
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.claim_is_made_on_or_before_anniversary_of_contribution_due_date
+    : true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.child_is_publicly_supported_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.parents_cohabit_when_advance_payment_claimed: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_public_support_begins: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_parental_cohabitation_begins
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#right_to_claim_advance_payment: holds
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#requested_payment_time_permitted_despite_public_support_or_cohabitation
+    : not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#advance_payment_for_requested_time_may_be_paid: not_holds
+- name: payment_before_parental_cohabitation_remains_permitted
+  period:
+    period_kind: custom
+    name: day
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.claim_is_made_on_or_before_anniversary_of_contribution_due_date
+    : true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.child_is_publicly_supported_when_advance_payment_claimed: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.parents_cohabit_when_advance_payment_claimed: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_public_support_begins: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#input.requested_payment_time_is_before_parental_cohabitation_begins
+    : true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#right_to_claim_advance_payment: holds
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#requested_payment_time_permitted_despite_public_support_or_cohabitation
+    : holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-17#advance_payment_for_requested_time_may_be_paid: holds
