@@ -1,0 +1,92 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-29
+    source_sha256: 716d4545902c575cffee2149f41e441d129b845fda748eb38bf0201cb0a80247
+  summary: Krav på ydelser efter denne lov kan ikke gøres til genstand for arrest,
+    eksekution eller anden retsforfølgning. Retshandler, der afsluttes af den berettigede
+    med hensyn til disse krav, er ugyldige.
+inputs:
+- name: claim_is_for_benefits_under_this_act
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: claim_is_subject_to_arrest
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: claim_is_subject_to_execution
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: claim_is_subject_to_other_legal_proceedings
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: entitled_person_has_concluded_legal_transaction_concerning_claim
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: benefit_claim_subject_to_legal_enforcement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: ATP-loven § 29, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-29
+          excerpt: Krav på ydelser efter denne lov kan ikke gøres til genstand for
+            arrest, eksekution eller anden retsforfølgning.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: "claim_is_for_benefits_under_this_act\nand (\n  claim_is_subject_to_arrest\n\
+      \  or claim_is_subject_to_execution\n  or claim_is_subject_to_other_legal_proceedings\n\
+      )"
+- name: benefit_claim_protected_from_legal_enforcement
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: ATP-loven § 29, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-29
+          excerpt: Krav på ydelser efter denne lov kan ikke gøres til genstand for
+            arrest, eksekution eller anden retsforfølgning.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'claim_is_for_benefits_under_this_act
+
+      and not benefit_claim_subject_to_legal_enforcement'
+- name: legal_transaction_concerning_benefit_claim_invalid
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: ATP-loven § 29, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-29
+          excerpt: Retshandler, der afsluttes af den berettigede med hensyn til disse
+            krav, er ugyldige.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'claim_is_for_benefits_under_this_act
+
+      and entitled_person_has_concluded_legal_transaction_concerning_claim'
