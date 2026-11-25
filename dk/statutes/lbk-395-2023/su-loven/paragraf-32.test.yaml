@@ -1,0 +1,36 @@
+- name: annual_free_amount_excess_causes_time_to_be_treated_as_used
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.paid_educational_support_is_required_to_be_repaid: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_annual_free_amount: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_education_free_amount: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#support_time_under_section_17_is_treated_as_used: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#final_loan_time_under_section_21_is_treated_as_used: holds
+- name: education_free_amount_excess_causes_time_to_be_treated_as_used
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.paid_educational_support_is_required_to_be_repaid: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_annual_free_amount: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_education_free_amount: true
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#support_time_under_section_17_is_treated_as_used: holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#final_loan_time_under_section_21_is_treated_as_used: holds
+- name: no_income_excess_does_not_cause_time_to_be_treated_as_used
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.paid_educational_support_is_required_to_be_repaid: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_annual_free_amount: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_education_free_amount: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#support_time_under_section_17_is_treated_as_used: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#final_loan_time_under_section_21_is_treated_as_used: not_holds
+- name: unreclaimed_support_does_not_cause_time_to_be_treated_as_used
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.paid_educational_support_is_required_to_be_repaid: false
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_annual_free_amount: true
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#input.own_income_exceeds_education_free_amount: false
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#support_time_under_section_17_is_treated_as_used: not_holds
+    dk:statutes/lbk-395-2023/su-loven/paragraf-32#final_loan_time_under_section_21_is_treated_as_used: not_holds
