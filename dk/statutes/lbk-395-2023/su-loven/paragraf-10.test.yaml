@@ -1,0 +1,6 @@
+- name: monthly_final_loan_at_2013_level
+  period: 2023-04
+  input: {}
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-10#monthly_final_loan: 7592
+    dk:statutes/lbk-395-2023/su-loven/paragraf-10#final_loan_reference_level: 2013
