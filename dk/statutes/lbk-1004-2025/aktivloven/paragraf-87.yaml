@@ -1,0 +1,173 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-87
+    source_sha256: 338ff6f633d84003ca13a226c860060f43722d4522c7f3ec7877002c5dcb6a95
+  summary: '§ 87, stk. 1: Persons satisfying § 11, stk. 2, and having high housing
+
+    costs or a substantial maintenance burden may receive special support,
+
+    separately or with assistance under chapters 6 a-7. Stk. 2 requires an
+
+    investigation before grant and a concrete vacant reasonable cheaper dwelling
+
+    that the person can occupy before support may be reduced or cease. Stk. 3
+
+    preserves special support at the amount payable without a sanction-related
+
+    reduction. Stk. 4 authorizes rules on calculation, limitation, and income
+
+    deductions.'
+inputs:
+- name: person_satisfies_conditions_under_section_11_subsection_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_high_housing_costs
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_substantial_maintenance_burden
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: municipality_is_to_grant_special_support
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: reasonable_cheaper_dwelling_investigated_before_grant
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: municipality_has_found_concrete_vacant_reasonable_cheaper_dwelling
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_can_move_into_found_cheaper_dwelling
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_assistance_reduced_due_to_sanction
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: special_support_amount_without_sanction
+  entity: Person
+  dtype: Money
+  period: Month
+  unit: DKK
+rules:
+- name: assistance_chapter_range_start
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 87, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-87
+          excerpt: hjælp efter kapitel 6 a-7
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '6'
+- name: assistance_chapter_range_end
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 87, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-87
+          excerpt: hjælp efter kapitel 6 a-7
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '7'
+- name: may_receive_special_support
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 87, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-87
+          excerpt: Personer, der opfylder betingelserne i § 11, stk. 2, og som har
+            høje boligudgifter eller en stor forsørgerbyrde, kan særskilt eller i
+            forbindelse med udbetaling af hjælp efter kapitel 6 a-7 få særlig støtte.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_satisfies_conditions_under_section_11_subsection_2
+
+      and (person_has_high_housing_costs or person_has_substantial_maintenance_burden)'
+- name: cheaper_dwelling_investigation_requirement_satisfied
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 87, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-87
+          excerpt: Inden kommunen giver særlig støtte, skal det undersøges, om der
+            kan skaffes en rimelig billigere bolig.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '(not municipality_is_to_grant_special_support)
+
+      or reasonable_cheaper_dwelling_investigated_before_grant'
+- name: special_support_may_be_reduced_or_cease_due_to_cheaper_dwelling
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 87, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-87
+          excerpt: kommunen har fundet en konkret ledig, rimelig og billigere bolig,
+            som personen kan flytte ind i, inden den særlige støtte kan nedsættes
+            eller ophøre.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'municipality_has_found_concrete_vacant_reasonable_cheaper_dwelling
+
+      and person_can_move_into_found_cheaper_dwelling'
+- name: special_support_amount_during_sanction_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 87, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-87
+          excerpt: får særlig støtte med det beløb, der ville have været udbetalt,
+            hvis de pågældende ikke havde været omfattet af nedsættelsen.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if person_receives_assistance_reduced_due_to_sanction: max(0, special_support_amount_without_sanction)
+      else: 0'
