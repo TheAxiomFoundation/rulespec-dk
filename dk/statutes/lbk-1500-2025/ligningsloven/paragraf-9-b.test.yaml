@@ -1,0 +1,198 @@
+- name: residence_to_workplace_transport_within_limit_is_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_usual_residence_and_workplace: true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.workdays_with_transport_to_that_workplace_in_previous_twelve_months
+    : 60
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_workplaces: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_within_same_workplace: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#residence_to_workplace_transport_is_deductible: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_between_workplaces_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_within_same_workplace_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_expense_is_deductible: holds
+- name: residence_to_workplace_transport_above_limit_is_not_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_usual_residence_and_workplace: true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.workdays_with_transport_to_that_workplace_in_previous_twelve_months
+    : 61
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_workplaces: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_within_same_workplace: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#residence_to_workplace_transport_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_between_workplaces_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_within_same_workplace_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_expense_is_deductible: not_holds
+- name: transport_between_workplaces_is_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_usual_residence_and_workplace: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.workdays_with_transport_to_that_workplace_in_previous_twelve_months
+    : 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_workplaces: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_within_same_workplace: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#residence_to_workplace_transport_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_between_workplaces_is_deductible: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_within_same_workplace_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_expense_is_deductible: holds
+- name: transport_within_same_workplace_is_deductible
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_usual_residence_and_workplace: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.workdays_with_transport_to_that_workplace_in_previous_twelve_months
+    : 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_between_workplaces: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_is_within_same_workplace: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#residence_to_workplace_transport_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_between_workplaces_is_deductible: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_within_same_workplace_is_deductible: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_expense_is_deductible: holds
+- name: new_period_begins_after_consecutive_workday_limit
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.consecutive_workdays_have_elapsed_since_last_workplace_visit: 60
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#new_residence_to_workplace_period_begins: holds
+- name: new_period_does_not_begin_before_consecutive_workday_limit
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.consecutive_workdays_have_elapsed_since_last_workplace_visit: 59
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#new_residence_to_workplace_period_begins: not_holds
+- name: transport_is_deemed_business_for_many_workplaces
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.driving_pattern_makes_more_than_limit_days_unlikely: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_is_deemed_business: holds
+- name: transport_is_not_deemed_business_without_many_workplaces_pattern
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.driving_pattern_makes_more_than_limit_days_unlikely: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#transport_is_deemed_business: not_holds
+- name: written_driving_log_order_within_twelve_months_is_permitted
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.tax_authority_has_issued_written_driving_log_order: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.driving_log_order_duration_months: 12
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#driving_log_order_is_within_permitted_duration: holds
+- name: written_driving_log_order_beyond_twelve_months_is_not_permitted
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.tax_authority_has_issued_written_driving_log_order: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.driving_log_order_duration_months: 13
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#driving_log_order_is_within_permitted_duration: not_holds
+- name: reimbursement_below_tax_council_rate_is_excluded_from_income
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.reimbursement_does_not_exceed_tax_council_rate: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#reimbursement_is_excluded_from_income: holds
+- name: reimbursement_above_tax_council_rate_is_not_excluded_from_income
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.reimbursement_does_not_exceed_tax_council_rate: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#reimbursement_is_excluded_from_income: not_holds
+- name: customer_activity_deduction_is_allowed_when_all_conditions_hold
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.person_is_employee: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_expense_is_for_customer_acquisition_activity: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_expense_relates_to_multiple_employers_simultaneously: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.reimbursement_is_included_in_income_calculation: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.employer_has_not_paid_full_or_partial_tax_free_reimbursement: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#customer_activity_transport_expense_deduction_is_allowed: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#deduction_under_section_9_c_is_available: holds
+- name: customer_activity_deduction_requires_reimbursement_inclusion
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.person_is_employee: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_expense_is_for_customer_acquisition_activity: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_expense_relates_to_multiple_employers_simultaneously: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.reimbursement_is_included_in_income_calculation: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.employer_has_not_paid_full_or_partial_tax_free_reimbursement: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#customer_activity_transport_expense_deduction_is_allowed: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#deduction_under_section_9_c_is_available: not_holds
+- name: deduction_under_section_9_c_is_available_when_employer_does_not_pay_tax_free_reimbursement
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.person_is_employee: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_expense_is_for_customer_acquisition_activity: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.transport_expense_relates_to_multiple_employers_simultaneously: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.reimbursement_is_included_in_income_calculation: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.employer_has_not_paid_full_or_partial_tax_free_reimbursement: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#customer_activity_transport_expense_deduction_is_allowed: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#deduction_under_section_9_c_is_available: holds
+- name: section_9_b_rules_apply_to_board_member
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.person_is_board_member_or_board_assistant: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#section_9_b_rules_apply_to_board_member_or_assistant: holds
+- name: section_9_b_rules_do_not_apply_under_board_extension_to_other_person
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#input.person_is_board_member_or_board_assistant: false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-9-b#section_9_b_rules_apply_to_board_member_or_assistant: not_holds

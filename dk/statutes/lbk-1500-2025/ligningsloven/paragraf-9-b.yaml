@@ -1,0 +1,399 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+    source_sha256: 6cb47f9074389e8472cedd3d47ce1ea29da197236d6a274a850e8afe8000b608
+  summary: '§ 9 B, stk. 1: Befordring mellem sædvanlig bopæl og arbejdsplads kan fradrages
+    i indtil 60 arbejdsdage inden for de forudgående 12 måneder; befordring mellem
+    arbejdspladser og inden for samme arbejdsplads kan fradrages. Stk. 2 starter en
+    ny 60-dages-periode efter 60 på hinanden følgende arbejdsdage. Stk. 3 indeholder
+    en erhvervsmæssig formodning ved mange arbejdspladser og adgang til dokumentationspålæg
+    i indtil 12 måneder. Stk. 4 regulerer skattefri befordringsgodtgørelse og fradrag
+    ved kundeopsøgende aktiviteter for flere arbejdsgivere. Stk. 5 udvider reglerne
+    til bestyrelsesmedlemmer og medhjælpere.'
+inputs:
+- name: transport_is_between_usual_residence_and_workplace
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: workdays_with_transport_to_that_workplace_in_previous_twelve_months
+  entity: Person
+  dtype: Count
+  period: Year
+- name: transport_is_between_workplaces
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: transport_is_within_same_workplace
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: consecutive_workdays_have_elapsed_since_last_workplace_visit
+  entity: Person
+  dtype: Count
+  period: Year
+- name: driving_pattern_makes_more_than_limit_days_unlikely
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: tax_authority_has_issued_written_driving_log_order
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: driving_log_order_duration_months
+  entity: Person
+  dtype: Count
+  period: Year
+- name: reimbursement_does_not_exceed_tax_council_rate
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: employer_has_not_paid_full_or_partial_tax_free_reimbursement
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_is_employee
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: transport_expense_is_for_customer_acquisition_activity
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: transport_expense_relates_to_multiple_employers_simultaneously
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: reimbursement_is_included_in_income_calculation
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_is_board_member_or_board_assistant
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: residence_to_workplace_day_limit
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Ligningsloven § 9 B, stk. 1, litra a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: i indtil 60 arbejdsdage
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '60'
+- name: residence_to_workplace_lookback_months
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Ligningsloven § 9 B, stk. 1, litra a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: inden for de forudgående 12 måneder
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '12'
+- name: new_period_consecutive_workday_limit
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Ligningsloven § 9 B, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: 60 på hinanden følgende arbejdsdage
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '60'
+- name: driving_log_order_maximum_months
+  kind: parameter
+  dtype: Count
+  period: Year
+  source: Ligningsloven § 9 B, stk. 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: med fremadrettet virkning i indtil 12 måneder
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '12'
+- name: residence_to_workplace_transport_is_deductible
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 1, litra a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Befordring mellem sædvanlig bopæl og arbejdsplads i indtil 60 arbejdsdage
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: inden for de forudgående 12 måneder
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'transport_is_between_usual_residence_and_workplace
+
+      and workdays_with_transport_to_that_workplace_in_previous_twelve_months <= residence_to_workplace_day_limit'
+- name: transport_between_workplaces_is_deductible
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 1, litra b
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: befordring mellem arbejdspladser
+  versions:
+  - effective_from: '2025-11-24'
+    formula: transport_is_between_workplaces
+- name: transport_within_same_workplace_is_deductible
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 1, litra c
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: befordring inden for samme arbejdsplads
+  versions:
+  - effective_from: '2025-11-24'
+    formula: transport_is_within_same_workplace
+- name: transport_expense_is_deductible
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Følgende udgifter til befordring til og fra en arbejdsplads kan
+            fradrages
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'residence_to_workplace_transport_is_deductible
+
+      or transport_between_workplaces_is_deductible
+
+      or transport_within_same_workplace_is_deductible'
+- name: new_residence_to_workplace_period_begins
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Når der er forløbet 60 på hinanden følgende arbejdsdage
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: påbegyndes en ny 60-dages-periode
+  versions:
+  - effective_from: '2025-11-24'
+    formula: consecutive_workdays_have_elapsed_since_last_workplace_visit >= new_period_consecutive_workday_limit
+- name: transport_is_deemed_business
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: så mange forskellige arbejdspladser, at det ikke er sandsynligt
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: anses befordringen for erhvervsmæssig
+  versions:
+  - effective_from: '2025-11-24'
+    formula: driving_pattern_makes_more_than_limit_days_unlikely
+- name: driving_log_order_is_within_permitted_duration
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: give den skattepligtige skriftligt pålæg
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: med fremadrettet virkning i indtil 12 måneder
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'tax_authority_has_issued_written_driving_log_order
+
+      and driving_log_order_duration_months <= driving_log_order_maximum_months'
+- name: reimbursement_is_excluded_from_income
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 4, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Befordringsgodtgørelse medregnes ikke ved indkomstopgørelsen
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: såfremt godtgørelsen ikke overstiger satser, som fastsættes af
+            Skatterådet
+  versions:
+  - effective_from: '2025-11-24'
+    formula: reimbursement_does_not_exceed_tax_council_rate
+- name: customer_activity_transport_expense_deduction_is_allowed
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 4, 3.-4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Uanset 2. pkt. kan lønmodtagere fradrage befordringsudgifter
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: i forbindelse med kundeopsøgende aktiviteter
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: der vedrører flere arbejdsgivere på én gang
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: eventuelle befordringsgodtgørelser efter 1. pkt. medregnes ved
+            indkomstopgørelsen
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'person_is_employee
+
+      and transport_expense_is_for_customer_acquisition_activity
+
+      and transport_expense_relates_to_multiple_employers_simultaneously
+
+      and reimbursement_is_included_in_income_calculation'
+- name: deduction_under_section_9_c_is_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 4, 2.-4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Udbetaler arbejdsgiveren ikke hel eller delvis skattefri godtgørelse,
+            kan fradrag for befordring foretages efter § 9 C
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Uanset 2. pkt. kan lønmodtagere fradrage befordringsudgifter
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'employer_has_not_paid_full_or_partial_tax_free_reimbursement
+
+      or customer_activity_transport_expense_deduction_is_allowed'
+- name: section_9_b_rules_apply_to_board_member_or_assistant
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 9 B, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: medlemmer af eller medhjælpere for bestyrelser, udvalg, kommissioner,
+            råd og lignende
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-9-b
+          excerpt: Reglerne i stk. 1-4 finder tilsvarende anvendelse
+  versions:
+  - effective_from: '2025-11-24'
+    formula: person_is_board_member_or_board_assistant
