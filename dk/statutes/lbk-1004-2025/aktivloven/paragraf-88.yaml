@@ -1,0 +1,38 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-88
+    source_sha256: 33822bbeadb7d55295ce35bfafa544c6892d91f80481d03faaa6763ac7dcec95
+  summary: En person kan normalt ikke få hjælp til udgifter, som den pågældende har
+    påtaget sig, inden vedkommende har ansøgt kommunen om hjælp.
+inputs:
+- name: expense_was_undertaken_before_application_to_municipality
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: pre_application_expense_normally_ineligible_for_assistance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 88
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-88
+          excerpt: udgifter, som den pågældende har påtaget sig, inden vedkommende
+            har ansøgt kommunen om hjælp
+      - path: versions[0].formula
+        kind: default
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-88
+          excerpt: kan normalt ikke få hjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: expense_was_undertaken_before_application_to_municipality
