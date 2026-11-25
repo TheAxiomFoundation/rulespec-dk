@@ -1,0 +1,47 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44
+    source_sha256: eb5844af497fdcac47ee006e8274f9e5cb429747573b82b7f04b6bb377295972
+  summary: Det er en betingelse for anvendelsen af reglerne i §§ 41-43, at der ikke
+    forinden overførslen er indtrådt afgiftspligt eller indkomstskattepligt vedrørende
+    de overførte beløb. 1. pkt. gælder dog ikke ved overførsel af midler som nævnt
+    i § 42 A, stk. 3.
+inputs:
+- name: tax_or_income_tax_liability_has_arisen_before_transfer_for_transferred_amounts
+  entity: Payment
+  dtype: Boolean
+  period: Year
+- name: transferred_funds_are_described_in_section_42_a_subsection_3
+  entity: Payment
+  dtype: Boolean
+  period: Year
+rules:
+- name: transfer_under_sections_41_to_43_allowed
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 44, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44
+          excerpt: at der ikke forinden overførslen er indtrådt afgiftspligt eller
+            indkomstskattepligt
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44
+          excerpt: 1. pkt. gælder dog ikke ved overførsel af midler som nævnt i §
+            42 A, stk. 3.
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'transferred_funds_are_described_in_section_42_a_subsection_3
+
+      or not tax_or_income_tax_liability_has_arisen_before_transfer_for_transferred_amounts'

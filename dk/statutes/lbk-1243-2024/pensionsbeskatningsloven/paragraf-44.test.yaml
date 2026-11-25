@@ -1,0 +1,36 @@
+- name: transfer_allowed_when_no_prior_tax_liability_has_arisen
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#input.tax_or_income_tax_liability_has_arisen_before_transfer_for_transferred_amounts
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#input.transferred_funds_are_described_in_section_42_a_subsection_3
+    : false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#transfer_under_sections_41_to_43_allowed: holds
+- name: transfer_not_allowed_when_prior_tax_liability_has_arisen
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#input.tax_or_income_tax_liability_has_arisen_before_transfer_for_transferred_amounts
+    : true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#input.transferred_funds_are_described_in_section_42_a_subsection_3
+    : false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#transfer_under_sections_41_to_43_allowed: not_holds
+- name: section_42_a_subsection_3_transfer_is_excepted_from_prior_liability_condition
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#input.tax_or_income_tax_liability_has_arisen_before_transfer_for_transferred_amounts
+    : true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#input.transferred_funds_are_described_in_section_42_a_subsection_3
+    : true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-44#transfer_under_sections_41_to_43_allowed: holds
