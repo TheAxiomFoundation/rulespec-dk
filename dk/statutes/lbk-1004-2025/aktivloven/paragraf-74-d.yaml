@@ -1,0 +1,217 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+    source_sha256: 07714f630fede794a2569f720d501ddca9015cce992d86481d48c5b00706844c
+  summary: '"Ledighedsydelse ydes for indtil 5 dage om ugen." Ved arbejde af kortere
+    varighed nedsættes ydelsen med lønindtægten og ved ophørsbeløb. Den månedlige
+    nedsættelse er 30 pct. indtil 13.000 kr. (2012-niveau) og derefter 55 pct.; pensionbidrag
+    skal oplyses til kommunen.'
+inputs:
+- name: requested_ledighedsydelse_days
+  entity: Person
+  dtype: Count
+  period: Week
+- name: recipient_has_short_duration_work
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: monthly_wage_income
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: monthly_other_income_replacing_wages
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: termination_payment_from_employer_or_guarantee_fund
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: recipient_receives_ledighedsydelse
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: maximum_ledighedsydelse_days_per_week
+  kind: parameter
+  dtype: Count
+  period: Week
+  source: Aktivloven § 74 d, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: Ledighedsydelse ydes for indtil 5 dage om ugen.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '5'
+- name: income_threshold_reference_year
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Aktivloven § 74 d, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: 13.000 kr. (2012-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2012'
+- name: lower_income_reduction_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: Aktivloven § 74 d, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: Ledighedsydelsen nedsættes med 30 pct.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '0.30'
+- name: monthly_wage_income_threshold_2012_level
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 74 d, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: 13.000 kr. (2012-niveau)
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '13000'
+- name: upper_income_reduction_rate
+  kind: parameter
+  dtype: Rate
+  period: Month
+  source: Aktivloven § 74 d, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: og herefter med 55 pct.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '0.55'
+- name: payable_ledighedsydelse_days
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Week
+  source: Aktivloven § 74 d, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: Ledighedsydelse ydes for indtil 5 dage om ugen.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: min(requested_ledighedsydelse_days, maximum_ledighedsydelse_days_per_week)
+- name: short_duration_work_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 74 d, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: har arbejde af kortere varighed, nedsættes ledighedsydelsen med
+            lønindtægten.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if recipient_has_short_duration_work: monthly_wage_income else: 0'
+- name: termination_payment_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 74 d, stk. 2, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: Beløb, som den pågældende modtager fra arbejdsgiveren eller Lønmodtagernes
+            Garantifond ved ophør af en ansættelse, medfører også nedsættelse af ledighedsydelse.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: termination_payment_from_employer_or_guarantee_fund
+- name: monthly_income_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 74 d, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: nedsættes med 30 pct. dels af lønindtægten, dels af anden indtægt,
+            der træder i stedet for løn, indtil den samlede lønindtægt pr. måned udgør
+            13.000 kr. (2012-niveau), og herefter med 55 pct.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "lower_income_reduction_rate * min(\n  monthly_wage_income + monthly_other_income_replacing_wages,\n\
+      \  monthly_wage_income_threshold_2012_level\n) + upper_income_reduction_rate\
+      \ * max(\n  0,\n  monthly_wage_income + monthly_other_income_replacing_wages\
+      \ - monthly_wage_income_threshold_2012_level\n)"
+- name: pension_contributions_must_be_disclosed_to_municipality
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 74 d, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-74-d
+          excerpt: Modtageren af ledighedsydelse har pligt til at oplyse kommunen
+            om eget og arbejdsgiverens pensionsbidrag.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: recipient_receives_ledighedsydelse
