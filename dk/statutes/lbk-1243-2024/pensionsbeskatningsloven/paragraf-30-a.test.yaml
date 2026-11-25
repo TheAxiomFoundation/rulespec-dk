@@ -1,0 +1,64 @@
+- name: qualifying_pool_deposit_with_negative_return
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.interest_is_credited_based_on_return_of_segregated_securities
+    : true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.securities_are_segregated_from_bank_other_securities
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.pool_has_negative_return: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.amount_corresponding_to_negative_pool_return: 100
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#arrangement_is_pool_deposit: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#transfer_without_duty_or_owner_income_tax_is_permitted: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#permitted_exempt_transfer_amount: 100
+- name: interest_not_credited_from_segregated_securities_return
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.interest_is_credited_based_on_return_of_segregated_securities
+    : false
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.securities_are_segregated_from_bank_other_securities
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.pool_has_negative_return: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.amount_corresponding_to_negative_pool_return: 100
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#arrangement_is_pool_deposit: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#transfer_without_duty_or_owner_income_tax_is_permitted: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#permitted_exempt_transfer_amount: 0
+- name: securities_not_segregated_from_bank_other_securities
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.interest_is_credited_based_on_return_of_segregated_securities
+    : true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.securities_are_segregated_from_bank_other_securities
+    : false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.pool_has_negative_return: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.amount_corresponding_to_negative_pool_return: 100
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#arrangement_is_pool_deposit: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#transfer_without_duty_or_owner_income_tax_is_permitted: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#permitted_exempt_transfer_amount: 0
+- name: pool_deposit_without_negative_return
+  period:
+    period_kind: tax_year
+    start: '2024-11-26'
+    end: '2024-12-31'
+  input:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.interest_is_credited_based_on_return_of_segregated_securities
+    : true
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.securities_are_segregated_from_bank_other_securities
+    : true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.pool_has_negative_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#input.amount_corresponding_to_negative_pool_return: 100
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#arrangement_is_pool_deposit: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#transfer_without_duty_or_owner_income_tax_is_permitted: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-30-a#permitted_exempt_transfer_amount: 0
