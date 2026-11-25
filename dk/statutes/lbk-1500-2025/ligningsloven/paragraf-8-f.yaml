@@ -1,0 +1,55 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-f
+    source_sha256: a5c536356c00ceb9e284a08306eebf5eb2a9fcf3487154011d7be8d653a9aea6
+  summary: Personer, der er oplysningspligtige efter skatteindberetningslovens § 41,
+    stk. 1, kan kun fradrage renter, hvis låntager har afgivet oplysninger om långivers
+    identitet efter § 41, eller lånet er indberetningspligtigt efter andre bestemmelser
+    i skatteindberetningsloven.
+inputs:
+- name: person_is_required_to_provide_information_under_section_41_subsection_1
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: borrower_has_provided_lender_identity_information_under_section_41
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: loan_is_reportable_under_other_tax_reporting_act_provisions
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: interest_deduction_condition_satisfied
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 8 F
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-f
+          excerpt: 1, kan kun fradrage renter ved opgørelsen af den skattepligtige
+            indkomst, hvis låntager har afgivet oplysninger om identiteten af långiver
+            efter skatteindberetningslovens § 41, eller hvis lånet er indberetningspligtigt
+            efter andre bestemmelser i skatteindberetningsloven.
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-8-f
+          excerpt: Personer, der er oplysningspligtige efter skatteindberetningslovens
+            § 41, stk. 1
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'not person_is_required_to_provide_information_under_section_41_subsection_1
+
+      or borrower_has_provided_lender_identity_information_under_section_41
+
+      or loan_is_reportable_under_other_tax_reporting_act_provisions'
