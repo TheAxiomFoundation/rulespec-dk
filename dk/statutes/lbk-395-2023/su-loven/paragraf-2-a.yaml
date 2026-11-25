@@ -1,0 +1,119 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-2-a
+    source_sha256: 78a83bf419fff68d9f4409edd8adad12c6a4b5301c419922b90c25112fbf5eed
+  summary: Uddannelsesstøtte gives til uddannelsessøgende, der er fyldt 18 år, og
+    udbetales tidligst fra det kvartal, der følger efter den dato, hvor den uddannelsessøgende
+    er fyldt 18 år. Stk. 1 finder ikke anvendelse for den angivne stipendiumsøgning
+    til uddannelse inden for klippekortet.
+inputs:
+- name: educational_seeker_age
+  entity: Person
+  dtype: Integer
+  period: Month
+- name: payment_period_is_in_or_after_quarter_following_18th_birthday
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: educational_seeker_seeks_grant_under_section_7_subsection_1_item_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: education_is_supported_within_clip_card_under_section_15
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: educational_seeker_is_18_or_older
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: minimum_age_for_educational_support
+  kind: parameter
+  dtype: Integer
+  source: SU-loven § 2 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-2-a
+          excerpt: der er fyldt 18 år
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '18'
+- name: section_2_a_subsection_1_exception_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 2 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-2-a
+          excerpt: Bestemmelsen i stk. 1 finder ikke anvendelse for uddannelsessøgende,
+            der søger stipendium, jf. § 7, stk. 1, nr. 1, til uddannelse, der gives
+            støtte til inden for klippekortet, jf. § 15.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'educational_seeker_seeks_grant_under_section_7_subsection_1_item_1
+
+      and education_is_supported_within_clip_card_under_section_15'
+- name: educational_support_entitlement_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 2 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-2-a
+          excerpt: Uddannelsesstøtte gives til uddannelsessøgende, der er fyldt 18
+            år
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-2-a
+          excerpt: Bestemmelsen i stk. 1 finder ikke anvendelse
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'educational_seeker_age >= minimum_age_for_educational_support
+
+      and not section_2_a_subsection_1_exception_applies'
+- name: educational_support_payment_may_be_made
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 2 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-2-a
+          excerpt: udbetales tidligst fra det kvartal, der følger efter den dato,
+            hvor den uddannelsessøgende er fyldt 18 år
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-2-a
+          excerpt: Bestemmelsen i stk. 1 finder ikke anvendelse
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'educational_support_entitlement_applies
+
+      and payment_period_is_in_or_after_quarter_following_18th_birthday'
