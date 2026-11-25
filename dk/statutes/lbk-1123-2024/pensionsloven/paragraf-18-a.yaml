@@ -1,0 +1,69 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-18-a
+    source_sha256: 81b45587745b48f07d00d06ee0dcd68aadfb6f5e5c6557433998abbfbf97bd6d
+  summary: '"Afviser en person at modtage behandling foretaget af en læge i form af
+    operation eller lægeordineret medicin eller lægebehandling af tilsvarende indgribende
+    karakter, kan det ikke tillægges betydning ved vurderingen af personens ret til
+    seniorpension eller førtidspension."'
+inputs:
+- name: person_refuses_doctor_performed_operation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_refuses_doctor_prescribed_medicine
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_refuses_equally_invasive_medical_treatment
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: refusal_is_not_relevant_to_seniorpension_entitlement_assessment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 18 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-18-a
+          excerpt: kan det ikke tillægges betydning ved vurderingen af personens ret
+            til seniorpension
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'person_refuses_doctor_performed_operation
+
+      or person_refuses_doctor_prescribed_medicine
+
+      or person_refuses_equally_invasive_medical_treatment'
+- name: refusal_is_not_relevant_to_disability_pension_entitlement_assessment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 18 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-18-a
+          excerpt: kan det ikke tillægges betydning ved vurderingen af personens ret
+            til seniorpension eller førtidspension
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'person_refuses_doctor_performed_operation
+
+      or person_refuses_doctor_prescribed_medicine
+
+      or person_refuses_equally_invasive_medical_treatment'
