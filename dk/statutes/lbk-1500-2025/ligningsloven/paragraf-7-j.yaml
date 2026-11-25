@@ -1,0 +1,71 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-j
+    source_sha256: 49594a7c4b1474452e2ed7e667ddc88a2828fed0671920366d5679c029579cd0
+  summary: '"Afdragsbidrag, der efter § 13 i lov om refinansiering af realkreditlån
+    mv. i landbrugsejendomme og §§ 2 b-d i lov om indeksregulerede realkreditlån af
+    staten ydes til jordbrugslån, er skattefri for låntager." "Afdragsbidrag ydet
+    i henhold til § 6, stk. 1, jf. stk. 3, i lov nr. 850 af 20. december 1989 om Dansk
+    Landbrugs Realkreditfond er ligeledes skattefri for låntager."'
+inputs:
+- name: instalment_contribution_granted_under_refinancing_act_section_13_for_agricultural_loan
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: instalment_contribution_granted_under_index_regulated_mortgage_loan_act_sections_2_b_to_2_d_for_agricultural_loan
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: instalment_contribution_granted_under_danish_agricultural_mortgage_fund_act_section_6_subsection_1_with_subsection_3
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: danish_agricultural_mortgage_fund_act_enactment_day
+  kind: parameter
+  dtype: Integer
+  source: Ligningsloven § 7 J, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-j
+          excerpt: lov nr. 850 af 20. december 1989 om Dansk Landbrugs Realkreditfond
+  versions:
+  - effective_from: '2025-11-24'
+    formula: '20'
+- name: instalment_contribution_is_tax_exempt_for_borrower
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 7 J
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-j
+          excerpt: Afdragsbidrag, der efter § 13 i lov om refinansiering af realkreditlån
+            mv. i landbrugsejendomme og §§ 2 b-d i lov om indeksregulerede realkreditlån
+            af staten ydes til jordbrugslån, er skattefri for låntager.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-j
+          excerpt: Afdragsbidrag ydet i henhold til § 6, stk. 1, jf. stk. 3, i lov
+            nr. 850 af 20. december 1989 om Dansk Landbrugs Realkreditfond er ligeledes
+            skattefri for låntager.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'instalment_contribution_granted_under_refinancing_act_section_13_for_agricultural_loan
+
+      or instalment_contribution_granted_under_index_regulated_mortgage_loan_act_sections_2_b_to_2_d_for_agricultural_loan
+
+      or instalment_contribution_granted_under_danish_agricultural_mortgage_fund_act_section_6_subsection_1_with_subsection_3'
