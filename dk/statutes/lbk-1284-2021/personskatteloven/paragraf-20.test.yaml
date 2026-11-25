@@ -1,0 +1,39 @@
+- name: historical_baseline_regulation_number_and_upward_rounding
+  period:
+    period_kind: tax_year
+    start: '2010-01-01'
+    end: '2010-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.income_year_is_within_historical_baseline_period: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.previous_regulation_number: 99.0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.adjustment_percentage: -0.25
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.amount_before_regulation: 12345
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#regulation_number: 100.0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#regulated_amount: 12400
+- name: positive_adjustment_calculates_regulation_number_and_rounds_amount_upward
+  period:
+    period_kind: tax_year
+    start: '2021-01-01'
+    end: '2021-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.income_year_is_within_historical_baseline_period: false
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.previous_regulation_number: 100.0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.adjustment_percentage: 0.01
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.amount_before_regulation: 12345
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#regulation_number: 102.0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#regulated_amount: 12600
+- name: negative_adjustment_is_subtracted_from_regulation_number
+  period:
+    period_kind: tax_year
+    start: '2021-01-01'
+    end: '2021-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.income_year_is_within_historical_baseline_period: false
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.previous_regulation_number: 100.0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.adjustment_percentage: -0.5
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#input.amount_before_regulation: 10000
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#regulation_number: 101.5
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-20#regulated_amount: 10200

@@ -1,0 +1,158 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+    source_sha256: b5c7bd6662dc2efe22caa080775a501dd59d76fac115bae40282cf1267d126c1
+  summary: 'Reguleringstallet beregnes som foregående års reguleringstal forhøjet
+    med
+
+    2,0 pct. og justeret med den bekendtgjorte tilpasningsprocent, med én decimal.
+
+    Regulerede beløb ændres med reguleringstallets afvigelse fra 100 og afrundes
+
+    opad til nærmeste kronebeløb deleligt med 100. Reguleringstallet er 100,0
+
+    for indkomstårene 2009-2013.'
+rules:
+- name: regulation_number
+  kind: derived
+  entity: RegulationYear
+  dtype: Decimal
+  period: Year
+  source: Personskatteloven § 20, stk. 1 og 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: Reguleringstallet beregnes som det foregående års reguleringstal
+            forhøjet med 2,0 pct. tillagt eller fratrukket den af finansministeren
+            bekendtgjorte tilpasningsprocent for det pågældende finansår efter lov
+            om en satsreguleringsprocent.
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: Reguleringstallet udgør 100,0 for indkomstårene 2009-2013.
+      - path: versions[0].formula
+        kind: unit
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: Reguleringstallet beregnes med én decimal.
+  versions:
+  - effective_from: '2009-01-01'
+    formula: 'if income_year_is_within_historical_baseline_period: historical_regulation_number
+      else: floor( ( previous_regulation_number * (1 + annual_increase_rate) + adjustment_percentage
+      ) * ( regulation_number_baseline / ( annual_increase_rate * regulation_number_baseline
+      * (1 + 1 + 1 + 1 + 1) ) ) + ( annual_increase_rate * ( regulation_number_baseline
+      / (1 + 1 + 1 + 1) ) ) ) / ( regulation_number_baseline / ( annual_increase_rate
+      * regulation_number_baseline * (1 + 1 + 1 + 1 + 1) ) )'
+- name: annual_increase_rate
+  kind: parameter
+  dtype: Rate
+  source: Personskatteloven § 20, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: forhøjet med 2,0 pct.
+  versions:
+  - effective_from: '2009-01-01'
+    formula: '0.02'
+- name: regulation_number_baseline
+  kind: parameter
+  dtype: Decimal
+  source: Personskatteloven § 20, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: årets reguleringstal afviger fra 100
+  versions:
+  - effective_from: '2009-01-01'
+    formula: '100'
+- name: historical_regulation_number
+  kind: parameter
+  dtype: Decimal
+  source: Personskatteloven § 20, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: Reguleringstallet udgør 100,0 for indkomstårene 2009-2013.
+  versions:
+  - effective_from: '2009-01-01'
+    formula: '100.0'
+- name: regulated_amount_rounding_multiple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  source: Personskatteloven § 20, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: kronebeløb, der kan deles med 100
+  versions:
+  - effective_from: '2009-01-01'
+    formula: '100'
+- name: regulated_amount
+  kind: derived
+  entity: RegulationYear
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Personskatteloven § 20, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: beløbene med samme procent som den, hvormed årets reguleringstal
+            afviger fra 100
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-20
+          excerpt: afrundes opad til nærmeste kronebeløb, der kan deles med 100
+  versions:
+  - effective_from: '2009-01-01'
+    formula: "ceil(\n  (\n    amount_before_regulation\n    * regulation_number\n\
+      \    / regulation_number_baseline\n  ) / regulated_amount_rounding_multiple\n\
+      ) * regulated_amount_rounding_multiple"
+inputs:
+- name: income_year_is_within_historical_baseline_period
+  entity: RegulationYear
+  dtype: Boolean
+  period: Year
+- name: previous_regulation_number
+  entity: RegulationYear
+  dtype: Decimal
+  period: Year
+- name: adjustment_percentage
+  entity: RegulationYear
+  dtype: Rate
+  period: Year
+- name: amount_before_regulation
+  entity: RegulationYear
+  dtype: Money
+  unit: DKK
+  period: Year
