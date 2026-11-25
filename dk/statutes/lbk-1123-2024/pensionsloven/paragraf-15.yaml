@@ -1,0 +1,82 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15
+    source_sha256: ed65b01d56fc7ffca1f370a342eb7882f5aad365431b37261369761a66e9c068
+  summary: Grundbeløb til folkepensionister nedsættes ikke på grund af indtægt. Pensionstillæg,
+    varmetillæg efter § 14, stk. 2, og helbredstillæg efter § 14 a nedsættes på grund
+    af indtægt, jf. § 29.
+rules:
+- name: basic_pension_income_reduction_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 15, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15
+          excerpt: Grundbeløb til folkepensionister nedsættes ikke på grund af indtægt.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'false'
+- name: pension_supplement_income_reduction_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 15, stk. 2, pensionstillæg
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15
+          excerpt: Stk. 2. Pensionstillæg, varmetillæg efter § 14, stk. 2, og helbredstillæg
+            efter § 14 a nedsættes på grund af indtægt, jf. § 29.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'true'
+- name: heating_allowance_income_reduction_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 15, stk. 2, varmetillæg efter § 14, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15
+          excerpt: Stk. 2. Pensionstillæg, varmetillæg efter § 14, stk. 2, og helbredstillæg
+            efter § 14 a nedsættes på grund af indtægt, jf. § 29.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'true'
+- name: health_allowance_income_reduction_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 15, stk. 2, helbredstillæg efter § 14 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15
+          excerpt: Stk. 2. Pensionstillæg, varmetillæg efter § 14, stk. 2, og helbredstillæg
+            efter § 14 a nedsættes på grund af indtægt, jf. § 29.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'true'
