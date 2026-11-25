@@ -1,0 +1,49 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-5-a
+    source_sha256: fe6046b420309cec5ab3dd83366c1eabefe4623de6101d0f22c3f06c3bc40154
+  summary: '"Begynder uddannelsen efter den 20. i en måned, vil uddannelsen i støttemæssig
+    henseende begynde den efterfølgende måned."'
+inputs:
+- name: education_start_day_of_month
+  entity: Person
+  dtype: Integer
+  period: Month
+rules:
+- name: latest_education_start_day_for_same_month_support
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: SU-loven § 5 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-5-a
+          excerpt: efter den 20. i en måned
+  versions:
+  - effective_from: '2023-04-13'
+    formula: '20'
+- name: education_support_commences_following_month
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: SU-loven § 5 a
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-5-a
+          excerpt: Begynder uddannelsen efter den 20. i en måned, vil uddannelsen
+            i støttemæssig henseende begynde den efterfølgende måned.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: education_start_day_of_month > latest_education_start_day_for_same_month_support

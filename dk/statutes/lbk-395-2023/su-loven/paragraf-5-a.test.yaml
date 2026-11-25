@@ -1,0 +1,12 @@
+- name: education_started_after_cutoff_support_commences_following_month
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-5-a#input.education_start_day_of_month: 21
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-5-a#education_support_commences_following_month: holds
+- name: education_started_on_cutoff_support_does_not_commence_following_month_under_section_5_a
+  period: 2023-05
+  input:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-5-a#input.education_start_day_of_month: 20
+  output:
+    dk:statutes/lbk-395-2023/su-loven/paragraf-5-a#education_support_commences_following_month: not_holds
