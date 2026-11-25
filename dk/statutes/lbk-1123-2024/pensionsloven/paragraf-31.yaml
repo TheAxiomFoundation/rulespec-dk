@@ -1,0 +1,378 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+    source_sha256: 8a8b4c56a871a4b7242693309b1939fff7050a0fb97212a364608d5d48ddf452
+  summary: '§ 31, stk. 1: "Pensionstillæg nedsættes med en fast procent af indtægtsgrundlaget"
+
+    at 30,9 pct., 32,0 pct., 16,0 pct., or 32,0 pct. for the listed pensioner
+
+    situations. Stk. 2: the personal supplement percentage starts at 100 and is
+
+    reduced by 1 pct. for each § 49, stk. 5 amount by which income exceeds the
+
+    § 49, stk. 1, nr. 6 deduction. Stk. 3 caps calculated basic amount and pension
+
+    supplement for pensioners covered by §§ 46 d, 46 f, or 46 g.'
+rules:
+- name: pension_supplement_reduction_second_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 31, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 2) 32,0 pct. for pensionister
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2'
+- name: pension_supplement_reduction_third_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 31, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 3) 16,0 pct. for pensionister
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '3'
+- name: pension_supplement_reduction_fourth_category_number
+  kind: parameter
+  dtype: Integer
+  source: § 31, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 4) 32,0 pct. for samlevende pensionister
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '4'
+- name: cap_coverage_section_number
+  kind: parameter
+  dtype: Integer
+  source: § 31, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: pensionisten er omfattet af §§ 46 d, 46 f eller 46 g.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '46'
+- name: personal_supplement_percentage_default_percent
+  kind: parameter
+  dtype: Integer
+  source: § 31, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: default
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: Den personlige tillægsprocent er som udgangspunkt 100, men nedsættes
+            med 1 pct. for hvert beløb, jf. § 49, stk.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '100'
+- name: pension_supplement_reduction_rate_for_single_pensioner
+  kind: parameter
+  dtype: Rate
+  source: § 31, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 30,9 pct. for enlige pensionister.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.309'
+- name: pension_supplement_reduction_rate_for_pensioner_with_nonentitled_spouse_or_cohabitant
+  kind: parameter
+  dtype: Rate
+  source: § 31, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 32,0 pct. for pensionister, hvis ægtefælle eller samlever ikke
+            har ret til social pension.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.320'
+- name: pension_supplement_reduction_rate_for_pensioner_with_entitled_spouse_or_cohabitant
+  kind: parameter
+  dtype: Rate
+  source: § 31, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 16,0 pct. for pensionister, hvis ægtefælle eller samlever også
+            har ret til social pension.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.160'
+- name: pension_supplement_reduction_rate_for_cohabiting_pensioner_treated_as_single
+  kind: parameter
+  dtype: Rate
+  source: § 31, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 32,0 pct. for samlevende pensionister, der betragtes som enlige,
+            jf. § 29, stk. 2.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.320'
+- name: personal_supplement_percentage_default
+  kind: parameter
+  dtype: Rate
+  source: § 31, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: default
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: Den personlige tillægsprocent er som udgangspunkt 100
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: personal_supplement_percentage_reduction_per_income_increment
+  kind: parameter
+  dtype: Rate
+  source: § 31, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: nedsættes med 1 pct. for hvert beløb, jf. § 49, stk. 5
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.01'
+- name: pension_supplement_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: § 31, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: Pensionstillæg nedsættes med en fast procent af indtægtsgrundlaget,
+            jf. § 29.
+      - path: versions[0].formula
+        kind: parameter_table
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: Nedsættelsen sker med følgende procentsatser
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "income_basis_under_section_29 * (\n  if pensioner_is_single:\n    pension_supplement_reduction_rate_for_single_pensioner\n\
+      \  else: if pensioner_spouse_or_cohabitant_has_no_social_pension_entitlement:\n\
+      \    pension_supplement_reduction_rate_for_pensioner_with_nonentitled_spouse_or_cohabitant\n\
+      \  else: if pensioner_spouse_or_cohabitant_also_has_social_pension_entitlement:\n\
+      \    pension_supplement_reduction_rate_for_pensioner_with_entitled_spouse_or_cohabitant\n\
+      \  else: if cohabiting_pensioner_is_treated_as_single_under_section_29_2:\n\
+      \    pension_supplement_reduction_rate_for_cohabiting_pensioner_treated_as_single\n\
+      \  else:\n    0\n)"
+- name: personal_supplement_percentage
+  kind: derived
+  entity: Person
+  dtype: Rate
+  period: Year
+  source: § 31, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: nedsættes med 1 pct. for hvert beløb, jf. § 49, stk. 5, hvormed
+            indtægtsgrundlaget efter § 29, stk. 1-4, overstiger fradragsbeløbet efter
+            § 49, stk. 1, nr. 6.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "max(\n  0,\n  personal_supplement_percentage_default\n  - floor(\n \
+      \   max(0, income_basis_under_section_29 - deduction_amount_under_section_49_1_6)\n\
+      \    / income_increment_under_section_49_5\n  ) * personal_supplement_percentage_reduction_per_income_increment\n\
+      )"
+- name: heating_allowance_after_personal_supplement_percentage
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: § 31, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: 2, og helbredstillæg efter § 14 a nedsættes afhængig af den personlige
+            tillægsprocent.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: unreduced_heating_allowance_under_section_14_2 * personal_supplement_percentage
+- name: health_allowance_after_personal_supplement_percentage
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: § 31, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: helbredstillæg efter § 14 a nedsættes afhængig af den personlige
+            tillægsprocent.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: unreduced_health_allowance_under_section_14_a * personal_supplement_percentage
+- name: basic_amount_and_pension_supplement_cap_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 31, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: når pensionisten er omfattet af §§ 46 d, 46 f eller 46 g.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'pensioner_is_covered_by_section_46_d
+
+      or pensioner_is_covered_by_section_46_f
+
+      or pensioner_is_covered_by_section_46_g'
+- name: basic_amount_and_pension_supplement_payable
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: § 31, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-31
+          excerpt: Det beregnede grundbeløb og pensionstillæg kan højst udbetales
+            med et beløb svarende til selvforsørgelses- og hjemrejseydelse eller overgangsydelse
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'if basic_amount_and_pension_supplement_cap_applies: min( calculated_basic_amount
+      + calculated_pension_supplement, corresponding_self_support_repatriation_or_transition_benefit_amount
+      ) else: calculated_basic_amount + calculated_pension_supplement'
+inputs:
+- name: income_basis_under_section_29
+  entity: Person
+  dtype: Money
+  period: Year
+- name: pensioner_is_single
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: pensioner_spouse_or_cohabitant_has_no_social_pension_entitlement
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: pensioner_spouse_or_cohabitant_also_has_social_pension_entitlement
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: cohabiting_pensioner_is_treated_as_single_under_section_29_2
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deduction_amount_under_section_49_1_6
+  entity: Person
+  dtype: Money
+  period: Year
+- name: income_increment_under_section_49_5
+  entity: Person
+  dtype: Money
+  period: Year
+- name: unreduced_heating_allowance_under_section_14_2
+  entity: Person
+  dtype: Money
+  period: Year
+- name: unreduced_health_allowance_under_section_14_a
+  entity: Person
+  dtype: Money
+  period: Year
+- name: calculated_basic_amount
+  entity: Person
+  dtype: Money
+  period: Year
+- name: calculated_pension_supplement
+  entity: Person
+  dtype: Money
+  period: Year
+- name: corresponding_self_support_repatriation_or_transition_benefit_amount
+  entity: Person
+  dtype: Money
+  period: Year
+- name: pensioner_is_covered_by_section_46_d
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: pensioner_is_covered_by_section_46_f
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: pensioner_is_covered_by_section_46_g
+  entity: Person
+  dtype: Boolean
+  period: Year

@@ -1,0 +1,185 @@
+- name: single-pensioner-reduction-rate
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_basis_under_section_29: 10000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_single: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_has_no_social_pension_entitlement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_also_has_social_pension_entitlement
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.cohabiting_pensioner_is_treated_as_single_under_section_29_2: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#pension_supplement_reduction: 3090
+- name: nonentitled-spouse-or-cohabitant-reduction-rate
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_basis_under_section_29: 10000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_single: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_has_no_social_pension_entitlement: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_also_has_social_pension_entitlement
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.cohabiting_pensioner_is_treated_as_single_under_section_29_2: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#pension_supplement_reduction: 3200
+- name: entitled-spouse-or-cohabitant-reduction-rate
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_basis_under_section_29: 10000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_single: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_has_no_social_pension_entitlement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_also_has_social_pension_entitlement
+    : true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.cohabiting_pensioner_is_treated_as_single_under_section_29_2: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#pension_supplement_reduction: 1600
+- name: cohabiting-pensioner-treated-as-single-reduction-rate
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_basis_under_section_29: 10000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_single: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_has_no_social_pension_entitlement: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_also_has_social_pension_entitlement
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.cohabiting_pensioner_is_treated_as_single_under_section_29_2: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#pension_supplement_reduction: 3200
+- name: personal-supplement-percentage-at-default
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_basis_under_section_29: 9000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.deduction_amount_under_section_49_1_6: 10000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_increment_under_section_49_5: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.unreduced_heating_allowance_under_section_14_2: 5000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.unreduced_health_allowance_under_section_14_a: 2000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#personal_supplement_percentage: 1
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#heating_allowance_after_personal_supplement_percentage: 5000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#health_allowance_after_personal_supplement_percentage: 2000
+- name: personal-supplement-percentage-reduced-by-income-excess
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_basis_under_section_29: 12000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.deduction_amount_under_section_49_1_6: 10000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_increment_under_section_49_5: 1000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.unreduced_heating_allowance_under_section_14_2: 5000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.unreduced_health_allowance_under_section_14_a: 2000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#personal_supplement_percentage: 0.98
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#heating_allowance_after_personal_supplement_percentage: 4900
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#health_allowance_after_personal_supplement_percentage: 1960
+- name: section-46-d-cap-applies
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_d: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_f: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_g: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_basic_amount: 8000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_pension_supplement: 6000
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.corresponding_self_support_repatriation_or_transition_benefit_amount
+    : 10000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_cap_applies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_payable: 10000
+- name: section-46-f-cap-applies
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_d: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_f: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_g: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_basic_amount: 8000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_pension_supplement: 6000
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.corresponding_self_support_repatriation_or_transition_benefit_amount
+    : 10000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_cap_applies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_payable: 10000
+- name: section-46-g-cap-applies
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_d: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_f: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_g: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_basic_amount: 8000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_pension_supplement: 6000
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.corresponding_self_support_repatriation_or_transition_benefit_amount
+    : 10000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_cap_applies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_payable: 10000
+- name: no-section-46-cap
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-10-21'
+    end: '2024-10-21'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_d: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_f: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_g: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_basic_amount: 8000
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_pension_supplement: 6000
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.corresponding_self_support_repatriation_or_transition_benefit_amount
+    : 10000
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_cap_applies: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#basic_amount_and_pension_supplement_payable: 14000
+- name: auto_zero_pension_supplement_reduction
+  period:
+    period_kind: tax_year
+    start: '2024-10-21'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_basic_amount: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.calculated_pension_supplement: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.cohabiting_pensioner_is_treated_as_single_under_section_29_2: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.corresponding_self_support_repatriation_or_transition_benefit_amount
+    : 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.deduction_amount_under_section_49_1_6: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_basis_under_section_29: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.income_increment_under_section_49_5: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_d: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_f: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_covered_by_section_46_g: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_is_single: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_also_has_social_pension_entitlement
+    : false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.pensioner_spouse_or_cohabitant_has_no_social_pension_entitlement: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.unreduced_health_allowance_under_section_14_a: 0
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#input.unreduced_heating_allowance_under_section_14_2: 0
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-31#pension_supplement_reduction: 0
