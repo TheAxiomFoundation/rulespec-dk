@@ -1,0 +1,44 @@
+- name: qualifying_payment_below_lower_bracket_limit
+  period: 2024-12
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.payment_is_special_pension_savings_payment_under_section_17_j_subsection_2
+      : true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.special_pension_savings_payment_amount: 10000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#special_pension_savings_payment_tax:
+    - 3500
+- name: qualifying_payment_at_lower_bracket_limit
+  period: 2024-12
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.payment_is_special_pension_savings_payment_under_section_17_j_subsection_2
+      : true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.special_pension_savings_payment_amount: 15000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#special_pension_savings_payment_tax:
+    - 5250
+- name: qualifying_payment_above_lower_bracket_limit
+  period: 2024-12
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.payment_is_special_pension_savings_payment_under_section_17_j_subsection_2
+      : true
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.special_pension_savings_payment_amount: 20000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#special_pension_savings_payment_tax:
+    - 7750
+- name: nonqualifying_payment_has_no_special_pension_savings_tax
+  period: 2024-12
+  input: {}
+  tables:
+    Payment:
+    - ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.payment_is_special_pension_savings_payment_under_section_17_j_subsection_2
+      : false
+      dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#input.special_pension_savings_payment_amount: 10000
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-29-d#special_pension_savings_payment_tax:
+    - 0
