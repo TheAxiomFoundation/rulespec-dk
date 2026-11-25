@@ -1,0 +1,119 @@
+- name: qualifying_arrangement_with_taxable_excess_rent
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.dwelling_would_be_subject_to_property_value_tax_if_owner_occupied
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.dwelling_is_adjacent_to_owner_or_spouse_occupied_dwelling: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_parent: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_grandparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.owner_has_spouse: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.cohabitant_has_lived_with_owner_during_last_two_years_before_housing_is_available
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_parent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_grandparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_disability_pensioner: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_senior_pensioner: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_early_retirement_pensioner: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_receives_unemployment_early_retirement_benefit
+    : false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_receives_flexible_early_retirement_benefit
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_has_reached_state_pension_age: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.property_value_tax_if_owner_occupied: 100
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.rental_payment_for_housing: 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#cohabitant_treated_as_spouse: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#spouse_equivalent_exists: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#housing_available_to_qualifying_relative: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#qualifying_relative_has_required_pension_status: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#special_housing_arrangement_applies: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#property_value_tax_for_special_housing_arrangement: 100
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#taxable_rental_payment_for_special_housing_arrangement: 750
+- name: dwelling_not_subject_to_property_value_tax
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.dwelling_would_be_subject_to_property_value_tax_if_owner_occupied
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.dwelling_is_adjacent_to_owner_or_spouse_occupied_dwelling: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_parent: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_grandparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.owner_has_spouse: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.cohabitant_has_lived_with_owner_during_last_two_years_before_housing_is_available
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_parent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_grandparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_disability_pensioner: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_senior_pensioner: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_early_retirement_pensioner: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_receives_unemployment_early_retirement_benefit
+    : false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_receives_flexible_early_retirement_benefit
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_has_reached_state_pension_age: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.property_value_tax_if_owner_occupied: 100
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.rental_payment_for_housing: 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#special_housing_arrangement_applies: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#property_value_tax_for_special_housing_arrangement: 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#taxable_rental_payment_for_special_housing_arrangement: 0
+- name: nonadjacent_housing_does_not_qualify
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.dwelling_would_be_subject_to_property_value_tax_if_owner_occupied
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.dwelling_is_adjacent_to_owner_or_spouse_occupied_dwelling: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_parent: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_grandparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.owner_has_spouse: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.cohabitant_has_lived_with_owner_during_last_two_years_before_housing_is_available
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_parent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_grandparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_disability_pensioner: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_senior_pensioner: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_is_early_retirement_pensioner: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_receives_unemployment_early_retirement_benefit
+    : false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_receives_flexible_early_retirement_benefit
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.parent_stepparent_or_grandparent_has_reached_state_pension_age: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.property_value_tax_if_owner_occupied: 100
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.rental_payment_for_housing: 1000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#special_housing_arrangement_applies: not_holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#property_value_tax_for_special_housing_arrangement: 0
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#taxable_rental_payment_for_special_housing_arrangement: 0
+- name: cohabitant_is_spouse_equivalent_for_grandparent_housing
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.owner_has_spouse: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.cohabitant_has_lived_with_owner_during_last_two_years_before_housing_is_available
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_parent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_owners_grandparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_parent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_stepparent: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#input.housing_is_available_to_spouse_equivalents_grandparent: true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#cohabitant_treated_as_spouse: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#spouse_equivalent_exists: holds
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-12-a#housing_available_to_qualifying_relative: holds
