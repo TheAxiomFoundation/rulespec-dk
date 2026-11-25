@@ -1,0 +1,84 @@
+- name: unemployment-insurance-fund-member-receiving-transition-benefit-may-contribute
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_member_of_unemployment_insurance_fund: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_transition_benefit: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_flex_benefit: false
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+    : false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_covered_by_partial_pension_act: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#voluntary_atp_contribution_permitted: holds
+- name: unemployment-insurance-fund-member-receiving-early-retirement-benefit-may-contribute
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_member_of_unemployment_insurance_fund: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_transition_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_flex_benefit: false
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+    : false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_covered_by_partial_pension_act: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#voluntary_atp_contribution_permitted: holds
+- name: flex-benefit-recipient-may-contribute
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_member_of_unemployment_insurance_fund: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_transition_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_flex_benefit: true
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+    : false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_covered_by_partial_pension_act: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#voluntary_atp_contribution_permitted: holds
+- name: early-retirement-recipient-without-danish-fund-may-contribute
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_member_of_unemployment_insurance_fund: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_transition_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_flex_benefit: false
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+    : true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_covered_by_partial_pension_act: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#voluntary_atp_contribution_permitted: holds
+- name: partial-pension-act-covered-person-may-contribute
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_member_of_unemployment_insurance_fund: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_transition_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_flex_benefit: false
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+    : false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_covered_by_partial_pension_act: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#voluntary_atp_contribution_permitted: holds
+- name: fund-member-without-listed-benefit-may-not-contribute-under-first-category
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_member_of_unemployment_insurance_fund: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_transition_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_flex_benefit: false
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+    : false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_covered_by_partial_pension_act: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#voluntary_atp_contribution_permitted: not_holds
+- name: person-outside-listed-categories-may-not-contribute-under-this-section
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_member_of_unemployment_insurance_fund: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_transition_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_flex_benefit: false
+    ? dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_receives_early_retirement_benefit_without_danish_unemployment_insurance_fund_under_section_74_o
+    : false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#input.person_is_covered_by_partial_pension_act: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-2-b#voluntary_atp_contribution_permitted: not_holds
