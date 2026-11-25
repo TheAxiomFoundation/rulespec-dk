@@ -1,0 +1,121 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+    source_sha256: 04840fda9858e56990eebe105e6f6a4998279b8d52dfb20933b8517ec9867ca6
+  summary: Ydelsen efter § 14 b, stk. 1, nedsættes med lige store beløb en gang hvert
+    år, første gang den 1. i måneden 12 måneder efter folkepensionsalderen, og bortfalder
+    helt den 1. i måneden 5 år efter folkepensionsalderen.
+inputs:
+- name: benefit_under_section_14_b_subsection_1
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: completed_months_since_reaching_folkepension_age
+  entity: Person
+  dtype: Integer
+  period: Month
+rules:
+- name: annual_reduction_occurrences_per_year
+  kind: parameter
+  dtype: Integer
+  source: § 14 c, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: en gang hvert år
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '1'
+- name: first_reduction_delay_months
+  kind: parameter
+  dtype: Integer
+  source: § 14 c, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: 12 måneder efter, at medlemmet når folkepensionsalderen
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '12'
+- name: cessation_period_years
+  kind: parameter
+  dtype: Integer
+  source: § 14 c, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: 5 år efter at medlemmet har nået folkepensionsalderen
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '5'
+- name: annual_reduction_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 14 c, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: nedsættes med lige store beløb en gang hvert år
+      - path: versions[0].formula
+        kind: ordering
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: Ydelsen bortfalder helt den 1. i måneden, 5 år efter at medlemmet
+            har nået folkepensionsalderen.
+  versions:
+  - effective_from: '2024-11-01'
+    formula: benefit_under_section_14_b_subsection_1 / (cessation_period_years * annual_reduction_occurrences_per_year)
+- name: benefit_after_pension_age_reduction
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 14 c
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: nedsættes med lige store beløb en gang hvert år
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: første gang den 1. i måneden, 12 måneder efter
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-14-c
+          excerpt: Ydelsen bortfalder helt den 1. i måneden, 5 år efter
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'if completed_months_since_reaching_folkepension_age >= first_reduction_delay_months
+      * cessation_period_years: 0 else: max(0, benefit_under_section_14_b_subsection_1
+      - floor(completed_months_since_reaching_folkepension_age / first_reduction_delay_months)
+      * annual_reduction_amount)'
