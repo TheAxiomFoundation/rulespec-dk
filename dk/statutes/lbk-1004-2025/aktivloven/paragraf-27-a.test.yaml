@@ -1,0 +1,41 @@
+- name: reduced_pension_assistance_and_regular_further_assistance_cap
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.person_receives_reduced_pension_due_to_earning_conditions: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_pension_amount: 8000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.hypothetical_cash_assistance_amount_under_sections_16_to_19: 12000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.person_has_economic_need_for_further_supplementary_assistance: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.person_does_not_meet_residence_requirement_under_section_11_subsection_3
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_full_pension_amount: 15000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_cash_assistance_amount_under_section_16_subsection_2: 7000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_cash_assistance_supplements_under_sections_17_and_18: 1000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#supplementary_assistance_amount: 4000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#further_supplementary_assistance_may_be_awarded: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#maximum_further_supplementary_assistance_amount: 7000
+- name: full_or_non-earning-condition_pension_does_not_receive_section_27_a_assistance
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.person_receives_reduced_pension_due_to_earning_conditions: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_pension_amount: 8000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.hypothetical_cash_assistance_amount_under_sections_16_to_19: 12000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#supplementary_assistance_amount: 0
+- name: further_supplementary_assistance_requires_economic_need
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.person_has_economic_need_for_further_supplementary_assistance: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#further_supplementary_assistance_may_be_awarded: not_holds
+- name: residence_requirement_exception_uses_cash_assistance_cap
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.person_does_not_meet_residence_requirement_under_section_11_subsection_3
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_pension_amount: 8000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_full_pension_amount: 15000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_cash_assistance_amount_under_section_16_subsection_2: 7000
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#input.monthly_cash_assistance_supplements_under_sections_17_and_18: 3000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-27-a#maximum_further_supplementary_assistance_amount: 2000
