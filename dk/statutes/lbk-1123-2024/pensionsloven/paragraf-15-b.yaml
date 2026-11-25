@@ -1,0 +1,132 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15-b
+    source_sha256: 145583ad2f3acd1163f729acdbf7bf35b53a940e79c58c1eb1a90f87e0399a98
+  summary: '"Anmodning om at opsætte pensionen ... indgives ... samtidig med eller
+    senere end ansøgning om folkepension."
+
+    "Anmodningen har virkning fra den 1. i måneden efter anmodningens indgivelse,
+    dog tidligst fra det tidspunkt, hvor folkepension kan udbetales."
+
+    "Folkepensionen kan i alt opsættes to gange med mellemliggende pensionsudbetaling."'
+inputs:
+- name: deferral_request_submitted_simultaneously_with_or_after_pension_application
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: day_of_month
+  entity: Person
+  dtype: Integer
+  period: Day
+- name: old_age_pension_can_be_paid_on_day
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: prior_pension_deferral_count
+  entity: Person
+  dtype: Count
+  period: Month
+- name: intervening_pension_payment_has_occurred_since_previous_deferral
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: day_is_first_day_of_month_after_deferral_request_submission
+  entity: Person
+  dtype: Boolean
+  period: Day
+rules:
+- name: deferral_request_submission_complies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 15 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15-b
+          excerpt: samtidig med eller senere end ansøgning om folkepension
+  versions:
+  - effective_from: '2024-10-01'
+    formula: deferral_request_submitted_simultaneously_with_or_after_pension_application
+- name: deferral_effective_day_of_month
+  kind: parameter
+  entity: Person
+  dtype: Integer
+  period: Day
+  source: § 15 b, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15-b
+          excerpt: fra den 1. i måneden efter anmodningens indgivelse
+  versions:
+  - effective_from: '2024-10-01'
+    formula: '1'
+- name: deferral_request_effective_on_day
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 15 b, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15-b
+          excerpt: virkning fra den 1. i måneden efter anmodningens indgivelse, dog
+            tidligst fra det tidspunkt, hvor folkepension kan udbetales
+  versions:
+  - effective_from: '2024-10-01'
+    formula: 'deferral_request_submission_complies
+
+      and day_of_month == deferral_effective_day_of_month
+
+      and old_age_pension_can_be_paid_on_day'
+- name: maximum_pension_deferral_count
+  kind: parameter
+  entity: Person
+  dtype: Count
+  period: Month
+  source: § 15 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15-b
+          excerpt: Folkepensionen kan i alt opsættes to gange
+  versions:
+  - effective_from: '2024-10-01'
+    formula: '2'
+- name: further_pension_deferral_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 15 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-15-b
+          excerpt: kan i alt opsættes to gange med mellemliggende pensionsudbetaling
+  versions:
+  - effective_from: '2024-10-01'
+    formula: "prior_pension_deferral_count < maximum_pension_deferral_count\nand (\n\
+      \  prior_pension_deferral_count == 0\n  or intervening_pension_payment_has_occurred_since_previous_deferral\n\
+      )"
