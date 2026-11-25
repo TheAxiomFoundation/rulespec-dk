@@ -1,0 +1,139 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+    source_sha256: 5f35a64b34c3fbf2d5b22550c0f43d396ae1f6813243215a08cfc6cd1176a847
+  summary: Til børn efter medlemmer af tillægspensionsordningen, der er født den 1.
+    juli 1925 eller senere, og som dør den 1. juli 1992 eller senere, udbetales der
+    ved dødsfaldet et engangsbeløb. Beløbet udgør for hvert barn under 18 år én gang
+    den pensionsret i form af egenpension og bonuspension fra det 67. år, eventuelt
+    reguleret efter § 9, stk. 1. Det udbetales til værgen for det eller de berettigede
+    børn.
+inputs:
+- name: child_is_child_of_deceased_member
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_was_born_on_or_after_statutory_date
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_died_on_or_after_statutory_date
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: child_is_under_18_at_death
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_started_pension_payment_before_age_67
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: deceased_member_deferred_pension_payment_until_after_age_67
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: pension_right_at_death_from_age_67
+  entity: Person
+  dtype: Money
+  period: Year
+- name: pension_right_at_death_adjusted_under_section_9_subsection_1
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: child_age_limit
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 11 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+          excerpt: for hvert barn under 18 år
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '18'
+- name: pension_right_age
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: § 11 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+          excerpt: egenpension og bonuspension fra det 67. år
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '67'
+- name: child_is_entitled_to_lump_sum
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 11 a, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+          excerpt: Til børn efter medlemmer af tillægspensionsordningen, der er født
+            den 1. juli 1925 eller senere, og som dør den 1. juli 1992 eller senere
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+          excerpt: for hvert barn under 18 år
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'child_is_child_of_deceased_member
+
+      and deceased_member_was_born_on_or_after_statutory_date
+
+      and deceased_member_died_on_or_after_statutory_date
+
+      and child_is_under_18_at_death'
+- name: lump_sum_paid_to_child_guardian
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: § 11 a, stk. 2-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+          excerpt: Beløbet udgør for hvert barn under 18 år én gang den pensionsret
+            i form af egenpension og bonuspension fra det 67. år
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+          excerpt: eventuelt reguleret efter § 9, stk. 1, hvis afdøde havde påbegyndt
+            pensionsudbetalingen før det 67. år eller udsat pensionsudbetalingen
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-11-a
+          excerpt: udbetales til værgen for det eller de berettigede børn
+  versions:
+  - effective_from: '2024-11-01'
+    formula: "if child_is_entitled_to_lump_sum:\n  if deceased_member_started_pension_payment_before_age_67\
+      \ or deceased_member_deferred_pension_payment_until_after_age_67:\n    pension_right_at_death_adjusted_under_section_9_subsection_1\n\
+      \  else:\n    pension_right_at_death_from_age_67\nelse:\n  0"

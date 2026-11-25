@@ -1,0 +1,122 @@
+- name: eligible_child_receives_unadjusted_pension_right
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_started_pension_payment_before_age_67: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_deferred_pension_payment_until_after_age_67: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_from_age_67: 100
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_adjusted_under_section_9_subsection_1: 110
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#child_is_entitled_to_lump_sum: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#lump_sum_paid_to_child_guardian: 100
+- name: child_of_nonqualifying_member_is_not_entitled
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#child_is_entitled_to_lump_sum: not_holds
+- name: member_born_before_statutory_date_does_not_qualify
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#child_is_entitled_to_lump_sum: not_holds
+- name: death_before_statutory_date_does_not_qualify
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: true
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#child_is_entitled_to_lump_sum: not_holds
+- name: child_aged_18_or_over_is_not_entitled
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: false
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#child_is_entitled_to_lump_sum: not_holds
+- name: pension_started_before_67_uses_adjusted_right
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_started_pension_payment_before_age_67: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_deferred_pension_payment_until_after_age_67: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_from_age_67: 100
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_adjusted_under_section_9_subsection_1: 110
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#child_is_entitled_to_lump_sum: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#lump_sum_paid_to_child_guardian: 110
+- name: pension_deferred_after_67_uses_adjusted_right
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-11-01'
+    end: '2024-11-01'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_started_pension_payment_before_age_67: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_deferred_pension_payment_until_after_age_67: true
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_from_age_67: 100
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_adjusted_under_section_9_subsection_1: 120
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#child_is_entitled_to_lump_sum: holds
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#lump_sum_paid_to_child_guardian: 120
+- name: auto_zero_lump_sum_paid_to_child_guardian
+  period:
+    period_kind: tax_year
+    start: '2024-11-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_child_of_deceased_member: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.child_is_under_18_at_death: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_deferred_pension_payment_until_after_age_67: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_died_on_or_after_statutory_date: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_started_pension_payment_before_age_67: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.deceased_member_was_born_on_or_after_statutory_date: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_adjusted_under_section_9_subsection_1: false
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#input.pension_right_at_death_from_age_67: 0
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-11-a#lump_sum_paid_to_child_guardian: 0
