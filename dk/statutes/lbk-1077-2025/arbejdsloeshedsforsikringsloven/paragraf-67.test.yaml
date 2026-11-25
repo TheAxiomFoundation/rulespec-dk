@@ -1,0 +1,44 @@
+- name: monthly_salaried_employment_at_monthly_limit_is_part_time
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_monthly_salaried: true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_weekly_or_fortnightly_salaried: false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_per_month: 130
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_in_four_week_period: 0
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#monthly_salaried_part_time_employment: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#weekly_or_fortnightly_salaried_part_time_employment: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#part_time_employment: holds
+- name: monthly_salaried_employment_above_monthly_limit_is_not_part_time
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_monthly_salaried: true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_weekly_or_fortnightly_salaried: false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_per_month: 131
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_in_four_week_period: 0
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#monthly_salaried_part_time_employment: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#weekly_or_fortnightly_salaried_part_time_employment: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#part_time_employment: not_holds
+- name: weekly_or_fortnightly_salaried_employment_at_average_limit_is_part_time
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_monthly_salaried: false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_weekly_or_fortnightly_salaried: true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_per_month: 0
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_in_four_week_period: 120
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#monthly_salaried_part_time_employment: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#weekly_or_fortnightly_salaried_part_time_employment: holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#part_time_employment: holds
+- name: weekly_or_fortnightly_salaried_employment_above_average_limit_is_not_part_time
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_monthly_salaried: false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_is_weekly_or_fortnightly_salaried: true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_per_month: 0
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#input.employment_hours_in_four_week_period: 124
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#monthly_salaried_part_time_employment: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#weekly_or_fortnightly_salaried_part_time_employment: not_holds
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67#part_time_employment: not_holds

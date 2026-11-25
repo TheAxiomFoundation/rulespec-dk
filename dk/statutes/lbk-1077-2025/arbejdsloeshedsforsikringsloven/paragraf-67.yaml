@@ -1,0 +1,191 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+    source_sha256: eca81cbb0a6caa9ea6ee225d352dd373e72539b64cde43266f1124fa00348bcd
+  summary: 'Som deltidsbeskæftigelse betragtes beskæftigelse, hvis varighed 1) for
+
+    månedslønnede er højst 130 timer om måneden og 2) for uge- og
+
+    14-dageslønnede højst 30 timer om ugen beregnet som et gennemsnit for 4 uger.'
+inputs:
+- name: employment_is_monthly_salaried
+  entity: Employment
+  dtype: Boolean
+  period: Month
+- name: employment_is_weekly_or_fortnightly_salaried
+  entity: Employment
+  dtype: Boolean
+  period: Month
+- name: employment_hours_per_month
+  entity: Employment
+  dtype: Decimal
+  period: Month
+- name: employment_hours_in_four_week_period
+  entity: Employment
+  dtype: Decimal
+  period: Month
+rules:
+- name: monthly_salaried_list_item_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 67, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: 1) for månedslønnede
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '1'
+- name: weekly_or_fortnightly_salaried_list_item_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 67, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: 2) for uge- og 14-dageslønnede
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '2'
+- name: fortnight_duration_days
+  kind: parameter
+  dtype: Count
+  period: Day
+  source: § 67, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: 14-dageslønnede
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '14'
+- name: monthly_salaried_part_time_hour_limit
+  kind: parameter
+  dtype: Decimal
+  period: Month
+  source: § 67, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: for månedslønnede er højst 130 timer om måneden
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '130'
+- name: weekly_or_fortnightly_salaried_part_time_hour_limit
+  kind: parameter
+  dtype: Decimal
+  period: Week
+  source: § 67, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: for uge- og 14-dageslønnede højst 30 timer om ugen
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '30'
+- name: weekly_average_period_weeks
+  kind: parameter
+  dtype: Count
+  period: Week
+  source: § 67, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: beregnet som et gennemsnit for 4 uger
+  versions:
+  - effective_from: '2025-08-28'
+    formula: '4'
+- name: monthly_salaried_part_time_employment
+  kind: derived
+  entity: Employment
+  dtype: Judgment
+  period: Month
+  source: § 67, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: for månedslønnede er højst 130 timer om måneden
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'employment_is_monthly_salaried
+
+      and employment_hours_per_month <= monthly_salaried_part_time_hour_limit'
+- name: weekly_or_fortnightly_salaried_part_time_employment
+  kind: derived
+  entity: Employment
+  dtype: Judgment
+  period: Month
+  source: § 67, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: højst 30 timer om ugen beregnet som et gennemsnit for 4 uger
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'employment_is_weekly_or_fortnightly_salaried
+
+      and (employment_hours_in_four_week_period / weekly_average_period_weeks) <=
+      weekly_or_fortnightly_salaried_part_time_hour_limit'
+- name: part_time_employment
+  kind: derived
+  entity: Employment
+  dtype: Judgment
+  period: Month
+  source: § 67
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: Som deltidsbeskæftigelse betragtes beskæftigelse
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-67
+          excerpt: Som deltidsbeskæftigelse betragtes beskæftigelse, hvis varighed
+            1) for månedslønnede er højst 130 timer om måneden og 2) for uge- og 14-dageslønnede
+            højst 30 timer om ugen beregnet som et gennemsnit for 4 uger.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'monthly_salaried_part_time_employment
+
+      or weekly_or_fortnightly_salaried_part_time_employment'
