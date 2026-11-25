@@ -1,0 +1,101 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-1
+    source_sha256: 971953445c87baffd1b6363ced54f786d36dd3f0caa2f9599e229cc4d85766ed
+  summary: Pension efter denne lov er folkepension, førtidspension, seniorpension,
+    tidlig pension og tillæg efter kapitel 2, 2 a og 11.
+inputs:
+- name: payment_is_folkepension
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_foertidspension
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_seniorpension
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_tidlig_pension
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_supplement_under_chapter_2
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_supplement_under_chapter_2_a
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_supplement_under_chapter_11
+  entity: Payment
+  dtype: Boolean
+  period: Month
+rules:
+- name: chapter_2_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-1
+          excerpt: tillæg efter kapitel 2, 2 a og 11.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2'
+- name: chapter_11_reference_number
+  kind: parameter
+  dtype: Integer
+  period: Month
+  source: § 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-1
+          excerpt: tillæg efter kapitel 2, 2 a og 11.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '11'
+- name: pension_under_this_act
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-1
+          excerpt: Pension efter denne lov er folkepension, førtidspension, seniorpension,
+            tidlig pension og tillæg efter kapitel 2, 2 a og 11.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'payment_is_folkepension
+
+      or payment_is_foertidspension
+
+      or payment_is_seniorpension
+
+      or payment_is_tidlig_pension
+
+      or payment_is_supplement_under_chapter_2
+
+      or payment_is_supplement_under_chapter_2_a
+
+      or payment_is_supplement_under_chapter_11'
