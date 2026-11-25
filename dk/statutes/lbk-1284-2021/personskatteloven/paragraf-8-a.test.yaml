@@ -1,0 +1,138 @@
+- name: negative_final_tax_is_clamped_before_negative_share_income_tax_credit
+  period:
+    period_kind: tax_year
+    start: '2012-01-01'
+    end: '2012-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.share_income: -100000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.other_spouse_share_income: 20000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.person_is_married: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.spouses_cohabiting_at_income_year_end: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.withheld_dividend_tax_under_section_65: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.final_tax_before_share_income_credits: -1000
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#remaining_negative_share_income_after_spouse_offset: 80000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_basic_amount: 96600
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax: 21600
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_carried_forward: 21600
+- name: excess_share_income_is_taxed_at_42_percent_and_enters_final_tax
+  period:
+    period_kind: tax_year
+    start: '2012-01-01'
+    end: '2012-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.share_income: 60000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.other_spouse_share_income: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.person_is_married: false
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.spouses_cohabiting_at_income_year_end: false
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.withheld_dividend_tax_under_section_65: 15000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.final_tax_before_share_income_credits: 0
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#applicable_share_income_basic_amount: 48300
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#positive_share_income_after_spouse_offset: 60000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#share_income_tax: 17955
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_is_final_payment: not_holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#excess_share_income_tax_enters_final_tax: holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#remaining_negative_share_income_after_spouse_offset: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_basic_amount: 48300
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_carried_forward: 0
+- name: 2010_lower_bracket_tax_uses_28_percent
+  period:
+    period_kind: tax_year
+    start: '2010-01-01'
+    end: '2010-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.share_income: 40000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.other_spouse_share_income: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.person_is_married: false
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.spouses_cohabiting_at_income_year_end: false
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.withheld_dividend_tax_under_section_65: 11200
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.final_tax_before_share_income_credits: 0
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#applicable_share_income_basic_amount: 48300
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#positive_share_income_after_spouse_offset: 40000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#share_income_tax: 11200
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_is_final_payment: holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#excess_share_income_tax_enters_final_tax: not_holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#remaining_negative_share_income_after_spouse_offset: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_basic_amount: 48300
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_carried_forward: 0
+- name: spouse_unused_basic_amount_increases_other_spouse_threshold
+  period:
+    period_kind: tax_year
+    start: '2012-01-01'
+    end: '2012-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.share_income: 60000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.other_spouse_share_income: 20000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.person_is_married: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.spouses_cohabiting_at_income_year_end: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.withheld_dividend_tax_under_section_65: 16200
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.final_tax_before_share_income_credits: 0
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#applicable_share_income_basic_amount: 76600
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#positive_share_income_after_spouse_offset: 60000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#share_income_tax: 16200
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_is_final_payment: holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#excess_share_income_tax_enters_final_tax: not_holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#remaining_negative_share_income_after_spouse_offset: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_basic_amount: 48300
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_carried_forward: 0
+- name: negative_share_income_offsets_spouse_income_then_generates_carryforward
+  period:
+    period_kind: tax_year
+    start: '2012-01-01'
+    end: '2012-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.share_income: -100000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.other_spouse_share_income: 20000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.person_is_married: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.spouses_cohabiting_at_income_year_end: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.withheld_dividend_tax_under_section_65: 3000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.final_tax_before_share_income_credits: 10000
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#applicable_share_income_basic_amount: 76600
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#positive_share_income_after_spouse_offset: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#share_income_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_is_final_payment: not_holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#excess_share_income_tax_enters_final_tax: not_holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_credit_against_final_tax: 3000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#remaining_negative_share_income_after_spouse_offset: 80000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_basic_amount: 96600
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax: 21600
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_credit_against_final_tax: 10000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_carried_forward: 11600
+- name: both_spouses_negative_income_divides_double_basic_amount_proportionally
+  period:
+    period_kind: tax_year
+    start: '2012-01-01'
+    end: '2012-12-31'
+  input:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.share_income: -100000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.other_spouse_share_income: -100000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.person_is_married: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.spouses_cohabiting_at_income_year_end: true
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.withheld_dividend_tax_under_section_65: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#input.final_tax_before_share_income_credits: 0
+  output:
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#applicable_share_income_basic_amount: 96600
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#positive_share_income_after_spouse_offset: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#share_income_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_is_final_payment: not_holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#excess_share_income_tax_enters_final_tax: not_holds
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#withheld_dividend_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#remaining_negative_share_income_after_spouse_offset: 100000
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_basic_amount: 48300
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax: 34755
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_credit_against_final_tax: 0
+    dk:statutes/lbk-1284-2021/personskatteloven/paragraf-8-a#negative_share_income_tax_carried_forward: 34755
