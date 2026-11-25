@@ -1,0 +1,79 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-37
+    source_sha256: 91b258d90595288a0105faf27a9bde85227a5f320addadc41982f3a54e3cf64f
+  summary: '"Personer, der har ret til førtidspension, seniorpension eller tidlig
+    pension, overgår uden ansøgning fra den 1. i måneden efter at have nået folkepensionsalderen
+    til at modtage folkepension."'
+inputs:
+- name: person_has_right_to_foertidspension
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_has_right_to_seniorpension
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_has_right_to_tidlig_pension
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_first_of_month_after_reaching_folkepension_age
+  entity: Person
+  dtype: Boolean
+  period: Day
+rules:
+- name: transition_day_of_month
+  kind: parameter
+  dtype: Integer
+  source: Pensionsloven § 37
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-37
+          excerpt: fra den 1. i måneden
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: automatically_transitions_to_folkepension
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Pensionsloven § 37
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-37
+          excerpt: Personer, der har ret til førtidspension, seniorpension eller tidlig
+            pension
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-37
+          excerpt: fra den 1. i måneden efter at have nået folkepensionsalderen
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-37
+          excerpt: Personer, der har ret til førtidspension, seniorpension eller tidlig
+            pension, overgår uden ansøgning fra den 1. i måneden efter at have nået
+            folkepensionsalderen til at modtage folkepension.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '(person_has_right_to_foertidspension
+
+      or person_has_right_to_seniorpension
+
+      or person_has_right_to_tidlig_pension)
+
+      and day_is_first_of_month_after_reaching_folkepension_age'
