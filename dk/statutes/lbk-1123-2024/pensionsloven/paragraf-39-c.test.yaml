@@ -1,0 +1,30 @@
+- name: uncapped_contributions_are_grossed_up_and_allocated_monthly
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.aldersforsikring_indbetalinger: 24
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.aldersopsparing_indbetalinger: 24
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.supplerende_engangssum_indbetalinger: 24
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.pensionsopsparerens_gaeldende_grundbeloeb: 100
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.kalenderaarets_maanedsantal: 12
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#samlede_kvalificerende_indbetalinger: 72
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#fradragsberettiget_indbetalingsbeloeb: 72
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#personligt_indkomstfradrag_som_bruttobeloeb: 120
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#fradrag_sker_i_personlig_indkomst_ved_arbejde: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#maanedligt_personligt_indkomstfradrag: 10
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#omregningsregel_i_section_39_b_subsection_6_gaelder_for_fradraget: not_holds
+- name: contributions_are_capped_at_the_pension_savers_applicable_base_amount
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.aldersforsikring_indbetalinger: 30
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.aldersopsparing_indbetalinger: 30
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.supplerende_engangssum_indbetalinger: 30
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.pensionsopsparerens_gaeldende_grundbeloeb: 72
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#input.kalenderaarets_maanedsantal: 12
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#samlede_kvalificerende_indbetalinger: 90
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#fradragsberettiget_indbetalingsbeloeb: 72
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#personligt_indkomstfradrag_som_bruttobeloeb: 120
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#fradrag_sker_i_personlig_indkomst_ved_arbejde: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#maanedligt_personligt_indkomstfradrag: 10
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-39-c#omregningsregel_i_section_39_b_subsection_6_gaelder_for_fradraget: not_holds

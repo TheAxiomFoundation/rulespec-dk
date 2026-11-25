@@ -1,0 +1,169 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+    source_sha256: 41b89326ea058a3554bf520dab2aa5f578596e01a1b5e477c96b33144677f32d
+  summary: Ved opgørelsen af den personlige indkomst fradrages samlede indbetalinger
+    til aldersforsikring, aldersopsparing og supplerende engangssum, højst pensionsopsparerens
+    gældende grundbeløb. Beløbet omregnes til bruttobeløb ved division med 0,6, fradrages
+    i indtægt ved personligt arbejde, fordeles ligeligt over kalenderåret, og § 39
+    b, stk. 6, finder ikke anvendelse.
+rules:
+- name: bruttobeloebsdivisor
+  kind: parameter
+  dtype: Rate
+  source: § 39 c, stk. 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+          excerpt: Beløbet omregnes til et bruttobeløb ved at dividere med 0,6.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.6'
+- name: samlede_kvalificerende_indbetalinger
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 39 c, stk. 1, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+          excerpt: 2, fradrages et beløb svarende til størrelsen på de samlede indbetalinger
+            til aldersforsikring efter pensionsbeskatningslovens § 10 A, aldersopsparing
+            efter pensionsbeskatningslovens § 12 A og supplerende engangssum efter
+            pensionsbeskatningslovens § 29 A som opgjort efter stk.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'aldersforsikring_indbetalinger
+
+      + aldersopsparing_indbetalinger
+
+      + supplerende_engangssum_indbetalinger'
+- name: fradragsberettiget_indbetalingsbeloeb
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 39 c, stk. 1, 1. pkt., og stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+          excerpt: kan ikke overstige det grundbeløb, der efter pensionsbeskatningslovens
+            § 16, stk. 1, gælder for pensionsopspareren.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: min(samlede_kvalificerende_indbetalinger, pensionsopsparerens_gaeldende_grundbeloeb)
+- name: personligt_indkomstfradrag_som_bruttobeloeb
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 39 c, stk. 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+          excerpt: Beløbet omregnes til et bruttobeløb ved at dividere med 0,6.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: fradragsberettiget_indbetalingsbeloeb / bruttobeloebsdivisor
+- name: fradrag_sker_i_personlig_indkomst_ved_arbejde
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 39 c, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+          excerpt: Stk. 3. Fradraget efter stk. 1 sker i den del af den personlige
+            indkomst, som er indtægt ved personligt arbejde, jf. § 29, stk. 1, nr.
+            1, og § 32 a, stk. 1, nr. 1.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'true'
+- name: maanedligt_personligt_indkomstfradrag
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: § 39 c, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+          excerpt: Fradraget efter stk. 1 fordeles ligeligt over kalenderåret.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: personligt_indkomstfradrag_som_bruttobeloeb / kalenderaarets_maanedsantal
+- name: omregningsregel_i_section_39_b_subsection_6_gaelder_for_fradraget
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 39 c, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39-c
+          excerpt: § 39 b, stk. 6, finder ikke anvendelse på fradrag efter stk. 1.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'false'
+inputs:
+- name: aldersforsikring_indbetalinger
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: aldersopsparing_indbetalinger
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: supplerende_engangssum_indbetalinger
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: pensionsopsparerens_gaeldende_grundbeloeb
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: kalenderaarets_maanedsantal
+  entity: Person
+  dtype: Integer
+  period: Year
