@@ -1,0 +1,45 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-15
+    source_sha256: ca9db6e7694bba5abfaeb3a4cca8b37fcbc7cd58761f91f82900467b654064ee
+  summary: '"En indeksordning skal være oprettet som en forsikring eller en opsparingskonto
+    med tilknyttet indekskontrakt i henhold til lov om pristalsreguleret alderdomsforsikring
+    og alderdomsopsparing."'
+inputs:
+- name: index_scheme_is_insurance_under_indexed_old_age_insurance_and_savings_act
+  entity: Asset
+  dtype: Boolean
+  period: Year
+- name: index_scheme_is_savings_account_with_associated_index_contract_under_indexed_old_age_insurance_and_savings_act
+  entity: Asset
+  dtype: Boolean
+  period: Year
+rules:
+- name: index_scheme_is_validly_created
+  kind: derived
+  entity: Asset
+  dtype: Judgment
+  period: Year
+  source: Pensionsbeskatningsloven § 15
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-15
+          excerpt: skal være oprettet som en forsikring eller en opsparingskonto med
+            tilknyttet indekskontrakt
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1243-2024/pensionsbeskatningsloven/paragraf-15
+          excerpt: i henhold til lov om pristalsreguleret alderdomsforsikring og alderdomsopsparing
+  versions:
+  - effective_from: '2024-11-26'
+    formula: 'index_scheme_is_insurance_under_indexed_old_age_insurance_and_savings_act
+
+      or index_scheme_is_savings_account_with_associated_index_contract_under_indexed_old_age_insurance_and_savings_act'
