@@ -1,0 +1,54 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-100
+    source_sha256: fc5cb231fb2cfac07181a9c0b0299e454bceb6297b823b1b51457069ae606aed
+  summary: § 100. Staten refunderer 30 pct. af kommunens udgifter til hjælp efter
+    § 29.
+inputs:
+- name: municipal_expenditure_for_assistance_under_section_29
+  entity: Municipality
+  dtype: Money
+  period: Month
+rules:
+- name: state_reimbursement_rate_for_assistance_under_section_29
+  kind: parameter
+  dtype: Rate
+  source: Aktivloven § 100
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-100
+          excerpt: Staten refunderer 30 pct.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '0.30'
+- name: state_reimbursement_of_assistance_under_section_29
+  kind: derived
+  entity: Municipality
+  dtype: Money
+  period: Month
+  source: Aktivloven § 100
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-100
+          excerpt: Staten refunderer 30 pct. af kommunens udgifter til hjælp efter
+            § 29.
+      - path: versions[0].formula
+        kind: parameter
+        import:
+          target: dk:statutes/lbk-1004-2025/aktivloven/paragraf-100#state_reimbursement_rate_for_assistance_under_section_29
+          output: state_reimbursement_rate_for_assistance_under_section_29
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-06-30'
+    formula: state_reimbursement_rate_for_assistance_under_section_29 * municipal_expenditure_for_assistance_under_section_29

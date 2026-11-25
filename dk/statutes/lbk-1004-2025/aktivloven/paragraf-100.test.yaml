@@ -1,0 +1,6 @@
+- name: reimburses_thirty_percent_of_municipal_section_29_assistance_expenditure
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-100#input.municipal_expenditure_for_assistance_under_section_29: 1000
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-100#state_reimbursement_of_assistance_under_section_29: 300
