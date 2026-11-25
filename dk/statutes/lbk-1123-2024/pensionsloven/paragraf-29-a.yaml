@@ -1,0 +1,235 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+    source_sha256: 5ba6a5072e9ac94dd43936f65eaa29c4e86733fded631a8cf51fdc30fbe5c726
+  summary: '“Formue efter §§ 14 b og 14 c opgøres ved ansøgning om helbredstillæg
+    efter 14 a.”
+
+    For § 14 b, stk. 2, nr. 1-5, the latest reported tax information is used unless
+    material changes affect payment; nr. 6 and 7 use current wealth information.'
+rules:
+- name: wealth_and_health_supplement_section_number
+  kind: parameter
+  dtype: Integer
+  source: § 29 a, stk. 1-3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Formue efter §§ 14 b og 14 c opgøres ved ansøgning om helbredstillæg
+            efter 14 a.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '14'
+- name: wealth_assessment_required_for_health_supplement_application
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 29 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Formue efter §§ 14 b og 14 c opgøres ved ansøgning om helbredstillæg
+            efter 14 a.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: application_for_health_supplement_has_been_made
+- name: tax_report_category_first_number
+  kind: parameter
+  dtype: Integer
+  source: § 29 a, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Stk. 2. Formue efter § 14 b, stk. 2, nr. 1-5, opgøres på ansøgningstidspunktet
+            på grundlag af de oplysninger, der efter skatteindberetningsloven senest
+            er indberettet til skattemyndighederne. Er der indtrådt væsentlige ændringer,
+            som vil have betydning for udbetalingen af helbredstillægget, opgøres
+            formuen på grundlag af pensionistens og en eventuel ægtefælles eller samlevers
+            oplysninger om den aktuelle formue.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: tax_report_category_last_number
+  kind: parameter
+  dtype: Integer
+  source: § 29 a, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Stk. 2. Formue efter § 14 b, stk. 2, nr. 1-5, opgøres på ansøgningstidspunktet
+            på grundlag af de oplysninger, der efter skatteindberetningsloven senest
+            er indberettet til skattemyndighederne. Er der indtrådt væsentlige ændringer,
+            som vil have betydning for udbetalingen af helbredstillægget, opgøres
+            formuen på grundlag af pensionistens og en eventuel ægtefælles eller samlevers
+            oplysninger om den aktuelle formue.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '5'
+- name: current_information_category_first_number
+  kind: parameter
+  dtype: Integer
+  source: § 29 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Stk. 3. Formue efter § 14 b, stk. 2, nr. 6 og 7, opgøres på grundlag
+            af pensionistens og en eventuel ægtefælles eller samlevers oplysninger
+            om formuen på ansøgningstidspunktet.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '6'
+- name: current_information_category_last_number
+  kind: parameter
+  dtype: Integer
+  source: § 29 a, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Stk. 3. Formue efter § 14 b, stk. 2, nr. 6 og 7, opgøres på grundlag
+            af pensionistens og en eventuel ægtefælles eller samlevers oplysninger
+            om formuen på ansøgningstidspunktet.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '7'
+- name: latest_tax_report_information_must_be_used
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 29 a, stk. 2, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Formue efter § 14 b, stk. 2, nr. 1-5, opgøres på ansøgningstidspunktet
+            på grundlag af de oplysninger, der efter skatteindberetningsloven senest
+            er indberettet til skattemyndighederne.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Er der indtrådt væsentlige ændringer, som vil have betydning for
+            udbetalingen af helbredstillægget, opgøres formuen på grundlag af pensionistens
+            og en eventuel ægtefælles eller samlevers oplysninger om den aktuelle
+            formue.
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1123-2024/pensionsloven/paragraf-29-a#tax_report_category_first_number
+          output: tax_report_category_first_number
+          hash: sha256:local
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1123-2024/pensionsloven/paragraf-29-a#tax_report_category_last_number
+          output: tax_report_category_last_number
+          hash: sha256:local
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'application_for_health_supplement_has_been_made
+
+      and wealth_category_under_section_14b_subsection_2 >= tax_report_category_first_number
+
+      and wealth_category_under_section_14b_subsection_2 <= tax_report_category_last_number
+
+      and not material_changes_affect_health_supplement_payment'
+- name: current_wealth_information_must_be_used
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 29 a, stk. 2, 2. pkt., og stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Er der indtrådt væsentlige ændringer, som vil have betydning for
+            udbetalingen af helbredstillægget, opgøres formuen på grundlag af pensionistens
+            og en eventuel ægtefælles eller samlevers oplysninger om den aktuelle
+            formue.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-29-a
+          excerpt: Formue efter § 14 b, stk. 2, nr. 6 og 7, opgøres på grundlag af
+            pensionistens og en eventuel ægtefælles eller samlevers oplysninger om
+            formuen på ansøgningstidspunktet.
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1123-2024/pensionsloven/paragraf-29-a#tax_report_category_first_number
+          output: tax_report_category_first_number
+          hash: sha256:local
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1123-2024/pensionsloven/paragraf-29-a#tax_report_category_last_number
+          output: tax_report_category_last_number
+          hash: sha256:local
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1123-2024/pensionsloven/paragraf-29-a#current_information_category_first_number
+          output: current_information_category_first_number
+          hash: sha256:local
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1123-2024/pensionsloven/paragraf-29-a#current_information_category_last_number
+          output: current_information_category_last_number
+          hash: sha256:local
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "application_for_health_supplement_has_been_made\nand (\n  (\n    wealth_category_under_section_14b_subsection_2\
+      \ >= tax_report_category_first_number\n    and wealth_category_under_section_14b_subsection_2\
+      \ <= tax_report_category_last_number\n    and material_changes_affect_health_supplement_payment\n\
+      \  )\n  or wealth_category_under_section_14b_subsection_2 == current_information_category_first_number\n\
+      \  or wealth_category_under_section_14b_subsection_2 == current_information_category_last_number\n\
+      )"
+inputs:
+- name: application_for_health_supplement_has_been_made
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: wealth_category_under_section_14b_subsection_2
+  entity: Person
+  dtype: Integer
+  period: Month
+- name: material_changes_affect_health_supplement_payment
+  entity: Person
+  dtype: Boolean
+  period: Month
