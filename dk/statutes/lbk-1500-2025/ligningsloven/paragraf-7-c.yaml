@@ -1,0 +1,40 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-c
+    source_sha256: d99ca9ee437308be36d1625693a90f11d609ec19031ca28d024051aa4258e714
+  summary: Værdien af en garanti stillet efter lov om fond til grøn omstilling og
+    erhvervsmæssig fornyelse og regler fastsat i medfør heraf skal ikke medregnes
+    til den skattepligtige indkomst.
+inputs:
+- name: guarantee_value
+  entity: Person
+  dtype: Money
+  period: Year
+- name: guarantee_is_provided_under_green_transition_and_business_renewal_fund_act_or_rules
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: guarantee_value_excluded_from_taxable_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 7 C
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-c
+          excerpt: Værdien af en garanti stillet efter lov om fond til grøn omstilling
+            og erhvervsmæssig fornyelse og regler fastsat i medfør heraf skal ikke
+            medregnes til den skattepligtige indkomst.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'if guarantee_is_provided_under_green_transition_and_business_renewal_fund_act_or_rules:
+      max(0, guarantee_value) else: 0'
