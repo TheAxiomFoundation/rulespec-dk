@@ -1,0 +1,85 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-68
+    source_sha256: 8c12d9d03cc6563c31efd0e91dd728e164ba9e523ab33981540c2b41eb595676
+  summary: '"Er der ikke sket indeholdelse af A-skat eller arbejdsmarkedsbidrag ...
+    eller er indeholdelse sket med for lavt beløb, skal erhververen straks indbetale
+    det manglende beløb til det offentlige."'
+inputs:
+- name: person_is_tax_liable_in_denmark
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: a_tax_or_labour_market_contribution_not_withheld_in_qualifying_income
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: a_tax_or_labour_market_contribution_withheld_at_too_low_an_amount_in_qualifying_income
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: missing_withholding_amount
+  entity: Person
+  dtype: Money
+  period: Day
+rules:
+- name: missing_withholding_exists
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Kildeskatteloven § 68
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-68
+          excerpt: Er der ikke sket indeholdelse af A-skat eller arbejdsmarkedsbidrag
+            i A-indkomst eller arbejdsmarkedsbidragspligtig indkomst som erhvervet
+            af en her til landet skattepligtig person, eller er indeholdelse sket
+            med for lavt beløb, skal erhververen straks indbetale det manglende beløb
+            til det offentlige.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: "person_is_tax_liable_in_denmark\nand (\n  a_tax_or_labour_market_contribution_not_withheld_in_qualifying_income\n\
+      \  or a_tax_or_labour_market_contribution_withheld_at_too_low_an_amount_in_qualifying_income\n\
+      )"
+- name: missing_withholding_must_be_immediately_paid
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: Kildeskatteloven § 68
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-68
+          excerpt: skal erhververen straks indbetale det manglende beløb til det offentlige.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: missing_withholding_exists
+- name: missing_withholding_payment_due
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Day
+  source: Kildeskatteloven § 68
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-68
+          excerpt: skal erhververen straks indbetale det manglende beløb til det offentlige.
+  versions:
+  - effective_from: '2024-05-03'
+    formula: 'if missing_withholding_exists: missing_withholding_amount else: 0'
