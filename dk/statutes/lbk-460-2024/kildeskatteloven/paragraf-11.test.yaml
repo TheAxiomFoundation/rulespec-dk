@@ -1,0 +1,33 @@
+- name: tax liability ceases when a Danish tax-liable person dies
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#input.person_is_tax_liable_in_denmark_under_this_act: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#input.person_has_died: true
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#tax_liability_under_this_act_ceases_on_death: holds
+- name: tax liability does not cease under this death rule before death
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#input.person_is_tax_liable_in_denmark_under_this_act: true
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#input.person_has_died: false
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#tax_liability_under_this_act_ceases_on_death: not_holds
+- name: death rule requires tax liability in Denmark under this act
+  period:
+    period_kind: custom
+    name: day
+    start: '2024-05-03'
+    end: '2024-05-03'
+  input:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#input.person_is_tax_liable_in_denmark_under_this_act: false
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#input.person_has_died: true
+  output:
+    dk:statutes/lbk-460-2024/kildeskatteloven/paragraf-11#tax_liability_under_this_act_ceases_on_death: not_holds
