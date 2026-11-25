@@ -1,0 +1,51 @@
+- name: single_provider_dividend_within_disregard
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.personal_income_before_basic_amounts_and_bottom_deductions: 100000
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.positive_capital_income_used_for_income_tax_under_section_7
+    : 10000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.non_dividend_share_income_taxed_under_section_8_a: 2000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.dividend_income_taxed_under_section_8_a: 4000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.stipendium_under_su_law_section_8_subsection_1_number_2: 200000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.su_amount_under_section_10_b_subsection_1: 20000
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#current_income: 112000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#supplementary_child_allowance_for_single_provider: 59400
+- name: single_provider_dividend_excess_is_included
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.personal_income_before_basic_amounts_and_bottom_deductions: 100000
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.positive_capital_income_used_for_income_tax_under_section_7
+    : 10000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.non_dividend_share_income_taxed_under_section_8_a: 2000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.dividend_income_taxed_under_section_8_a: 7000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.stipendium_under_su_law_section_8_subsection_1_number_2: 200000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.su_amount_under_section_10_b_subsection_1: 20000
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#current_income: 114000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#supplementary_child_allowance_for_single_provider: 58300
+- name: cohabiting_provider_allowance
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.personal_income_before_basic_amounts_and_bottom_deductions: 100000
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.positive_capital_income_used_for_income_tax_under_section_7
+    : 10000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.non_dividend_share_income_taxed_under_section_8_a: 2000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.dividend_income_taxed_under_section_8_a: 4000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.stipendium_under_su_law_section_8_subsection_1_number_2: 200000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#input.su_amount_under_section_10_b_subsection_2: 30000
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#current_income: 112000
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-10-e#supplementary_child_allowance_for_cohabiting_provider: 64900
