@@ -1,0 +1,95 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96
+    source_sha256: c65569b3b9c74b41d600d6112af6c518983603799b8f309c839f8c76a585733a
+  summary: Har en person, der modtager hjælp efter kapitel 4 og 6 c, ikke betalt for
+    dag- eller klubtilbud efter dagtilbudsloven eller barnets lov, kan kommunen fradrage
+    den fremtidige månedlige betaling i den fremtidige hjælp.
+inputs:
+- name: person_receives_assistance_under_chapter_4
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_receives_assistance_under_chapter_6c
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_unpaid_payment_for_day_or_club_offer_under_daytilbudsloven_or_barnets_lov
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: future_monthly_payment_for_day_or_club_offer
+  entity: Person
+  dtype: Money
+  period: Month
+rules:
+- name: assistance_chapter_4_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 96
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96
+          excerpt: hjælp efter kapitel 4
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '4'
+- name: assistance_chapter_6c_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 96
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96
+          excerpt: hjælp efter kapitel 4 og 6 c
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '6'
+- name: municipality_may_deduct_future_monthly_payment
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 96
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '(person_receives_assistance_under_chapter_4 or person_receives_assistance_under_chapter_6c)
+
+      and person_has_unpaid_payment_for_day_or_club_offer_under_daytilbudsloven_or_barnets_lov'
+- name: deductible_future_monthly_payment
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: Aktivloven § 96
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-96
+          excerpt: kan kommunen fradrage den fremtidige månedlige betaling i den fremtidige
+            hjælp
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if municipality_may_deduct_future_monthly_payment: future_monthly_payment_for_day_or_club_offer
+      else: 0'
