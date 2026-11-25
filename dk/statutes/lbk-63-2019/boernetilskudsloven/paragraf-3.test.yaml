@@ -1,0 +1,60 @@
+- name: section_2_number_1_entitles_parental_authority_holder
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_1: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.parental_authority_holder_has_child_with_them: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#eligible_for_extra_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement_count: 1
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement: 3360
+- name: section_2_number_2_entitles_parental_authority_holder
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_2: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.parental_authority_holder_has_child_with_them: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#eligible_for_extra_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement_count: 1
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement: 3360
+- name: section_2_number_3_entitles_parental_authority_holder
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_1: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_3: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.parental_authority_holder_has_child_with_them: true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#eligible_for_extra_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement_count: 1
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement: 3360
+- name: child_not_with_parental_authority_holder_blocks_supplement
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_1: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_2: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.ordinary_child_supplement_is_paid_under_section_2_number_3: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#input.parental_authority_holder_has_child_with_them: false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#eligible_for_extra_child_supplement: not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement_count: 0
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-3#extra_child_supplement: 0
