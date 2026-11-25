@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-1123-2024/pensionsloven/paragraf-43-b.yaml",
+      "sha256": "3f017745962e46ca40a761d900a6c69ea0bf8ffcef8a5bcfa6c57c30b1ccd001"
+    },
+    {
+      "path": "dk/statutes/lbk-1123-2024/pensionsloven/paragraf-43-b.test.yaml",
+      "sha256": "b0dbb37e2a6272903b81f8b56fc5ddb85b0a831f53ddbf95846cb7fe64554fc5"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-1123-2024/pensionsloven/paragraf-43-b",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-1123-2024-pensionsloven-paragraf-43-b/workspace/context-manifest.json",
+  "context_manifest_sha256": "42b588c12a1257501bf15f5f6eb4abd8d64c43f1d0e3de24aa8494ca2ad90e19",
+  "generated_at": "2026-08-30T23:46:33.498498+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-1123-2024/pensionsloven/paragraf-43-b.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "3f017745962e46ca40a761d900a6c69ea0bf8ffcef8a5bcfa6c57c30b1ccd001",
+  "generation_prompt_sha256": "e8002c6af83ca1ced561dc6fe2adaf3bc617298899fc30bbdc0c541b64e03c02",
+  "model": "gpt-5.6-terra",
+  "run_id": "434542dc",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "aEBArURmuCUkuIQxltbITekYEEAXxedk6KhZO02x8Q2T97j5wllDs/5Ozo+cWmSjpUmqB7AgCdWaOerKZ5NLAw=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2024-10-21",
+    "generation_input_sha256": "8dcc252a82c896e9e0479cdc923c23e17b37224d832ddc980f9b9c84028e7e57",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-1123-2024/pensionsloven/paragraf-43-b",
+    "resolved_corpus_citation_path": "dk/statute/lbk-1123-2024/pensionsloven/paragraf-43-b",
+    "resolved_text_sha256": "8dcc252a82c896e9e0479cdc923c23e17b37224d832ddc980f9b9c84028e7e57",
+    "row": {
+      "body_sha256": "8dcc252a82c896e9e0479cdc923c23e17b37224d832ddc980f9b9c84028e7e57",
+      "citation_path": "dk/statute/lbk-1123-2024/pensionsloven/paragraf-43-b",
+      "document_class": "statute",
+      "expression_date": "2024-10-21",
+      "jurisdiction": "dk",
+      "line_number": 317,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "9a37ff81-ac11-5ff0-a854-4e35597eb71e",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-1123-2024-pensionsloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "8dcc252a82c896e9e0479cdc923c23e17b37224d832ddc980f9b9c84028e7e57"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-1123-2024-pensionsloven-paragraf-43-b.json",
+  "trace_sha256": "6d81ba343db35b4b91c1fa098df2e68c1c3d29094427c569f46ff333667df310",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}

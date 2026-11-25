@@ -1,0 +1,91 @@
+- name: operation-refusal-must-not-be-considered
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_is_pensioner: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_refuses_treatment: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_performed_by_physician: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_operation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_physician_prescribed_medicine: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+    : false
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+    : holds
+- name: physician-prescribed-medicine-refusal-must-not-be-considered
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_is_pensioner: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_refuses_treatment: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_performed_by_physician: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_operation: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_physician_prescribed_medicine: true
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+    : false
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+    : holds
+- name: similarly-intrusive-medical-treatment-refusal-must-not-be-considered
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_is_pensioner: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_refuses_treatment: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_performed_by_physician: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_operation: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_physician_prescribed_medicine: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+    : true
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+    : holds
+- name: non-pensioner-does-not-trigger-prohibition
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_is_pensioner: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_refuses_treatment: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_performed_by_physician: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_operation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_physician_prescribed_medicine: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+    : false
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+    : not_holds
+- name: no-treatment-refusal-does-not-trigger-prohibition
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_is_pensioner: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_refuses_treatment: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_performed_by_physician: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_operation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_physician_prescribed_medicine: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+    : false
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+    : not_holds
+- name: non-physician-treatment-does-not-trigger-prohibition
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_is_pensioner: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_refuses_treatment: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_performed_by_physician: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_operation: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_physician_prescribed_medicine: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+    : false
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+    : not_holds
+- name: refusal-of-other-treatment-does-not-trigger-prohibition
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_is_pensioner: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.person_refuses_treatment: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_performed_by_physician: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_operation: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_physician_prescribed_medicine: false
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#input.refused_treatment_is_medical_treatment_of_similarly_intrusive_character
+    : false
+  output:
+    ? dk:statutes/lbk-1123-2024/pensionsloven/paragraf-43-b#treatment_refusal_must_not_be_considered_in_continued_disability_pension_entitlement_assessment
+    : not_holds
