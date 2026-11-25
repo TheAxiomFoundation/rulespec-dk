@@ -1,0 +1,133 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-48-b
+    source_sha256: 3cc5f5ca6ed3847390d9b280223905a7121d70975a43fdbed410a8a57cd1d688
+  summary: I tidlig pension, som efterbetales for en periode, der ligger forud for
+    tilkendelsen, fratrækkes de opregnede ydelser udbetalt for samme periode. Udbetaling
+    Danmark kan fradrage for meget udbetalt pension og boligstøtte i udbetalingen
+    af tidlig pension.
+inputs:
+- name: early_pension_is_afterpaid_for_period_before_award
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: gross_early_pension_afterpayment
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: sick_pay_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: unemployment_benefits_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: cash_benefit_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: self_support_and_repatriation_benefit_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: transition_benefit_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: unemployment_allowance_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: resource_course_benefit_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: education_assistance_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: cash_assistance_paid_for_same_period
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: payment_is_early_pension
+  entity: Payment
+  dtype: Boolean
+  period: Month
+rules:
+- name: mandatory_deductions_from_early_pension_afterpayment
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  source: § 48 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-48-b
+          excerpt: fratrækkes sygedagpenge, arbejdsløshedsdagpenge, kontantydelse
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-48-b
+          excerpt: efterbetales for en periode, der ligger forud for tilkendelsen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "if early_pension_is_afterpaid_for_period_before_award:\n  sick_pay_paid_for_same_period\n\
+      \  + unemployment_benefits_paid_for_same_period\n  + cash_benefit_paid_for_same_period\n\
+      \  + self_support_and_repatriation_benefit_paid_for_same_period\n  + transition_benefit_paid_for_same_period\n\
+      \  + unemployment_allowance_paid_for_same_period\n  + resource_course_benefit_paid_for_same_period\n\
+      \  + education_assistance_paid_for_same_period\n  + cash_assistance_paid_for_same_period\n\
+      else: 0"
+- name: early_pension_afterpayment_after_mandatory_deductions
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  source: § 48 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-48-b
+          excerpt: I tidlig pension, som efterbetales for en periode, der ligger forud
+            for tilkendelsen, jf. § 33, stk. 3, fratrækkes sygedagpenge, arbejdsløshedsdagpenge,
+            kontantydelse, selvforsørgelses- og hjemrejseydelse, overgangsydelse,
+            ledighedsydelse, ressourceforløbsydelse, uddannelseshjælp og kontanthjælp,
+            der er udbetalt for den samme periode.
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1123-2024/pensionsloven/paragraf-48-b#mandatory_deductions_from_early_pension_afterpayment
+          output: mandatory_deductions_from_early_pension_afterpayment
+          hash: sha256:local
+  versions:
+  - effective_from: '2024-10-21'
+    formula: max(0, gross_early_pension_afterpayment - mandatory_deductions_from_early_pension_afterpayment)
+- name: may_deduct_overpaid_pension_and_housing_support
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: § 48 b, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-48-b
+          excerpt: Udbetaling Danmark kan fradrage for meget udbetalt pension og boligstøtte
+            i udbetalingen af tidlig pension.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: payment_is_early_pension
