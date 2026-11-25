@@ -1,0 +1,182 @@
+- name: negative_repaid_amount_is_clamped_to_zero
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.repaid_amount_of_loan_or_related_advance_taxed_under_subsection_1
+    : -125000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#repayment_excluded_from_corporation_taxable_income: 0
+- name: loan_to_connected_person_is_treated_as_withdrawal
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: holds
+- name: ordinary_business_transaction_exception_blocks_treatment
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: not_holds
+- name: customary_credit_institution_loan_exception_blocks_treatment
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: true
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: not_holds
+- name: self_financing_loan_exception_blocks_treatment
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : true
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: not_holds
+- name: repaid_taxed_advance_is_excluded_from_corporation_taxable_income
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.repaid_amount_of_loan_or_related_advance_taxed_under_subsection_1
+    : 125000
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#repayment_excluded_from_corporation_taxable_income: 125000
+- name: security_to_connected_person_is_treated_correspondingly
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: holds
+- name: funds_made_available_to_connected_person_are_treated_correspondingly
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: holds
+- name: absence_of_relevant_advance_does_not_trigger_treatment
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: not_holds
+- name: uncovered_lender_does_not_trigger_treatment
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: not_holds
+- name: no_section_2_connection_does_not_trigger_treatment
+  period:
+    period_kind: tax_year
+    start: '2025-11-24'
+    end: '2025-12-31'
+  input:
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_is_company_covered_by_corporation_tax_act_section_1_subsection_1_item_1_or_2_or_foreign_equivalent
+    : true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_directly_or_indirectly_lends_to_person: true
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_provides_security_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_makes_funds_available_to_person: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.lender_and_person_have_connection_covered_by_section_2: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_part_of_ordinary_business_transaction: false
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_customary_loan_from_credit_institution: false
+    ? dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#input.advance_is_self_financing_loan_under_companies_act_section_206_subsection_2
+    : false
+  output:
+    dk:statutes/lbk-1500-2025/ligningsloven/paragraf-16-e#advance_treated_as_withdrawal_without_repayment_obligation: not_holds
