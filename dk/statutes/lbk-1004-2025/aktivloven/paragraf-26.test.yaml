@@ -1,0 +1,168 @@
+- name: childcare_subsidy_available_when_spouse_uses_work_opportunities
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_has_chosen_not_to_use_work_opportunities: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#childcare_subsidy_is_available: holds
+- name: mixed_section_16_rates_apply
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouses_are_married_or_cohabiting: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_cash_assistance_under_section_16_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_cash_assistance_under_section_16_subsection_1: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_cash_assistance_amount_under_section_16_subsection_2: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_cash_assistance_amount_under_section_16_subsection_2: 110
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_supplements_under_sections_17_and_18: 20
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_supplements_under_sections_17_and_18: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_assistance_entitlement_under_sections_16_to_20: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_assistance_entitlement_under_sections_16_to_20: 200
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_has_chosen_not_to_use_work_opportunities: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_has_chosen_not_to_use_work_opportunities: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#spouse_a_assistance_under_mixed_section_16_rates: 120
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#spouse_b_assistance_under_mixed_section_16_rates: 120
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#couple_assistance: 240
+- name: mixed_rate_exception_not_married_or_cohabiting
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouses_are_married_or_cohabiting: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_cash_assistance_under_section_16_subsection_2: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_cash_assistance_under_section_16_subsection_1: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_cash_assistance_amount_under_section_16_subsection_2: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_cash_assistance_amount_under_section_16_subsection_2: 110
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_supplements_under_sections_17_and_18: 20
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_supplements_under_sections_17_and_18: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_assistance_entitlement_under_sections_16_to_20: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_assistance_entitlement_under_sections_16_to_20: 200
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_has_chosen_not_to_use_work_opportunities: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_has_chosen_not_to_use_work_opportunities: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#spouse_a_assistance_under_mixed_section_16_rates: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#spouse_b_assistance_under_mixed_section_16_rates: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#couple_assistance: 350
+- name: only_entitled_spouse_when_other_receives_public_benefit
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouses_are_married_or_cohabiting: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_cash_assistance_under_section_16_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_cash_assistance_under_section_16_subsection_1: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_cash_assistance_amount_under_section_16_subsection_2: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_cash_assistance_amount_under_section_16_subsection_2: 110
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_supplements_under_sections_17_and_18: 20
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_supplements_under_sections_17_and_18: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_assistance_entitlement_under_sections_16_to_20: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_assistance_entitlement_under_sections_16_to_20: 200
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_is_only_spouse_entitled_to_assistance_under_section_11: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_public_maintenance_benefit: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_has_chosen_not_to_use_work_opportunities: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_has_chosen_not_to_use_work_opportunities: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#spouse_b_receives_other_support: holds
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#couple_assistance: 150
+- name: assistance_only_for_entitled_spouse_when_other_does_not_use_work_opportunities
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouses_are_married_or_cohabiting: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_cash_assistance_under_section_16_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_cash_assistance_under_section_16_subsection_1: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_cash_assistance_amount_under_section_16_subsection_2: 100
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_cash_assistance_amount_under_section_16_subsection_2: 110
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_supplements_under_sections_17_and_18: 20
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_supplements_under_sections_17_and_18: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_assistance_entitlement_under_sections_16_to_20: 150
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_assistance_entitlement_under_sections_16_to_20: 200
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_has_chosen_not_to_use_work_opportunities: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_has_chosen_not_to_use_work_opportunities: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#couple_assistance: 200
+- name: changed_calculation_starts_in_first_following_month
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouses_circumstances_have_changed: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.month_is_first_month_after_change_in_spouses_circumstances: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#changed_assistance_calculation_applies: holds
+- name: recalculation_under_subsection_1_when_both_use_work_opportunities
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.both_spouses_use_work_opportunities: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#assistance_recalculated_under_subsection_1: holds
+- name: childcare_subsidy_unavailable_when_spouse_does_not_use_work_opportunities
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_has_chosen_not_to_use_work_opportunities: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#childcare_subsidy_is_available: not_holds
+- name: auto_output_spouse_a_receives_other_support
+  period:
+    period_kind: month
+    start: '2025-07-01'
+    end: '2025-07-31'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.both_spouses_use_work_opportunities: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.month_is_first_month_after_change_in_spouses_circumstances: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_assistance_entitlement_under_sections_16_to_20: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_cash_assistance_amount_under_section_16_subsection_2: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_has_chosen_not_to_use_work_opportunities: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_cash_assistance_under_section_16_subsection_2: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_supplements_under_sections_17_and_18: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_assistance_entitlement_under_sections_16_to_20: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_cash_assistance_amount_under_section_16_subsection_2: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_has_chosen_not_to_use_work_opportunities: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_is_only_spouse_entitled_to_assistance_under_section_11: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_cash_assistance_under_section_16_subsection_1: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_receives_public_maintenance_benefit: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_b_supplements_under_sections_17_and_18: 0
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_has_chosen_not_to_use_work_opportunities: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouses_are_married_or_cohabiting: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouses_circumstances_have_changed: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#spouse_a_receives_other_support: not_holds
+- name: auto_positive_spouse_a_receives_other_support
+  period:
+    period_kind: month
+    start: '2025-07-01'
+    end: '2025-07-31'
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_participates_in_integration_basic_education: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_childcare_subsidy_under_daycare_act_section_86: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#input.spouse_a_receives_public_maintenance_benefit: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-26#spouse_a_receives_other_support: holds

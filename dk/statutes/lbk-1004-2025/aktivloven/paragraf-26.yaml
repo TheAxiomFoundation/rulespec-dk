@@ -1,0 +1,323 @@
+format: rulespec/v1
+rules:
+- name: mixed_rate_standard_subsection
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 26, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: kontanthjælp efter § 16, stk. 1
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: mixed_rate_supplement_section
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 26, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: med eventuelle tillæg efter §§ 17 og 18
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: spouse_a_receives_other_support
+  kind: derived
+  entity: Family
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 26, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: Hvis kun en af ægtefællerne er berettiget til hjælp efter § 11
+            og den anden ægtefælle modtager en offentlig forsørgelsesydelse, tilskud
+            til pasning af egne børn efter § 86 i dagtilbudsloven eller deltager i
+            en integrationsgrunduddannelse, beregnes der ikke hjælp til den ægtefælle,
+            der modtager en offentlig forsørgelsesydelse, det nævnte tilskud eller
+            deltager i en integrationsgrunduddannelse.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'spouse_a_receives_public_maintenance_benefit
+
+      or spouse_a_receives_childcare_subsidy_under_daycare_act_section_86
+
+      or spouse_a_participates_in_integration_basic_education'
+- name: spouse_b_receives_other_support
+  kind: derived
+  entity: Family
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 26, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: Hvis kun en af ægtefællerne er berettiget til hjælp efter § 11
+            og den anden ægtefælle modtager en offentlig forsørgelsesydelse, tilskud
+            til pasning af egne børn efter § 86 i dagtilbudsloven eller deltager i
+            en integrationsgrunduddannelse, beregnes der ikke hjælp til den ægtefælle,
+            der modtager en offentlig forsørgelsesydelse, det nævnte tilskud eller
+            deltager i en integrationsgrunduddannelse.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'spouse_b_receives_public_maintenance_benefit
+
+      or spouse_b_receives_childcare_subsidy_under_daycare_act_section_86
+
+      or spouse_b_participates_in_integration_basic_education'
+- name: spouse_a_assistance_under_mixed_section_16_rates
+  kind: derived
+  entity: Family
+  dtype: Money
+  period: Month
+  source: Aktivloven § 26, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: begge modtager det beløb, de hver især ville have modtaget efter
+            § 16, stk. 2, med eventuelle tillæg efter §§ 17 og 18
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if spouses_are_married_or_cohabiting and spouse_a_receives_cash_assistance_under_section_16_subsection_2
+      and spouse_b_receives_cash_assistance_under_section_16_subsection_1: spouse_a_cash_assistance_amount_under_section_16_subsection_2
+      + spouse_a_supplements_under_sections_17_and_18 else: 0'
+- name: spouse_b_assistance_under_mixed_section_16_rates
+  kind: derived
+  entity: Family
+  dtype: Money
+  period: Month
+  source: Aktivloven § 26, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: begge modtager det beløb, de hver især ville have modtaget efter
+            § 16, stk. 2, med eventuelle tillæg efter §§ 17 og 18
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'if spouses_are_married_or_cohabiting and spouse_a_receives_cash_assistance_under_section_16_subsection_2
+      and spouse_b_receives_cash_assistance_under_section_16_subsection_1: spouse_b_cash_assistance_amount_under_section_16_subsection_2
+      + spouse_b_supplements_under_sections_17_and_18 else: 0'
+- name: assistance_recalculated_under_subsection_1
+  kind: derived
+  entity: Family
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 26, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: Hjælpen beregnes igen efter stk. 1, når begge ægtefæller udnytter
+            deres arbejdsmuligheder.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: both_spouses_use_work_opportunities
+- name: changed_assistance_calculation_applies
+  kind: derived
+  entity: Family
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 26, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: fra den 1. i måneden efter at ændringerne i ægtefællernes forhold
+            er indtrådt
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'spouses_circumstances_have_changed
+
+      and month_is_first_month_after_change_in_spouses_circumstances'
+- name: couple_assistance
+  kind: derived
+  entity: Family
+  dtype: Money
+  period: Month
+  source: Aktivloven § 26, stk. 1-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: Hjælpen til et ægtepar beregnes som summen af de beløb, som hver
+            af ægtefællerne er berettiget til efter §§ 16-20
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: jf. dog stk. 2
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: beregnes der ikke hjælp til den ægtefælle, der modtager en offentlig
+            forsørgelsesydelse
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: beregnes der alene hjælp til den berettigede ægtefælle efter reglerne
+            i §§ 16-20
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if spouses_are_married_or_cohabiting and spouse_a_receives_cash_assistance_under_section_16_subsection_2\
+      \ and spouse_b_receives_cash_assistance_under_section_16_subsection_1:\n  spouse_a_assistance_under_mixed_section_16_rates\
+      \ + spouse_b_assistance_under_mixed_section_16_rates\nelse:\n  if spouse_a_is_only_spouse_entitled_to_assistance_under_section_11\
+      \ and spouse_b_receives_other_support:\n    spouse_a_assistance_entitlement_under_sections_16_to_20\n\
+      \  else:\n    if spouse_b_is_only_spouse_entitled_to_assistance_under_section_11\
+      \ and spouse_a_receives_other_support:\n      spouse_b_assistance_entitlement_under_sections_16_to_20\n\
+      \    else:\n      if spouse_a_has_chosen_not_to_use_work_opportunities:\n  \
+      \      spouse_b_assistance_entitlement_under_sections_16_to_20\n      else:\n\
+      \        if spouse_b_has_chosen_not_to_use_work_opportunities:\n          spouse_a_assistance_entitlement_under_sections_16_to_20\n\
+      \        else:\n          spouse_a_assistance_entitlement_under_sections_16_to_20\
+      \ + spouse_b_assistance_entitlement_under_sections_16_to_20"
+- name: childcare_subsidy_is_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 26, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+          excerpt: Der kan ikke ydes tilskud til pasning af egne børn efter § 86 i
+            dagtilbudsloven til en ægtefælle, der ikke udnytter sine arbejdsmuligheder,
+            jf. § 13, stk.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: not spouse_has_chosen_not_to_use_work_opportunities
+inputs:
+- name: spouses_are_married_or_cohabiting
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_a_receives_cash_assistance_under_section_16_subsection_2
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_b_receives_cash_assistance_under_section_16_subsection_1
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_a_assistance_entitlement_under_sections_16_to_20
+  entity: Family
+  dtype: Money
+  period: Month
+- name: spouse_b_assistance_entitlement_under_sections_16_to_20
+  entity: Family
+  dtype: Money
+  period: Month
+- name: spouse_a_cash_assistance_amount_under_section_16_subsection_2
+  entity: Family
+  dtype: Money
+  period: Month
+- name: spouse_b_cash_assistance_amount_under_section_16_subsection_2
+  entity: Family
+  dtype: Money
+  period: Month
+- name: spouse_a_supplements_under_sections_17_and_18
+  entity: Family
+  dtype: Money
+  period: Month
+- name: spouse_b_supplements_under_sections_17_and_18
+  entity: Family
+  dtype: Money
+  period: Month
+- name: spouse_a_is_only_spouse_entitled_to_assistance_under_section_11
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_b_is_only_spouse_entitled_to_assistance_under_section_11
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_a_receives_public_maintenance_benefit
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_b_receives_public_maintenance_benefit
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_a_receives_childcare_subsidy_under_daycare_act_section_86
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_b_receives_childcare_subsidy_under_daycare_act_section_86
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_a_participates_in_integration_basic_education
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_b_participates_in_integration_basic_education
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_a_has_chosen_not_to_use_work_opportunities
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_b_has_chosen_not_to_use_work_opportunities
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: both_spouses_use_work_opportunities
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouses_circumstances_have_changed
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: month_is_first_month_after_change_in_spouses_circumstances
+  entity: Family
+  dtype: Boolean
+  period: Month
+- name: spouse_has_chosen_not_to_use_work_opportunities
+  entity: Person
+  dtype: Boolean
+  period: Month
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-26
+    source_sha256: 04e103c49ededacb7a045c5d62ae49824f1bd3f799d4dbffd393ef414908625c
