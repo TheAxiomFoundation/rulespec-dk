@@ -1,0 +1,64 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-84
+    source_sha256: 2421604a4815735de664c0d2b6412b221a89012b06bbfbbbf7c28a0a5e76a820
+  summary: Kommunen kan yde hjælp til udgifterne ved at forsørge et barn, når forældremyndigheden
+    ved forældremyndighedsindehaverens død er tillagt en anden eller andre, der ikke
+    har forsørgelsespligt over for barnet. Det er en betingelse, at barnets indtægter
+    ikke er tilstrækkelige til at dække udgifterne ved at forsørge barnet.
+inputs:
+- name: parental_authority_awarded_to_other_after_holder_death
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_with_parental_authority_has_no_maintenance_duty
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: child_income_including_special_child_allowance_is_insufficient_for_maintenance
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: municipal_assistance_for_child_maintenance_may_be_provided
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 84
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-84
+          excerpt: Kommunen kan yde hjælp til udgifterne ved at forsørge et barn
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-84
+          excerpt: forældremyndigheden ved forældremyndighedsindehaverens død er tillagt
+            en anden eller andre
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-84
+          excerpt: der ikke har forsørgelsespligt over for barnet
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-84
+          excerpt: Det er en betingelse, at barnets indtægter, herunder det særlige
+            børnetilskud efter lov om børnetilskud og forskudsvis udbetaling af børnebidrag,
+            ikke er tilstrækkelige til at dække udgifterne ved at forsørge barnet.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'parental_authority_awarded_to_other_after_holder_death
+
+      and person_with_parental_authority_has_no_maintenance_duty
+
+      and child_income_including_special_child_allowance_is_insufficient_for_maintenance'

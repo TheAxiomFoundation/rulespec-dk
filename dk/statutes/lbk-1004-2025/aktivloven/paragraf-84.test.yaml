@@ -1,0 +1,36 @@
+- name: assistance_may_be_provided_when_all_conditions_hold
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.parental_authority_awarded_to_other_after_holder_death: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.person_with_parental_authority_has_no_maintenance_duty: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.child_income_including_special_child_allowance_is_insufficient_for_maintenance
+    : true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#municipal_assistance_for_child_maintenance_may_be_provided: holds
+- name: assistance_may_not_be_provided_when_authority_was_not_awarded_after_death
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.parental_authority_awarded_to_other_after_holder_death: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.person_with_parental_authority_has_no_maintenance_duty: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.child_income_including_special_child_allowance_is_insufficient_for_maintenance
+    : true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#municipal_assistance_for_child_maintenance_may_be_provided: not_holds
+- name: assistance_may_not_be_provided_when_new_holder_has_maintenance_duty
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.parental_authority_awarded_to_other_after_holder_death: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.person_with_parental_authority_has_no_maintenance_duty: false
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.child_income_including_special_child_allowance_is_insufficient_for_maintenance
+    : true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#municipal_assistance_for_child_maintenance_may_be_provided: not_holds
+- name: assistance_may_not_be_provided_when_child_income_is_sufficient
+  period: 2025-07
+  input:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.parental_authority_awarded_to_other_after_holder_death: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.person_with_parental_authority_has_no_maintenance_duty: true
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#input.child_income_including_special_child_allowance_is_insufficient_for_maintenance
+    : false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-84#municipal_assistance_for_child_maintenance_may_be_provided: not_holds
