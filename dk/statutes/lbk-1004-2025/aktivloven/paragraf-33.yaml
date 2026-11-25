@@ -1,0 +1,375 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+    source_sha256: c1998411e6db70e3e6d25b840de4542b41160da562e026907c782f7aad6d8989
+  summary: Der foretages ikke fradrag i hjælpen for de opregnede ydelser og indtægter,
+    herunder efterbetaling af offentlige ydelser i 2 år. Ved sygehusophold over 3
+    måneder kan kommunen dog fradrage en besparelse. Erstatninger for tab af erhvervsevne,
+    varigt mén og ikke-økonomisk skade trækkes heller ikke fra.
+rules:
+- name: employment_compensation_second_section_reference_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: Godtgørelse efter §§ 175 og 176 i lov om en aktiv beskæftigelsesindsats
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '176'
+- name: culture_pass_first_income_year
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: i indkomstårene 2025 og 2026
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2025'
+- name: culture_pass_last_income_year
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: i indkomstårene 2025 og 2026
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2026'
+- name: invalidity_payment_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 1) Invaliditetsydelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: employment_or_integration_compensation_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 2) Godtgørelse efter §§ 175 og 176
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: election_remuneration_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 3) Vederlag som tilforordnet ved valg.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: scholarship_and_social_fund_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 4) Legater, der er fritaget for beskatning
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '4'
+- name: child_income_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 5) Børns indtægter og indtægter, der vedrører børn
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '5'
+- name: hospital_food_value_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 6) Værdien af kost m.v. under indlæggelse på sygehus
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '6'
+- name: transport_compensation_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 7) Transportgodtgørelse for dokumenterede udgifter
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '7'
+- name: public_benefit_arrears_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 8) Efterbetaling af offentlige forsørgelsesydelser
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '8'
+- name: culture_pass_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 9
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 9) Kommunen ser endvidere bort fra værdien af ydelser
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '9'
+- name: lodger_rental_income_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 10
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 10) Lejeindtægter fra højst én logerende
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '10'
+- name: spouse_work_injury_education_compensation_list_item_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 11
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 11) Uddannelsesgodtgørelse efter lov om arbejdsskadesikring
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '11'
+- name: social_fund_tax_exemption_reference_number
+  kind: parameter
+  dtype: Integer
+  source: Aktivloven § 33, stk. 1, nr. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: jf. ligningslovens § 7, nr. 22 og 40.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '40'
+- name: public_benefit_arrears_amount_disregarded
+  kind: derived
+  entity: Payment
+  dtype: Money
+  unit: DKK
+  period: Month
+  source: Aktivloven § 33, stk. 1, nr. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: Det beløb, der ses bort fra, udgør differencen mellem den ydelse,
+            der er udbetalt for perioden, og den retmæssige ydelse for perioden.
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: Der ses bort fra efterbetalingen i 2 år efter udbetalingstidspunktet.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "if payment_is_public_benefit_arrears_after_decision_or_judgment\n  and\
+      \ arrears_payment_is_within_two_years_after_payment:\n  max(0, rightful_benefit_for_arrears_period\
+      \ - benefit_paid_for_arrears_period)\nelse: 0"
+- name: payment_value_disregarded_from_assistance_deduction
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 33, stk. 1, nr. 1-11, og stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: 'Der foretages ikke fradrag i hjælpen for:'
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: i indkomstårene 2025 og 2026
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: Hvis sygehusopholdet har varet i mere end 3 måneder, kan der dog
+            foretages fradrag
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-33
+          excerpt: trækkes ikke fra i hjælpen.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "payment_is_invalidity_pension_or_allowance\nor payment_is_employment_or_integration_act_compensation\n\
+      or payment_is_election_official_remuneration\nor payment_is_tax_exempt_scholarship_or_social_fund_payment\n\
+      or payment_is_child_income_or_income_relating_to_child\nor (\n  payment_is_value_of_hospital_food_or_similar\n\
+      \  and (\n    not hospital_stay_exceeds_three_months\n    or not municipality_deducts_savings_from_long_hospital_stay\n\
+      \  )\n)\nor payment_is_transport_compensation_for_documented_necessary_work_transport\n\
+      or (\n  payment_is_public_benefit_arrears_after_decision_or_judgment\n  and\
+      \ arrears_payment_is_within_two_years_after_payment\n)\nor payment_is_culture_pass_value_in_temporary_income_year_window\n\
+      or payment_is_rental_income_from_at_most_one_lodger_in_recipient_home\nor payment_is_work_injury_education_compensation_paid_to_applicant_spouse\n\
+      or payment_is_compensation_for_loss_of_earning_capacity_or_non_economic_damage"
+inputs:
+- name: payment_is_invalidity_pension_or_allowance
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_employment_or_integration_act_compensation
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_election_official_remuneration
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_tax_exempt_scholarship_or_social_fund_payment
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_child_income_or_income_relating_to_child
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_value_of_hospital_food_or_similar
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: hospital_stay_exceeds_three_months
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: municipality_deducts_savings_from_long_hospital_stay
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_transport_compensation_for_documented_necessary_work_transport
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_public_benefit_arrears_after_decision_or_judgment
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: arrears_payment_is_within_two_years_after_payment
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: benefit_paid_for_arrears_period
+  entity: Payment
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: rightful_benefit_for_arrears_period
+  entity: Payment
+  dtype: Money
+  unit: DKK
+  period: Month
+- name: payment_is_culture_pass_value_in_temporary_income_year_window
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_rental_income_from_at_most_one_lodger_in_recipient_home
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_work_injury_education_compensation_paid_to_applicant_spouse
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_compensation_for_loss_of_earning_capacity_or_non_economic_damage
+  entity: Payment
+  dtype: Boolean
+  period: Month
