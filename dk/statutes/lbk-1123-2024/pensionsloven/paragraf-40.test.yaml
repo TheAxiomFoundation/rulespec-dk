@@ -1,0 +1,24 @@
+- name: payment_is_payable_when_pension_has_been_withdrawn
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#input.pension_has_not_been_withdrawn_for_one_year: false
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#input.pension_resumption_requested: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#pension_payment_suspension_applies: not_holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#pension_payment_is_payable_under_section_40: holds
+- name: payment_is_not_payable_after_one_year_without_withdrawal_or_request
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#input.pension_has_not_been_withdrawn_for_one_year: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#input.pension_resumption_requested: false
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#pension_payment_suspension_applies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#pension_payment_is_payable_under_section_40: not_holds
+- name: payment_resumes_after_request
+  period: 2024-11
+  input:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#input.pension_has_not_been_withdrawn_for_one_year: true
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#input.pension_resumption_requested: true
+  output:
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#pension_payment_suspension_applies: holds
+    dk:statutes/lbk-1123-2024/pensionsloven/paragraf-40#pension_payment_is_payable_under_section_40: holds
