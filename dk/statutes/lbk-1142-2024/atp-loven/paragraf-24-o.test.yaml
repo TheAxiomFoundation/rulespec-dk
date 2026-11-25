@@ -1,0 +1,9 @@
+- name: agreement_cannot_derogate_from_protected_rules
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1142-2024/atp-loven/paragraf-24-o#agreement_may_derogate_from_protected_rules: not_holds
