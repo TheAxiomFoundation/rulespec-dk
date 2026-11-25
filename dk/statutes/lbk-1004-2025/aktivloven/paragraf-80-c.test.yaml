@@ -1,0 +1,121 @@
+- name: contribution_rate_in_2020
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2020-01-01'
+    end: '2020-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.003
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_initial_year: 2020
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_second_year: 2021
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_third_year: 2022
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_fourth_year: 2023
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_fifth_year: 2024
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_sixth_year: 2025
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_seventh_year: 2026
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_eighth_year: 2027
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_ninth_year: 2028
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_tenth_year: 2029
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_continuing_year: 2030
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_one: 1
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_two: 2
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_three: 3
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_four: 4
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_five: 5
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_six: 6
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_seven: 7
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_eight: 8
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_nine: 9
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_ten: 10
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#contribution_rate_schedule_item_eleven: 11
+- name: contribution_rate_in_2021
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2021-01-01'
+    end: '2021-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.006
+- name: contribution_rate_in_2025
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.018
+- name: contribution_rate_from_2030
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2030-01-01'
+    end: '2030-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.033
+- name: contribution_rate_in_2022
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2022-01-01'
+    end: '2022-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.009
+- name: contribution_rate_in_2023
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2023-01-01'
+    end: '2023-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.012
+- name: contribution_rate_in_2024
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.015
+- name: contribution_rate_in_2026
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.021
+- name: contribution_rate_in_2027
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2027-01-01'
+    end: '2027-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.024
+- name: contribution_rate_in_2028
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2028-01-01'
+    end: '2028-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.027
+- name: contribution_rate_in_2029
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2029-01-01'
+    end: '2029-12-31'
+  input: {}
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-80-c#mandatory_pension_scheme_contribution_rate: 0.03
