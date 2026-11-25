@@ -1,0 +1,254 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+    source_sha256: 8788b26e8d682ddfef31c0990da3b169197b3d3de90588ad1af97fa82d2c5aed
+  summary: 'Til folkepensionister berettiget til pension inden 1. januar udbetales
+    en årlig
+
+    supplerende pensionsydelse på op til 17.600 kr. Ydelsen bortfalder over
+
+    formuegrænsen, nedsættes efter personlig tillægsprocent og pensionsandel,
+
+    udbetales ikke under 200 kr., og udbetales i januar ved nødvendige oplysninger.
+
+    Beløbet reguleres årligt med 2,0 pct. tillagt tilpasningsprocenten og afrundes
+
+    til nærmeste beløb deleligt med 100.'
+inputs:
+- name: previous_year_regulated_maximum
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: adjustment_percentage_for_financial_year
+  entity: Person
+  dtype: Rate
+  period: Year
+- name: entitled_to_old_age_pension_before_january_first
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: combined_liquid_assets_as_of_january_first
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: health_supplement_asset_threshold
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: personal_supplement_percentage
+  entity: Person
+  dtype: Rate
+  period: Year
+- name: old_age_pension_entitlement_percentage
+  entity: Person
+  dtype: Rate
+  period: Year
+- name: udbetaling_denmark_has_necessary_information
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: statutory_annual_maximum
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Pensionsloven § 72 d, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: årlig supplerende pensionsydelse på op til 17.600 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '17600'
+- name: annual_regulation_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: Pensionsloven § 72 d, stk. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: med 2,0 pct. tillagt tilpasningsprocenten
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '0.02'
+- name: regulation_base_multiplier
+  kind: parameter
+  dtype: Decimal
+  period: Year
+  source: Pensionsloven § 72 d, stk. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: Det beløb, der er nævnt i stk. 1, reguleres en gang årligt den
+            1. januar med 2,0 pct.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: regulation_rounding_multiple
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Pensionsloven § 72 d, stk. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: kronebeløb, der kan deles med 100
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '100'
+- name: minimum_payable_amount
+  kind: parameter
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Pensionsloven § 72 d, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: mindre end 200 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '200'
+- name: annual_maximum_after_regulation
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Pensionsloven § 72 d, stk. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: Stk. 7. Det beløb, der er nævnt i stk. 1, reguleres en gang årligt
+            den 1. januar med 2,0 pct. tillagt tilpasningsprocenten for det pågældende
+            finansår, jf. lov om en satsreguleringsprocent. Reguleringen sker første
+            gang den 1. januar 2020. Beløbet afrundes til nærmeste kronebeløb, der
+            kan deles med 100.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: floor((previous_year_regulated_maximum * (regulation_base_multiplier
+      + annual_regulation_rate + adjustment_percentage_for_financial_year) / regulation_rounding_multiple)
+      + 0.5) * regulation_rounding_multiple
+- name: supplementary_pension_eligible
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Pensionsloven § 72 d, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: Til folkepensionister, som inden den 1. januar i det pågældende
+            år er berettiget til pension, jf. § 12, stk.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: Den supplerende pensionsydelse udbetales ikke, hvis pensionistens
+            og en eventuel ægtefælles eller samlevers samlede likvide formue overstiger
+            formuegrænsen for tildeling af helbredstillæg, jf. § 49, stk.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'entitled_to_old_age_pension_before_january_first
+
+      and combined_liquid_assets_as_of_january_first <= health_supplement_asset_threshold'
+- name: calculated_supplementary_pension_payment
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Pensionsloven § 72 d, stk. 1, 3-4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: nedsættes afhængigt af den personlige tillægsprocent
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: nedsættes den beregnede supplerende pensionsydelse i forhold hertil
+  versions:
+  - effective_from: '2024-10-21'
+    formula: max(0, statutory_annual_maximum * max(0, personal_supplement_percentage)
+      * max(0, old_age_pension_entitlement_percentage))
+- name: supplementary_pension_payment
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: Pensionsloven § 72 d, stk. 1-5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: udbetales ikke, hvis den beregnede ydelse er mindre end 200 kr.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'if supplementary_pension_eligible and calculated_supplementary_pension_payment
+      >= minimum_payable_amount: calculated_supplementary_pension_payment else: 0'
+- name: supplementary_pension_payment_in_january
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Pensionsloven § 72 d, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-72-d
+          excerpt: udbetales i januar måned, hvis Udbetaling Danmark har de nødvendige
+            oplysninger
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'supplementary_pension_payment > 0
+
+      and udbetaling_denmark_has_necessary_information'
