@@ -1,0 +1,185 @@
+- name: chapter_1_pension_bonus_accrual_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_chapter_1_pension_arrangement: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_return_is_bonus_interest_or_similar_accrual: true
+  output:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#bonus_interest_or_similar_accrual_excluded_from_taxable_income
+    : holds
+- name: non_chapter_1_pension_bonus_accrual_is_not_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_chapter_1_pension_arrangement: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_return_is_bonus_interest_or_similar_accrual: true
+  output:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#bonus_interest_or_similar_accrual_excluded_from_taxable_income
+    : not_holds
+- name: chapter_1_pension_non_accrual_is_not_excluded_under_subsection_1
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_chapter_1_pension_arrangement: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_return_is_bonus_interest_or_similar_accrual: false
+  output:
+    ? dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#bonus_interest_or_similar_accrual_excluded_from_taxable_income
+    : not_holds
+- name: redemption_or_sale_gain_or_loss_in_rate_pension_savings_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: holds
+- name: subscription_rights_sale_in_old_age_savings_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: holds
+- name: price_change_gain_or_loss_in_pension_savings_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: true
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: holds
+- name: liquidation_distribution_in_rate_pension_savings_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: holds
+- name: similar_security_return_in_old_age_savings_is_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: holds
+- name: non_security_return_is_not_excluded_under_subsection_2
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: not_holds
+- name: unlisted_security_return_is_not_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: not_holds
+- name: listed_return_outside_qualifying_pension_savings_is_not_excluded
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.asset_is_security: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_on_security_redemption_or_sale: true
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_proceeds_from_sale_of_subscription_rights: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_gain_or_loss_due_to_security_price_change: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_liquidation_proceeds_distribution: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.return_is_similar_security_return: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_rate_pension_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_old_age_savings: false
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#input.security_is_part_of_pension_savings: false
+  output:
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_return_is_listed_in_subsection_2: holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#security_is_in_qualifying_pension_savings_account: not_holds
+    dk:statutes/lbk-1243-2024/pensionsbeskatningsloven/paragraf-45#listed_security_return_excluded_from_taxable_income: not_holds
