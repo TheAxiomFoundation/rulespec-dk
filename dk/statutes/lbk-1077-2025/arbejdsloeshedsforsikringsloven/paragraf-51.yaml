@@ -1,0 +1,51 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51
+    source_sha256: d46ed58c79b850fcc9850ea9ca0ecc30d1b41adbbf85776fd81affa3624346d7
+  summary: '"Modtager et medlem i anledning af ledighed ydelser, som ikke er omfattet
+    af denne lov," skal dagpengene nedsættes, så det samlede månedlige ydelsesbeløb
+    ikke overstiger beløbet efter § 48, stk. 5, og § 49, stk. 5 og 6.'
+inputs:
+- name: member_receives_non_act_benefits_due_to_unemployment
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unreduced_monthly_unemployment_benefit
+  entity: Person
+  dtype: Money
+  period: Month
+- name: monthly_non_act_benefits_due_to_unemployment
+  entity: Person
+  dtype: Money
+  period: Month
+- name: maximum_monthly_unemployment_benefit_payable_under_sections_48_5_and_49_5_and_6
+  entity: Person
+  dtype: Money
+  period: Month
+rules:
+- name: coordinated_monthly_unemployment_benefit
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 51
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-51
+          excerpt: Modtager et medlem i anledning af ledighed ydelser, som ikke er
+            omfattet af denne lov, skal medlemmet straks underrette arbejdsløshedskassen
+            herom, og dagpengene nedsættes, således at det samlede månedlige ydelsesbeløb,
+            medlemmet modtager, ikke overstiger det beløb, der kan udbetales efter
+            § 48, stk. 5, og § 49, stk. 5 og 6.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: "if member_receives_non_act_benefits_due_to_unemployment:\n  min(\n \
+      \   unreduced_monthly_unemployment_benefit,\n    max(\n      0,\n      maximum_monthly_unemployment_benefit_payable_under_sections_48_5_and_49_5_and_6\n\
+      \      - monthly_non_act_benefits_due_to_unemployment\n    )\n  )\nelse: unreduced_monthly_unemployment_benefit"
