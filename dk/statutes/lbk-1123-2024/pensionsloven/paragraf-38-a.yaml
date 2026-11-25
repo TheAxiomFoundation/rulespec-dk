@@ -1,0 +1,131 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+    source_sha256: cbeedf371834f341f828abcc4e7740a66a3a419413e52f1d2085bc98a8370d1d
+  summary: '"Udbetalingen af pension ophører med virkning fra den 1. i måneden efter,"
+    at der er truffet afgørelse om ret til plejevederlag, når plejevederlaget kan
+    udbetales fra pensionsophøret. Pensionen genoptages "med virkning fra den 1. i
+    den måned", hvor den nærtstående dør eller modtageren anmoder om genoptagelse.'
+inputs:
+- name: decision_establishes_right_to_care_allowance_under_referenced_provisions
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: care_allowance_can_be_paid_from_pension_payment_cessation
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: month_is_first_month_after_care_allowance_decision
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: pension_payment_ceased_under_subsection_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: month_is_month_in_which_close_relative_dies
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: month_is_month_in_which_recipient_requests_resumption
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: cessation_effective_day_of_month
+  kind: parameter
+  entity: Person
+  dtype: Integer
+  period: Month
+  source: § 38 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: med virkning fra den 1. i måneden efter
+  versions:
+  - effective_from: '2024-10-01'
+    formula: '1'
+- name: resumption_effective_day_of_month
+  kind: parameter
+  entity: Person
+  dtype: Integer
+  period: Month
+  source: § 38 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: med virkning fra den 1. i den måned
+  versions:
+  - effective_from: '2024-10-01'
+    formula: '1'
+- name: pension_payment_cessation_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 38 a, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: Udbetalingen af pension ophører med virkning fra den 1. i måneden
+            efter
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: at modtageren har ret til plejevederlag
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: kan få udbetalt plejevederlag fra tidspunktet for ophøret
+  versions:
+  - effective_from: '2024-10-01'
+    formula: 'decision_establishes_right_to_care_allowance_under_referenced_provisions
+
+      and care_allowance_can_be_paid_from_pension_payment_cessation
+
+      and month_is_first_month_after_care_allowance_decision'
+- name: pension_payment_resumption_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 38 a, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: Udbetalingen af pension, jf. stk. 1, genoptages
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: i den måned, hvor den nærtstående dør
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-38-a
+          excerpt: den pågældende anmoder om genoptagelse
+  versions:
+  - effective_from: '2024-10-01'
+    formula: "pension_payment_ceased_under_subsection_1\nand (\n  month_is_month_in_which_close_relative_dies\n\
+      \  or month_is_month_in_which_recipient_requests_resumption\n)"
