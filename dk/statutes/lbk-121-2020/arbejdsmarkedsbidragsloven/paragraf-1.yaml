@@ -1,0 +1,118 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1
+    source_sha256: 588b614c5d066a73ed5bca880cd6e8549fc488c496e77cf61cab38afb0ef5b37
+  summary: '"Personer, der er skattepligtige her til landet, svarer skat i form af
+    arbejdsmarkedsbidrag til staten." "Bidraget udgør 8 pct. af grundlaget." Lov nr.
+    96 af 4. februar 2025 adds a 0 pct. rate through the income year in which the
+    person turns 17.'
+inputs:
+- name: person_is_tax_liable_in_denmark
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: contribution_basis
+  entity: Person
+  dtype: Money
+  period: Year
+- name: person_is_no_older_than_17_at_end_of_income_year
+  entity: Person
+  dtype: Boolean
+  period: Year
+rules:
+- name: standard_labour_market_contribution_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 1, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1
+          excerpt: Bidraget udgør 8 pct. af grundlaget.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '0.08'
+- name: youth_labour_market_contribution_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 1, 2. pkt., and Lov nr. 96 af 4. februar 2025
+    § 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1
+          excerpt: Bidraget udgør 8 pct. af grundlaget.
+      - path: versions[1].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lov-96-2025/aendringslov/aendringcentreretparagraf-1
+          excerpt: udgør bidraget 0 pct. af grundlaget.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '0.08'
+  - effective_from: '2025-02-04'
+    formula: '0'
+- name: youth_exemption_is_in_effect
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 1, stk. 2, inserted by Lov nr. 96 af 4. februar
+    2025 § 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1
+      - path: versions[1].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lov-96-2025/aendringslov/aendringcentreretparagraf-1
+          excerpt: I § 1 indsættes som stk. 2
+  versions:
+  - effective_from: '2020-02-07'
+    formula: '0'
+  - effective_from: '2025-02-04'
+    formula: '1'
+- name: labour_market_contribution
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1
+          excerpt: Personer, der er skattepligtige her til landet
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-1
+          excerpt: Bidraget udgør 8 pct. af grundlaget.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lov-96-2025/aendringslov/aendringcentreretparagraf-1
+          excerpt: Til og med den 31. december i det indkomstår, hvor personen fylder
+            17 år, udgør bidraget 0 pct. af grundlaget.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: 'if person_is_tax_liable_in_denmark: contribution_basis * (if youth_exemption_is_in_effect
+      == 1 and person_is_no_older_than_17_at_end_of_income_year: youth_labour_market_contribution_rate
+      else: standard_labour_market_contribution_rate) else: 0'
