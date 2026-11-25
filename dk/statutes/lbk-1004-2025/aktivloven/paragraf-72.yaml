@@ -1,0 +1,236 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+    source_sha256: e5c6fef69dbf5dbc1e63c2e284e1c378b9feb52a4060c1be4ff3ac3c881e9021
+  summary: Indtægter efter § 71, stk. 4, opgøres som summen af 1) arbejdsmarkedsbidragspligtig
+    indkomst, 2) indberettede ydelser og 3) lønindkomst erhvervet om bord på skibe.
+    Dokumenterede ikke-indberettede eller tilsvarende andre indtægter kan medregnes.
+rules:
+- name: income_category_1_number
+  kind: parameter
+  dtype: Integer
+  source: § 72, stk. 1, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: 1) arbejdsmarkedsbidragspligtig indkomst
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '1'
+- name: income_category_2_number
+  kind: parameter
+  dtype: Integer
+  source: § 72, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: 2) ydelser i form af arbejdsløshedsdagpenge
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: income_category_3_number
+  kind: parameter
+  dtype: Integer
+  source: § 72, stk. 1, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: 3) lønindkomst erhvervet om bord på skibe
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '3'
+- name: indberettede_ydelser
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 72, stk. 1, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: ydelser i form af arbejdsløshedsdagpenge og feriedagpenge efter
+            lov om arbejdsløshedsforsikring m.v.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'arbejdsloshedsdagpenge_indberettet_til_indkomstregisteret
+
+      + feriedagpenge_indberettet_til_indkomstregisteret
+
+      + sygedagpenge_indberettet_til_indkomstregisteret
+
+      + barsels_eller_sorgorlovsdagpenge_indberettet_til_indkomstregisteret
+
+      + voksenuddannelsesstotte_indberettet_til_indkomstregisteret
+
+      + godtgorelse_ved_erhvervsrettet_voksen_og_efteruddannelse_indberettet_til_indkomstregisteret
+
+      + su_indberettet_til_indkomstregisteret
+
+      + ydelse_efter_lov_om_aktiv_socialpolitik_indberettet_til_indkomstregisteret'
+- name: indtaegter_efter_section_71_subsection_4
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Month
+  source: § 72, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: opgøres som summen af
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: 1) arbejdsmarkedsbidragspligtig indkomst
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: 3) lønindkomst erhvervet om bord på skibe
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'arbejdsmarkedsbidragspligtig_indkomst_indberettet_til_indkomstregisteret
+
+      + indberettede_ydelser
+
+      + lonindkomst_om_bord_pa_skibe_indberettet_til_indkomstregisteret'
+- name: dokumenteret_ikke_indberettet_indtaegt_kan_medregnes
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 72, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: Indtægter som nævnt i stk. 1, som ikke fremgår af indkomstregisteret,
+            kan medregnes, hvis de kan dokumenteres.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'indtaegt_omfattet_af_stk_1
+
+      and indtaegt_fremgar_ikke_af_indkomstregisteret
+
+      and indtaegt_kan_dokumenteres'
+- name: dokumenteret_anden_tilsvarende_indtaegt_kan_medregnes
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 72, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: Anden indtægt, herunder udenlandsk indtægt, som svarer til indtægter
+            nævnt i stk. 1, kan medregnes, når revalidenden kan dokumentere indtægten.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'anden_indtaegt_svarer_til_indtaegt_naevnt_i_stk_1
+
+      and indtaegt_kan_dokumenteres'
+- name: kommunen_kan_fa_terminaladgang_til_indkomstregisteret
+  kind: derived
+  entity: Municipality
+  dtype: Judgment
+  period: Month
+  source: § 72, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: default
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-72
+          excerpt: Kommunen kan få terminaladgang til de nødvendige oplysninger i
+            indkomstregisteret
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'true'
+inputs:
+- name: arbejdsmarkedsbidragspligtig_indkomst_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: arbejdsloshedsdagpenge_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: feriedagpenge_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: sygedagpenge_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: barsels_eller_sorgorlovsdagpenge_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: voksenuddannelsesstotte_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: godtgorelse_ved_erhvervsrettet_voksen_og_efteruddannelse_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: su_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: ydelse_efter_lov_om_aktiv_socialpolitik_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: lonindkomst_om_bord_pa_skibe_indberettet_til_indkomstregisteret
+  entity: Person
+  dtype: Money
+  period: Month
+- name: indtaegt_omfattet_af_stk_1
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: indtaegt_fremgar_ikke_af_indkomstregisteret
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: indtaegt_kan_dokumenteres
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: anden_indtaegt_svarer_til_indtaegt_naevnt_i_stk_1
+  entity: Person
+  dtype: Boolean
+  period: Month
