@@ -1,0 +1,183 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+    source_sha256: 5d7bf1c713b94a5506d5d81b592e7694485f2d01abd374762b9999bd5ed11d54
+  summary: '"mister den pågældende retten til ledighedsydelse." Ledighedsydelsen kan
+    fortsat
+
+    udbetales under behandling af en sag om førtidspension eller seniorpension, men
+
+    skal tilbagebetales ved senere pension for samme periode. Retten genopnås efter
+
+    fleksjob i 9 måneder inden for de seneste 18 måneder.'
+inputs:
+- name: person_receives_unemployment_benefit
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: municipality_has_decided_person_is_not_available_under_section_75_2
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: municipality_has_started_disability_pension_case
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: senior_pension_unit_has_started_senior_pension_case
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: pension_case_is_being_processed
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: unemployment_benefit_was_paid_during_pension_case
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: pension_is_later_paid_for_same_period
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: months_employed_in_flexjob_within_statutory_lookback_period
+  entity: Person
+  dtype: Count
+  period: Month
+rules:
+- name: right_to_unemployment_benefit_is_lost
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 77 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: Hvis kommunen træffer afgørelse om, at en person, der modtager
+            ledighedsydelse, ikke står til rådighed
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: mister den pågældende retten til ledighedsydelse
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'person_receives_unemployment_benefit
+
+      and municipality_has_decided_person_is_not_available_under_section_75_2'
+- name: unemployment_benefit_may_continue_during_pension_case
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 77 b, stk. 2, 1.-2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: ledighedsydelsen dog fortsat udbetales
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: kommunen er påbegyndt behandling af en sag om førtidspension eller
+            Seniorpensionsenheden er påbegyndt behandling af en sag om seniorpension
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: så længe sagen behandles
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "municipality_has_decided_person_is_not_available_under_section_75_2\n\
+      and pension_case_is_being_processed\nand (\n  municipality_has_started_disability_pension_case\n\
+      \  or senior_pension_unit_has_started_senior_pension_case\n)"
+- name: unemployment_benefit_must_be_repaid_after_pension_for_same_period
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 77 b, stk. 2, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: Ledighedsydelsen skal tilbagebetales, hvis der senere udbetales
+            pension for samme periode.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'unemployment_benefit_was_paid_during_pension_case
+
+      and pension_is_later_paid_for_same_period'
+- name: required_flexjob_employment_months
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: Aktivloven § 77 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: ansat i et fleksjob i 9 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '9'
+- name: flexjob_employment_lookback_months
+  kind: parameter
+  dtype: Count
+  period: Month
+  source: Aktivloven § 77 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: inden for de seneste 18 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '18'
+- name: right_to_unemployment_benefit_is_regained_after_flexjob
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: Aktivloven § 77 b, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: efter at have mistet retten til ledighedsydelse
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-77-b
+          excerpt: har været ansat i et fleksjob i 9 måneder inden for de seneste
+            18 måneder
+  versions:
+  - effective_from: '2025-06-30'
+    formula: 'right_to_unemployment_benefit_is_lost
+
+      and months_employed_in_flexjob_within_statutory_lookback_period >= required_flexjob_employment_months
+
+      and months_employed_in_flexjob_within_statutory_lookback_period <= flexjob_employment_lookback_months'
