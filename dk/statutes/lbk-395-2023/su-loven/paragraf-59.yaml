@@ -1,0 +1,29 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-59
+    source_sha256: 9671292585fb38cdd5ec1a139b79629e449aff2394749bd8abdb16268486d894
+  summary: '"Stipendiegiver træffer afgørelse i alle spørgsmål i forbindelse med tildeling
+    og udbetaling af ph.d.-stipendium. Stipendiegivers afgørelse kan ikke indbringes
+    for anden administrativ myndighed."'
+rules:
+- name: appeal_to_other_administrative_authority_available
+  kind: derived
+  entity: PhdStipendiumDecision
+  dtype: Judgment
+  period: Day
+  source: SU-loven § 59, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-395-2023/su-loven/paragraf-59
+          excerpt: Stipendiegivers afgørelse kan ikke indbringes for anden administrativ
+            myndighed.
+  versions:
+  - effective_from: '2023-04-13'
+    formula: 'false'
