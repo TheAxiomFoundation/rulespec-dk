@@ -1,0 +1,137 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44
+    source_sha256: 6fa07c1406cbac9b540271812b66cfe35c6ff3a9103e0f6bce8af26ea0399b73
+  summary: § 44. Et medlem, som har nået folkepensionsalderen, kan overgå til et seniormedlemskab
+    ved udgangen af den måned, hvor medlemmet har nået folkepensionsalderen. En person,
+    som ikke er medlem af en arbejdsløshedskasse, og som har nået folkepensionsalderen,
+    kan optages som seniormedlem. Et seniormedlem har ikke ret til dagpenge eller
+    andre ydelser efter denne lov, men har ret til hjælp til jobsøgning og skal kun
+    betale administrationsbidrag.
+inputs:
+- name: person_is_member_of_an_unemployment_insurance_fund
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_has_reached_folkepension_age
+  entity: Person
+  dtype: Boolean
+  period: Month
+- name: person_is_senior_member
+  entity: Person
+  dtype: Boolean
+  period: Month
+rules:
+- name: senior_membership_transition_at_month_end_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 44, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44
+          excerpt: Et medlem, som har nået folkepensionsalderen, jf. lov om social
+            pension, kan overgå til et seniormedlemskab ved udgangen af den måned,
+            hvor medlemmet har nået folkepensionsalderen.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'person_is_member_of_an_unemployment_insurance_fund
+
+      and person_has_reached_folkepension_age'
+- name: senior_membership_admission_available
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 44, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44
+          excerpt: En person, som ikke er medlem af en arbejdsløshedskasse, og som
+            har nået folkepensionsalderen, jf. lov om social pension, kan optages
+            som seniormedlem.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'not person_is_member_of_an_unemployment_insurance_fund
+
+      and person_has_reached_folkepension_age'
+- name: senior_member_entitled_to_unemployment_benefits
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 44, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44
+          excerpt: Et seniormedlem har ikke ret til dagpenge
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'false'
+- name: senior_member_entitled_to_other_benefits_under_this_act
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 44, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44
+          excerpt: eller andre ydelser efter denne lov.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: 'false'
+- name: senior_member_entitled_to_job_search_assistance
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 44, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44
+          excerpt: Et seniormedlem har ret til hjælp til jobsøgning af arbejdsløshedskassen.
+  versions:
+  - effective_from: '2025-08-28'
+    formula: person_is_senior_member
+- name: senior_member_payment_obligation_limited_to_administration_contribution
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Month
+  source: § 44, stk. 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44
+          excerpt: Et seniormedlem skal kun betale administrationsbidrag til arbejdsløshedskassen
+  versions:
+  - effective_from: '2025-08-28'
+    formula: person_is_senior_member

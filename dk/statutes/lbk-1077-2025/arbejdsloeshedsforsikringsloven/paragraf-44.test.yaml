@@ -1,0 +1,71 @@
+- name: member_at_folkepension_age_can_transition_at_month_end
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_member_of_an_unemployment_insurance_fund
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_has_reached_folkepension_age: true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_membership_transition_at_month_end_available: holds
+- name: nonmember_cannot_use_member_transition_path
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_member_of_an_unemployment_insurance_fund
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_has_reached_folkepension_age: true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_membership_transition_at_month_end_available: not_holds
+- name: member_below_folkepension_age_cannot_transition
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_member_of_an_unemployment_insurance_fund
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_has_reached_folkepension_age: false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_membership_transition_at_month_end_available: not_holds
+- name: nonmember_at_folkepension_age_can_be_admitted
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_member_of_an_unemployment_insurance_fund
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_has_reached_folkepension_age: true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_membership_admission_available: holds
+- name: member_cannot_use_nonmember_admission_path
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_member_of_an_unemployment_insurance_fund
+    : true
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_has_reached_folkepension_age: true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_membership_admission_available: not_holds
+- name: nonmember_below_folkepension_age_cannot_be_admitted
+  period: 2025-09
+  input:
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_member_of_an_unemployment_insurance_fund
+    : false
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_has_reached_folkepension_age: false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_membership_admission_available: not_holds
+- name: senior_member_has_no_benefit_entitlements_under_the_act
+  period: 2025-09
+  input: {}
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_member_entitled_to_unemployment_benefits: not_holds
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_member_entitled_to_other_benefits_under_this_act
+    : not_holds
+- name: senior_member_has_job_search_assistance_and_limited_payment_obligation
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_senior_member: true
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_member_entitled_to_job_search_assistance: holds
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_member_payment_obligation_limited_to_administration_contribution
+    : holds
+- name: nonsenior_member_has_no_senior_member_rights_or_limited_payment_obligation
+  period: 2025-09
+  input:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#input.person_is_senior_member: false
+  output:
+    dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_member_entitled_to_job_search_assistance: not_holds
+    ? dk:statutes/lbk-1077-2025/arbejdsloeshedsforsikringsloven/paragraf-44#senior_member_payment_obligation_limited_to_administration_contribution
+    : not_holds
