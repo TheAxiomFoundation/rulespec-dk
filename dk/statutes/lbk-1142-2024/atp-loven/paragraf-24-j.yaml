@@ -1,0 +1,126 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+    source_sha256: 1bcb10a28428f62b2089f59f26e14b3016268b5b1274ceccaf19dd74b7ccd7cb
+  summary: Ved fratrædelsesgodtgørelse forstås enhver form for betaling, som modtageren
+    opnår ret til i forbindelse med sin fratrædelse, og som ikke udgør løn eller værdi
+    af personalegoder i opsigelsesperioden, rimelig kompensation for konkurrenceklausuler
+    eller kundeklausuler eller følger af præceptiv lovgivning.
+inputs:
+- name: payment_recipient_entitled_in_connection_with_termination
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_wages_during_notice_period
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_value_of_employee_benefits_during_notice_period
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_reasonable_compensation_for_non_compete_clause
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_is_reasonable_compensation_for_customer_clause
+  entity: Payment
+  dtype: Boolean
+  period: Month
+- name: payment_follows_mandatory_legislation
+  entity: Payment
+  dtype: Boolean
+  period: Month
+rules:
+- name: wages_and_employee_benefits_exclusion_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 24 j, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+          excerpt: 1) udgør løn eller værdi af personalegoder i opsigelsesperioden
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '1'
+- name: restrictive_clause_compensation_exclusion_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 24 j, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+          excerpt: 2) udgør rimelig kompensation for påtagelse af konkurrenceklausuler
+            eller kundeklausuler
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '2'
+- name: mandatory_legislation_exclusion_number
+  kind: parameter
+  dtype: Integer
+  source: ATP-loven § 24 j, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+          excerpt: 3) følger af præceptiv lovgivning
+  versions:
+  - effective_from: '2024-11-01'
+    formula: '3'
+- name: severance_payment
+  kind: derived
+  entity: Payment
+  dtype: Judgment
+  period: Month
+  source: ATP-loven § 24 j
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+          excerpt: Ved fratrædelsesgodtgørelse forstås enhver form for betaling
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+          excerpt: som ikke 1) udgør løn eller værdi af personalegoder i opsigelsesperioden
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+          excerpt: 2) udgør rimelig kompensation for påtagelse af konkurrenceklausuler
+            eller kundeklausuler
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1142-2024/atp-loven/paragraf-24-j
+          excerpt: 3) følger af præceptiv lovgivning
+  versions:
+  - effective_from: '2024-11-01'
+    formula: 'payment_recipient_entitled_in_connection_with_termination
+
+      and not payment_is_wages_during_notice_period
+
+      and not payment_is_value_of_employee_benefits_during_notice_period
+
+      and not payment_is_reasonable_compensation_for_non_compete_clause
+
+      and not payment_is_reasonable_compensation_for_customer_clause
+
+      and not payment_follows_mandatory_legislation'
