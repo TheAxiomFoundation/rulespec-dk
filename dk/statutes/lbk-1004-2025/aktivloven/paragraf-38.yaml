@@ -1,0 +1,81 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-38
+    source_sha256: 02faf5caa6e97ed0a002b191d9529658683d6c589368578e12db74c2075579e3
+  summary: '"Hvis en person, der ansøger om eller modtager hjælp, har undladt at tilmelde
+    sig som jobsøgende i jobcenteret, jf. § 8 a, stk. 1 eller 2, eller har undladt
+    at registrere cv-oplysninger på Jobnet, jf. § 13 a, stk. 2, foretager kommunen
+    fradrag i hjælpen ... medmindre den manglende tilmelding og registrering af cv-oplysninger
+    ikke skyldes personens forhold."'
+inputs:
+- name: person_applies_for_or_receives_assistance
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_is_not_registered_as_jobseeker_in_jobcenter
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: person_has_not_registered_cv_information_on_jobnet
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: missing_registration_is_due_to_persons_circumstances
+  entity: Person
+  dtype: Boolean
+  period: Day
+rules:
+- name: alternative_jobseeker_registration_subsection
+  kind: parameter
+  dtype: Integer
+  period: Day
+  source: § 38
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-38
+          excerpt: jf. § 8 a, stk. 1 eller 2
+  versions:
+  - effective_from: '2025-06-30'
+    formula: '2'
+- name: assistance_deduction_required_for_day
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 38
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-38
+          excerpt: Hvis en person, der ansøger om eller modtager hjælp, har undladt
+            at tilmelde sig som jobsøgende i jobcenteret, jf. § 8 a, stk. 1 eller
+            2, eller har undladt at registrere cv-oplysninger på Jobnet, jf. § 13
+            a, stk. 2, foretager kommunen fradrag i hjælpen til den pågældende for
+            de dage, hvor den pågældende ikke har været tilmeldt, eller hvor cv-oplysningerne
+            ikke har været registreret, medmindre den manglende tilmelding og registrering
+            af cv-oplysninger ikke skyldes personens forhold.
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-38
+          excerpt: Hvis en person, der ansøger om eller modtager hjælp
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1004-2025/aktivloven/paragraf-38
+          excerpt: medmindre den manglende tilmelding og registrering af cv-oplysninger
+            ikke skyldes personens forhold.
+  versions:
+  - effective_from: '2025-06-30'
+    formula: "person_applies_for_or_receives_assistance\nand (\n  person_is_not_registered_as_jobseeker_in_jobcenter\n\
+      \  or person_has_not_registered_cv_information_on_jobnet\n)\nand missing_registration_is_due_to_persons_circumstances"
