@@ -1,0 +1,129 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+    source_sha256: 8966a58b56be20830024dbf118368dd4fe868e9648e4fa39ed82c3ab4dcadd60
+  summary: '§ 4, stk. 1: Grundlaget udgør den personlige indkomst ved selvstændig
+    virksomhed for selvstændigt erhvervsdrivende, som ikke anvender virksomhedsordningen;
+    biblioteksafgift medregnes ikke. Stk. 2: pensionsbidrag/-præmier og bidrag efter
+    loven fragår ikke. Stk. 3: fremført negativ personlig indkomst fragår, bortset
+    fra den del der hidrører fra pensionsbidrag/-præmier.'
+inputs:
+- name: uses_business_scheme
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: personal_income_from_self_employment
+  entity: Person
+  dtype: Money
+  period: Year
+- name: library_fee_payments_in_personal_income
+  entity: Person
+  dtype: Money
+  period: Year
+- name: negative_personal_income_carried_forward
+  entity: Person
+  dtype: Money
+  period: Year
+- name: pension_related_portion_of_carried_forward_negative_income
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: contribution_base_under_section_4_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 4, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+          excerpt: selvstændigt erhvervsdrivende, som ikke anvender virksomhedsordningen
+  versions:
+  - effective_from: '2020-02-07'
+    formula: not uses_business_scheme
+- name: deductible_carried_forward_negative_personal_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 4, stk. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+          excerpt: Negativ personlig indkomst, der er fremført efter personskattelovens
+            § 13, stk.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+          excerpt: Den del af den fremførte negative personlige indkomst, der hidrører
+            fra bidrag og præmier til pensionsordninger m.v. som nævnt i pensionsbeskatningslovens
+            § 18, fragår dog ikke.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: negative_personal_income_carried_forward - pension_related_portion_of_carried_forward_negative_income
+- name: pension_contributions_do_not_reduce_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 4, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+          excerpt: Bidrag og præmier til pensionsordninger m.v. i samme omfang som
+            nævnt i pensionsbeskatningslovens § 18 samt bidrag efter denne lov fragår
+            ikke ved opgørelsen af grundlaget for arbejdsmarkedsbidraget.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: 'true'
+- name: self_employment_contribution_base
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Arbejdsmarkedsbidragsloven § 4, stk. 1 og 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+          excerpt: Grundlaget for arbejdsmarkedsbidrag for selvstændigt erhvervsdrivende,
+            som ikke anvender virksomhedsordningen i virksomhedsskattelovens afsnit
+            I, udgør den personlige indkomst ved selvstændig virksomhed, jf. personskattelovens
+            § 3.
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+          excerpt: Ydelser i henhold til lov om biblioteksafgift medregnes ikke i
+            grundlaget.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-121-2020/arbejdsmarkedsbidragsloven/paragraf-4
+          excerpt: Negativ personlig indkomst, der er fremført efter personskattelovens
+            § 13, stk.
+  versions:
+  - effective_from: '2020-02-07'
+    formula: "if contribution_base_under_section_4_applies:\n  personal_income_from_self_employment\n\
+      \  - library_fee_payments_in_personal_income\n  - deductible_carried_forward_negative_personal_income\n\
+      else: 0"
