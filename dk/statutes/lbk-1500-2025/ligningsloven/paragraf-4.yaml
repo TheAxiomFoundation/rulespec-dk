@@ -1,0 +1,30 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-4
+    source_sha256: 47c6653008d9044d6ab74eb2e72aa4272001ef684408e736ad06c6c6f96edd7e
+  summary: Deltagelse i et skattemæssigt transparent selskab er ikke i sig selv tilstrækkeligt
+    til, at deltagerens indkomst fra selskabet kan anses for indkomst ved selvstændig
+    erhvervsvirksomhed.
+rules:
+- name: participation_alone_suffices_for_self_employment_income
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Ligningsloven § 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-4
+          excerpt: Deltagelse i et skattemæssigt transparent selskab er ikke i sig
+            selv tilstrækkeligt til, at deltagerens indkomst fra det skattemæssigt
+            transparente selskab kan anses for indkomst ved selvstændig erhvervsvirksomhed.
+  versions:
+  - effective_from: '2025-11-24'
+    formula: 'false'
