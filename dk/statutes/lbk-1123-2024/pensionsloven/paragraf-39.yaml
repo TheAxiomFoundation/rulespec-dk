@@ -1,0 +1,435 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+    source_sha256: 0333859bcfe9ab271c69aee6692a5108a39a972cc9d65ed318a3c8eaa54a4c92
+  summary: § 39. Pensionen fastsættes hver 1. januar på grundlag af indtægten opgjort
+    efter §§ 29 og 32 a. Stk. 2-6 fastsætter situationer, virkningstidspunkter og
+    opgørelsesperioder for omregning. Stk. 7 fastsætter betingelser for efterbetaling
+    af supplerende pensionsydelse.
+rules:
+- name: pension_determination_january_day_number
+  kind: parameter
+  dtype: Integer
+  source: § 39, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: hver 1. januar
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '1'
+- name: personal_change_recalculation_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 39, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: 2) der sker en ændring af de personlige forhold
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '2'
+- name: death_recalculation_item_number
+  kind: parameter
+  dtype: Integer
+  source: § 39, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: 3) pensionistens ægtefælle eller samlever dør
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '3'
+- name: supplementary_pension_wealth_information_deadline_months
+  kind: parameter
+  dtype: Count
+  source: § 39, stk. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: inden 6 måneder efter udgangen af januar
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '6'
+- name: income_basis_second_referenced_section_number
+  kind: parameter
+  dtype: Integer
+  source: § 39, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: indtægten opgjort efter §§ 29 og 32 a
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '32'
+- name: pension_fixed_on_january_1
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Pensionen fastsættes hver 1. januar på grundlag af indtægten opgjort
+            efter §§ 29 og 32 a.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'day_is_january_1
+
+      and income_basis_under_sections_29_and_32_a_is_available'
+- name: recalculation_due_to_income_change
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 2, nr. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Pensionen i kalenderåret omregnes i løbet af året, hvis 1) det
+            månedligt opgjorte indtægtsgrundlag afviger fra det hidtil anvendte indtægtsgrundlag
+            og en beregning på grundlag af det opgjorte indtægtsgrundlag fører til
+            en ændring af pensionens størrelse eller 2) der sker en ændring af de
+            personlige forhold, som har betydning for beregningen af pensionen, eller
+            3) pensionistens ægtefælle eller samlever dør og dødsfaldet har betydning
+            for beregningen af pensionen.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'monthly_income_basis_differs_from_previously_used_basis
+
+      and recalculation_using_monthly_income_basis_changes_pension_amount'
+- name: recalculation_due_to_personal_change
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 2, nr. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: der sker en ændring af de personlige forhold, som har betydning
+            for beregningen af pensionen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: personal_circumstances_have_changed_with_significance_for_pension_calculation
+- name: recalculation_due_to_spouse_or_cohabitant_death
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 2, nr. 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: pensionistens ægtefælle eller samlever dør og dødsfaldet har betydning
+            for beregningen af pensionen
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'spouse_or_cohabitant_has_died
+
+      and spouse_or_cohabitant_death_has_significance_for_pension_calculation'
+- name: pension_recalculation_required_during_calendar_year
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Pensionen i kalenderåret omregnes i løbet af året, hvis 1) det
+            månedligt opgjorte indtægtsgrundlag afviger fra det hidtil anvendte indtægtsgrundlag
+            og en beregning på grundlag af det opgjorte indtægtsgrundlag fører til
+            en ændring af pensionens størrelse eller 2) der sker en ændring af de
+            personlige forhold, som har betydning for beregningen af pensionen, eller
+            3) pensionistens ægtefælle eller samlever dør og dødsfaldet har betydning
+            for beregningen af pensionen.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'recalculation_due_to_income_change
+
+      or recalculation_due_to_personal_change
+
+      or recalculation_due_to_spouse_or_cohabitant_death'
+- name: income_recalculation_effective_for_entire_assessment_period
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 3, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Omregning efter stk. 2, nr. 1, sker med virkning for hele opgørelsesperioden.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'recalculation_due_to_income_change
+
+      and day_is_in_entire_income_recalculation_assessment_period'
+- name: health_supplement_recalculation_effective_from_next_month
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 3, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Helbredstillæg omregnes dog kun med virkning fra den 1. i førstkommende
+            måned
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'recalculation_due_to_income_change
+
+      and day_is_first_of_next_month_when_pension_is_calculated_on_new_income_basis'
+- name: personal_change_recalculation_effective_from_next_month
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 4
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Omregning efter stk. 2, nr. 2, sker med virkning fra den 1. i måneden
+            efter de ændrede forhold
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'recalculation_due_to_personal_change
+
+      and day_is_first_of_month_after_changed_personal_circumstances
+
+      and pensioner_knew_or_should_have_known_recalculation_was_required'
+- name: death_recalculation_effective_day_after_death
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 5, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Omregning efter stk. 2, nr. 3, sker med virkning fra dagen efter
+            pensionistens ægtefælles eller samlevers dødsfald.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'recalculation_due_to_spouse_or_cohabitant_death
+
+      and day_is_day_after_spouse_or_cohabitant_death'
+- name: survivor_pension_recalculation_effective_after_survivor_pension_ceases
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 5, 2. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: effective_period
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: For en efterlevende ægtefælle eller samlever, der modtager efterlevelsespension,
+            omregnes pensionen med virkning fra dagen efter ophør af udbetaling af
+            efterlevelsespension
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'surviving_spouse_or_cohabitant_receives_survivor_pension
+
+      and day_is_day_after_survivor_pension_payment_ceases'
+- name: recalculated_income_assessment_period_runs_to_calendar_year_end
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Day
+  source: § 39, stk. 6
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Stk. 6. Ved omregning af pension efter stk. 2, nr. 2 og 3, ændres
+            opgørelsesperioden for indtægtsgrundlaget til perioden fra det tidspunkt,
+            som pensionen omregnes med virkning fra, til kalenderårets udgang.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '(recalculation_due_to_personal_change
+
+      or recalculation_due_to_spouse_or_cohabitant_death)
+
+      and assessment_period_runs_from_recalculation_effective_date_to_calendar_year_end'
+- name: supplementary_pension_benefit_must_be_repaid
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 39, stk. 7
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Den supplerende pensionsydelse efterbetales, hvis Udbetaling Danmark
+            inden 6 måneder efter udgangen af januar modtager nye oplysninger
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'new_wealth_information_received_within_six_months_after_end_of_january
+
+      and wealth_at_january_1_did_not_exceed_wealth_limit
+
+      and other_conditions_for_supplementary_pension_benefit_are_met'
+- name: minister_may_set_information_rules_for_pension_determination_and_recalculation
+  kind: derived
+  entity: Beskaeftigelsesminister
+  dtype: Judgment
+  period: Year
+  source: § 39, stk. 8
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-39
+          excerpt: Beskæftigelsesministeren kan fastsætte regler, der sikrer, at Udbetaling
+            Danmark og kommunalbestyrelsen modtager oplysninger
+  versions:
+  - effective_from: '2024-10-21'
+    formula: 'true'
+inputs:
+- name: day_is_january_1
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: income_basis_under_sections_29_and_32_a_is_available
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: monthly_income_basis_differs_from_previously_used_basis
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: recalculation_using_monthly_income_basis_changes_pension_amount
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: personal_circumstances_have_changed_with_significance_for_pension_calculation
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: spouse_or_cohabitant_has_died
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: spouse_or_cohabitant_death_has_significance_for_pension_calculation
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_in_entire_income_recalculation_assessment_period
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_first_of_next_month_when_pension_is_calculated_on_new_income_basis
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_first_of_month_after_changed_personal_circumstances
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: pensioner_knew_or_should_have_known_recalculation_was_required
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_day_after_spouse_or_cohabitant_death
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: surviving_spouse_or_cohabitant_receives_survivor_pension
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: day_is_day_after_survivor_pension_payment_ceases
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: assessment_period_runs_from_recalculation_effective_date_to_calendar_year_end
+  entity: Person
+  dtype: Boolean
+  period: Day
+- name: new_wealth_information_received_within_six_months_after_end_of_january
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: wealth_at_january_1_did_not_exceed_wealth_limit
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: other_conditions_for_supplementary_pension_benefit_are_met
+  entity: Person
+  dtype: Boolean
+  period: Year
