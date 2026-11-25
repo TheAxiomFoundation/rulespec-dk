@@ -1,0 +1,82 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-g
+    source_sha256: 7923562e2a25b20c36ad30993423f3a6e2d704e74468193c264991e3eff85af1
+  summary: Til den skattepligtige indkomst medregnes ikke udlodning af beløb fra en
+    andelsboligforening til andelshaverne, i det omfang beløbet hidrører fra et tilskud
+    i henhold til byfornyelses- og boligforbedringslovens § 56, stk. 1, eller saneringslovens
+    § 64 c eller lov om byfornyelse § 161, stk. 1.
+inputs:
+- name: distribution_amount_from_housing_cooperative
+  entity: Person
+  dtype: Money
+  period: Year
+- name: distribution_is_from_housing_cooperative
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: recipient_is_shareholder_of_housing_cooperative
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: distribution_amount_derived_from_urban_renewal_grant
+  entity: Person
+  dtype: Money
+  period: Year
+rules:
+- name: tax_exempt_distribution_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 7 G
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-g
+          excerpt: Til den skattepligtige indkomst medregnes ikke udlodning af beløb
+            fra en andelsboligforening til andelshaverne, i det omfang beløbet hidrører
+            fra et tilskud
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-g
+          excerpt: i henhold til byfornyelses- og boligforbedringslovens § 56, stk.
+            1, eller saneringslovens § 64 c eller lov om byfornyelse § 161, stk. 1
+  versions:
+  - effective_from: '2025-11-24'
+    formula: "if distribution_is_from_housing_cooperative and recipient_is_shareholder_of_housing_cooperative:\n\
+      \  min(\n    max(0, distribution_amount_from_housing_cooperative),\n    max(0,\
+      \ distribution_amount_derived_from_urban_renewal_grant)\n  )\nelse: 0"
+- name: taxable_distribution_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Ligningsloven § 7 G
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1500-2025/ligningsloven/paragraf-7-g
+          excerpt: Til den skattepligtige indkomst medregnes ikke udlodning af beløb
+            fra en andelsboligforening til andelshaverne, i det omfang beløbet hidrører
+            fra et tilskud i henhold til byfornyelses- og boligforbedringslovens §
+            56, stk.
+      - path: versions[0].formula
+        kind: import
+        import:
+          target: dk:statutes/lbk-1500-2025/ligningsloven/paragraf-7-g#tax_exempt_distribution_amount
+          output: tax_exempt_distribution_amount
+          hash: sha256:local
+  versions:
+  - effective_from: '2025-11-24'
+    formula: max(0, distribution_amount_from_housing_cooperative - tax_exempt_distribution_amount)
