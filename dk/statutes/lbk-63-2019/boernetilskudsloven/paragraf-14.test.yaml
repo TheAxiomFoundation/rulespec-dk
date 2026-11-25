@@ -1,0 +1,24 @@
+- name: contribution_below_normal_contribution_is_advanced_in_full
+  period: 2019-02
+  tables:
+    Payment:
+    - dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#input.contribution_amount_fixed_under_child_maintenance_act: 100
+      dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#input.special_child_allowance_amount_under_section_4_subsection_3: 80
+      dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#input.supplement_amount_under_section_4_subsection_5: 40
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#normal_contribution:
+    - 120
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#advance_payment_amount:
+    - 100
+- name: contribution_above_normal_contribution_is_capped
+  period: 2019-02
+  tables:
+    Payment:
+    - dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#input.contribution_amount_fixed_under_child_maintenance_act: 150
+      dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#input.special_child_allowance_amount_under_section_4_subsection_3: 80
+      dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#input.supplement_amount_under_section_4_subsection_5: 40
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#normal_contribution:
+    - 120
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-14#advance_payment_amount:
+    - 120

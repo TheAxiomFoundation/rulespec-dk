@@ -1,0 +1,78 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-14
+    source_sha256: 2951e368596467f3068d1941dec461204164819cd65ee156f4737782eef16089
+  summary: '"Bidrag kan kræves udbetalt forskudsvis ... dog højst med normalbidraget."
+
+    "Normalbidraget udgøres af summen af et grundbeløb og et tillæg."'
+inputs:
+- name: contribution_amount_fixed_under_child_maintenance_act
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: special_child_allowance_amount_under_section_4_subsection_3
+  entity: Payment
+  dtype: Money
+  period: Month
+- name: supplement_amount_under_section_4_subsection_5
+  entity: Payment
+  dtype: Money
+  period: Month
+rules:
+- name: normal_contribution
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  source: § 14, 2.-4. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-14
+          excerpt: Normalbidraget udgøres af summen af et grundbeløb og et tillæg.
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-14
+          excerpt: Grundbeløbet svarer til det særlige børnetilskud efter § 4, stk.
+            3.
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-14
+          excerpt: Tillægget svarer til det tillæg, der er fastsat efter § 4, stk.
+            5.
+  versions:
+  - effective_from: '2019-01-21'
+    formula: 'special_child_allowance_amount_under_section_4_subsection_3
+
+      + supplement_amount_under_section_4_subsection_5'
+- name: advance_payment_amount
+  kind: derived
+  entity: Payment
+  dtype: Money
+  period: Month
+  source: § 14, 1. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-14
+          excerpt: Bidrag kan kræves udbetalt forskudsvis med det beløb, der er fastsat
+            efter lov om børns forsørgelse, dog højst med normalbidraget.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-14
+          excerpt: med det beløb, der er fastsat efter lov om børns forsørgelse
+  versions:
+  - effective_from: '2019-01-21'
+    formula: min(contribution_amount_fixed_under_child_maintenance_act, normal_contribution)
