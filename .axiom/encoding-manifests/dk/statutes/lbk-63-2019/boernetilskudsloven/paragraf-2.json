@@ -1,0 +1,96 @@
+{
+  "applied_files": [
+    {
+      "path": "dk/statutes/lbk-63-2019/boernetilskudsloven/paragraf-2.yaml",
+      "sha256": "9b33dfd652baa73cb56bb98b0a667f498f3327bc2f0041023ef32b38d8c283e6"
+    },
+    {
+      "path": "dk/statutes/lbk-63-2019/boernetilskudsloven/paragraf-2.test.yaml",
+      "sha256": "2c4c9ab2199be89448da98ded5c13df1f2f152b43bd148621db924699a5b91b2"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+    "dirty_tracked": false,
+    "identity_source": "trusted-runtime-attestation",
+    "root": "/opt/axiom-verification/python/runtime-attestation.json",
+    "version": "0.2.1750",
+    "version_commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21"
+  },
+  "axiom_encode_version": "0.2.1750",
+  "backend": "openai",
+  "citation": "dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2",
+  "context_manifest_file": "/home/runner/work/_temp/generated/target/_eval_workspaces/openai-gpt-5.6-terra/dk-statute-lbk-63-2019-boernetilskudsloven-paragraf-2/workspace/context-manifest.json",
+  "context_manifest_sha256": "b6b73bbf74691be6aa190bf60799e7ad49aa3ff914da203af3dbf485be2dce04",
+  "generated_at": "2026-08-30T22:46:18.032966+00:00",
+  "generated_output_file": "/home/runner/work/_temp/generated/target/openai-gpt-5.6-terra/statutes/lbk-63-2019/boernetilskudsloven/paragraf-2.yaml",
+  "generated_output_root": "/home/runner/work/_temp/generated/target",
+  "generated_output_sha256": "9b33dfd652baa73cb56bb98b0a667f498f3327bc2f0041023ef32b38d8c283e6",
+  "generation_prompt_sha256": "c23624d9f171bc0b1f0e10e7faf0a659531f356926b3d699d58d7298880f1b15",
+  "model": "gpt-5.6-terra",
+  "run_id": "ef56d20a",
+  "runner": "openai-gpt-5.6-terra",
+  "schema_version": "axiom-encode/applied-rulespec/v5",
+  "signature": {
+    "algorithm": "ed25519-domain-v1",
+    "key_id": "sha256:24a78725a23b1c83cfc38bdc22f75401d8008e7a8477796b55179d1fc79c4d9a",
+    "value": "4Dk5kxReFzepnmn07bxky1Bp9gh7UIxbljcUYNZ/rvcCHkU978TOh7kZWTu2ScKmVkJWtEPx5SBmXN2gXoflAw=="
+  },
+  "source_attestation": {
+    "component_rows": [],
+    "corpus_release": "dk-rulespec-2026-08-07",
+    "corpus_release_content_sha256": "7394b96067bd10a83497ab739758e6442a41a0a70e531c6fec4dad6442386c31",
+    "corpus_release_selector_sha256": "0d9e3e02d05e0d36b45a16545ebe80b2f26f990ec1064a2d17a75831d4b6bb3d",
+    "corpus_source": "local",
+    "expression_date": "2019-01-21",
+    "generation_input_sha256": "4b1cdf8b14bc7ccdda973633b104c28e61c6e5c495d58fa665bea2f4aeb45c7e",
+    "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+    "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+    "requested_corpus_citation_path": "dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2",
+    "resolved_corpus_citation_path": "dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2",
+    "resolved_text_sha256": "4b1cdf8b14bc7ccdda973633b104c28e61c6e5c495d58fa665bea2f4aeb45c7e",
+    "row": {
+      "body_sha256": "4b1cdf8b14bc7ccdda973633b104c28e61c6e5c495d58fa665bea2f4aeb45c7e",
+      "citation_path": "dk/statute/lbk-63-2019/boernetilskudsloven/paragraf-2",
+      "document_class": "statute",
+      "expression_date": "2019-01-21",
+      "jurisdiction": "dk",
+      "line_number": 73,
+      "provision_file": "data/corpus/provisions/dk/statute/2026-08-04-dk-full-parity-tier1.jsonl",
+      "provision_file_sha256": "97d79e082953e59aa396b957862daff72b4a8d2b4ad7dc69d0aa78f68a71686b",
+      "record_id": "84623145-dd8d-55ed-a7d7-c0e6359f6eeb",
+      "source_as_of": "2026-08-04",
+      "source_path": "sources/dk/statute/2026-08-04-dk-full-parity-tier1/eli/dk-lbk-63-2019-boernetilskudsloven.xml",
+      "version": "2026-08-04-dk-full-parity-tier1"
+    },
+    "rulespec_root": "rulespec-dk/dk",
+    "source_as_of": "2026-08-04",
+    "source_sha256": "4b1cdf8b14bc7ccdda973633b104c28e61c6e5c495d58fa665bea2f4aeb45c7e"
+  },
+  "tool": "axiom-encode encode --apply",
+  "trace_file": "/home/runner/work/_temp/generated/target/traces/openai-gpt-5.6-terra/dk-statute-lbk-63-2019-boernetilskudsloven-paragraf-2.json",
+  "trace_sha256": "e3c37abf3319c1bb39d03316033762d2dbdfc5ce36810517900a92e3baae5aea",
+  "validation_execution": {
+    "axiom_encode": {
+      "commit": "f1bfe0a47ee7a9123d56e00a5c41edb6f272ea21",
+      "identity_source": "trusted-runtime-attestation",
+      "repository": "github.com/TheAxiomFoundation/axiom-encode",
+      "version": "0.2.1750"
+    },
+    "axiom_rules_engine": {
+      "commit": "fb735bf47a32a4e8af1ecc144c9a1ab382da984b",
+      "repository": "github.com/TheAxiomFoundation/axiom-rules-engine"
+    },
+    "policy_pre_apply": {
+      "pre_apply_content_sha256": "95028de0d3f554b00a2b78d3b89aaab7a074b9f1e52bc2ae2dcfb1ddf8934a35",
+      "pre_apply_file_count": 29,
+      "rulespec_root": "rulespec-dk/dk",
+      "toolchain_contract_sha256": "6f3a6d1f68709e96fe1eabb6a68ceb78b84282307ab978f50f6b34d249d0dd6a",
+      "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+    },
+    "rulespec_dependencies": [],
+    "rulespec_scope": "full_checkout",
+    "schema": "axiom-encode/apply-validation-execution/v2"
+  },
+  "validation_waiver_set_sha256": "ad8449aaad58bf41309d80ee2b59e62f25341480e97c5be73a7f6cd724d514f9"
+}

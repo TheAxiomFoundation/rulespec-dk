@@ -1,0 +1,126 @@
+- name: single_custody_holder_path
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_has_custody_holder_with_sole_or_joint_custody: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.custody_holder_is_single_and_not_living_in_cohabitation: true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+    : false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_resides_equally_with_both_custody_holders: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_registered_with_non_single_custody_holder: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.one_spouse_is_incarcerated_for_more_than_three_months: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.other_spouse_is_single_and_not_living_in_cohabitation: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.both_parents_receive_folkepension: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.folkepension_not_paid_because_social_pension_act_section_46_applies
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#eligible_for_ordinary_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#ordinary_child_supplement: 3692
+- name: equal_residence_path
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_has_custody_holder_with_sole_or_joint_custody: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.custody_holder_is_single_and_not_living_in_cohabitation: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+    : true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_resides_equally_with_both_custody_holders: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_registered_with_non_single_custody_holder: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.one_spouse_is_incarcerated_for_more_than_three_months: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.other_spouse_is_single_and_not_living_in_cohabitation: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.both_parents_receive_folkepension: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.folkepension_not_paid_because_social_pension_act_section_46_applies
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#eligible_for_ordinary_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#ordinary_child_supplement: 3692
+- name: equal_residence_registry_exception
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_has_custody_holder_with_sole_or_joint_custody: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.custody_holder_is_single_and_not_living_in_cohabitation: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+    : true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_resides_equally_with_both_custody_holders: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_registered_with_non_single_custody_holder: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.one_spouse_is_incarcerated_for_more_than_three_months: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.other_spouse_is_single_and_not_living_in_cohabitation: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.both_parents_receive_folkepension: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.folkepension_not_paid_because_social_pension_act_section_46_applies
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#eligible_for_ordinary_child_supplement: not_holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#ordinary_child_supplement: 0
+- name: incarcerated_spouse_path
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_has_custody_holder_with_sole_or_joint_custody: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.custody_holder_is_single_and_not_living_in_cohabitation: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+    : false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_resides_equally_with_both_custody_holders: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_registered_with_non_single_custody_holder: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.one_spouse_is_incarcerated_for_more_than_three_months: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.other_spouse_is_single_and_not_living_in_cohabitation: true
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.both_parents_receive_folkepension: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.folkepension_not_paid_because_social_pension_act_section_46_applies
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#eligible_for_ordinary_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#ordinary_child_supplement: 3692
+- name: both_parents_folkepension_path
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_has_custody_holder_with_sole_or_joint_custody: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.custody_holder_is_single_and_not_living_in_cohabitation: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+    : false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_resides_equally_with_both_custody_holders: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_registered_with_non_single_custody_holder: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.one_spouse_is_incarcerated_for_more_than_three_months: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.other_spouse_is_single_and_not_living_in_cohabitation: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.both_parents_receive_folkepension: true
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.folkepension_not_paid_because_social_pension_act_section_46_applies
+    : false
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#eligible_for_ordinary_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#ordinary_child_supplement: 3692
+- name: social_pension_act_section_46_path
+  period:
+    period_kind: custom
+    name: calendar_year
+    start: '2019-01-21'
+    end: '2019-01-21'
+  input:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_has_custody_holder_with_sole_or_joint_custody: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.custody_holder_is_single_and_not_living_in_cohabitation: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.at_least_one_custody_holder_is_single_and_not_living_in_cohabitation
+    : false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_resides_equally_with_both_custody_holders: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.child_registered_with_non_single_custody_holder: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.one_spouse_is_incarcerated_for_more_than_three_months: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.other_spouse_is_single_and_not_living_in_cohabitation: false
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.both_parents_receive_folkepension: false
+    ? dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#input.folkepension_not_paid_because_social_pension_act_section_46_applies
+    : true
+  output:
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#eligible_for_ordinary_child_supplement: holds
+    dk:statutes/lbk-63-2019/boernetilskudsloven/paragraf-2#ordinary_child_supplement: 3692
