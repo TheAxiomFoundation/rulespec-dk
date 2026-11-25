@@ -1,0 +1,68 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-4-b
+    source_sha256: 97fc5d9d0e11ebe0bd9b40681697e4ca9a687a091649364cdef1e22e2334c12b
+  summary: '§ 4 b, stk. 1: "CFC-indkomst ... omfatter det samlede beløb af indkomst
+    som omhandlet i ligningslovens § 16 H og § 16 I, stk. 6 og 7."
+
+    Stk. 2: "CFC-indkomst indgår ikke i den skattepligtige indkomst ved beregning
+    af skat efter §§ 6-8 a."'
+inputs:
+- name: cfc_income_under_ligningsloven_section_16_h
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+- name: cfc_income_under_ligningsloven_section_16_i_subsections_6_and_7
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+rules:
+- name: cfc_income
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: DKK
+  period: Year
+  source: § 4 b, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: definition
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-4-b
+          excerpt: CFC-indkomst (Controlled Foreign Company) omfatter det samlede
+            beløb af indkomst som omhandlet i ligningslovens § 16 H og § 16 I, stk.
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-4-b
+          excerpt: ligningslovens § 16 H og § 16 I, stk. 6 og 7
+  versions:
+  - effective_from: '2021-06-14'
+    formula: 'cfc_income_under_ligningsloven_section_16_h
+
+      + cfc_income_under_ligningsloven_section_16_i_subsections_6_and_7'
+- name: cfc_income_included_in_taxable_income_for_sections_6_to_8_a
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: § 4 b, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: exception
+        source:
+          corpus_citation_path: dk/statute/lbk-1284-2021/personskatteloven/paragraf-4-b
+          excerpt: CFC-indkomst indgår ikke i den skattepligtige indkomst ved beregning
+            af skat efter §§ 6-8 a.
+  versions:
+  - effective_from: '2021-06-14'
+    formula: 'false'
