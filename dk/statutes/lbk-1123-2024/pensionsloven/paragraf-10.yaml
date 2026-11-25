@@ -1,0 +1,75 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-10
+    source_sha256: 960b36235ed7474383ea3b12c5484b85221dd7727d92d30ab77615840b1c0fac
+  summary: Kun bopælsperioder i optjeningsperioden medregnes. Flere bopælsperioder
+    sammenlægges, den samlede bopælstid afrundes til nærmeste hele antal måneder,
+    og en måned fastsættes til 30 dage.
+rules:
+- name: residence_time_in_earning_period_months
+  kind: derived
+  entity: Person
+  dtype: Count
+  period: Month
+  source: § 10, 1.-3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-10
+          excerpt: kun bopælsperioder i optjeningsperioden
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-10
+          excerpt: Flere bopælsperioder sammenlægges, og den samlede bopælstid afrundes
+            til nærmeste hele antal måneder.
+      - path: versions[0].formula
+        kind: unit
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-10
+          excerpt: En måned fastsættes til 30 dage.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: "floor(\n  (\n    sum_where(\n      residence_period_of_person,\n   \
+      \   residence_period_days,\n      residence_period_is_in_earning_period\n  \
+      \  )\n    + floor(days_per_month / 2)\n  )\n  / days_per_month\n)"
+- name: residence_period_of_person
+  kind: data_relation
+  source: § 10, 1. pkt.
+  data_relation:
+    predicate: residence_period_of_person
+    arity: 2
+    arguments:
+    - Person
+    - ResidencePeriod
+- name: days_per_month
+  kind: parameter
+  dtype: Count
+  period: Day
+  source: § 10, 3. pkt.
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: unit
+        source:
+          corpus_citation_path: dk/statute/lbk-1123-2024/pensionsloven/paragraf-10
+          excerpt: En måned fastsættes til 30 dage.
+  versions:
+  - effective_from: '2024-10-21'
+    formula: '30'
+inputs:
+- name: residence_period_days
+  entity: ResidencePeriod
+  dtype: Count
+  period: Day
+- name: residence_period_is_in_earning_period
+  entity: ResidencePeriod
+  dtype: Boolean
+  period: Day
