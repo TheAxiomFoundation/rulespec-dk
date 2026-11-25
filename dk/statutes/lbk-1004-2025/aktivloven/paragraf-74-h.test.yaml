@@ -1,0 +1,36 @@
+- name: right_retained_in_first_holiday_year
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.has_right_to_unemployment_benefit_during_holiday_under_section_74_e
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_first_after_unsubsidized_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_second_after_unsubsidized_employment: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#right_to_unemployment_benefit_during_holiday_is_retained: holds
+- name: right_retained_in_second_holiday_year
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.has_right_to_unemployment_benefit_during_holiday_under_section_74_e
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_first_after_unsubsidized_employment: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_second_after_unsubsidized_employment: true
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#right_to_unemployment_benefit_during_holiday_is_retained: holds
+- name: right_not_retained_without_holiday_entitlement
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.has_right_to_unemployment_benefit_during_holiday_under_section_74_e
+    : false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_first_after_unsubsidized_employment: true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_second_after_unsubsidized_employment: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#right_to_unemployment_benefit_during_holiday_is_retained: not_holds
+- name: right_not_retained_outside_first_or_second_holiday_year
+  period: 2025-07
+  input:
+    ? dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.has_right_to_unemployment_benefit_during_holiday_under_section_74_e
+    : true
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_first_after_unsubsidized_employment: false
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#input.holiday_year_is_second_after_unsubsidized_employment: false
+  output:
+    dk:statutes/lbk-1004-2025/aktivloven/paragraf-74-h#right_to_unemployment_benefit_during_holiday_is_retained: not_holds
