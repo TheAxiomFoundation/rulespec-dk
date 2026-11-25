@@ -1,0 +1,156 @@
+format: rulespec/v1
+rules:
+- name: covered_income_category_first_number
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Kildeskatteloven § 48 B, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: § 2, stk. 1, nr. 1 og 13-21
+  versions:
+  - effective_from: '2024-05-03'
+    formula: '13'
+- name: covered_income_category_last_number
+  kind: parameter
+  dtype: Integer
+  period: Year
+  source: Kildeskatteloven § 48 B, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: § 2, stk. 1, nr. 1 og 13-21
+  versions:
+  - effective_from: '2024-05-03'
+    formula: '21'
+- name: standard_tax_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: Kildeskatteloven § 48 B, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: beregnes skatten som 30 pct. af bruttoindtægten
+  versions:
+  - effective_from: '2024-05-03'
+    formula: '0.30'
+- name: contribution_adjusted_tax_rate
+  kind: parameter
+  dtype: Rate
+  period: Year
+  source: Kildeskatteloven § 48 B, stk. 2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: beregnes skatten som 30 pct. af bruttoindtægten beregnet efter
+            stk. 1 med fradrag
+  versions:
+  - effective_from: '2024-05-03'
+    formula: '0.30'
+- name: person_covered_by_section_48_b
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Kildeskatteloven § 48 B, stk. 1
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: predicate
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: For personer, der efter § 2, stk. 1, nr. 3, er skattepligtige
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: personer, som ansøger om opholdstilladelse efter udlændingelovens
+            § 7
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: erhverver indkomst omfattet af § 2, stk. 1, nr. 1 og 13-21
+  versions:
+  - effective_from: '2024-05-03'
+    formula: "person_is_taxable_on_remuneration_under_section_2_subsection_1_no_3\n\
+      or (\n  person_has_applied_for_residence_permit_under_aliens_act_section_7\n\
+      \  and person_earns_income_within_section_2_subsection_1_nos_1_and_13_to_21\n\
+      )"
+- name: tax_under_section_48_b
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  source: Kildeskatteloven § 48 B, stk. 1-2
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: beregnes skatten som 30 pct. af bruttoindtægten
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: med fradrag af de udenlandske obligatoriske sociale arbejdsgiverbidrag
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+          excerpt: som også er omfattet af ligningslovens § 8 M, stk. 5
+  versions:
+  - effective_from: '2024-05-03'
+    formula: "if person_covered_by_section_48_b:\n  if person_is_covered_by_ligningsloven_section_8_m_subsection_5:\n\
+      \    contribution_adjusted_tax_rate * (gross_income - foreign_mandatory_social_employer_contributions_borne_by_employee)\n\
+      \  else:\n    standard_tax_rate * gross_income\nelse:\n  0"
+inputs:
+- name: person_is_taxable_on_remuneration_under_section_2_subsection_1_no_3
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_has_applied_for_residence_permit_under_aliens_act_section_7
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_earns_income_within_section_2_subsection_1_nos_1_and_13_to_21
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: person_is_covered_by_ligningsloven_section_8_m_subsection_5
+  entity: Person
+  dtype: Boolean
+  period: Year
+- name: gross_income
+  entity: Person
+  dtype: Money
+  period: Year
+- name: foreign_mandatory_social_employer_contributions_borne_by_employee
+  entity: Person
+  dtype: Money
+  period: Year
+module:
+  source_verification:
+    corpus_citation_path: dk/statute/lbk-460-2024/kildeskatteloven/paragraf-48-b
+    source_sha256: d86b9c11828ec8605c20d1e9d471cf10a4af8491bd58bcd2e6cb3c43834c28d3
